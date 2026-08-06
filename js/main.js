@@ -524,7 +524,6 @@ if (lb && document.querySelector('.feat-cover')) {
   const PACKS = {
     dorado: { name: 'Gold', imgs: ['assets/img/destacado/dorado-4.jpg', 'assets/img/destacado/dorado-2.jpg', 'assets/img/destacado/dorado-3.jpg', 'assets/img/destacado/dorado-1.jpg'] },
     plata:  { name: 'Led Party Plateado', imgs: ['assets/img/destacado/plata-4.jpg', 'assets/img/destacado/plata-1.jpg', 'assets/img/destacado/plata-2.jpg', 'assets/img/destacado/plata-3.jpg'] },
-    brasil: { name: 'Brasil Blanco con Plateado', imgs: ['assets/img/destacado/brasil-1.jpg', 'assets/img/promo/zancos.jpg'] },
   };
   let pack = null, idx = 0;
 

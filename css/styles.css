@@ -537,7 +537,9 @@ h2{
 .cta-band .lead{max-width:520px}
 
 /* ─────────── PÁGINA COTIZA ─────────── */
-.page-cotiza .nav-logo{gap:6px}
+/* CC pegado a las plumas, como el lockup del logo original */
+.page-cotiza .nav-logo{gap:0}
+.page-cotiza .nav-word{margin-left:-9px;font-weight:700}
 @media(min-width:901px){
   /* enlaces perfectamente centrados en el header del cotizador */
   .page-cotiza .nav-links{
