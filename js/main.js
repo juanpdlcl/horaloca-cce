@@ -14,8 +14,8 @@ const SERVICES = [
   { id: 'coreografia', img: 'assets/img/destacado/plata-1.jpg',  pos: '50% 25%', name: 'Coreografía personalizada', desc: 'Montaje profesional para tu entrada, apertura o sorpresa.' },
   { id: 'zanqueros',   img: 'assets/img/promo/zancos.jpg',     pos: '50% 20%', name: 'Zanqueros',                 desc: 'Altura y espectáculo que llenan la pista.' },
   { id: 'percusion',   img: 'assets/img/promo/musicos.jpg',        pos: '50% 42%', name: 'Percusión en vivo',      desc: 'Tambores en vivo que encienden la fiesta junto al DJ.' },
-  { id: 'robot-led',   img: 'assets/img/promo/robot-espejo.jpg',   pos: '50% 25%', name: 'Robot LED',              desc: 'Show futurista iluminado para el punto alto de la noche.' },
-  { id: 'cabezones',   img: 'assets/img/promo/artistas.jpg',       pos: '50% 30%', name: 'Cabezones',              desc: 'Bad Bunny, Karol G y Daddy Yankee en versión gigante, animando la pista.' },
+  { id: 'robot-led',   img: 'assets/img/promo/robot-espejo.jpg',   pos: '50% 10%', name: 'Robot LED',              desc: 'Show futurista iluminado para el punto alto de la noche.' },
+  { id: 'cabezones',   img: 'assets/img/promo/artistas.jpg',       pos: '50% 12%', name: 'Cabezones',              desc: 'Bad Bunny, Karol G y Daddy Yankee en versión gigante, animando la pista.' },
   { id: 'bailarines',  img: 'assets/img/promo/bailarinas-led.jpg', pos: '50% 35%', name: 'Bailarines adicionales', desc: 'Refuerza el cuerpo de baile de tu show.' },
 ];
 
