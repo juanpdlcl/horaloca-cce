@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CC Entertainment — Horas Locas &amp; Espectáculos Temáticos</title>
+<meta name="description" content="Producción de espectáculos temáticos, coreografías y horas locas. Fiestas privadas y corporativas en República Dominicana.">
+<link rel="icon" href="assets/img/logo-mark-glow.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- Sprite de iconos (línea, 24px) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8"/></symbol>
+    <symbol id="i-music" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></symbol>
+    <symbol id="i-drum" viewBox="0 0 24 24"><ellipse cx="12" cy="8" rx="8" ry="3"/><path d="M4 8v8c0 1.7 3.6 3 8 3s8-1.3 8-3V8M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></symbol>
+    <symbol id="i-building" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="1.5"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2M10 21v-3h4v3"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5.5 3h3l1.5 4.5-2 1.5a13 13 0 0 0 6 6l1.5-2L20 14.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 3.5 5.2 2 2 0 0 1 5.5 3z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="m4 7 8 6 8-6"/></symbol>
+    <symbol id="i-ig" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="4.5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".9" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-arrow-r" viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M9 5v14M15 5v14"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l10-6.5-10-6.5z"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M12.04 2c-5.46 0-9.9 4.44-9.9 9.9 0 1.75.46 3.45 1.32 4.95L2 22l5.3-1.39c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.9-4.44 9.9-9.9S17.5 2 12.04 2zm0 18.1c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.26 8.26 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24 4.54 0 8.24 3.7 8.24 8.24 0 4.55-3.7 8.24-8.24 8.24zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.8-.78.97-.14.16-.29.18-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.51.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.16-.48-.29z"/></symbol>
+  </defs>
+</svg>
+
+<!-- ═══════════ PRELOADER ═══════════ -->
+<div class="preloader" id="preloader">
+  <img src="assets/img/logo-mark-glow.png" alt="" class="preloader-mark">
+  <p>CC ENTERTAINMENT</p>
+</div>
+
+<!-- ═══════════ NAVBAR ═══════════ -->
+<header class="nav" id="nav">
+  <a href="#inicio" class="nav-logo" aria-label="CC Entertainment — inicio">
+    <img src="assets/img/logo-mark-glow.png" alt="" class="nav-mark">
+    <span class="nav-word">CC <em>Entertainment</em></span>
+  </a>
+  <nav class="nav-links" id="navLinks">
+    <a href="#inicio">Inicio</a>
+    <a href="#tematicas">Temáticas</a>
+    <a href="#galeria">Galería</a>
+    <a href="#experiencia">Experiencia</a>
+    <a href="#contacto">Contacto</a>
+    <a href="cotiza.html" class="only-mobile">Realizar mi cotización</a>
+  </nav>
+  <div class="nav-actions">
+    <a href="cotiza.html" class="btn btn-solid btn-sm nav-cta">Cotiza con nosotros</a>
+    <button class="nav-burger" id="navBurger" aria-label="Menú" aria-expanded="false" aria-controls="navLinks"><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero" id="inicio">
+  <video class="hero-video" id="heroVideo" autoplay muted loop playsinline preload="auto">
+    <source src="assets/hero.mp4" type="video/mp4">
+  </video>
+  <div class="hero-tint"></div>
+  <div class="hero-haze" aria-hidden="true"></div>
+
+  <div class="hero-content">
+    <h1 class="visually-hidden">CC Entertainment — Producción de espectáculos temáticos, coreografías y horas locas</h1>
+    <div class="hero-brand" aria-hidden="true">
+      <div class="hb-top">
+        <img src="assets/img/hero-feathers.png" alt="" class="hb-feathers">
+        <span class="hb-cc">CC</span>
+      </div>
+      <div class="hb-name">Entertainment</div>
+      <p class="hb-tag">Producción de espectáculos temáticos<br>Coreografías · Horas locas</p>
+    </div>
+    <div class="hero-ctas">
+      <a href="cotiza.html" class="btn btn-solid">Realizar mi cotización</a>
+      <a href="#tematicas" class="btn btn-outline">Ver temáticas</a>
+    </div>
+  </div>
+
+  <div class="hero-foot">
+    <span class="hero-meta">República Dominicana</span>
+    <a href="#experiencia" class="scroll-line" aria-label="Bajar"><span></span></a>
+    <a class="hero-meta" href="https://www.instagram.com/horaloca_cce" target="_blank" rel="noopener">@horaloca_cce</a>
+  </div>
+</section>
+
+<!-- ═══════════ FRANJA DE SERVICIOS ═══════════ -->
+<div class="strip">
+  <div class="container strip-row">
+    <div class="strip-item reveal" style="--sc:var(--lime)"><svg class="icon"><use href="#i-spark"/></svg><span>Horas Locas</span></div>
+    <div class="strip-item reveal d1" style="--sc:var(--cyan)"><svg class="icon"><use href="#i-music"/></svg><span>Coreografías</span></div>
+    <div class="strip-item reveal d2" style="--sc:var(--violet)"><svg class="icon"><use href="#i-drum"/></svg><span>Percusión &amp; zancos</span></div>
+    <div class="strip-item reveal d3" style="--sc:var(--magenta)"><svg class="icon"><use href="#i-building"/></svg><span>Eventos corporativos</span></div>
+  </div>
+</div>
+
+<!-- ═══════════ DESTACADOS ═══════════ -->
+<section class="section section-alt" id="destacados">
+  <div class="glow-blob gb-magenta" aria-hidden="true"></div>
+  <div class="container">
+    <div class="sec-label reveal"><span style="color:var(--gold)">★</span>Destacados</div>
+    <div class="sec-head">
+      <h2 class="reveal">Los paquetes del momento</h2>
+      <p class="lead reveal d1">Toca cualquier foto y arma tu orden en un minuto.</p>
+    </div>
+    <div class="feat-grid">
+      <a class="feat reveal" href="cotiza.html" aria-label="Ordenar el paquete Dorado Ball">
+        <div class="feat-photos">
+          <img src="assets/img/destacado/dorado-4.jpg" alt="Paquete Dorado Ball completo" loading="lazy">
+          <img src="assets/img/destacado/dorado-2.jpg" alt="Chicas doradas" loading="lazy">
+          <img src="assets/img/destacado/dorado-3.jpg" alt="Hombre espejo dorado con pantalla" loading="lazy">
+          <img src="assets/img/destacado/dorado-1.jpg" alt="Chica disco dorada" loading="lazy">
+        </div>
+        <div class="feat-bar" style="--fc:var(--gold)">
+          <div><h3>Dorado Ball</h3><p>El paquete dorado completo</p></div>
+          <span class="feat-cta">Ordenar</span>
+        </div>
+      </a>
+      <a class="feat reveal d1" href="cotiza.html" aria-label="Ordenar el paquete Espejos de Led">
+        <div class="feat-photos">
+          <img src="assets/img/destacado/plata-4.jpg" alt="Paquete Espejos de Led completo" loading="lazy">
+          <img src="assets/img/destacado/plata-1.jpg" alt="Mujeres disco plateadas" loading="lazy">
+          <img src="assets/img/destacado/plata-2.jpg" alt="Hombre LED" loading="lazy">
+          <img src="assets/img/destacado/plata-3.jpg" alt="Hombre espejo con pantalla" loading="lazy">
+        </div>
+        <div class="feat-bar" style="--fc:var(--cyan)">
+          <div><h3>Espejos de Led</h3><p>El paquete plateado completo</p></div>
+          <span class="feat-cta">Ordenar</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ TEMÁTICAS ═══════════ -->
+<section class="section section-alt" id="tematicas">
+  <div class="glow-blob gb-magenta" aria-hidden="true"></div>
+  <div class="container">
+    <div class="sec-label reveal"><span style="color:var(--magenta)">01</span>Temáticas</div>
+    <div class="sec-head">
+      <h2 class="reveal">Un universo para cada evento</h2>
+      <p class="lead reveal d1">Cada show se ambienta de pies a cabeza: vestuario, utilería, música y personajes. Todo lo que ves es producción propia.</p>
+    </div>
+    <div class="theme-grid">
+      <article class="theme-card reveal" style="--tc:var(--gold);--tp:50% 14%">
+        <img src="assets/img/ig/gold-duo.jpg" alt="Temática Shine Gold" loading="lazy">
+        <div class="theme-info"><h3>Shine Gold</h3><p>Brillo total para tu gala</p></div>
+      </article>
+      <article class="theme-card reveal d1" style="--tc:#ff5a3c;--tp:50% 22%">
+        <img src="assets/img/ig/carnaval.jpg" alt="Temática Carnaval Dominicano" loading="lazy">
+        <div class="theme-info"><h3>Carnaval Dominicano</h3><p>Diablos cojuelos y tradición</p></div>
+      </article>
+      <article class="theme-card reveal d2" style="--tc:var(--cyan);--tp:50% 30%">
+        <img src="assets/img/ig/led-tron.jpg" alt="Temática Led Party" loading="lazy">
+        <div class="theme-info"><h3>Led Party</h3><p>Vestuarios iluminados</p></div>
+      </article>
+      <article class="theme-card reveal d3" style="--tc:var(--lime);--tp:50% 30%">
+        <img src="assets/img/ig/tropical-sunset.jpg" alt="Temática Tropical" loading="lazy">
+        <div class="theme-info"><h3>Tropical</h3><p>Colorido, vistoso y vibrante</p></div>
+      </article>
+      <article class="theme-card reveal" style="--tc:#ff1f4b;--tp:50% 35%">
+        <img src="assets/img/rojo.jpg" alt="Temática Rouge Royal" loading="lazy">
+        <div class="theme-info"><h3>Rouge Royal</h3><p>Bienvenidas de gala en rojo</p></div>
+      </article>
+      <article class="theme-card reveal d1" style="--tc:#f0a020;--tp:50% 20%">
+        <img src="assets/img/catrinas.jpg" alt="Temática Catrinas" loading="lazy">
+        <div class="theme-info"><h3>Catrinas</h3><p>México, color y tradición</p></div>
+      </article>
+    </div>
+    <div class="theme-tags reveal">
+      <span>Espejos</span><span>Venezia</span><span>Viva Las Vegas</span><span>Brasil</span><span>Décadas 70 · 80 · 90</span><span>Gitanos</span><span>Hawaii</span><span>Piratas</span><span>Marineros</span><span>Navidad</span><span>Astronautas</span><span>Bad Bunny</span><span>Corporativas</span>
+    </div>
+    <p class="sec-note reveal d1">¿Tienes otra idea? Producimos cualquier temática a la medida de tu evento.</p>
+  </div>
+</section>
+
+<!-- ═══════════ GALERÍA ═══════════ -->
+<section class="section" id="galeria">
+  <div class="glow-blob gb-cyan" aria-hidden="true"></div>
+  <div class="container">
+    <div class="sec-label reveal"><span style="color:var(--lime)">02</span>Galería</div>
+    <div class="sec-head">
+      <h2 class="reveal">Nuestros shows, en escena</h2>
+    </div>
+    <div class="gallery reveal">
+      <a class="g-link g-video" href="https://www.instagram.com/horaloca_cce/" target="_blank" rel="noopener" aria-label="Ver en Instagram">
+        <video src="assets/video/finale.mp4" poster="assets/video/finale.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Final del show con confetti"></video>
+      </a>
+      <a class="g-link" href="https://www.instagram.com/horaloca_cce/" target="_blank" rel="noopener" aria-label="Ver en Instagram">
+        <img src="assets/img/ig/venetian.jpg" alt="Máscaras venecianas blanco y oro" loading="lazy" style="object-position:50% 22%">
+      </a>
+      <a class="g-link g-video" href="https://www.instagram.com/reel/DbjNv3IxdgS/" target="_blank" rel="noopener" aria-label="Ver en Instagram">
+        <video src="assets/video/rojo.mp4" poster="assets/video/rojo.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Ambientación Rouge Royal"></video>
+      </a>
+      <a class="g-link" href="https://www.instagram.com/horaloca_cce/" target="_blank" rel="noopener" aria-label="Ver en Instagram">
+        <img src="assets/img/ig/mirror-duo.jpg" alt="Personajes de espejos" loading="lazy" style="object-position:50% 25%">
+      </a>
+      <a class="g-link g-video" href="https://www.instagram.com/horaloca_cce/" target="_blank" rel="noopener" aria-label="Ver en Instagram">
+        <video src="assets/video/tambora.mp4" poster="assets/video/tambora.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Percusión en vivo"></video>
+      </a>
+      <a class="g-link" href="https://www.instagram.com/horaloca_cce/" target="_blank" rel="noopener" aria-label="Ver en Instagram">
+        <img src="assets/img/ig/zancos-color.jpg" alt="Zanqueros de colores" loading="lazy" style="object-position:50% 20%">
+      </a>
+    </div>
+    <div class="gallery-cta reveal">
+      <a href="https://www.instagram.com/horaloca_cce" target="_blank" rel="noopener" class="btn btn-outline"><svg class="icon"><use href="#i-ig"/></svg> Ver más en Instagram</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ EXPERIENCIA ═══════════ -->
+<section class="section" id="experiencia">
+  <div class="glow-blob gb-violet" aria-hidden="true"></div>
+  <div class="container">
+    <div class="sec-label reveal"><span style="color:var(--cyan)">03</span>Experiencia</div>
+    <div class="split">
+      <div class="split-text">
+        <h2 class="reveal">Convertimos tu evento en un espectáculo</h2>
+        <p class="lead reveal d1">Somos CC Entertainment: producimos horas locas y shows temáticos con vestuario de producción propia, coreografías profesionales y una energía que levanta a todos los invitados de la silla.</p>
+        <ol class="feature-list">
+          <li class="reveal"><span class="fl-num" style="color:var(--lime)">01</span><div><h3>Horas Locas</h3><p>El punto más alto de tu fiesta: personajes, cotillón y 45–60 minutos de pura energía.</p></div></li>
+          <li class="reveal d1"><span class="fl-num" style="color:var(--cyan)">02</span><div><h3>Coreografías</h3><p>Bailarines profesionales y montajes a la medida para entradas, aperturas y sorpresas.</p></div></li>
+          <li class="reveal d2"><span class="fl-num" style="color:var(--violet)">03</span><div><h3>Percusión en vivo y zancos</h3><p>Tambora, güira y zanqueros que encienden la pista junto al DJ.</p></div></li>
+          <li class="reveal d3"><span class="fl-num" style="color:var(--magenta)">04</span><div><h3>Fiestas privadas y corporativas</h3><p>Bodas, cumpleaños, aniversarios y eventos de empresa, siempre a la medida.</p></div></li>
+        </ol>
+      </div>
+      <div class="split-media reveal d1">
+        <figure class="photo-main"><img src="assets/img/ig/vegas-hd.jpg" alt="Show Viva Las Vegas de CC Entertainment" loading="lazy"></figure>
+        <figure class="photo-float"><img src="assets/img/rojo.jpg" alt="Bienvenida temática en rojo" loading="lazy"></figure>
+        <figcaption class="photo-cap">Show “Viva Las Vegas” — vestuario de producción propia</figcaption>
+      </div>
+    </div>
+    <div class="stats reveal">
+      <div class="stat"><span class="stat-num"><span data-count="20">0</span><em style="color:var(--lime)">+</em></span><span class="stat-label">Temáticas producidas</span></div>
+      <div class="stat"><span class="stat-num"><span data-count="680">0</span><em style="color:var(--cyan)">+</em></span><span class="stat-label">Shows realizados</span></div>
+      <div class="stat"><span class="stat-num"><span data-count="100">0</span><em style="color:var(--magenta)">%</em></span><span class="stat-label">A la medida de tu evento</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CTA COTIZA ═══════════ -->
+<section class="cta-band">
+  <div class="glow-blob gb-violet" aria-hidden="true"></div>
+  <div class="container cta-band-inner reveal">
+    <div>
+      <h2>Arma tu show a la medida</h2>
+      <p class="lead">Sin planes fijos: elige los elementos que quieres y recibe tu cotización personalizada.</p>
+    </div>
+    <a href="cotiza.html" class="btn btn-solid btn-lg">Cotiza con nosotros <svg class="icon"><use href="#i-arrow-r"/></svg></a>
+  </div>
+</section>
+
+<!-- ═══════════ CONTACTO / FOOTER ═══════════ -->
+<footer class="footer" id="contacto">
+  <div class="container">
+    <div class="footer-cta reveal">
+      <h2>¿Hablamos de tu evento?</h2>
+      <p class="lead">Cuéntanos la fecha y la idea que tienes en mente. Nosotros nos encargamos del espectáculo.</p>
+      <div class="footer-cta-btns">
+        <a href="https://wa.me/18293435460?text=Hola%20CC%20Entertainment%2C%20quiero%20cotizar%20una%20hora%20loca%20para%20mi%20evento."
+           target="_blank" rel="noopener" class="btn btn-wa"><svg class="icon"><use href="#i-wa"/></svg> Escríbenos por WhatsApp</a>
+        <a href="tel:+18293435460" class="btn btn-outline"><svg class="icon"><use href="#i-phone"/></svg> (829) 343-5460</a>
+      </div>
+    </div>
+    <div class="footer-grid">
+      <div class="footer-col footer-brand">
+        <img src="assets/img/logo-glow-sm.png" alt="CC Entertainment" class="footer-logo">
+        <p>Producción de espectáculos temáticos<br>Coreografías · Horas Locas</p>
+      </div>
+      <div class="footer-col">
+        <h4>Contacto</h4>
+        <a href="tel:+18293435460"><svg class="icon"><use href="#i-phone"/></svg> (829) 343-5460</a>
+        <a href="mailto:carolina.caba95@gmail.com"><svg class="icon"><use href="#i-mail"/></svg> carolina.caba95@gmail.com</a>
+        <a href="https://www.instagram.com/horaloca_cce" target="_blank" rel="noopener"><svg class="icon"><use href="#i-ig"/></svg> @horaloca_cce</a>
+      </div>
+      <div class="footer-col">
+        <h4>Secciones</h4>
+        <a href="#experiencia">Experiencia</a>
+        <a href="#tematicas">Temáticas</a>
+        <a href="#galeria">Galería</a>
+        <a href="cotiza.html">Cotiza con nosotros</a>
+      </div>
+    </div>
+    <p class="footer-fine">© 2026 CC Entertainment · República Dominicana · Video: @waophotography</p>
+  </div>
+</footer>
+
+
+<script src="js/main.js"></script>
+</body>
+</html>

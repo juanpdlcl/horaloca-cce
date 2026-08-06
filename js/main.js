@@ -1,0 +1,385 @@
+/* ═══════════════════════════════════════════
+   CC ENTERTAINMENT — Horas Locas
+   JS compartido entre index.html y cotiza.html
+   (cada bloque comprueba si sus elementos existen).
+   Cotización a la medida: sin precios fijos.
+   ═══════════════════════════════════════════ */
+
+const WHATSAPP = '18293435460';
+
+/* pos = object-position del recorte (sube o baja el encuadre de la foto) */
+const SERVICES = [
+  { id: 'hora-loca',   img: 'assets/img/ig/troupe.jpg',        pos: '50% 55%', name: 'Hora Loca',                 desc: 'Personajes, cotillón y 45–60 minutos de pura energía.' },
+  { id: 'coreografia', img: 'assets/img/ig/coreografia.jpg',   pos: '50% 12%', name: 'Coreografía personalizada', desc: 'Montaje profesional para tu entrada, apertura o sorpresa.' },
+  { id: 'zanqueros',   img: 'assets/img/ig/gold-zanqueros.jpg',pos: '50% 30%', name: 'Zanqueros',                 desc: 'Altura y espectáculo que llenan la pista.' },
+  { id: 'percusion',   img: 'assets/img/promo/musicos.jpg',        pos: '50% 42%', name: 'Percusión en vivo',      desc: 'Tambora, güira y tambores LED que encienden la fiesta junto al DJ.' },
+  { id: 'robot-led',   img: 'assets/img/promo/robot-espejo.jpg',   pos: '50% 25%', name: 'Robot LED',              desc: 'Show futurista iluminado para el punto alto de la noche.' },
+  { id: 'cabezones',   img: 'assets/img/promo/artistas.jpg',       pos: '50% 30%', name: 'Cabezones',              desc: 'Tus artistas favoritos en versión gigante, animando la pista.' },
+  { id: 'bailarines',  img: 'assets/img/promo/bailarinas-led.jpg', pos: '50% 35%', name: 'Bailarines adicionales', desc: 'Refuerza el cuerpo de baile de tu show.' },
+];
+
+const byId = (id) => SERVICES.find((s) => s.id === id);
+const $ = (id) => document.getElementById(id);
+
+/* ─── PRELOADER (solo index) ─── */
+if ($('preloader')) {
+  window.addEventListener('load', () => {
+    setTimeout(() => $('preloader').classList.add('done'), 800);
+  });
+}
+
+/* ─── SELECCIÓN (id -> cantidad), compartida entre páginas ─── */
+let quote = {};
+try { quote = JSON.parse(localStorage.getItem('cce-quote') || '{}'); } catch (_) { quote = {}; }
+if (!quote || typeof quote !== 'object' || Array.isArray(quote)) quote = {};
+Object.keys(quote).forEach((id) => {
+  if (!byId(id) || !Number.isInteger(quote[id]) || quote[id] < 1) delete quote[id];
+});
+
+function save() { localStorage.setItem('cce-quote', JSON.stringify(quote)); }
+function totalItems() { return Object.keys(quote).length; }
+
+/* ─── COTIZADOR (solo cotiza.html) ─── */
+const servGrid = $('servGrid');
+if (servGrid) {
+  const cartCount = $('cartCount');
+  const cartItems = $('cartItems');
+  const cartDrawer = $('cartDrawer');
+  const cartOverlay = $('cartOverlay');
+  const toast = $('toast');
+  let toastTimer;
+  let lastFocus = null;
+
+  servGrid.innerHTML = SERVICES.map((s) => `
+    <button class="serv" data-id="${s.id}" type="button" aria-pressed="false">
+      <span class="serv-check"><svg class="icon"><use href="#i-check"/></svg></span>
+      <span class="serv-img"><img src="${s.img}" alt="" loading="lazy" style="object-position:${s.pos}"></span>
+      <span class="serv-body">
+        <h3>${s.name}</h3>
+        <p>${s.desc}</p>
+        <span class="serv-state state-off"><svg class="icon"><use href="#i-plus"/></svg> Agregar</span>
+        <span class="serv-state state-on" hidden><svg class="icon"><use href="#i-check"/></svg> Agregado</span>
+      </span>
+    </button>
+  `).join('');
+
+  function showToast(msg) {
+    $('toastMsg').textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 2100);
+  }
+
+  function syncUI() {
+    const n = totalItems();
+    cartCount.textContent = n;
+    cartCount.classList.toggle('on', n > 0);
+
+    document.querySelectorAll('.serv').forEach((card) => {
+      const on = !!quote[card.dataset.id];
+      card.classList.toggle('on', on);
+      card.setAttribute('aria-pressed', on);
+      card.querySelector('.state-off').hidden = on;
+      card.querySelector('.state-on').hidden = !on;
+    });
+
+    $('quoteHint').innerHTML = n === 0
+      ? 'Selecciona los elementos que quieras incluir'
+      : `<strong>${n}</strong> ${n === 1 ? 'elemento seleccionado' : 'elementos seleccionados'}`;
+
+    const ids = Object.keys(quote);
+    if (!ids.length) {
+      cartItems.innerHTML = `
+        <div class="cart-empty">
+          <svg class="icon"><use href="#i-cart"/></svg>
+          Aún no has seleccionado nada.<br>Elige los elementos de tu show.
+        </div>`;
+      return;
+    }
+    cartItems.innerHTML = ids.map((id) => {
+      const s = byId(id);
+      return `
+        <div class="cart-item">
+          <div class="cart-item-info"><strong>${s.name}</strong></div>
+          <div class="cart-qty">
+            <button data-dec="${id}" aria-label="Quitar uno"><svg class="icon"><use href="#i-minus"/></svg></button>
+            <span>${quote[id]}</span>
+            <button data-inc="${id}" aria-label="Agregar uno"><svg class="icon"><use href="#i-plus"/></svg></button>
+          </div>
+          <button class="cart-item-del" data-del="${id}" aria-label="Eliminar"><svg class="icon"><use href="#i-trash"/></svg></button>
+        </div>`;
+    }).join('');
+  }
+
+  function toggleService(id) {
+    if (quote[id]) {
+      delete quote[id];
+      showToast(`${byId(id).name} quitado de tu cotización`);
+    } else {
+      quote[id] = 1;
+      cartCount.classList.remove('bump');
+      void cartCount.offsetWidth;
+      cartCount.classList.add('bump');
+      showToast(`${byId(id).name} agregado a tu cotización`);
+    }
+    save();
+    syncUI();
+  }
+
+  /* panel: foco, inert y apertura */
+  const background = () => [
+    $('nav'),
+    ...document.querySelectorAll('body > .strip, body > main, body > section, body > footer'),
+  ];
+  cartDrawer.inert = true; // cerrado al cargar: fuera del orden de tabulación
+  function openCart() {
+    lastFocus = document.activeElement;
+    cartDrawer.inert = false;
+    cartDrawer.classList.add('open');
+    cartOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    background().forEach((el) => { el.inert = true; });
+    $('cartBtn').setAttribute('aria-expanded', 'true');
+    $('cartClose').focus();
+  }
+  function closeCart() {
+    cartDrawer.inert = true;
+    cartDrawer.classList.remove('open');
+    cartOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+    background().forEach((el) => { el.inert = false; });
+    $('cartBtn').setAttribute('aria-expanded', 'false');
+    if (lastFocus && document.contains(lastFocus)) lastFocus.focus();
+  }
+
+  document.addEventListener('click', (ev) => {
+    const card = ev.target.closest('.serv');
+    if (card) { toggleService(card.dataset.id); return; }
+
+    const btn = ev.target.closest('[data-inc],[data-dec],[data-del]');
+    if (!btn) return;
+    if (btn.dataset.inc) {
+      // actualizar solo la cantidad, sin re-render (conserva el foco del teclado)
+      quote[btn.dataset.inc]++;
+      btn.closest('.cart-qty').querySelector('span').textContent = quote[btn.dataset.inc];
+      save();
+      return;
+    }
+    if (btn.dataset.dec) {
+      const id = btn.dataset.dec;
+      quote[id]--;
+      if (quote[id] >= 1) {
+        btn.closest('.cart-qty').querySelector('span').textContent = quote[id];
+        save();
+        return;
+      }
+      delete quote[id];
+    }
+    if (btn.dataset.del) delete quote[btn.dataset.del];
+    save();
+    syncUI();
+    // el botón enfocado fue destruido por el re-render: devolver el foco al panel
+    if (cartDrawer.classList.contains('open')) {
+      (cartItems.querySelector('button') || $('cartClose')).focus();
+    }
+  });
+
+  $('cartBtn').addEventListener('click', openCart);
+  $('quoteReview').addEventListener('click', () => {
+    if (!totalItems()) { showToast('Selecciona al menos un elemento'); return; }
+    openCart();
+  });
+  $('cartClose').addEventListener('click', closeCart);
+  cartOverlay.addEventListener('click', closeCart);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeCart(); });
+
+  /* chips de tipo de evento (selección única) */
+  let eventType = '';
+  $('qType').addEventListener('click', (ev) => {
+    const b = ev.target.closest('button[data-type]');
+    if (!b) return;
+    const on = !b.classList.contains('on');
+    $('qType').querySelectorAll('button').forEach((x) => x.classList.remove('on'));
+    b.classList.toggle('on', on);
+    eventType = on ? b.dataset.type : '';
+  });
+
+  /* ordenar: valida, crea el ticket y abre WhatsApp con fotos */
+  $('cartOrder').addEventListener('click', () => {
+    const ids = Object.keys(quote);
+    if (!ids.length) { showToast('Selecciona al menos un elemento'); return; }
+
+    const name = $('qName').value.trim();
+    const phone = $('qPhone').value.replace(/[^\d+]/g, '');
+    $('qName').classList.toggle('invalid', !name);
+    $('qPhone').classList.toggle('invalid', phone.length < 8);
+    if (!name) { showToast('Escribe tu nombre'); $('qName').focus(); return; }
+    if (phone.length < 8) { showToast('Escribe un teléfono válido'); $('qPhone').focus(); return; }
+
+    const date = $('qDate').value.trim();
+    const place = $('qPlace').value.trim();
+    const items = ids.map((id) => {
+      const s = byId(id);
+      return { id, name: s.name, qty: quote[id], img: s.img };
+    });
+
+    // ticket para el panel administrativo
+    const ticket = {
+      id: Date.now().toString(36).toUpperCase().slice(-6),
+      ts: new Date().toISOString(),
+      name, phone,
+      type: eventType || 'Por definir',
+      date: date || 'Por definir',
+      place: place || 'Por definir',
+      items,
+      status: 'nueva',
+    };
+    try {
+      const all = JSON.parse(localStorage.getItem('cce-tickets') || '[]');
+      all.unshift(ticket);
+      localStorage.setItem('cce-tickets', JSON.stringify(all));
+    } catch (_) { /* almacenamiento lleno o bloqueado: el WhatsApp sale igual */ }
+
+    // si Supabase está configurado, el ticket también viaja a la nube
+    const SB = window.CCE_SUPABASE || {};
+    if (SB.url && SB.key) {
+      fetch(`${SB.url}/rest/v1/tickets`, {
+        method: 'POST',
+        headers: {
+          apikey: SB.key,
+          Authorization: `Bearer ${SB.key}`,
+          'Content-Type': 'application/json',
+          Prefer: 'return=minimal',
+        },
+        body: JSON.stringify(ticket),
+      }).catch(() => {});
+    }
+
+    const lines = items.map((it, i) => [
+      `${i + 1}) ${it.name}${it.qty > 1 ? ` ×${it.qty}` : ''}`,
+      `   Foto: ${new URL(it.img, location.href).href}`,
+    ].join('\n'));
+    const msg = [
+      `*COTIZACIÓN #${ticket.id}* — CC Entertainment`,
+      '',
+      `*Nombre:* ${name}`,
+      `*WhatsApp:* ${phone}`,
+      `*Tipo de evento:* ${ticket.type}`,
+      `*Lugar:* ${ticket.place}`,
+      `*Fecha:* ${ticket.date}`,
+      '',
+      '*Mi selección:*',
+      ...lines,
+      '',
+      'Enviado desde la página web.',
+    ].join('\n');
+    const url = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`;
+
+    // limpiar la selección: el ticket ya quedó guardado
+    quote = {};
+    save();
+    syncUI();
+    closeCart();
+    showToast(`Ticket #${ticket.id} creado`);
+
+    // en in-app browsers (Instagram/Facebook) window.open devuelve null
+    const win = window.open(url, '_blank', 'noopener');
+    if (!win) location.href = url;
+  });
+
+  syncUI();
+}
+
+/* ─── NAVBAR ─── */
+const nav = $('nav');
+const navLinks = $('navLinks');
+const navBurger = $('navBurger');
+if (!document.body.classList.contains('page-cotiza')) {
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+}
+navBurger.addEventListener('click', () => {
+  const open = navLinks.classList.toggle('open');
+  navBurger.classList.toggle('open', open);
+  navBurger.setAttribute('aria-expanded', open);
+});
+navLinks.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => {
+  navLinks.classList.remove('open');
+  navBurger.classList.remove('open');
+  navBurger.setAttribute('aria-expanded', 'false');
+}));
+
+/* link activo según sección visible (solo index) */
+const linkFor = {};
+navLinks.querySelectorAll('a[href^="#"]').forEach((a) => { linkFor[a.getAttribute('href').slice(1)] = a; });
+document.querySelectorAll('section[id], footer[id]').forEach((s) => {
+  new IntersectionObserver((entries) => {
+    entries.forEach((en) => {
+      if (en.isIntersecting && linkFor[en.target.id]) {
+        navLinks.querySelectorAll('a').forEach((a) => a.classList.remove('active'));
+        linkFor[en.target.id].classList.add('active');
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' }).observe(s);
+});
+
+/* ─── REVEAL ON SCROLL ─── */
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach((en) => {
+    if (en.isIntersecting) {
+      en.target.classList.add('in');
+      revealObs.unobserve(en.target);
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach((el) => revealObs.observe(el));
+
+/* ─── CONTADORES ─── */
+const statObs = new IntersectionObserver((entries) => {
+  entries.forEach((en) => {
+    if (!en.isIntersecting) return;
+    const el = en.target;
+    statObs.unobserve(el);
+    const target = +el.dataset.count;
+    const dur = 1500;
+    const t0 = performance.now();
+    (function tick(now) {
+      const p = Math.min((now - t0) / dur, 1);
+      el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
+      if (p < 1) requestAnimationFrame(tick);
+    })(t0);
+  });
+}, { threshold: 0.6 });
+document.querySelectorAll('[data-count]').forEach((el) => statObs.observe(el));
+
+/* ─── VIDEOS: reanudar al volver a la pestaña (Chrome los pausa en background) ─── */
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.querySelectorAll('video[autoplay]').forEach((v) => {
+    if (v.paused) v.play().catch(() => {});
+  });
+});
+
+/* ─── GALERÍA: pausar los loops fuera de vista ─── */
+document.querySelectorAll('.gallery video').forEach((v) => {
+  new IntersectionObserver((entries) => {
+    entries.forEach((en) => {
+      if (en.isIntersecting) v.play().catch(() => {});
+      else v.pause();
+    });
+  }, { threshold: 0.1 }).observe(v);
+});
+
+/* ─── VIDEO (solo index): loop continuo, pausa solo fuera de vista ─── */
+const heroVideo = $('heroVideo');
+if (heroVideo) {
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reducedMotion) heroVideo.pause();
+  new IntersectionObserver((entries) => {
+    entries.forEach((en) => {
+      if (en.isIntersecting && !reducedMotion) heroVideo.play().catch(() => {});
+      else heroVideo.pause();
+    });
+  }, { threshold: 0.05 }).observe($('inicio'));
+}
