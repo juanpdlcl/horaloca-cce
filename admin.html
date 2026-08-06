@@ -280,6 +280,8 @@ const PRECIOS = {
 
 const $ = (id) => document.getElementById(id);
 const fmt = (n) => 'RD$ ' + (Math.round(n) || 0).toLocaleString('es-DO');
+/* los datos de tickets vienen del formulario público: siempre escapados antes de innerHTML */
+const esc = (v) => String(v == null ? '' : v).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
 /* ── capa de datos: Supabase si está configurado, localStorage si no ──
    En la nube, el panel usa funciones RPC protegidas por la clave del
@@ -287,7 +289,16 @@ const fmt = (n) => 'RD$ ' + (Math.round(n) || 0).toLocaleString('es-DO');
    tickets sin ella; los clientes solo pueden crear. */
 const SB = window.CCE_SUPABASE || {};
 const REMOTE = !!(SB.url && SB.key);
-let sbSecret = sessionStorage.getItem('cce-sb-secret') || null;
+/* acceso directo por link: admin.html#k=CLAVE guarda la clave en este
+   dispositivo y entra sin formulario. "Salir" la borra. */
+let hashKey = '';
+try { hashKey = decodeURIComponent(location.hash.slice(1) || ''); } catch (_) { hashKey = ''; }
+if (hashKey.startsWith('k=')) hashKey = hashKey.slice(2);
+if (hashKey) {
+  localStorage.setItem('cce-sb-secret', hashKey);
+  history.replaceState(null, '', location.pathname + location.search);
+}
+let sbSecret = localStorage.getItem('cce-sb-secret') || sessionStorage.getItem('cce-sb-secret') || null;
 let TICKETS = [];
 
 const sbHeaders = () => ({
@@ -356,7 +367,7 @@ $('loginForm').addEventListener('submit', async (e) => {
       const clave = $('loPass').value.trim();
       const t = await rpc('admin_tickets', { p_secret: clave });
       sbSecret = clave;
-      sessionStorage.setItem('cce-sb-secret', sbSecret);
+      localStorage.setItem('cce-sb-secret', sbSecret);
       TICKETS = t || [];
       $('loginView').classList.add('hide');
       $('appView').classList.remove('hide');
@@ -373,11 +384,13 @@ $('loginForm').addEventListener('submit', async (e) => {
 $('btnLogout').addEventListener('click', () => {
   sessionStorage.removeItem('cce-admin');
   sessionStorage.removeItem('cce-sb-secret');
+  localStorage.removeItem('cce-sb-secret');
   location.reload();
 });
 if (REMOTE ? sbSecret : sessionStorage.getItem('cce-admin') === '1') {
   showApp().catch(() => {
     sessionStorage.removeItem('cce-sb-secret');
+    localStorage.removeItem('cce-sb-secret');
     location.reload();
   });
 }
@@ -387,14 +400,14 @@ let current = null;
 function renderList() {
   $('tickets').innerHTML = TICKETS.length ? TICKETS.map((k) => `
     <div class="tk">
-      <span class="tk-id">#${k.id}</span>
+      <span class="tk-id">#${esc(k.id)}</span>
       <div class="tk-main">
-        <strong>${k.name}</strong>
-        <small>${k.phone} · ${k.type} · ${(k.items || []).length} ${(k.items || []).length === 1 ? 'elemento' : 'elementos'}</small>
+        <strong>${esc(k.name)}</strong>
+        <small>${esc(k.phone)} · ${esc(k.type)} · ${(k.items || []).length} ${(k.items || []).length === 1 ? 'elemento' : 'elementos'}</small>
       </div>
       <div class="tk-meta">${new Date(k.ts).toLocaleString('es-DO', { dateStyle: 'medium', timeStyle: 'short' })}</div>
-      <button class="chip ${k.status}" data-st="${k.id}">${k.status}</button>
-      <button class="btn btn-sm" data-open="${k.id}">Ver cotización</button>
+      <button class="chip ${esc(k.status)}" data-st="${esc(k.id)}">${esc(k.status)}</button>
+      <button class="btn btn-sm" data-open="${esc(k.id)}">Ver cotización</button>
     </div>`).join('')
     : `<div class="empty">Aún no hay cotizaciones.<br>Cuando un cliente ordene desde la página, aparecerá aquí.</div>`;
 }
@@ -439,9 +452,9 @@ function openDoc(id) {
 function rowHTML(r) {
   return `<tr>
     <td class="rn"></td>
-    <td><div class="desc" contenteditable>${r.d}</div><div class="desc" contenteditable><small>${r.n || ''}</small></div></td>
-    <td><input class="iq" type="number" min="1" value="${r.q}"></td>
-    <td><input class="ip" type="number" min="0" value="${r.p}"></td>
+    <td><div class="desc" contenteditable>${esc(r.d)}</div><div class="desc" contenteditable><small>${esc(r.n || '')}</small></div></td>
+    <td><input class="iq" type="number" min="1" value="${+r.q || 1}"></td>
+    <td><input class="ip" type="number" min="0" value="${+r.p || 0}"></td>
     <td class="rt">RD$ 0</td>
     <td class="rm-col"><button class="rm" title="Quitar">✕</button></td>
   </tr>`;

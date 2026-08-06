@@ -15,22 +15,48 @@ const SERVICES = [
   { id: 'zanqueros',   img: 'assets/img/promo/zancos.jpg',     pos: '50% 20%', name: 'Zanqueros',                 desc: 'Altura y espectáculo que llenan la pista.' },
   { id: 'percusion',   img: 'assets/img/promo/musicos.jpg',        pos: '50% 42%', name: 'Percusión en vivo',      desc: 'Tambores en vivo que encienden la fiesta junto al DJ.' },
   { id: 'robot-led',   img: 'assets/img/promo/robot-espejo.jpg',   pos: '50% 25%', name: 'Robot LED',              desc: 'Show futurista iluminado para el punto alto de la noche.' },
-  { id: 'cabezones',   img: 'assets/img/promo/artistas.jpg',       pos: '50% 30%', name: 'Cabezones',              desc: 'Tus artistas favoritos en versión gigante, animando la pista.' },
+  { id: 'cabezones',   img: 'assets/img/promo/artistas.jpg',       pos: '50% 30%', name: 'Cabezones',              desc: 'Bad Bunny, Karol G y Daddy Yankee en versión gigante, animando la pista.' },
   { id: 'bailarines',  img: 'assets/img/promo/bailarinas-led.jpg', pos: '50% 35%', name: 'Bailarines adicionales', desc: 'Refuerza el cuerpo de baile de tu show.' },
 ];
 
-/* temáticas disponibles para la Hora Loca (fotos reales del catálogo) */
+/* temáticas de la Hora Loca (fotos reales del catálogo de Carolina).
+   imgs[0] = portada; si hay más de una foto la tarjeta rota en slideshow.
+   more:true = oculta hasta pulsar "Ver todas las temáticas". */
+const T = 'assets/img/tematicas';
+const seq = (dir, n) => Array.from({ length: n }, (_, i) => `${T}/${dir}/${String(i + 1).padStart(2, '0')}.jpg`);
 const THEMES = [
-  { id: 'gold',     name: 'Gold',                       img: 'assets/img/destacado/dorado-4.jpg' },
-  { id: 'led',      name: 'Led Party Plateado',         img: 'assets/img/destacado/plata-4.jpg' },
-  { id: 'brasil',   name: 'Brasil Blanco con Plateado', img: 'assets/img/destacado/brasil-1.jpg' },
-  { id: 'carnaval', name: 'Carnaval Dominicano',        img: 'assets/img/ig/carnaval.jpg' },
-  { id: 'tropical', name: 'Tropical',            img: 'assets/img/ig/tropical-sunset.jpg' },
-  { id: 'rouge',    name: 'Rouge Royal',         img: 'assets/img/rojo.jpg' },
-  { id: 'catrinas', name: 'Catrinas',            img: 'assets/img/catrinas.jpg' },
-  { id: 'venezia',  name: 'Venezia',             img: 'assets/img/ig/venetian.jpg' },
-  { id: 'vegas',    name: 'Viva Las Vegas',      img: 'assets/img/ig/vegas-hd.jpg' },
-  { id: 'otra',     name: 'Otra / por definir',  img: 'assets/img/ig/troupe.jpg' },
+  { id: 'gold',        name: 'Dorado',          imgs: ['assets/img/destacado/dorado-4.jpg', ...seq('dorado', 3)] },
+  { id: 'led',         name: 'Disco Ball',      imgs: ['assets/img/destacado/plata-4.jpg', ...seq('espejos', 8)] },
+  { id: 'brasil',      name: 'Brazil plateada', imgs: [...seq('brasil-plata', 4), 'assets/img/destacado/brasil-1.jpg'] },
+  { id: 'brazil',      name: 'Brazil',          imgs: seq('brazil', 7) },
+  { id: 'vegas',       name: 'Viva las Vegas',  imgs: seq('vegas', 3) },
+  { id: 'dominicana',  name: 'Dominicana',      imgs: seq('dominicana', 5) },
+  { id: 'neon',        name: 'Neón',            imgs: seq('neon', 4) },
+  { id: 'tropical',    name: 'Tropical',        imgs: ['assets/img/ig/tropical-sunset.jpg', ...seq('tropical', 2)] },
+  { id: 'gatsby',      name: 'Gatsby',          imgs: seq('gatsby', 3) },
+  { id: 'alas-led',    name: 'Alas LED',        imgs: seq('alas-led', 4) },
+  { id: 'carnaval',    name: 'Carnaval Dominicano', desc: 'Con sus diablos cojuelos', imgs: ['assets/img/ig/carnaval.jpg', `${T}/carnaval/01.jpg`], more: true },
+  { id: 'marchantas',  name: 'Marchantas',      imgs: seq('marchantas', 3), more: true },
+  { id: 'samba',       name: 'Samba',           imgs: seq('samba', 1), more: true },
+  { id: 'vaqueros',    name: 'Vaqueros',        imgs: seq('vaqueros', 3), more: true },
+  { id: 'porristas',   name: 'Porristas',       imgs: seq('porristas', 1), more: true },
+  { id: 'bienvenida',  name: 'Personajes para bienvenida', imgs: seq('bienvenida', 3), more: true },
+  { id: 'hadas',       name: 'Hadas',           imgs: seq('hadas', 1), more: true },
+  { id: 'astronauta',  name: 'Astronauta y alien', imgs: seq('astronauta', 2), more: true },
+  { id: 'pelota',      name: 'Pelota dominicana', imgs: seq('pelota', 2), more: true },
+  { id: 'cabezones',   name: 'Cabezones',       desc: 'Bad Bunny, Karol G y Daddy Yankee', imgs: [`${T}/cabezones/02.jpg`, 'assets/img/promo/artistas.jpg', `${T}/cabezones/01.jpg`], more: true },
+  { id: 'robot-espejo', name: 'Robot LED espejo', imgs: [`${T}/robot-espejo/02.jpg`, `${T}/robot-espejo/01.jpg`, `${T}/robot-espejo/03.jpg`], more: true },
+  { id: 'led-show',    name: 'Led',             imgs: [...seq('led-show', 2), { v: 'assets/video/led-show.mp4' }], more: true },
+  { id: 'navidad',     name: 'Navidad',         imgs: seq('navidad', 6), more: true },
+  { id: 'disco',       name: 'Disco',           imgs: seq('disco', 1), more: true },
+  { id: 'anos-90',     name: 'Años 90',         imgs: seq('anos-90', 1), more: true },
+  { id: 'pilotos',     name: 'Pilotos Formula 1', imgs: seq('pilotos', 2), more: true },
+  { id: 'marineros',   name: 'Marineros',       imgs: seq('marineros', 1), more: true },
+  { id: 'mimos',       name: 'Mimos',           imgs: seq('mimos', 1), more: true },
+  { id: 'rouge',       name: 'Rouge Royal',     imgs: ['assets/img/rojo.jpg'], more: true },
+  { id: 'catrinas',    name: 'Catrinas',        imgs: ['assets/img/catrinas.jpg'], more: true },
+  { id: 'venezia',     name: 'Venezia',         imgs: ['assets/img/ig/venetian.jpg'], more: true },
+  { id: 'otra',        name: 'Otra / por definir', imgs: ['assets/img/ig/troupe.jpg'] },
 ];
 
 const byId = (id) => SERVICES.find((s) => s.id === id);
@@ -90,13 +116,106 @@ if (servGrid) {
   `).join('');
 
   /* temáticas de la Hora Loca, visibles en la página */
+  const countLabel = (t) => {
+    const vids = t.imgs.filter((x) => typeof x === 'object').length;
+    const fotos = t.imgs.length - vids;
+    if (!vids) return `${fotos} fotos`;
+    return fotos > 1 ? `${fotos} fotos + video` : 'Fotos + video';
+  };
   $('themePick').innerHTML = THEMES.map((t) => `
-    <button class="pk" data-key="hora-loca:${t.id}" type="button" aria-pressed="false">
-      <img src="${t.img}" alt="" loading="lazy">
-      <span class="pk-name">${t.name}</span>
+    <button class="pk${t.more ? ' pk-hid' : ''}" data-key="hora-loca:${t.id}" type="button" aria-pressed="false">
+      <img class="pk-img on" src="${t.imgs[0]}" alt="" loading="lazy">
+      ${t.imgs.length > 1 ? `<span class="pk-count" aria-hidden="true">${countLabel(t)}</span>` : ''}
+      <span class="pk-name">${t.name}${t.desc ? `<small>${t.desc}</small>` : ''}</span>
       <span class="pk-check"><svg class="icon"><use href="#i-check"/></svg></span>
     </button>
   `).join('');
+
+  /* "Ver todas las temáticas": las menos pedidas quedan plegadas al entrar */
+  const themesMore = $('themesMore');
+  function setThemesExpanded(on) {
+    $('themePick').classList.toggle('expanded', on);
+    themesMore.setAttribute('aria-expanded', on);
+    themesMore.textContent = on ? 'Ver menos temáticas' : `Ver todas las temáticas (${THEMES.length})`;
+  }
+  themesMore.addEventListener('click', () => {
+    const on = !$('themePick').classList.contains('expanded');
+    setThemesExpanded(on);
+    if (!on) {
+      const smooth = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+      $('themePick').scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' });
+    }
+  });
+  setThemesExpanded(THEMES.some((t) => t.more && quote[`hora-loca:${t.id}`]));
+
+  /* slideshow: las tarjetas con varias fotos rotan estando a la vista */
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const rotating = [];
+    const rotObs = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        const r = rotating.find((x) => x.card === en.target);
+        if (!r) return;
+        r.visible = en.isIntersecting;
+        const v = r.card.querySelector('video.pk-img.on');
+        if (v) { if (en.isIntersecting) v.play().catch(() => {}); else v.pause(); }
+      });
+    }, { threshold: 0.25 });
+    document.querySelectorAll('#themePick .pk').forEach((card, i) => {
+      const t = THEMES.find((x) => `hora-loca:${x.id}` === card.dataset.key);
+      if (!t || t.imgs.length < 2) return;
+      const r = { card, imgs: t.imgs, idx: 0, visible: false, busy: false, next: (i % 7) * 620 };
+      rotating.push(r);
+      rotObs.observe(card);
+    });
+    const STEP = 3400;      // ms que se ve cada foto
+    const STEP_VIDEO = 6500; // los clips en loop se quedan más tiempo
+    setInterval(() => {
+      if (document.hidden) return;
+      const now = performance.now();
+      rotating.forEach((r) => {
+        if (!r.visible || r.busy || now < r.next) return;
+        if (r.card.matches(':hover, :focus')) return; // pausa mientras se mira
+        r.busy = true;
+        r.idx = (r.idx + 1) % r.imgs.length;
+        const item = r.imgs[r.idx];
+        const isVideo = typeof item === 'object';
+        const layer = document.createElement(isVideo ? 'video' : 'img');
+        layer.className = 'pk-img';
+        const done = () => { r.busy = false; r.next = performance.now() + (isVideo ? STEP_VIDEO : STEP); };
+        const show = () => {
+          r.card.insertBefore(layer, r.card.querySelector('.pk-count, .pk-name'));
+          requestAnimationFrame(() => requestAnimationFrame(() => {
+            const old = [...r.card.querySelectorAll('.pk-img.on')];
+            layer.classList.add('on');
+            old.forEach((l) => l.classList.remove('on'));
+            setTimeout(() => { old.forEach((l) => l.remove()); done(); }, 950);
+          }));
+        };
+        if (isVideo) {
+          layer.muted = true; layer.loop = true; layer.playsInline = true; layer.preload = 'auto';
+          // al DOM desde ya (invisible con opacity 0): un <video> suelto sin
+          // referencias puede ser recolectado y sus eventos jamás disparan
+          r.card.insertBefore(layer, r.card.querySelector('.pk-count, .pk-name'));
+          const guard = setTimeout(() => {
+            if (layer.oncanplay) { layer.oncanplay = null; layer.remove(); done(); }
+          }, 6000);
+          layer.onerror = () => { clearTimeout(guard); layer.oncanplay = null; layer.remove(); done(); };
+          layer.oncanplay = () => {
+            clearTimeout(guard);
+            layer.oncanplay = null;
+            layer.play().catch(() => {});
+            show();
+          };
+          layer.src = item.v;
+        } else {
+          layer.alt = '';
+          layer.onerror = done;
+          layer.onload = show;
+          layer.src = item;
+        }
+      });
+    }, 350);
+  }
 
   /* claves del carrito: "servicio" o "servicio:tematica" */
   const parseKey = (key) => {
@@ -109,7 +228,7 @@ if (servGrid) {
   };
   const keyImg = (key) => {
     const { service, theme } = parseKey(key);
-    return (theme && theme.img) || service.img;
+    return (theme && theme.imgs[0]) || service.img;
   };
 
   function showToast(msg) {
@@ -322,6 +441,7 @@ if (servGrid) {
     if (SB.url && SB.key) {
       fetch(`${SB.url}/rest/v1/tickets`, {
         method: 'POST',
+        keepalive: true, // sobrevive a la navegación a WhatsApp (in-app browsers)
         headers: {
           apikey: SB.key,
           Authorization: `Bearer ${SB.key}`,
@@ -522,8 +642,9 @@ if (mosaic) {
 const lb = $('lb');
 if (lb && document.querySelector('.feat-cover')) {
   const PACKS = {
-    dorado: { name: 'Gold', imgs: ['assets/img/destacado/dorado-4.jpg', 'assets/img/destacado/dorado-2.jpg', 'assets/img/destacado/dorado-3.jpg', 'assets/img/destacado/dorado-1.jpg'] },
-    plata:  { name: 'Led Party Plateado', imgs: ['assets/img/destacado/plata-4.jpg', 'assets/img/destacado/plata-1.jpg', 'assets/img/destacado/plata-2.jpg', 'assets/img/destacado/plata-3.jpg'] },
+    dorado: { name: 'Gold', imgs: ['assets/img/destacado/dorado-4.jpg', 'assets/img/destacado/dorado-2.jpg', 'assets/img/destacado/dorado-3.jpg', 'assets/img/destacado/dorado-1.jpg', 'assets/img/tematicas/dorado/01.jpg', 'assets/img/tematicas/dorado/02.jpg', 'assets/img/tematicas/dorado/03.jpg'] },
+    plata:  { name: 'Disco Ball', imgs: ['assets/img/destacado/plata-4.jpg', 'assets/img/destacado/plata-1.jpg', 'assets/img/destacado/plata-2.jpg', 'assets/img/destacado/plata-3.jpg', 'assets/img/tematicas/espejos/01.jpg', 'assets/img/tematicas/espejos/02.jpg', 'assets/img/tematicas/espejos/03.jpg', 'assets/img/tematicas/espejos/04.jpg', 'assets/img/tematicas/espejos/05.jpg', 'assets/img/tematicas/espejos/06.jpg', 'assets/img/tematicas/espejos/07.jpg', 'assets/img/tematicas/espejos/08.jpg'] },
+    brasil: { name: 'Brasil Blanco con Plateado', imgs: ['assets/img/tematicas/brasil-plata/01.jpg', 'assets/img/tematicas/brasil-plata/02.jpg', 'assets/img/tematicas/brasil-plata/03.jpg', 'assets/img/tematicas/brasil-plata/04.jpg', 'assets/img/destacado/brasil-1.jpg'] },
   };
   let pack = null, idx = 0;
 
