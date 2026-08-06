@@ -134,6 +134,21 @@
   </div>
 </aside>
 
+<!-- Selector de temáticas -->
+<div class="picker" id="picker" hidden>
+  <div class="picker-box">
+    <div class="picker-head">
+      <div>
+        <h3>Elige la temática de tu Hora Loca</h3>
+        <p>Puedes marcar más de una — cada una se agrega a tu selección.</p>
+      </div>
+      <button class="icon-btn" id="pickerClose" aria-label="Cerrar"><svg class="icon"><use href="#i-x"/></svg></button>
+    </div>
+    <div class="picker-grid" id="pickerGrid"><!-- JS --></div>
+    <button class="btn btn-solid btn-block" id="pickerDone">Listo</button>
+  </div>
+</div>
+
 <!-- Toast -->
 <div class="toast" id="toast" role="status"><svg class="icon"><use href="#i-check"/></svg><span id="toastMsg"></span></div>
 

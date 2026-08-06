@@ -7,15 +7,29 @@
 
 const WHATSAPP = '18293435460';
 
-/* pos = object-position del recorte (sube o baja el encuadre de la foto) */
+/* pos = object-position del recorte (sube o baja el encuadre de la foto)
+   themed = al agregarlo se elige la temática */
 const SERVICES = [
-  { id: 'hora-loca',   img: 'assets/img/ig/troupe.jpg',        pos: '50% 55%', name: 'Hora Loca',                 desc: 'Personajes, cotillón y 45–60 minutos de pura energía.' },
-  { id: 'coreografia', img: 'assets/img/ig/coreografia.jpg',   pos: '50% 12%', name: 'Coreografía personalizada', desc: 'Montaje profesional para tu entrada, apertura o sorpresa.' },
+  { id: 'hora-loca',   img: 'assets/img/destacado/dorado-4.jpg', pos: '50% 40%', themed: true, name: 'Hora Loca', desc: 'Personajes, cotillón y 45–60 minutos de pura energía. Elige tu temática.' },
+  { id: 'coreografia', img: 'assets/img/destacado/plata-1.jpg',  pos: '50% 25%', name: 'Coreografía personalizada', desc: 'Montaje profesional para tu entrada, apertura o sorpresa.' },
   { id: 'zanqueros',   img: 'assets/img/ig/gold-zanqueros.jpg',pos: '50% 30%', name: 'Zanqueros',                 desc: 'Altura y espectáculo que llenan la pista.' },
   { id: 'percusion',   img: 'assets/img/promo/musicos.jpg',        pos: '50% 42%', name: 'Percusión en vivo',      desc: 'Tambora, güira y tambores LED que encienden la fiesta junto al DJ.' },
   { id: 'robot-led',   img: 'assets/img/promo/robot-espejo.jpg',   pos: '50% 25%', name: 'Robot LED',              desc: 'Show futurista iluminado para el punto alto de la noche.' },
   { id: 'cabezones',   img: 'assets/img/promo/artistas.jpg',       pos: '50% 30%', name: 'Cabezones',              desc: 'Tus artistas favoritos en versión gigante, animando la pista.' },
   { id: 'bailarines',  img: 'assets/img/promo/bailarinas-led.jpg', pos: '50% 35%', name: 'Bailarines adicionales', desc: 'Refuerza el cuerpo de baile de tu show.' },
+];
+
+/* temáticas disponibles para la Hora Loca (fotos reales del catálogo) */
+const THEMES = [
+  { id: 'gold',     name: 'Gold',                img: 'assets/img/destacado/dorado-2.jpg' },
+  { id: 'led',      name: 'Led Party',           img: 'assets/img/destacado/plata-2.jpg' },
+  { id: 'carnaval', name: 'Carnaval Dominicano', img: 'assets/img/ig/carnaval.jpg' },
+  { id: 'tropical', name: 'Tropical',            img: 'assets/img/ig/tropical-sunset.jpg' },
+  { id: 'rouge',    name: 'Rouge Royal',         img: 'assets/img/rojo.jpg' },
+  { id: 'catrinas', name: 'Catrinas',            img: 'assets/img/catrinas.jpg' },
+  { id: 'venezia',  name: 'Venezia',             img: 'assets/img/ig/venetian.jpg' },
+  { id: 'vegas',    name: 'Viva Las Vegas',      img: 'assets/img/ig/vegas-hd.jpg' },
+  { id: 'otra',     name: 'Otra / por definir',  img: 'assets/img/ig/troupe.jpg' },
 ];
 
 const byId = (id) => SERVICES.find((s) => s.id === id);
@@ -32,8 +46,11 @@ if ($('preloader')) {
 let quote = {};
 try { quote = JSON.parse(localStorage.getItem('cce-quote') || '{}'); } catch (_) { quote = {}; }
 if (!quote || typeof quote !== 'object' || Array.isArray(quote)) quote = {};
-Object.keys(quote).forEach((id) => {
-  if (!byId(id) || !Number.isInteger(quote[id]) || quote[id] < 1) delete quote[id];
+Object.keys(quote).forEach((key) => {
+  const [sid, tid] = key.split(':');
+  const okService = !!byId(sid);
+  const okTheme = !tid || THEMES.some((t) => t.id === tid);
+  if (!okService || !okTheme || !Number.isInteger(quote[key]) || quote[key] < 1) delete quote[key];
 });
 
 function save() { localStorage.setItem('cce-quote', JSON.stringify(quote)); }
@@ -57,11 +74,25 @@ if (servGrid) {
       <span class="serv-body">
         <h3>${s.name}</h3>
         <p>${s.desc}</p>
-        <span class="serv-state state-off"><svg class="icon"><use href="#i-plus"/></svg> Agregar</span>
+        <span class="serv-state state-off"><svg class="icon"><use href="#i-plus"/></svg> ${s.themed ? 'Elegir temática' : 'Agregar'}</span>
         <span class="serv-state state-on" hidden><svg class="icon"><use href="#i-check"/></svg> Agregado</span>
       </span>
     </button>
   `).join('');
+
+  /* claves del carrito: "servicio" o "servicio:tematica" */
+  const parseKey = (key) => {
+    const [sid, tid] = key.split(':');
+    return { sid, tid, service: byId(sid), theme: THEMES.find((t) => t.id === tid) || null };
+  };
+  const keyName = (key) => {
+    const { service, theme } = parseKey(key);
+    return service.name + (theme ? ` — ${theme.name}` : '');
+  };
+  const keyImg = (key) => {
+    const { service, theme } = parseKey(key);
+    return (theme && theme.img) || service.img;
+  };
 
   function showToast(msg) {
     $('toastMsg').textContent = msg;
@@ -71,24 +102,29 @@ if (servGrid) {
   }
 
   function syncUI() {
-    const n = totalItems();
-    cartCount.textContent = n;
-    cartCount.classList.toggle('on', n > 0);
+    const keys = Object.keys(quote);
+    cartCount.textContent = keys.length;
+    cartCount.classList.toggle('on', keys.length > 0);
 
     document.querySelectorAll('.serv').forEach((card) => {
-      const on = !!quote[card.dataset.id];
+      const sid = card.dataset.id;
+      const mine = keys.filter((k) => parseKey(k).sid === sid);
+      const on = mine.length > 0;
       card.classList.toggle('on', on);
       card.setAttribute('aria-pressed', on);
       card.querySelector('.state-off').hidden = on;
-      card.querySelector('.state-on').hidden = !on;
+      const stateOn = card.querySelector('.state-on');
+      stateOn.hidden = !on;
+      if (on) {
+        stateOn.innerHTML = `<svg class="icon"><use href="#i-check"/></svg> Agregado${mine.length > 1 ? ` ×${mine.length}` : ''}`;
+      }
     });
 
-    $('quoteHint').innerHTML = n === 0
+    $('quoteHint').innerHTML = keys.length === 0
       ? 'Selecciona los elementos que quieras incluir'
-      : `<strong>${n}</strong> ${n === 1 ? 'elemento seleccionado' : 'elementos seleccionados'}`;
+      : `<strong>${keys.length}</strong> ${keys.length === 1 ? 'elemento seleccionado' : 'elementos seleccionados'}`;
 
-    const ids = Object.keys(quote);
-    if (!ids.length) {
+    if (!keys.length) {
       cartItems.innerHTML = `
         <div class="cart-empty">
           <svg class="icon"><use href="#i-cart"/></svg>
@@ -96,35 +132,68 @@ if (servGrid) {
         </div>`;
       return;
     }
-    cartItems.innerHTML = ids.map((id) => {
-      const s = byId(id);
-      return `
-        <div class="cart-item">
-          <div class="cart-item-info"><strong>${s.name}</strong></div>
-          <div class="cart-qty">
-            <button data-dec="${id}" aria-label="Quitar uno"><svg class="icon"><use href="#i-minus"/></svg></button>
-            <span>${quote[id]}</span>
-            <button data-inc="${id}" aria-label="Agregar uno"><svg class="icon"><use href="#i-plus"/></svg></button>
-          </div>
-          <button class="cart-item-del" data-del="${id}" aria-label="Eliminar"><svg class="icon"><use href="#i-trash"/></svg></button>
-        </div>`;
-    }).join('');
+    cartItems.innerHTML = keys.map((key) => `
+      <div class="cart-item">
+        <img class="cart-item-thumb" src="${keyImg(key)}" alt="">
+        <div class="cart-item-info"><strong>${keyName(key)}</strong></div>
+        <div class="cart-qty">
+          <button data-dec="${key}" aria-label="Quitar uno"><svg class="icon"><use href="#i-minus"/></svg></button>
+          <span>${quote[key]}</span>
+          <button data-inc="${key}" aria-label="Agregar uno"><svg class="icon"><use href="#i-plus"/></svg></button>
+        </div>
+        <button class="cart-item-del" data-del="${key}" aria-label="Eliminar"><svg class="icon"><use href="#i-trash"/></svg></button>
+      </div>`).join('');
   }
 
-  function toggleService(id) {
-    if (quote[id]) {
-      delete quote[id];
-      showToast(`${byId(id).name} quitado de tu cotización`);
-    } else {
-      quote[id] = 1;
-      cartCount.classList.remove('bump');
-      void cartCount.offsetWidth;
-      cartCount.classList.add('bump');
-      showToast(`${byId(id).name} agregado a tu cotización`);
-    }
+  function addKey(key) {
+    quote[key] = (quote[key] || 0) + 1;
+    cartCount.classList.remove('bump');
+    void cartCount.offsetWidth;
+    cartCount.classList.add('bump');
+    showToast(`${keyName(key)} agregado`);
     save();
     syncUI();
   }
+  function removeKey(key) {
+    delete quote[key];
+    showToast(`${keyName(key)} quitado`);
+    save();
+    syncUI();
+  }
+
+  /* ── selector de temáticas (para Hora Loca) ── */
+  const picker = $('picker');
+  let pickerSid = null;
+  function openPicker(sid) {
+    pickerSid = sid;
+    $('pickerGrid').innerHTML = THEMES.map((t) => {
+      const key = `${sid}:${t.id}`;
+      const on = !!quote[key];
+      return `
+        <button class="pk ${on ? 'on' : ''}" data-theme="${t.id}" type="button">
+          <img src="${t.img}" alt="" loading="lazy">
+          <span class="pk-name">${t.name}</span>
+          <span class="pk-check"><svg class="icon"><use href="#i-check"/></svg></span>
+        </button>`;
+    }).join('');
+    picker.hidden = false;
+    document.body.style.overflow = 'hidden';
+  }
+  function closePicker() {
+    picker.hidden = true;
+    document.body.style.overflow = '';
+    pickerSid = null;
+  }
+  $('pickerGrid').addEventListener('click', (e) => {
+    const b = e.target.closest('.pk');
+    if (!b) return;
+    const key = `${pickerSid}:${b.dataset.theme}`;
+    if (quote[key]) removeKey(key); else addKey(key);
+    b.classList.toggle('on', !!quote[key]);
+  });
+  $('pickerClose').addEventListener('click', closePicker);
+  $('pickerDone').addEventListener('click', closePicker);
+  picker.addEventListener('click', (e) => { if (e.target === picker) closePicker(); });
 
   /* panel: foco, inert y apertura */
   const background = () => [
@@ -154,7 +223,12 @@ if (servGrid) {
 
   document.addEventListener('click', (ev) => {
     const card = ev.target.closest('.serv');
-    if (card) { toggleService(card.dataset.id); return; }
+    if (card) {
+      const s = byId(card.dataset.id);
+      if (s.themed) { openPicker(s.id); return; }
+      if (quote[s.id]) removeKey(s.id); else addKey(s.id);
+      return;
+    }
 
     const btn = ev.target.closest('[data-inc],[data-dec],[data-del]');
     if (!btn) return;
@@ -166,14 +240,14 @@ if (servGrid) {
       return;
     }
     if (btn.dataset.dec) {
-      const id = btn.dataset.dec;
-      quote[id]--;
-      if (quote[id] >= 1) {
-        btn.closest('.cart-qty').querySelector('span').textContent = quote[id];
+      const key = btn.dataset.dec;
+      quote[key]--;
+      if (quote[key] >= 1) {
+        btn.closest('.cart-qty').querySelector('span').textContent = quote[key];
         save();
         return;
       }
-      delete quote[id];
+      delete quote[key];
     }
     if (btn.dataset.del) delete quote[btn.dataset.del];
     save();
@@ -186,28 +260,21 @@ if (servGrid) {
 
   $('cartBtn').addEventListener('click', openCart);
   $('quoteReview').addEventListener('click', () => {
-    if (!totalItems()) { showToast('Selecciona al menos un elemento'); return; }
+    if (!Object.keys(quote).length) { showToast('Selecciona al menos un elemento'); return; }
     openCart();
   });
   $('cartClose').addEventListener('click', closeCart);
   cartOverlay.addEventListener('click', closeCart);
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeCart(); });
-
-  /* chips de tipo de evento (selección única) */
-  let eventType = '';
-  $('qType').addEventListener('click', (ev) => {
-    const b = ev.target.closest('button[data-type]');
-    if (!b) return;
-    const on = !b.classList.contains('on');
-    $('qType').querySelectorAll('button').forEach((x) => x.classList.remove('on'));
-    b.classList.toggle('on', on);
-    eventType = on ? b.dataset.type : '';
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    if (!picker.hidden) { closePicker(); return; }
+    closeCart();
   });
 
   /* ordenar: valida, crea el ticket y abre WhatsApp con fotos */
   $('cartOrder').addEventListener('click', () => {
-    const ids = Object.keys(quote);
-    if (!ids.length) { showToast('Selecciona al menos un elemento'); return; }
+    const keys = Object.keys(quote);
+    if (!keys.length) { showToast('Selecciona al menos un elemento'); return; }
 
     const name = $('qName').value.trim();
     const phone = $('qPhone').value.replace(/[^\d+]/g, '');
@@ -218,10 +285,12 @@ if (servGrid) {
 
     const date = $('qDate').value.trim();
     const place = $('qPlace').value.trim();
-    const items = ids.map((id) => {
-      const s = byId(id);
-      return { id, name: s.name, qty: quote[id], img: s.img };
-    });
+    const items = keys.map((key) => ({
+      id: key,
+      name: keyName(key),
+      qty: quote[key],
+      img: keyImg(key),
+    }));
 
     // ticket para el panel administrativo
     const ticket = {
@@ -285,6 +354,17 @@ if (servGrid) {
     // en in-app browsers (Instagram/Facebook) window.open devuelve null
     const win = window.open(url, '_blank', 'noopener');
     if (!win) location.href = url;
+  });
+
+  /* chips de tipo de evento (selección única) */
+  let eventType = '';
+  $('qType').addEventListener('click', (ev) => {
+    const b = ev.target.closest('button[data-type]');
+    if (!b) return;
+    const on = !b.classList.contains('on');
+    $('qType').querySelectorAll('button').forEach((x) => x.classList.remove('on'));
+    b.classList.toggle('on', on);
+    eventType = on ? b.dataset.type : '';
   });
 
   syncUI();
