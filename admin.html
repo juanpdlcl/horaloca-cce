@@ -413,7 +413,7 @@ function openDoc(id) {
   $('dPlace').textContent = (current.quote && current.quote.place) || current.place || 'Por definir';
   $('dEvDate').textContent = current.date;
   const q = current.quote || {
-    rows: (current.items || []).map((it) => ({ d: it.name, n: '', q: it.qty, p: PRECIOS[(it.id || '').split(':')[0]] || 0 })),
+    rows: (current.items || []).map((it) => ({ d: it.name, n: it.note || '', q: it.qty, p: PRECIOS[(it.id || '').split(':')[0]] || 0 })),
     disc: 0,
     terms: $('dTerms').value,
   };

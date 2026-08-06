@@ -12,7 +12,7 @@ const WHATSAPP = '18293435460';
 const SERVICES = [
   { id: 'hora-loca',   img: 'assets/img/destacado/dorado-4.jpg', pos: '50% 40%', themed: true, name: 'Hora Loca', desc: 'Personajes, cotillón y 45–60 minutos de pura energía. Elige tu temática.' },
   { id: 'coreografia', img: 'assets/img/destacado/plata-1.jpg',  pos: '50% 25%', name: 'Coreografía personalizada', desc: 'Montaje profesional para tu entrada, apertura o sorpresa.' },
-  { id: 'zanqueros',   img: 'assets/img/ig/gold-zanqueros.jpg',pos: '50% 30%', name: 'Zanqueros',                 desc: 'Altura y espectáculo que llenan la pista.' },
+  { id: 'zanqueros',   img: 'assets/img/promo/zancos.jpg',     pos: '50% 20%', name: 'Zanqueros',                 desc: 'Altura y espectáculo que llenan la pista.' },
   { id: 'percusion',   img: 'assets/img/promo/musicos.jpg',        pos: '50% 42%', name: 'Percusión en vivo',      desc: 'Tambora, güira y tambores LED que encienden la fiesta junto al DJ.' },
   { id: 'robot-led',   img: 'assets/img/promo/robot-espejo.jpg',   pos: '50% 25%', name: 'Robot LED',              desc: 'Show futurista iluminado para el punto alto de la noche.' },
   { id: 'cabezones',   img: 'assets/img/promo/artistas.jpg',       pos: '50% 30%', name: 'Cabezones',              desc: 'Tus artistas favoritos en versión gigante, animando la pista.' },
@@ -21,9 +21,10 @@ const SERVICES = [
 
 /* temáticas disponibles para la Hora Loca (fotos reales del catálogo) */
 const THEMES = [
-  { id: 'gold',     name: 'Gold',                img: 'assets/img/destacado/dorado-2.jpg' },
-  { id: 'led',      name: 'Led Party',           img: 'assets/img/destacado/plata-2.jpg' },
-  { id: 'carnaval', name: 'Carnaval Dominicano', img: 'assets/img/ig/carnaval.jpg' },
+  { id: 'gold',     name: 'Gold',                       img: 'assets/img/destacado/dorado-4.jpg' },
+  { id: 'led',      name: 'Led Party Plateado',         img: 'assets/img/destacado/plata-4.jpg' },
+  { id: 'brasil',   name: 'Brasil Blanco con Plateado', img: 'assets/img/destacado/brasil-1.jpg' },
+  { id: 'carnaval', name: 'Carnaval Dominicano',        img: 'assets/img/ig/carnaval.jpg' },
   { id: 'tropical', name: 'Tropical',            img: 'assets/img/ig/tropical-sunset.jpg' },
   { id: 'rouge',    name: 'Rouge Royal',         img: 'assets/img/rojo.jpg' },
   { id: 'catrinas', name: 'Catrinas',            img: 'assets/img/catrinas.jpg' },
@@ -55,6 +56,13 @@ Object.keys(quote).forEach((key) => {
 
 function save() { localStorage.setItem('cce-quote', JSON.stringify(quote)); }
 function totalItems() { return Object.keys(quote).length; }
+
+/* notas específicas por elemento ("quiero el cabezón de Bad Bunny", etc.) */
+let quoteNotes = {};
+try { quoteNotes = JSON.parse(localStorage.getItem('cce-notes') || '{}'); } catch (_) { quoteNotes = {}; }
+if (!quoteNotes || typeof quoteNotes !== 'object' || Array.isArray(quoteNotes)) quoteNotes = {};
+Object.keys(quoteNotes).forEach((k) => { if (!quote[k]) delete quoteNotes[k]; });
+function saveNotes() { localStorage.setItem('cce-notes', JSON.stringify(quoteNotes)); }
 
 /* ─── COTIZADOR (solo cotiza.html) ─── */
 const servGrid = $('servGrid');
@@ -149,14 +157,17 @@ if (servGrid) {
     }
     cartItems.innerHTML = keys.map((key) => `
       <div class="cart-item">
-        <img class="cart-item-thumb" src="${keyImg(key)}" alt="">
-        <div class="cart-item-info"><strong>${keyName(key)}</strong></div>
-        <div class="cart-qty">
-          <button data-dec="${key}" aria-label="Quitar uno"><svg class="icon"><use href="#i-minus"/></svg></button>
-          <span>${quote[key]}</span>
-          <button data-inc="${key}" aria-label="Agregar uno"><svg class="icon"><use href="#i-plus"/></svg></button>
+        <div class="cart-item-row">
+          <img class="cart-item-thumb" src="${keyImg(key)}" alt="">
+          <div class="cart-item-info"><strong>${keyName(key)}</strong></div>
+          <div class="cart-qty">
+            <button data-dec="${key}" aria-label="Quitar uno"><svg class="icon"><use href="#i-minus"/></svg></button>
+            <span>${quote[key]}</span>
+            <button data-inc="${key}" aria-label="Agregar uno"><svg class="icon"><use href="#i-plus"/></svg></button>
+          </div>
+          <button class="cart-item-del" data-del="${key}" aria-label="Eliminar"><svg class="icon"><use href="#i-trash"/></svg></button>
         </div>
-        <button class="cart-item-del" data-del="${key}" aria-label="Eliminar"><svg class="icon"><use href="#i-trash"/></svg></button>
+        <input class="cart-item-note" data-note="${key}" placeholder="¿Algo específico? (opcional)" value="${(quoteNotes[key] || '').replace(/"/g, '&quot;')}">
       </div>`).join('');
   }
 
@@ -237,13 +248,23 @@ if (servGrid) {
       }
       delete quote[key];
     }
-    if (btn.dataset.del) delete quote[btn.dataset.del];
+    if (btn.dataset.del) { delete quote[btn.dataset.del]; delete quoteNotes[btn.dataset.del]; saveNotes(); }
     save();
     syncUI();
     // el botón enfocado fue destruido por el re-render: devolver el foco al panel
     if (cartDrawer.classList.contains('open')) {
       (cartItems.querySelector('button') || $('cartClose')).focus();
     }
+  });
+
+  /* guardar la nota específica de cada elemento mientras se escribe */
+  cartItems.addEventListener('input', (e) => {
+    const inp = e.target.closest('.cart-item-note');
+    if (!inp) return;
+    const v = inp.value.trim();
+    if (v) quoteNotes[inp.dataset.note] = v;
+    else delete quoteNotes[inp.dataset.note];
+    saveNotes();
   });
 
   $('cartBtn').addEventListener('click', openCart);
@@ -276,6 +297,7 @@ if (servGrid) {
       name: keyName(key),
       qty: quote[key],
       img: keyImg(key),
+      note: (quoteNotes[key] || '').trim(),
     }));
 
     // ticket para el panel administrativo
@@ -312,6 +334,7 @@ if (servGrid) {
 
     const lines = items.map((it, i) => [
       `${i + 1}) ${it.name}${it.qty > 1 ? ` ×${it.qty}` : ''}`,
+      ...(it.note ? [`   Detalle: ${it.note}`] : []),
       `   Foto: ${new URL(it.img, location.href).href}`,
     ].join('\n'));
     const msg = [
@@ -332,6 +355,8 @@ if (servGrid) {
 
     // limpiar la selección: el ticket ya quedó guardado
     quote = {};
+    quoteNotes = {};
+    saveNotes();
     save();
     syncUI();
     closeCart();
@@ -498,7 +523,8 @@ const lb = $('lb');
 if (lb && document.querySelector('.feat-cover')) {
   const PACKS = {
     dorado: { name: 'Gold', imgs: ['assets/img/destacado/dorado-4.jpg', 'assets/img/destacado/dorado-2.jpg', 'assets/img/destacado/dorado-3.jpg', 'assets/img/destacado/dorado-1.jpg'] },
-    plata:  { name: 'Led Party', imgs: ['assets/img/destacado/plata-4.jpg', 'assets/img/destacado/plata-1.jpg', 'assets/img/destacado/plata-2.jpg', 'assets/img/destacado/plata-3.jpg'] },
+    plata:  { name: 'Led Party Plateado', imgs: ['assets/img/destacado/plata-4.jpg', 'assets/img/destacado/plata-1.jpg', 'assets/img/destacado/plata-2.jpg', 'assets/img/destacado/plata-3.jpg'] },
+    brasil: { name: 'Brasil Blanco con Plateado', imgs: ['assets/img/destacado/brasil-1.jpg', 'assets/img/promo/zancos.jpg'] },
   };
   let pack = null, idx = 0;
 

@@ -350,7 +350,7 @@ h2{
 .theme-tags span:hover{color:var(--text);border-color:var(--text);transform:translateY(-2px)}
 
 /* ─────────── DESTACADOS (paquetes) ─────────── */
-.feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
 .feat{
   display:block;border-radius:var(--radius);overflow:hidden;
   background:var(--surface);border:1px solid var(--line);
@@ -516,7 +516,7 @@ h2{
 }
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chips button{
-  padding:9px 16px;border-radius:999px;cursor:pointer;
+  padding:7px 13px;border-radius:999px;cursor:pointer;font-size:.78rem;
   background:var(--surface);border:1px solid var(--line-strong);color:var(--muted);
   font-family:var(--font-display);font-size:.83rem;letter-spacing:.03em;
   transition:border-color .2s,color .2s,background .2s;
@@ -665,10 +665,18 @@ h2{
 .cart-empty{text-align:center;color:var(--muted);margin-top:56px;font-size:.94rem;line-height:1.9}
 .cart-empty .icon{width:34px;height:34px;margin:0 auto 12px;display:block;color:#4a4756}
 .cart-item{
-  display:flex;align-items:center;gap:12px;
+  display:flex;flex-direction:column;gap:10px;
   background:var(--surface);border:1px solid var(--line);
   border-radius:13px;padding:13px 15px;animation:itemIn .3s var(--ease);
 }
+.cart-item-row{display:flex;align-items:center;gap:12px}
+.cart-item-note{
+  width:100%;background:var(--bg);border:1px solid var(--line);
+  border-radius:9px;padding:8px 11px;color:var(--text);font-family:var(--font-body);
+  font-size:1rem;outline:none;transition:border-color .2s;
+}
+.cart-item-note:focus{border-color:var(--accent)}
+.cart-item-note::placeholder{color:#55515f;font-size:.85rem}
 @keyframes itemIn{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:none}}
 .cart-item-thumb{
   flex:0 0 46px;width:46px;height:46px;border-radius:10px;object-fit:cover;object-position:50% 25%;
@@ -695,7 +703,8 @@ h2{
 .cart-item-del .icon{width:17px;height:17px}
 .cart-item-del:hover{color:var(--text)}
 .cart-foot{padding:20px 26px 24px;border-top:1px solid var(--line)}
-.cart-fields{display:flex;flex-direction:column;gap:12px}
+.cart-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cart-fields .cf-full{grid-column:1 / -1}
 .cart-fields label span{
   display:block;font-family:var(--font-display);font-size:.7rem;font-weight:500;
   letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;
