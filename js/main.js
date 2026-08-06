@@ -33,7 +33,7 @@ const THEMES = [
   { id: 'dominicana',  name: 'Dominicana',      imgs: seq('dominicana', 5) },
   { id: 'neon',        name: 'Neón',            imgs: seq('neon', 4) },
   { id: 'tropical',    name: 'Tropical',        imgs: ['assets/img/ig/tropical-sunset.jpg', ...seq('tropical', 2)] },
-  { id: 'gatsby',      name: 'Gatsby',          imgs: seq('gatsby', 3) },
+  { id: 'gatsby',      name: 'Gatsby',          imgs: seq('gatsby', 6) },
   { id: 'alas-led',    name: 'Alas LED',        imgs: seq('alas-led', 4) },
   { id: 'carnaval',    name: 'Carnaval Dominicano', desc: 'Con sus diablos cojuelos', imgs: ['assets/img/ig/carnaval.jpg', `${T}/carnaval/01.jpg`], more: true },
   { id: 'marchantas',  name: 'Marchantas',      imgs: seq('marchantas', 3), more: true },
