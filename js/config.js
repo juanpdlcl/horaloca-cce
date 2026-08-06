@@ -1,9 +1,8 @@
 /* ═══ Conexión a Supabase (base de datos de cotizaciones) ═══
-   Mientras esté vacío, todo funciona en modo local (mismo navegador).
-   Para activar la nube: crea el proyecto gratis en supabase.com,
-   corre supabase-setup.sql y pega aquí los dos valores de
-   Project Settings → API. */
+   Proyecto: horaloca-cce (cuenta juanpdlcl). La key es la
+   "publishable key": es pública por diseño — la seguridad la
+   ponen las políticas RLS y las funciones con clave del panel. */
 window.CCE_SUPABASE = {
-  url: '',   // ej. 'https://abcdefgh.supabase.co'
-  key: '',   // la "anon public" key
+  url: 'https://ovsnjriqopsyboxyqaoz.supabase.co',
+  key: 'sb_publishable_G5Z6TqEay-PZ8w0TWiq9dA_J64WLawK',
 };

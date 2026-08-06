@@ -281,24 +281,34 @@ const PRECIOS = {
 const $ = (id) => document.getElementById(id);
 const fmt = (n) => 'RD$ ' + (Math.round(n) || 0).toLocaleString('es-DO');
 
-/* ── capa de datos: Supabase si está configurado, localStorage si no ── */
+/* ── capa de datos: Supabase si está configurado, localStorage si no ──
+   En la nube, el panel usa funciones RPC protegidas por la clave del
+   panel (guardada solo en la base de datos): nadie puede leer los
+   tickets sin ella; los clientes solo pueden crear. */
 const SB = window.CCE_SUPABASE || {};
 const REMOTE = !!(SB.url && SB.key);
-let sbToken = sessionStorage.getItem('cce-sb-token') || null;
+let sbSecret = sessionStorage.getItem('cce-sb-secret') || null;
 let TICKETS = [];
 
 const sbHeaders = () => ({
   apikey: SB.key,
-  Authorization: 'Bearer ' + (sbToken || SB.key),
+  Authorization: 'Bearer ' + SB.key,
   'Content-Type': 'application/json',
 });
+async function rpc(fn, body) {
+  const r = await fetch(`${SB.url}/rest/v1/rpc/${fn}`, {
+    method: 'POST', headers: sbHeaders(), body: JSON.stringify(body),
+  });
+  if (!r.ok) throw new Error('rpc ' + fn + ' ' + r.status);
+  const t = await r.text();
+  return t ? JSON.parse(t) : null;
+}
 const localAll = () => { try { return JSON.parse(localStorage.getItem('cce-tickets') || '[]'); } catch (_) { return []; } };
 const localSave = (a) => localStorage.setItem('cce-tickets', JSON.stringify(a));
 
 async function dbList() {
   if (!REMOTE) return localAll();
-  const r = await fetch(`${SB.url}/rest/v1/tickets?select=*&order=ts.desc`, { headers: sbHeaders() });
-  return r.ok ? await r.json() : [];
+  return (await rpc('admin_tickets', { p_secret: sbSecret })) || [];
 }
 async function dbInsert(k) {
   if (!REMOTE) { const a = localAll(); a.unshift(k); localSave(a); return; }
@@ -312,15 +322,11 @@ async function dbUpdate(id, patch) {
     if (k) Object.assign(k, patch);
     localSave(a); return;
   }
-  await fetch(`${SB.url}/rest/v1/tickets?id=eq.${encodeURIComponent(id)}`, {
-    method: 'PATCH', headers: { ...sbHeaders(), Prefer: 'return=minimal' }, body: JSON.stringify(patch),
-  });
+  await rpc('admin_update_ticket', { p_secret: sbSecret, p_id: id, p_patch: patch });
 }
 async function dbDelete(id) {
   if (!REMOTE) { localSave(localAll().filter((x) => x.id !== id)); return; }
-  await fetch(`${SB.url}/rest/v1/tickets?id=eq.${encodeURIComponent(id)}`, {
-    method: 'DELETE', headers: sbHeaders(),
-  });
+  await rpc('admin_delete_ticket', { p_secret: sbSecret, p_id: id });
 }
 
 async function sha256(s) {
@@ -338,22 +344,25 @@ async function refresh() {
   TICKETS = await dbList();
   renderList();
 }
+if (REMOTE) {
+  // en modo nube solo hace falta la clave del panel
+  $('loUser').closest('label').style.display = 'none';
+}
 $('loginForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   $('loErr').textContent = '';
   if (REMOTE) {
-    // login contra Supabase Auth (correo + clave del usuario que creaste)
     try {
-      const r = await fetch(`${SB.url}/auth/v1/token?grant_type=password`, {
-        method: 'POST',
-        headers: { apikey: SB.key, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: $('loUser').value.trim(), password: $('loPass').value }),
-      });
-      const j = await r.json();
-      if (!r.ok || !j.access_token) { $('loErr').textContent = 'Correo o clave incorrectos'; return; }
-      sbToken = j.access_token;
-      sessionStorage.setItem('cce-sb-token', sbToken);
-    } catch (_) { $('loErr').textContent = 'No se pudo conectar con la base de datos'; return; }
+      const clave = $('loPass').value.trim();
+      const t = await rpc('admin_tickets', { p_secret: clave });
+      sbSecret = clave;
+      sessionStorage.setItem('cce-sb-secret', sbSecret);
+      TICKETS = t || [];
+      $('loginView').classList.add('hide');
+      $('appView').classList.remove('hide');
+      renderList();
+      return;
+    } catch (_) { $('loErr').textContent = 'Clave incorrecta o sin conexión'; return; }
   } else {
     const ok = $('loUser').value.trim() === USER && (await sha256($('loPass').value)) === PASS_HASH;
     if (!ok) { $('loErr').textContent = 'Usuario o clave incorrectos'; return; }
@@ -363,10 +372,15 @@ $('loginForm').addEventListener('submit', async (e) => {
 });
 $('btnLogout').addEventListener('click', () => {
   sessionStorage.removeItem('cce-admin');
-  sessionStorage.removeItem('cce-sb-token');
+  sessionStorage.removeItem('cce-sb-secret');
   location.reload();
 });
-if (REMOTE ? sbToken : sessionStorage.getItem('cce-admin') === '1') showApp();
+if (REMOTE ? sbSecret : sessionStorage.getItem('cce-admin') === '1') {
+  showApp().catch(() => {
+    sessionStorage.removeItem('cce-sb-secret');
+    location.reload();
+  });
+}
 
 /* ── lista ── */
 let current = null;
