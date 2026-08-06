@@ -604,10 +604,12 @@ if (mosaic) {
   };
 
   mosaic.innerHTML = '';
+  const brazilIdx = POOL.findIndex((p) => typeof p === 'object' && p.v.includes('brazil'));
   for (let t = 0; t < TILES; t++) {
     const tile = document.createElement('div');
     tile.className = 'm-tile';
-    const idx = pickFree();
+    // el video de Brazil abre la sección: siempre en el primer cuadro
+    const idx = t === 0 && brazilIdx >= 0 ? brazilIdx : pickFree();
     showing[t] = idx;
     const layer = makeLayer(idx);
     layer.classList.add('on');
