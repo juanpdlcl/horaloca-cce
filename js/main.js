@@ -27,9 +27,9 @@ const seq = (dir, n) => Array.from({ length: n }, (_, i) => `${T}/${dir}/${Strin
 const THEMES = [
   { id: 'gold',        name: 'Dorado',          imgs: ['assets/img/destacado/dorado-4.jpg', ...seq('dorado', 3)] },
   { id: 'led',         name: 'Disco Ball',      imgs: ['assets/img/destacado/plata-4.jpg', ...seq('espejos', 8)] },
-  { id: 'brasil',      name: 'Brazil plateada', imgs: [...seq('brasil-plata', 4), 'assets/img/destacado/brasil-1.jpg'] },
-  { id: 'brazil',      name: 'Brazil',          imgs: seq('brazil', 7) },
-  { id: 'vegas',       name: 'Viva las Vegas',  imgs: seq('vegas', 3) },
+  { id: 'brasil',      name: 'Brazil plateada', imgs: [...seq('brasil-plata', 3), 'assets/img/destacado/brasil-1.jpg'] },
+  { id: 'brazil',      name: 'Brazil',          imgs: [...seq('brazil', 7), { v: 'assets/video/brazil.mp4' }] },
+  { id: 'vegas',       name: 'Viva las Vegas',  imgs: seq('vegas', 4) },
   { id: 'dominicana',  name: 'Dominicana',      imgs: seq('dominicana', 5) },
   { id: 'neon',        name: 'Neón',            imgs: seq('neon', 4) },
   { id: 'tropical',    name: 'Tropical',        imgs: ['assets/img/ig/tropical-sunset.jpg', ...seq('tropical', 2)] },
@@ -44,7 +44,7 @@ const THEMES = [
   { id: 'hadas',       name: 'Hadas',           imgs: seq('hadas', 1), more: true },
   { id: 'astronauta',  name: 'Astronauta y alien', imgs: seq('astronauta', 2), more: true },
   { id: 'pelota',      name: 'Pelota dominicana', imgs: seq('pelota', 2), more: true },
-  { id: 'cabezones',   name: 'Cabezones',       desc: 'Bad Bunny, Karol G y Daddy Yankee', imgs: [`${T}/cabezones/02.jpg`, 'assets/img/promo/artistas.jpg', `${T}/cabezones/01.jpg`], more: true },
+  { id: 'cabezones',   name: 'Cabezones',       desc: 'Bad Bunny, Karol G y Daddy Yankee', imgs: [`${T}/cabezones/main.jpg`, `${T}/cabezones/02.jpg`, 'assets/img/promo/artistas.jpg', `${T}/cabezones/01.jpg`], more: true },
   { id: 'robot-espejo', name: 'Robot LED espejo', imgs: [`${T}/robot-espejo/02.jpg`, `${T}/robot-espejo/01.jpg`, `${T}/robot-espejo/03.jpg`], more: true },
   { id: 'led-show',    name: 'Led',             imgs: [...seq('led-show', 2), { v: 'assets/video/led-show.mp4' }], more: true },
   { id: 'navidad',     name: 'Navidad',         imgs: seq('navidad', 6), more: true },
@@ -579,6 +579,7 @@ if (mosaic) {
     'assets/img/ig/venetian-2.jpg', 'assets/img/ig/coreografia.jpg', 'assets/img/ig/zancos-color.jpg',
     'assets/img/rojo.jpg', 'assets/img/catrinas.jpg',
     { v: 'assets/video/finale.mp4' }, { v: 'assets/video/rojo.mp4' }, { v: 'assets/video/tambora.mp4' },
+    { v: 'assets/video/brazil.mp4' },
   ];
   const TILES = 6;
   const showing = new Array(TILES).fill(-1);
@@ -645,8 +646,9 @@ const lb = $('lb');
 if (lb && document.querySelector('.feat-cover')) {
   const PACKS = {
     dorado: { name: 'Gold', imgs: ['assets/img/destacado/dorado-4.jpg', 'assets/img/destacado/dorado-2.jpg', 'assets/img/destacado/dorado-3.jpg', 'assets/img/destacado/dorado-1.jpg', 'assets/img/tematicas/dorado/01.jpg', 'assets/img/tematicas/dorado/02.jpg', 'assets/img/tematicas/dorado/03.jpg'] },
-    plata:  { name: 'Disco Ball', imgs: ['assets/img/destacado/plata-4.jpg', 'assets/img/destacado/plata-1.jpg', 'assets/img/destacado/plata-2.jpg', 'assets/img/destacado/plata-3.jpg', 'assets/img/tematicas/espejos/01.jpg', 'assets/img/tematicas/espejos/02.jpg', 'assets/img/tematicas/espejos/03.jpg', 'assets/img/tematicas/espejos/04.jpg', 'assets/img/tematicas/espejos/05.jpg', 'assets/img/tematicas/espejos/06.jpg', 'assets/img/tematicas/espejos/07.jpg', 'assets/img/tematicas/espejos/08.jpg'] },
-    brasil: { name: 'Brasil Blanco con Plateado', imgs: ['assets/img/tematicas/brasil-plata/01.jpg', 'assets/img/tematicas/brasil-plata/02.jpg', 'assets/img/tematicas/brasil-plata/03.jpg', 'assets/img/tematicas/brasil-plata/04.jpg', 'assets/img/destacado/brasil-1.jpg'] },
+    plata:  { name: 'Disco Ball', imgs: ['assets/img/tematicas/espejos/main.jpg', 'assets/img/destacado/plata-4.jpg', 'assets/img/destacado/plata-1.jpg', 'assets/img/destacado/plata-2.jpg', 'assets/img/destacado/plata-3.jpg', 'assets/img/tematicas/espejos/01.jpg', 'assets/img/tematicas/espejos/02.jpg', 'assets/img/tematicas/espejos/03.jpg', 'assets/img/tematicas/espejos/04.jpg', 'assets/img/tematicas/espejos/05.jpg', 'assets/img/tematicas/espejos/06.jpg', 'assets/img/tematicas/espejos/07.jpg', 'assets/img/tematicas/espejos/08.jpg'] },
+    brasil: { name: 'Brasil Blanco con Plateado', imgs: ['assets/img/tematicas/brasil-plata/01.jpg', 'assets/img/tematicas/brasil-plata/02.jpg', 'assets/img/tematicas/brasil-plata/03.jpg', 'assets/img/destacado/brasil-1.jpg'] },
+    cabezones: { name: 'Cabezones', imgs: ['assets/img/tematicas/cabezones/main.jpg', 'assets/img/promo/artistas.jpg', 'assets/img/tematicas/cabezones/01.jpg', 'assets/img/tematicas/cabezones/02.jpg'] },
   };
   let pack = null, idx = 0;
 
@@ -668,6 +670,28 @@ if (lb && document.querySelector('.feat-cover')) {
   }
   document.querySelectorAll('.feat-cover').forEach((b) =>
     b.addEventListener('click', () => lbOpen(b.dataset.pack)));
+
+  /* destacado que se alterna: Disco Ball ↔ Cabezones */
+  const featAlt = $('featAlt');
+  if (featAlt && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const STATES = [
+      { pack: 'plata', title: 'Disco Ball', sub: 'El paquete plateado completo' },
+      { pack: 'cabezones', title: 'Cabezones', sub: 'Bad Bunny, Karol G y Daddy Yankee' },
+    ];
+    const faImgs = featAlt.querySelectorAll('.fa-img');
+    let alt = 0;
+    setInterval(() => {
+      if (document.hidden || featAlt.matches(':hover, :focus') || !lb.hidden) return;
+      alt = 1 - alt;
+      faImgs[alt].classList.add('on');
+      faImgs[1 - alt].classList.remove('on');
+      const s = STATES[alt];
+      featAlt.dataset.pack = s.pack;
+      featAlt.setAttribute('aria-label', `Ver todas las fotos del paquete ${s.title}`);
+      $('faTitle').textContent = s.title;
+      $('faSub').textContent = s.sub;
+    }, 5000);
+  }
   $('lbClose').addEventListener('click', lbClose);
   $('lbPrev').addEventListener('click', () => { idx = (idx - 1 + pack.imgs.length) % pack.imgs.length; lbShow(); });
   $('lbNext').addEventListener('click', () => { idx = (idx + 1) % pack.imgs.length; lbShow(); });
@@ -689,7 +713,7 @@ document.addEventListener('visibilitychange', () => {
 });
 
 /* ─── GALERÍA: pausar los loops fuera de vista ─── */
-document.querySelectorAll('.gallery video').forEach((v) => {
+document.querySelectorAll('.gallery video, .photo-main video').forEach((v) => {
   new IntersectionObserver((entries) => {
     entries.forEach((en) => {
       if (en.isIntersecting) v.play().catch(() => {});
