@@ -366,6 +366,9 @@ h2{
   transition:transform .6s var(--ease);
 }
 .feat:hover .feat-cover img{transform:scale(1.04)}
+/* fotos verticales de estudio: se muestran completas; el fondo negro
+   del estudio se funde con la tarjeta */
+.feat-cover img.feat-fit{object-fit:contain;background:#050508}
 .feat-more{
   position:absolute;right:14px;bottom:14px;
   font-family:var(--font-display);font-size:.78rem;font-weight:500;letter-spacing:.06em;
