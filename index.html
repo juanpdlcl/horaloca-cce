@@ -108,30 +108,26 @@
       <p class="lead reveal d1">Toca cualquier foto y arma tu orden en un minuto.</p>
     </div>
     <div class="feat-grid">
-      <a class="feat reveal" href="cotiza.html" aria-label="Ordenar el paquete Dorado Ball">
-        <div class="feat-photos">
-          <img src="assets/img/destacado/dorado-4.jpg" alt="Paquete Dorado Ball completo" loading="lazy">
-          <img src="assets/img/destacado/dorado-2.jpg" alt="Chicas doradas" loading="lazy">
-          <img src="assets/img/destacado/dorado-3.jpg" alt="Hombre espejo dorado con pantalla" loading="lazy">
-          <img src="assets/img/destacado/dorado-1.jpg" alt="Chica disco dorada" loading="lazy">
-        </div>
+      <div class="feat reveal">
+        <button class="feat-cover" data-pack="dorado" type="button" aria-label="Ver todas las fotos del paquete Gold">
+          <img src="assets/img/destacado/dorado-4.jpg" alt="Paquete Gold" loading="lazy">
+          <span class="feat-more">Ver fotos</span>
+        </button>
         <div class="feat-bar" style="--fc:var(--gold)">
-          <div><h3>Dorado Ball</h3><p>El paquete dorado completo</p></div>
-          <span class="feat-cta">Ordenar</span>
+          <div><h3>Gold</h3><p>El paquete dorado completo</p></div>
+          <a class="feat-cta" href="cotiza.html">Ordenar</a>
         </div>
-      </a>
-      <a class="feat reveal d1" href="cotiza.html" aria-label="Ordenar el paquete Espejos de Led">
-        <div class="feat-photos">
-          <img src="assets/img/destacado/plata-4.jpg" alt="Paquete Espejos de Led completo" loading="lazy">
-          <img src="assets/img/destacado/plata-1.jpg" alt="Mujeres disco plateadas" loading="lazy">
-          <img src="assets/img/destacado/plata-2.jpg" alt="Hombre LED" loading="lazy">
-          <img src="assets/img/destacado/plata-3.jpg" alt="Hombre espejo con pantalla" loading="lazy">
-        </div>
+      </div>
+      <div class="feat reveal d1">
+        <button class="feat-cover" data-pack="plata" type="button" aria-label="Ver todas las fotos del paquete Led Party">
+          <img src="assets/img/destacado/plata-4.jpg" alt="Paquete Led Party" loading="lazy">
+          <span class="feat-more">Ver fotos</span>
+        </button>
         <div class="feat-bar" style="--fc:var(--cyan)">
-          <div><h3>Espejos de Led</h3><p>El paquete plateado completo</p></div>
-          <span class="feat-cta">Ordenar</span>
+          <div><h3>Led Party</h3><p>El paquete plateado completo</p></div>
+          <a class="feat-cta" href="cotiza.html">Ordenar</a>
         </div>
-      </a>
+      </div>
     </div>
   </div>
 </section>
@@ -145,35 +141,7 @@
       <h2 class="reveal">Un universo para cada evento</h2>
       <p class="lead reveal d1">Cada show se ambienta de pies a cabeza: vestuario, utilería, música y personajes. Todo lo que ves es producción propia.</p>
     </div>
-    <div class="theme-grid">
-      <article class="theme-card reveal" style="--tc:var(--gold);--tp:50% 14%">
-        <img src="assets/img/ig/gold-duo.jpg" alt="Temática Shine Gold" loading="lazy">
-        <div class="theme-info"><h3>Shine Gold</h3><p>Brillo total para tu gala</p></div>
-      </article>
-      <article class="theme-card reveal d1" style="--tc:#ff5a3c;--tp:50% 22%">
-        <img src="assets/img/ig/carnaval.jpg" alt="Temática Carnaval Dominicano" loading="lazy">
-        <div class="theme-info"><h3>Carnaval Dominicano</h3><p>Diablos cojuelos y tradición</p></div>
-      </article>
-      <article class="theme-card reveal d2" style="--tc:var(--cyan);--tp:50% 30%">
-        <img src="assets/img/ig/led-tron.jpg" alt="Temática Led Party" loading="lazy">
-        <div class="theme-info"><h3>Led Party</h3><p>Vestuarios iluminados</p></div>
-      </article>
-      <article class="theme-card reveal d3" style="--tc:var(--lime);--tp:50% 30%">
-        <img src="assets/img/ig/tropical-sunset.jpg" alt="Temática Tropical" loading="lazy">
-        <div class="theme-info"><h3>Tropical</h3><p>Colorido, vistoso y vibrante</p></div>
-      </article>
-      <article class="theme-card reveal" style="--tc:#ff1f4b;--tp:50% 35%">
-        <img src="assets/img/rojo.jpg" alt="Temática Rouge Royal" loading="lazy">
-        <div class="theme-info"><h3>Rouge Royal</h3><p>Bienvenidas de gala en rojo</p></div>
-      </article>
-      <article class="theme-card reveal d1" style="--tc:#f0a020;--tp:50% 20%">
-        <img src="assets/img/catrinas.jpg" alt="Temática Catrinas" loading="lazy">
-        <div class="theme-info"><h3>Catrinas</h3><p>México, color y tradición</p></div>
-      </article>
-    </div>
-    <div class="theme-tags reveal">
-      <span>Espejos</span><span>Venezia</span><span>Viva Las Vegas</span><span>Brasil</span><span>Décadas 70 · 80 · 90</span><span>Gitanos</span><span>Hawaii</span><span>Piratas</span><span>Marineros</span><span>Navidad</span><span>Astronautas</span><span>Bad Bunny</span><span>Corporativas</span>
-    </div>
+    <div class="mosaic reveal" id="mosaic" aria-label="Momentos de nuestros shows"><!-- JS --></div>
     <p class="sec-note reveal d1">¿Tienes otra idea? Producimos cualquier temática a la medida de tu evento.</p>
   </div>
 </section>
@@ -290,6 +258,20 @@
 </footer>
 
 
+<!-- Visor de paquetes -->
+<div class="lb" id="lb" hidden>
+  <button class="lb-close" id="lbClose" aria-label="Cerrar">✕</button>
+  <button class="lb-nav lb-prev" id="lbPrev" aria-label="Anterior">‹</button>
+  <img id="lbImg" src="" alt="">
+  <button class="lb-nav lb-next" id="lbNext" aria-label="Siguiente">›</button>
+  <div class="lb-bar">
+    <h3 id="lbName"></h3>
+    <span id="lbDots" class="lb-dots"></span>
+    <a href="cotiza.html" class="btn btn-solid btn-sm">Ordenar este paquete</a>
+  </div>
+</div>
+
+<script src="js/config.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

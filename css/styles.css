@@ -357,12 +357,21 @@ h2{
   transition:transform .35s var(--ease),border-color .3s,box-shadow .35s;
 }
 .feat:hover{transform:translateY(-6px);border-color:var(--line-strong);box-shadow:0 24px 50px rgba(0,0,0,.45)}
-.feat-photos{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:190px;gap:3px}
-.feat-photos img{
-  width:100%;height:100%;object-fit:cover;object-position:50% 25%;display:block;
+.feat-cover{
+  display:block;width:100%;aspect-ratio:16/10;overflow:hidden;position:relative;
+  border:none;padding:0;cursor:pointer;background:var(--bg2);
+}
+.feat-cover img{
+  width:100%;height:100%;object-fit:cover;object-position:center;display:block;
   transition:transform .6s var(--ease);
 }
-.feat:hover .feat-photos img{transform:scale(1.04)}
+.feat:hover .feat-cover img{transform:scale(1.04)}
+.feat-more{
+  position:absolute;right:14px;bottom:14px;
+  font-family:var(--font-display);font-size:.78rem;font-weight:500;letter-spacing:.06em;
+  color:var(--text);background:rgba(11,11,14,.55);backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:8px 16px;
+}
 .feat-bar{
   display:flex;align-items:center;justify-content:space-between;gap:14px;
   padding:16px 20px;border-top:2px solid var(--fc,var(--violet));
@@ -372,6 +381,67 @@ h2{
 .feat-cta{
   flex:0 0 auto;font-family:var(--font-display);font-weight:600;font-size:.85rem;letter-spacing:.04em;
   padding:10px 22px;border-radius:999px;background:var(--text);color:var(--bg);
+}
+
+/* ─────────── MOSAICO VIVO (temáticas) ─────────── */
+.mosaic{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:36px}
+.m-tile{
+  position:relative;border-radius:var(--radius);overflow:hidden;aspect-ratio:3/3.6;
+  background:var(--bg);
+}
+.m-tile::after{
+  content:'';position:absolute;inset:0;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.07);border-radius:var(--radius);pointer-events:none;
+}
+.m-tile .m-layer{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%;
+  opacity:0;transition:opacity .9s ease;
+}
+.m-tile .m-layer.on{opacity:1}
+@media(max-width:900px){
+  .mosaic{grid-template-columns:1fr 1fr;gap:12px}
+  .m-tile{aspect-ratio:3/3.4}
+}
+
+/* ─────────── VISOR DE PAQUETES (lightbox) ─────────── */
+.lb{
+  position:fixed;inset:0;z-index:400;
+  background:rgba(7,7,10,.94);backdrop-filter:blur(10px);
+  display:flex;align-items:center;justify-content:center;
+}
+.lb[hidden]{display:none}
+.lb img{
+  max-width:min(92vw,760px);max-height:74vh;object-fit:contain;
+  border-radius:14px;box-shadow:0 30px 80px rgba(0,0,0,.6);
+}
+.lb-close{
+  position:absolute;top:20px;right:22px;width:44px;height:44px;border-radius:50%;
+  border:1px solid var(--line-strong);background:rgba(11,11,14,.5);color:var(--text);
+  font-size:17px;cursor:pointer;transition:border-color .2s,transform .2s;
+}
+.lb-close:hover{border-color:var(--text);transform:rotate(90deg)}
+.lb-nav{
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:52px;height:52px;border-radius:50%;
+  border:1px solid var(--line-strong);background:rgba(11,11,14,.5);color:var(--text);
+  font-size:28px;line-height:1;cursor:pointer;transition:border-color .2s,background .2s;
+}
+.lb-nav:hover{border-color:var(--text);background:rgba(255,255,255,.08)}
+.lb-prev{left:clamp(10px,4vw,60px)}
+.lb-next{right:clamp(10px,4vw,60px)}
+.lb-bar{
+  position:absolute;left:0;right:0;bottom:0;
+  display:flex;align-items:center;justify-content:center;gap:22px;flex-wrap:wrap;
+  padding:18px 20px 26px;
+  background:linear-gradient(180deg,transparent,rgba(7,7,10,.9));
+}
+.lb-bar h3{font-family:var(--font-display);font-weight:600;font-size:1.1rem;letter-spacing:.04em}
+.lb-dots{display:flex;gap:7px}
+.lb-dots i{width:7px;height:7px;border-radius:50%;background:var(--line-strong);transition:background .2s}
+.lb-dots i.on{background:var(--text)}
+@media(max-width:560px){
+  .lb-nav{width:42px;height:42px;font-size:22px}
+  .lb img{max-height:62vh}
 }
 
 /* ─────────── GALERÍA (videos en loop + fotos, cuadrícula uniforme) ─────────── */
