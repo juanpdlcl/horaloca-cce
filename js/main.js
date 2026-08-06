@@ -67,16 +67,26 @@ if (servGrid) {
   let toastTimer;
   let lastFocus = null;
 
-  servGrid.innerHTML = SERVICES.map((s) => `
+  /* extras (todo lo que no es la Hora Loca temática) */
+  servGrid.innerHTML = SERVICES.filter((s) => !s.themed).map((s) => `
     <button class="serv" data-id="${s.id}" type="button" aria-pressed="false">
       <span class="serv-check"><svg class="icon"><use href="#i-check"/></svg></span>
       <span class="serv-img"><img src="${s.img}" alt="" loading="lazy" style="object-position:${s.pos}"></span>
       <span class="serv-body">
         <h3>${s.name}</h3>
         <p>${s.desc}</p>
-        <span class="serv-state state-off"><svg class="icon"><use href="#i-plus"/></svg> ${s.themed ? 'Elegir temática' : 'Agregar'}</span>
+        <span class="serv-state state-off"><svg class="icon"><use href="#i-plus"/></svg> Agregar</span>
         <span class="serv-state state-on" hidden><svg class="icon"><use href="#i-check"/></svg> Agregado</span>
       </span>
+    </button>
+  `).join('');
+
+  /* temáticas de la Hora Loca, visibles en la página */
+  $('themePick').innerHTML = THEMES.map((t) => `
+    <button class="pk" data-key="hora-loca:${t.id}" type="button" aria-pressed="false">
+      <img src="${t.img}" alt="" loading="lazy">
+      <span class="pk-name">${t.name}</span>
+      <span class="pk-check"><svg class="icon"><use href="#i-check"/></svg></span>
     </button>
   `).join('');
 
@@ -118,6 +128,11 @@ if (servGrid) {
       if (on) {
         stateOn.innerHTML = `<svg class="icon"><use href="#i-check"/></svg> Agregado${mine.length > 1 ? ` ×${mine.length}` : ''}`;
       }
+    });
+    document.querySelectorAll('.pk').forEach((p) => {
+      const on = !!quote[p.dataset.key];
+      p.classList.toggle('on', on);
+      p.setAttribute('aria-pressed', on);
     });
 
     $('quoteHint').innerHTML = keys.length === 0
@@ -161,39 +176,13 @@ if (servGrid) {
     syncUI();
   }
 
-  /* ── selector de temáticas (para Hora Loca) ── */
-  const picker = $('picker');
-  let pickerSid = null;
-  function openPicker(sid) {
-    pickerSid = sid;
-    $('pickerGrid').innerHTML = THEMES.map((t) => {
-      const key = `${sid}:${t.id}`;
-      const on = !!quote[key];
-      return `
-        <button class="pk ${on ? 'on' : ''}" data-theme="${t.id}" type="button">
-          <img src="${t.img}" alt="" loading="lazy">
-          <span class="pk-name">${t.name}</span>
-          <span class="pk-check"><svg class="icon"><use href="#i-check"/></svg></span>
-        </button>`;
-    }).join('');
-    picker.hidden = false;
-    document.body.style.overflow = 'hidden';
-  }
-  function closePicker() {
-    picker.hidden = true;
-    document.body.style.overflow = '';
-    pickerSid = null;
-  }
-  $('pickerGrid').addEventListener('click', (e) => {
+  /* toggle de temáticas (a la vista en la página) */
+  $('themePick').addEventListener('click', (e) => {
     const b = e.target.closest('.pk');
     if (!b) return;
-    const key = `${pickerSid}:${b.dataset.theme}`;
+    const key = b.dataset.key;
     if (quote[key]) removeKey(key); else addKey(key);
-    b.classList.toggle('on', !!quote[key]);
   });
-  $('pickerClose').addEventListener('click', closePicker);
-  $('pickerDone').addEventListener('click', closePicker);
-  picker.addEventListener('click', (e) => { if (e.target === picker) closePicker(); });
 
   /* panel: foco, inert y apertura */
   const background = () => [
@@ -225,7 +214,6 @@ if (servGrid) {
     const card = ev.target.closest('.serv');
     if (card) {
       const s = byId(card.dataset.id);
-      if (s.themed) { openPicker(s.id); return; }
       if (quote[s.id]) removeKey(s.id); else addKey(s.id);
       return;
     }
@@ -266,9 +254,7 @@ if (servGrid) {
   $('cartClose').addEventListener('click', closeCart);
   cartOverlay.addEventListener('click', closeCart);
   document.addEventListener('keydown', (e) => {
-    if (e.key !== 'Escape') return;
-    if (!picker.hidden) { closePicker(); return; }
-    closeCart();
+    if (e.key === 'Escape') closeCart();
   });
 
   /* ordenar: valida, crea el ticket y abre WhatsApp con fotos */
