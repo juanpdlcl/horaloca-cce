@@ -537,6 +537,13 @@ h2{
 .cta-band .lead{max-width:520px}
 
 /* ─────────── PÁGINA COTIZA ─────────── */
+.page-cotiza .nav-logo{gap:6px}
+@media(min-width:901px){
+  /* enlaces perfectamente centrados en el header del cotizador */
+  .page-cotiza .nav-links{
+    position:absolute;left:50%;transform:translateX(-50%);
+  }
+}
 .page-head{
   position:relative;overflow:hidden;
   padding:calc(var(--nav-h) + 34px) 0 6px;
