@@ -222,9 +222,11 @@ if (servGrid) {
     const [sid, tid] = key.split(':');
     return { sid, tid, service: byId(sid), theme: THEMES.find((t) => t.id === tid) || null };
   };
+  /* la temática ES la hora loca: un solo nombre, sin servicio aparte */
   const keyName = (key) => {
     const { service, theme } = parseKey(key);
-    return service.name + (theme ? ` — ${theme.name}` : '');
+    if (!theme) return service.name;
+    return theme.id === 'otra' ? 'Hora Loca (temática por definir)' : `Hora Loca ${theme.name}`;
   };
   const keyImg = (key) => {
     const { service, theme } = parseKey(key);

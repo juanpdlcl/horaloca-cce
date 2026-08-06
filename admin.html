@@ -269,13 +269,42 @@ const PASS_HASH = '9b2b7ba06f656da80ca564aa2cb539e12124d5aa6d93b57bf44ccb7233124
 /* Precios base por elemento: se llenan solos al abrir un ticket nuevo.
    Ajusta estos montos cuando quieras (son editables también en cada cotización). */
 const PRECIOS = {
-  'hora-loca': 14500,
+  'hora-loca': 14500, // base: se usa si la temática no tiene precio propio abajo
   'coreografia': 12000,
   'zanqueros': 6500,
   'percusion': 8500,
   'robot-led': 9500,
   'cabezones': 7500,
   'bailarines': 7000,
+};
+
+/* La temática ES la hora loca: no se cobra "hora loca" aparte.
+   EDITA AQUÍ el precio de cada temática cuando tengas los montos reales. */
+const TEMATICAS = {
+  'gold': 'Dorado', 'led': 'Disco Ball', 'brasil': 'Brazil plateada', 'brazil': 'Brazil',
+  'vegas': 'Viva las Vegas', 'dominicana': 'Dominicana', 'neon': 'Neón', 'tropical': 'Tropical',
+  'gatsby': 'Gatsby', 'alas-led': 'Alas LED', 'carnaval': 'Carnaval Dominicano',
+  'marchantas': 'Marchantas', 'samba': 'Samba', 'vaqueros': 'Vaqueros', 'porristas': 'Porristas',
+  'bienvenida': 'Personajes para bienvenida', 'hadas': 'Hadas', 'astronauta': 'Astronauta y alien',
+  'pelota': 'Pelota dominicana', 'cabezones': 'Cabezones', 'robot-espejo': 'Robot LED espejo',
+  'led-show': 'Led', 'navidad': 'Navidad', 'disco': 'Disco', 'anos-90': 'Años 90',
+  'pilotos': 'Pilotos Formula 1', 'marineros': 'Marineros', 'mimos': 'Mimos',
+  'rouge': 'Rouge Royal', 'catrinas': 'Catrinas', 'venezia': 'Venezia',
+};
+const PRECIOS_TEMATICA = {
+  'gold': 14500, 'led': 14500, 'brasil': 14500, 'brazil': 14500,
+  'vegas': 14500, 'dominicana': 14500, 'neon': 14500, 'tropical': 14500,
+  'gatsby': 14500, 'alas-led': 14500, 'carnaval': 14500, 'marchantas': 14500,
+  'samba': 14500, 'vaqueros': 14500, 'porristas': 14500, 'bienvenida': 14500,
+  'hadas': 14500, 'astronauta': 14500, 'pelota': 14500, 'cabezones': 14500,
+  'robot-espejo': 14500, 'led-show': 14500, 'navidad': 14500, 'disco': 14500,
+  'anos-90': 14500, 'pilotos': 14500, 'marineros': 14500, 'mimos': 14500,
+  'rouge': 14500, 'catrinas': 14500, 'venezia': 14500,
+};
+const precioDe = (id) => {
+  const [sid, tid] = String(id || '').split(':');
+  if (tid && PRECIOS_TEMATICA[tid] != null) return PRECIOS_TEMATICA[tid];
+  return PRECIOS[sid] || 0;
 };
 
 const $ = (id) => document.getElementById(id);
@@ -289,8 +318,10 @@ const esc = (v) => String(v == null ? '' : v).replace(/[&<>"']/g, (c) => ({ '&':
    tickets sin ella; los clientes solo pueden crear. */
 const SB = window.CCE_SUPABASE || {};
 const REMOTE = !!(SB.url && SB.key);
-/* acceso directo por link: admin.html#k=CLAVE guarda la clave en este
-   dispositivo y entra sin formulario. "Salir" la borra. */
+/* Sin login: la clave del panel va integrada y se entra directo.
+   OJO: cualquiera que tenga el link del panel puede ver y editar
+   las cotizaciones (la página no está enlazada desde el sitio). */
+const PANEL_KEY = 'CCE-IaRvRdOMLumAX9tH';
 let hashKey = '';
 try { hashKey = decodeURIComponent(location.hash.slice(1) || ''); } catch (_) { hashKey = ''; }
 if (hashKey.startsWith('k=')) hashKey = hashKey.slice(2);
@@ -298,7 +329,7 @@ if (hashKey) {
   localStorage.setItem('cce-sb-secret', hashKey);
   history.replaceState(null, '', location.pathname + location.search);
 }
-let sbSecret = localStorage.getItem('cce-sb-secret') || sessionStorage.getItem('cce-sb-secret') || null;
+let sbSecret = localStorage.getItem('cce-sb-secret') || sessionStorage.getItem('cce-sb-secret') || PANEL_KEY;
 let TICKETS = [];
 
 const sbHeaders = () => ({
@@ -356,8 +387,9 @@ async function refresh() {
   renderList();
 }
 if (REMOTE) {
-  // en modo nube solo hace falta la clave del panel
+  // en modo nube no hay login: se entra directo con la clave integrada
   $('loUser').closest('label').style.display = 'none';
+  $('btnLogout').style.display = 'none';
 }
 $('loginForm').addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -389,9 +421,14 @@ $('btnLogout').addEventListener('click', () => {
 });
 if (REMOTE ? sbSecret : sessionStorage.getItem('cce-admin') === '1') {
   showApp().catch(() => {
+    // sin conexión o clave guardada inválida: volver al formulario (sin
+    // recargar, para no caer en un bucle con la clave integrada)
     sessionStorage.removeItem('cce-sb-secret');
     localStorage.removeItem('cce-sb-secret');
-    location.reload();
+    sbSecret = null;
+    $('appView').classList.add('hide');
+    $('loginView').classList.remove('hide');
+    $('loErr').textContent = 'Sin conexión con la base de datos. Revisa tu internet y recarga la página.';
   });
 }
 
@@ -440,7 +477,7 @@ function openDoc(id) {
   $('dPlace').textContent = (current.quote && current.quote.place) || current.place || 'Por definir';
   $('dEvDate').textContent = current.date;
   const q = current.quote || {
-    rows: (current.items || []).map((it) => ({ d: it.name, n: it.note || '', q: it.qty, p: PRECIOS[(it.id || '').split(':')[0]] || 0 })),
+    rows: (current.items || []).map((it) => ({ d: it.name, n: it.note || '', q: it.qty, p: precioDe(it.id) })),
     disc: 0,
     terms: $('dTerms').value,
   };
@@ -482,7 +519,11 @@ const NOMBRE_PRECIO = {
   'percusion en vivo': PRECIOS['percusion'], 'percusión en vivo': PRECIOS['percusion'],
   'robot led': PRECIOS['robot-led'], 'cabezones': PRECIOS['cabezones'],
   'bailarines adicionales': PRECIOS['bailarines'], 'bailarines': PRECIOS['bailarines'],
+  'hora loca (temática por definir)': PRECIOS['hora-loca'],
 };
+Object.keys(TEMATICAS).forEach((id) => {
+  NOMBRE_PRECIO[('hora loca ' + TEMATICAS[id]).toLowerCase()] = precioDe('hora-loca:' + id);
+});
 $('dRows').addEventListener('input', (e) => {
   const desc = e.target.closest('.desc');
   if (desc) {
