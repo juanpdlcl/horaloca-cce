@@ -85,6 +85,29 @@ button{font-family:var(--fd);cursor:pointer}
   text-align:center;color:var(--muted);padding:70px 20px;border:1px dashed var(--line2);
   border-radius:16px;line-height:1.9;
 }
+/* barra de búsqueda y filtros */
+.toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.tabs{display:flex;border:1px solid var(--line2);border-radius:999px;padding:3px;gap:2px}
+.tab{
+  border:none;background:transparent;color:var(--muted);cursor:pointer;
+  font-family:var(--fd);font-weight:600;font-size:.78rem;letter-spacing:.05em;
+  padding:7px 16px;border-radius:999px;
+}
+.tab.on{background:var(--text);color:var(--bg)}
+.tab .n{opacity:.65;font-weight:400;margin-left:4px}
+.toolbar input{
+  flex:1;min-width:180px;background:var(--surface);border:1px solid var(--line2);
+  border-radius:999px;padding:9px 16px;color:var(--text);font-size:.88rem;outline:none;
+}
+.toolbar input:focus{border-color:var(--violet)}
+.toolbar input::placeholder{color:#55515f}
+.fchips{display:flex;gap:6px}
+.fchip{
+  font-family:var(--fd);font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  padding:6px 12px;border-radius:999px;border:1px solid var(--line2);
+  background:transparent;color:var(--muted);cursor:pointer;
+}
+.fchip.on{border-color:var(--violet);color:var(--violet)}
 .hint{color:var(--muted);font-size:.78rem;margin-top:18px;line-height:1.7}
 
 /* ── documento de cotización ── */
@@ -196,13 +219,24 @@ table.items td:nth-child(3),table.items td:nth-child(4),table.items td:nth-child
   <div class="wrap">
     <!-- lista -->
     <div id="listView">
-      <div style="display:flex;justify-content:flex-end;gap:10px;margin-bottom:16px">
+      <div class="toolbar">
+        <div class="tabs" id="fTab">
+          <button type="button" class="tab on" data-tab="activas">Activas<span class="n">0</span></button>
+          <button type="button" class="tab" data-tab="historial">Historial<span class="n">0</span></button>
+        </div>
+        <input type="search" id="fQ" placeholder="Buscar por nombre, teléfono, número o elemento…">
+        <div class="fchips" id="fStatus">
+          <button type="button" class="fchip on" data-st="">Todas</button>
+          <button type="button" class="fchip" data-st="nueva">Nuevas</button>
+          <button type="button" class="fchip" data-st="atendida">Atendidas</button>
+        </div>
         <button class="btn btn-ghost btn-sm" id="btnRefresh">Actualizar</button>
         <button class="btn btn-sm" id="btnNew">+ Nueva cotización manual</button>
       </div>
       <div class="tickets" id="tickets"></div>
       <p class="hint">Los tickets se crean automáticamente cuando un cliente arma su selección en la página y le da a
-      “Ordenar mi cotización”. Toca el estado para marcarla como atendida. Abre una para editarla y descargarla en PDF.</p>
+      “Ordenar mi cotización”. Toca el estado para marcarla como atendida. Abre una para editarla y descargarla en PDF.
+      Pasan solas al Historial las atendidas con más de 7 días y cualquier cotización con más de 30 días.</p>
     </div>
 
     <!-- documento -->
@@ -432,10 +466,30 @@ if (REMOTE ? sbSecret : sessionStorage.getItem('cce-admin') === '1') {
   });
 }
 
-/* ── lista ── */
+/* ── lista: búsqueda, filtros e historial ──
+   Historial automático: atendidas con más de 7 días,
+   o cualquier cotización con más de 30 días. */
 let current = null;
+const F = { tab: 'activas', st: '', q: '' };
+const DIA = 86400000;
+const esHistorial = (k) => {
+  const edad = Date.now() - new Date(k.ts).getTime();
+  return (k.status === 'atendida' && edad > 7 * DIA) || edad > 30 * DIA;
+};
 function renderList() {
-  $('tickets').innerHTML = TICKETS.length ? TICKETS.map((k) => `
+  const activas = TICKETS.filter((k) => !esHistorial(k));
+  const historial = TICKETS.filter(esHistorial);
+  document.querySelector('#fTab [data-tab="activas"] .n').textContent = activas.length;
+  document.querySelector('#fTab [data-tab="historial"] .n').textContent = historial.length;
+  let lista = F.tab === 'historial' ? historial : activas;
+  if (F.st) lista = lista.filter((k) => k.status === F.st);
+  if (F.q) {
+    const q = F.q.toLowerCase();
+    lista = lista.filter((k) =>
+      [k.id, k.name, k.phone, k.type, k.place, ...(k.items || []).map((i) => i.name)]
+        .join(' ').toLowerCase().includes(q));
+  }
+  $('tickets').innerHTML = lista.length ? lista.map((k) => `
     <div class="tk">
       <span class="tk-id">#${esc(k.id)}</span>
       <div class="tk-main">
@@ -446,8 +500,25 @@ function renderList() {
       <button class="chip ${esc(k.status)}" data-st="${esc(k.id)}">${esc(k.status)}</button>
       <button class="btn btn-sm" data-open="${esc(k.id)}">Ver cotización</button>
     </div>`).join('')
-    : `<div class="empty">Aún no hay cotizaciones.<br>Cuando un cliente ordene desde la página, aparecerá aquí.</div>`;
+    : `<div class="empty">${TICKETS.length
+        ? 'Ninguna cotización coincide con estos filtros.'
+        : 'Aún no hay cotizaciones.<br>Cuando un cliente ordene desde la página, aparecerá aquí.'}</div>`;
 }
+$('fQ').addEventListener('input', (e) => { F.q = e.target.value.trim(); renderList(); });
+$('fTab').addEventListener('click', (e) => {
+  const b = e.target.closest('.tab');
+  if (!b) return;
+  F.tab = b.dataset.tab;
+  $('fTab').querySelectorAll('.tab').forEach((x) => x.classList.toggle('on', x === b));
+  renderList();
+});
+$('fStatus').addEventListener('click', (e) => {
+  const b = e.target.closest('.fchip');
+  if (!b) return;
+  F.st = b.dataset.st;
+  $('fStatus').querySelectorAll('.fchip').forEach((x) => x.classList.toggle('on', x === b));
+  renderList();
+});
 $('tickets').addEventListener('click', async (e) => {
   const st = e.target.closest('[data-st]');
   if (st) {
