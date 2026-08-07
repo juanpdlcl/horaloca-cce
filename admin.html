@@ -108,6 +108,78 @@ button{font-family:var(--fd);cursor:pointer}
   background:transparent;color:var(--muted);cursor:pointer;
 }
 .fchip.on{border-color:var(--violet);color:var(--violet)}
+
+/* ── agenda / calendario ── */
+.cal-wrap{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:26px}
+.cal-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.cal-title-h{font-family:var(--fd);font-size:1.05rem;font-weight:600;letter-spacing:.04em}
+.cal-sub{color:var(--muted);font-size:.78rem;margin-top:2px}
+.cal-nav{display:flex;align-items:center;gap:8px}
+.cal-nav strong{font-family:var(--fd);min-width:135px;text-align:center;text-transform:capitalize;font-size:.92rem}
+.cal-days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:6px}
+.cal-days span{text-align:center;font-family:var(--fd);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.cal-cell{min-height:88px;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:6px;display:flex;flex-direction:column;gap:4px}
+.cal-cell.fuera{opacity:.35}
+.cal-cell.hoy{border-color:var(--violet)}
+.cal-num{font-family:var(--fd);font-size:.72rem;color:var(--muted)}
+.cal-cell.hoy .cal-num{color:var(--violet);font-weight:700}
+.ev{
+  border:1px solid;border-radius:7px;padding:3px 6px;font-size:.68rem;line-height:1.35;
+  cursor:pointer;background:transparent;text-align:left;color:var(--text);width:100%;
+}
+.ev small{display:block;color:var(--muted);font-size:.62rem}
+.ev-avance{border-color:var(--warn)}
+.ev-pagado{border-color:var(--ok)}
+.ev.choque{border-style:dashed;box-shadow:0 0 0 1px var(--danger) inset}
+.cal-ley{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:.72rem;margin-top:12px;align-items:center}
+.dot{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:5px;vertical-align:-1px}
+.dot-av{background:var(--warn)}.dot-pg{background:var(--ok)}.dot-ch{background:var(--danger)}
+@media(max-width:720px){.cal-cell{min-height:62px}.ev small{display:none}}
+
+/* estado de pago */
+.pay-badge{
+  font-family:var(--fd);font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  padding:5px 10px;border-radius:999px;border:1px solid;
+}
+.pay-badge.avance{color:var(--warn);border-color:var(--warn)}
+.pay-badge.pagado{color:var(--ok);border-color:var(--ok)}
+.pay-box{display:inline-flex;align-items:center;gap:4px;border:1px solid var(--line2);border-radius:999px;padding:4px 6px 4px 14px}
+.pay-lbl{font-family:var(--fd);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-right:4px}
+.pay-box button{
+  font-family:var(--fd);font-size:.7rem;font-weight:600;letter-spacing:.04em;
+  padding:6px 12px;border-radius:999px;border:1px solid transparent;
+  background:transparent;color:var(--muted);cursor:pointer;
+}
+.pay-box button.on[data-pago=""]{border-color:var(--line2);color:var(--text)}
+.pay-box button.on[data-pago="avance"]{border-color:var(--warn);color:var(--warn)}
+.pay-box button.on[data-pago="pagado"]{border-color:var(--ok);color:var(--ok)}
+
+/* modal de agendado */
+.ev-modal{position:fixed;inset:0;z-index:60;background:rgba(6,6,9,.75);backdrop-filter:blur(6px);display:grid;place-items:center;padding:18px}
+.ev-modal[hidden]{display:none}
+.ev-box{width:min(390px,100%);background:var(--surface);border:1px solid var(--line2);border-radius:18px;padding:24px}
+.ev-box h3{font-family:var(--fd);font-weight:600;margin-bottom:4px}
+.ev-box>p{color:var(--muted);font-size:.8rem;margin-bottom:16px}
+.ev-box label{display:block;margin-bottom:12px}
+.ev-box label span{display:block;font-family:var(--fd);font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.ev-box input{width:100%;background:var(--bg);border:1px solid var(--line2);border-radius:10px;padding:10px 12px;color:var(--text);font-size:.95rem;outline:none;color-scheme:dark}
+.ev-box input:focus{border-color:var(--violet)}
+.ev-alerta{border:1px solid var(--warn);border-radius:10px;padding:10px 12px;font-size:.78rem;color:var(--warn);margin-bottom:8px;line-height:1.55}
+.ev-alerta[hidden]{display:none}
+.ev-btns{display:flex;justify-content:flex-end;gap:8px;margin-top:10px}
+
+/* alerta de choque de horarios */
+.choque-alert{
+  position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:70;
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  background:#1b1b22;border:1px solid var(--warn);border-radius:14px;padding:14px 18px;
+  max-width:min(580px,92vw);box-shadow:0 16px 40px rgba(0,0,0,.5);
+}
+.choque-alert[hidden]{display:none}
+.choque-alert strong{font-family:var(--fd);font-size:.85rem;color:var(--warn);display:block}
+.choque-alert p{color:var(--muted);font-size:.78rem;margin-top:2px;line-height:1.5}
+.choque-alert .txt{flex:1;min-width:200px}
 .hint{color:var(--muted);font-size:.78rem;margin-top:18px;line-height:1.7}
 
 /* ── documento de cotización ── */
@@ -219,6 +291,27 @@ table.items td:nth-child(3),table.items td:nth-child(4),table.items td:nth-child
   <div class="wrap">
     <!-- lista -->
     <div id="listView">
+      <div class="cal-wrap" id="calWrap">
+        <div class="cal-head">
+          <div>
+            <h2 class="cal-title-h">Agenda de shows</h2>
+            <p class="cal-sub">Las cotizaciones con 50% pagado o pago completo se agendan aquí solas.</p>
+          </div>
+          <div class="cal-nav">
+            <button class="btn btn-ghost btn-sm" id="calPrev" aria-label="Mes anterior">‹</button>
+            <strong id="calTitle"></strong>
+            <button class="btn btn-ghost btn-sm" id="calNext" aria-label="Mes siguiente">›</button>
+            <button class="btn btn-ghost btn-sm" id="calHoy">Hoy</button>
+          </div>
+        </div>
+        <div class="cal-days"><span>Dom</span><span>Lun</span><span>Mar</span><span>Mié</span><span>Jue</span><span>Vie</span><span>Sáb</span></div>
+        <div class="cal-grid" id="calGrid"></div>
+        <p class="cal-ley">
+          <span><i class="dot dot-av"></i>50% pagado</span>
+          <span><i class="dot dot-pg"></i>Pagado completo</span>
+          <span><i class="dot dot-ch"></i>Horarios cercanos ese día</span>
+        </p>
+      </div>
       <div class="toolbar">
         <div class="tabs" id="fTab">
           <button type="button" class="tab on" data-tab="activas">Activas<span class="n">0</span></button>
@@ -244,6 +337,12 @@ table.items td:nth-child(3),table.items td:nth-child(4),table.items td:nth-child
       <div class="doc-tools">
         <button class="btn btn-sm" id="btnPrint">Descargar PDF</button>
         <button class="btn btn-ghost btn-sm" id="btnSave">Guardar cambios</button>
+        <div class="pay-box" id="payBox">
+          <span class="pay-lbl">Pago</span>
+          <button type="button" data-pago="">Pendiente</button>
+          <button type="button" data-pago="avance">50% pagado</button>
+          <button type="button" data-pago="pagado">Completo</button>
+        </div>
         <span class="sp"></span>
         <button class="btn btn-danger btn-sm" id="btnDelete">Eliminar ticket</button>
       </div>
@@ -290,6 +389,31 @@ table.items td:nth-child(3),table.items td:nth-child(4),table.items td:nth-child
       </div>
     </div>
   </div>
+</div>
+
+<!-- agendar show al marcar un pago -->
+<div class="ev-modal" id="evModal" hidden>
+  <div class="ev-box">
+    <h3 id="evTitle">Agendar el show</h3>
+    <p>Fecha y hora del evento para ponerlo en el calendario.</p>
+    <label><span>Fecha</span><input type="date" id="evFecha"></label>
+    <label><span>Hora</span><input type="time" id="evHora"></label>
+    <div class="ev-alerta" id="evAlerta" hidden></div>
+    <div class="ev-btns">
+      <button class="btn btn-ghost btn-sm" id="evCancel" type="button">Cancelar</button>
+      <button class="btn btn-sm" id="evOk" type="button">Guardar y agendar</button>
+    </div>
+  </div>
+</div>
+
+<!-- alerta de horarios cercanos (no bloquea) -->
+<div class="choque-alert" id="choqueAlert" hidden>
+  <div class="txt">
+    <strong>Horarios cercanos ese día</strong>
+    <p id="choqueMsg"></p>
+  </div>
+  <button class="btn btn-ghost btn-sm" id="choqueVer" type="button">Ver calendario</button>
+  <button class="btn btn-ghost btn-sm" id="choqueOk" type="button">Descartar</button>
 </div>
 
 <script src="js/config.js"></script>
@@ -497,13 +621,162 @@ function renderList() {
         <small>${esc(k.phone)} · ${esc(k.type)} · ${(k.items || []).length} ${(k.items || []).length === 1 ? 'elemento' : 'elementos'}</small>
       </div>
       <div class="tk-meta">${new Date(k.ts).toLocaleString('es-DO', { dateStyle: 'medium', timeStyle: 'short' })}</div>
+      ${(k.quote || {}).pago ? `<span class="pay-badge ${esc(k.quote.pago)}">${k.quote.pago === 'pagado' ? 'Pagado' : '50%'}</span>` : ''}
       <button class="chip ${esc(k.status)}" data-st="${esc(k.id)}">${esc(k.status)}</button>
       <button class="btn btn-sm" data-open="${esc(k.id)}">Ver cotización</button>
     </div>`).join('')
     : `<div class="empty">${TICKETS.length
         ? 'Ninguna cotización coincide con estos filtros.'
         : 'Aún no hay cotizaciones.<br>Cuando un cliente ordene desde la página, aparecerá aquí.'}</div>`;
+  renderCal();
 }
+
+/* ── agenda: pagos y calendario ──
+   El pago vive dentro del jsonb `quote` (pago: ''|'avance'|'pagado';
+   evento: {fecha:'YYYY-MM-DD', hora:'HH:MM'}) — sin tocar el esquema. */
+const qDe = (k) => k.quote || {};
+const agendados = () => TICKETS
+  .filter((k) => ['avance', 'pagado'].includes(qDe(k).pago) && qDe(k).evento && qDe(k).evento.fecha)
+  .map((k) => ({ k, fecha: qDe(k).evento.fecha, hora: qDe(k).evento.hora || '' }));
+const minutos = (hora) => {
+  const [h, m] = String(hora || '').split(':').map(Number);
+  return Number.isFinite(h) ? h * 60 + (m || 0) : null;
+};
+/* dos shows "chocan" si son el mismo día y sus horas quedan a menos de
+   2 horas (o alguna no tiene hora definida): es alerta, nunca bloqueo */
+function choquesDe(fecha, hora, exceptoId) {
+  const mios = minutos(hora);
+  return agendados()
+    .filter((e) => e.fecha === fecha && e.k.id !== exceptoId)
+    .filter((e) => {
+      const m = minutos(e.hora);
+      return mios === null || m === null || Math.abs(m - mios) < 120;
+    });
+}
+const fkey = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+const hora12 = (h) => {
+  if (!h) return 'Sin hora';
+  let [H, M] = h.split(':').map(Number);
+  const ap = H >= 12 ? 'pm' : 'am';
+  H = H % 12 || 12;
+  return `${H}:${String(M || 0).padStart(2, '0')} ${ap}`;
+};
+
+const calRef = new Date(); calRef.setDate(1);
+function renderCal() {
+  const y = calRef.getFullYear(), m = calRef.getMonth();
+  $('calTitle').textContent = calRef.toLocaleDateString('es-DO', { month: 'long', year: 'numeric' });
+  const inicio = new Date(y, m, 1 - new Date(y, m, 1).getDay());
+  const hoyKey = fkey(new Date());
+  const porDia = {};
+  agendados().forEach((e) => { (porDia[e.fecha] = porDia[e.fecha] || []).push(e); });
+  let html = '';
+  for (let i = 0; i < 42; i++) {
+    const d = new Date(inicio); d.setDate(inicio.getDate() + i);
+    const key = fkey(d);
+    const dia = (porDia[key] || []).sort((a, b) => ((a.hora || '99') > (b.hora || '99') ? 1 : -1));
+    html += `<div class="cal-cell${d.getMonth() !== m ? ' fuera' : ''}${key === hoyKey ? ' hoy' : ''}">
+      <span class="cal-num">${d.getDate()}</span>
+      ${dia.map((e) => `
+        <button type="button" class="ev ev-${esc(qDe(e.k).pago)}${choquesDe(e.fecha, e.hora, e.k.id).length ? ' choque' : ''}" data-open="${esc(e.k.id)}" title="${esc(e.k.name)}">
+          ${esc(hora12(e.hora))}<small>${esc((e.k.name || '').split(' ')[0])}</small>
+        </button>`).join('')}
+    </div>`;
+  }
+  $('calGrid').innerHTML = html;
+}
+$('calGrid').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-open]');
+  if (b) openDoc(b.dataset.open);
+});
+$('calPrev').addEventListener('click', () => { calRef.setMonth(calRef.getMonth() - 1); renderCal(); });
+$('calNext').addEventListener('click', () => { calRef.setMonth(calRef.getMonth() + 1); renderCal(); });
+$('calHoy').addEventListener('click', () => { const h = new Date(); calRef.setFullYear(h.getFullYear(), h.getMonth(), 1); renderCal(); });
+
+/* fecha en texto libre ("15 de octubre") → YYYY-MM-DD para el calendario */
+const MES_NUM = { enero: 1, febrero: 2, marzo: 3, abril: 4, mayo: 5, junio: 6, julio: 7, agosto: 8, septiembre: 9, setiembre: 9, octubre: 10, noviembre: 11, diciembre: 12 };
+function parseFecha(txt) {
+  if (!txt) return '';
+  txt = String(txt).toLowerCase().trim();
+  let m = txt.match(/(\d{4})-(\d{2})-(\d{2})/);
+  if (m) return m[0];
+  m = txt.match(/(\d{1,2})\s*(?:de\s+)?([a-zá-ú]+)(?:\s*(?:de[l]?\s*)?(\d{4}))?/);
+  if (m && MES_NUM[m[2]]) {
+    let y = m[3] ? +m[3] : new Date().getFullYear();
+    if (!m[3] && new Date(y, MES_NUM[m[2]] - 1, +m[1]) < new Date(Date.now() - 86400000)) y++;
+    return `${y}-${String(MES_NUM[m[2]]).padStart(2, '0')}-${String(+m[1]).padStart(2, '0')}`;
+  }
+  m = txt.match(/(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{2,4})/);
+  if (m) {
+    let y = +m[3]; if (y < 100) y += 2000;
+    return `${y}-${String(+m[2]).padStart(2, '0')}-${String(+m[1]).padStart(2, '0')}`;
+  }
+  return '';
+}
+
+/* marcar el pago de la cotización abierta → agendar en el calendario */
+let pagoElegido = null;
+function pintaPago() {
+  const p = qDe(current).pago || '';
+  $('payBox').querySelectorAll('button').forEach((b) => b.classList.toggle('on', b.dataset.pago === p));
+}
+function avisoChoques(lista) {
+  return lista.map((e) => `${hora12(e.hora)} — ${e.k.name}`).join(' · ');
+}
+$('payBox').addEventListener('click', async (e) => {
+  const b = e.target.closest('button[data-pago]');
+  if (!b || !current) return;
+  const val = b.dataset.pago;
+  if (!val) { // vuelve a pendiente: sale del calendario
+    const q = { ...qDe(current), pago: '' };
+    current.quote = q;
+    pintaPago(); renderCal();
+    await dbUpdate(current.id, { quote: q });
+    return;
+  }
+  pagoElegido = val;
+  const ev = qDe(current).evento || {};
+  $('evFecha').value = ev.fecha || parseFecha(current.date) || '';
+  $('evHora').value = ev.hora || '';
+  $('evTitle').textContent = val === 'pagado' ? 'Pago completo — agendar el show' : '50% pagado — agendar el show';
+  actualizaAvisoModal();
+  $('evModal').hidden = false;
+  $('evFecha').focus();
+});
+function actualizaAvisoModal() {
+  const ch = $('evFecha').value ? choquesDe($('evFecha').value, $('evHora').value, current ? current.id : null) : [];
+  $('evAlerta').hidden = !ch.length;
+  if (ch.length) $('evAlerta').textContent = `Ese día ya hay ${ch.length === 1 ? 'un show' : ch.length + ' shows'}: ${avisoChoques(ch)}. Pueden convivir si las horas no chocan.`;
+}
+$('evFecha').addEventListener('input', actualizaAvisoModal);
+$('evHora').addEventListener('input', actualizaAvisoModal);
+$('evCancel').addEventListener('click', () => { $('evModal').hidden = true; pagoElegido = null; });
+$('evModal').addEventListener('click', (e) => { if (e.target === $('evModal')) { $('evModal').hidden = true; pagoElegido = null; } });
+$('evOk').addEventListener('click', async () => {
+  if (!current || !pagoElegido) return;
+  const fecha = $('evFecha').value;
+  if (!fecha) { $('evFecha').focus(); return; }
+  const hora = $('evHora').value;
+  const q = { ...qDe(current), pago: pagoElegido, evento: { fecha, hora } };
+  current.quote = q;
+  $('evModal').hidden = true;
+  pintaPago();
+  calRef.setFullYear(+fecha.slice(0, 4), +fecha.slice(5, 7) - 1, 1);
+  renderCal();
+  const ch = choquesDe(fecha, hora, current.id);
+  if (ch.length) {
+    $('choqueMsg').textContent = `El ${new Date(fecha + 'T12:00').toLocaleDateString('es-DO', { dateStyle: 'long' })} también: ${avisoChoques(ch)}. Revisa que las horas no choquen.`;
+    $('choqueAlert').hidden = false;
+  }
+  pagoElegido = null;
+  await dbUpdate(current.id, { quote: q });
+});
+$('choqueOk').addEventListener('click', () => { $('choqueAlert').hidden = true; });
+$('choqueVer').addEventListener('click', () => {
+  $('choqueAlert').hidden = true;
+  backToList();
+  $('calWrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
 $('fQ').addEventListener('input', (e) => { F.q = e.target.value.trim(); renderList(); });
 $('fTab').addEventListener('click', (e) => {
   const b = e.target.closest('.tab');
@@ -555,6 +828,7 @@ function openDoc(id) {
   $('dDisc').value = q.disc;
   $('dTerms').value = q.terms;
   $('dRows').innerHTML = q.rows.map(rowHTML).join('');
+  pintaPago();
   recalc();
 }
 function rowHTML(r) {
@@ -619,6 +893,7 @@ $('btnAddRow').addEventListener('click', () => {
 
 function collectQuote() {
   return {
+    ...(current.quote || {}), // conserva pago y evento agendado
     rows: [...$('dRows').rows].map((tr) => ({
       d: tr.querySelectorAll('.desc')[0].textContent.trim(),
       n: tr.querySelectorAll('.desc')[1].textContent.trim(),
