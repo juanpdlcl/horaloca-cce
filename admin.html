@@ -467,6 +467,7 @@ const precioDe = (id) => {
 
 const $ = (id) => document.getElementById(id);
 const fmt = (n) => 'RD$ ' + (Math.round(n) || 0).toLocaleString('es-DO');
+const TERMS_DEFAULT = 'Cotización válida por 15 días. Se requiere un avance del 50% para reservar la fecha. El balance se completa el día del evento antes del show.';
 /* los datos de tickets vienen del formulario público: siempre escapados antes de innerHTML */
 const esc = (v) => String(v == null ? '' : v).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
@@ -759,17 +760,21 @@ $('evOk').addEventListener('click', async () => {
   const hora = $('evHora').value;
   const q = { ...qDe(current), pago: pagoElegido, evento: { fecha, hora } };
   current.quote = q;
+  /* la fecha de la cotización queda igual que la agendada */
+  const bonita = new Date(fecha + 'T12:00').toLocaleDateString('es-DO', { day: 'numeric', month: 'long', year: 'numeric' });
+  current.date = bonita;
+  $('dEvDate').textContent = bonita;
   $('evModal').hidden = true;
   pintaPago();
   calRef.setFullYear(+fecha.slice(0, 4), +fecha.slice(5, 7) - 1, 1);
   renderCal();
   const ch = choquesDe(fecha, hora, current.id);
   if (ch.length) {
-    $('choqueMsg').textContent = `El ${new Date(fecha + 'T12:00').toLocaleDateString('es-DO', { dateStyle: 'long' })} también: ${avisoChoques(ch)}. Revisa que las horas no choquen.`;
+    $('choqueMsg').textContent = `El ${bonita} también: ${avisoChoques(ch)}. Revisa que las horas no choquen.`;
     $('choqueAlert').hidden = false;
   }
   pagoElegido = null;
-  await dbUpdate(current.id, { quote: q });
+  await dbUpdate(current.id, { date: bonita, quote: q });
 });
 $('choqueOk').addEventListener('click', () => { $('choqueAlert').hidden = true; });
 $('choqueVer').addEventListener('click', () => {
@@ -823,10 +828,10 @@ function openDoc(id) {
   const q = current.quote || {
     rows: (current.items || []).map((it) => ({ d: it.name, n: it.note || '', q: it.qty, p: precioDe(it.id) })),
     disc: 0,
-    terms: $('dTerms').value,
+    terms: TERMS_DEFAULT,
   };
   $('dDisc').value = q.disc;
-  $('dTerms').value = q.terms;
+  $('dTerms').value = q.terms || TERMS_DEFAULT;
   $('dRows').innerHTML = q.rows.map(rowHTML).join('');
   pintaPago();
   recalc();
@@ -915,8 +920,25 @@ function collectClient() {
   };
 }
 async function persistDoc() {
-  const patch = { ...collectClient(), quote: collectQuote() };
+  const cli = collectClient();
+  const patch = { ...cli, quote: collectQuote() };
+  /* si la cotización ya está agendada y cambió la fecha del evento,
+     la agenda se mueve sola (y avisa si el nuevo día tiene choques) */
+  const ev = patch.quote.evento;
+  if (patch.quote.pago && ev && ev.fecha) {
+    const nueva = parseFecha(cli.date);
+    if (nueva && nueva !== ev.fecha) ev.fecha = nueva;
+  }
   Object.assign(current, patch);
+  if (patch.quote.pago && ev && ev.fecha) {
+    calRef.setFullYear(+ev.fecha.slice(0, 4), +ev.fecha.slice(5, 7) - 1, 1);
+    const ch = choquesDe(ev.fecha, ev.hora, current.id);
+    if (ch.length) {
+      $('choqueMsg').textContent = `El ${new Date(ev.fecha + 'T12:00').toLocaleDateString('es-DO', { dateStyle: 'long' })} también: ${avisoChoques(ch)}. Revisa que las horas no choquen.`;
+      $('choqueAlert').hidden = false;
+    }
+  }
+  renderCal();
   await dbUpdate(current.id, patch);
 }
 $('btnSave').addEventListener('click', async () => {
