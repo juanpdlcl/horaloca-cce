@@ -154,6 +154,12 @@ button{font-family:var(--fd);cursor:pointer}
 .pay-box button.on[data-pago=""]{border-color:var(--line2);color:var(--text)}
 .pay-box button.on[data-pago="avance"]{border-color:var(--warn);color:var(--warn)}
 .pay-box button.on[data-pago="pagado"]{border-color:var(--ok);color:var(--ok)}
+.date-box{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line2);border-radius:999px;padding:4px 10px 4px 14px}
+.date-box input{
+  background:var(--bg);border:1px solid var(--line2);border-radius:999px;
+  padding:5px 10px;color:var(--text);font-size:.8rem;outline:none;color-scheme:dark;
+}
+.date-box input:focus{border-color:var(--violet)}
 
 /* modal de agendado */
 .ev-modal{position:fixed;inset:0;z-index:60;background:rgba(6,6,9,.75);backdrop-filter:blur(6px);display:grid;place-items:center;padding:18px}
@@ -342,6 +348,11 @@ table.items td:nth-child(3),table.items td:nth-child(4),table.items td:nth-child
           <button type="button" data-pago="">Pendiente</button>
           <button type="button" data-pago="avance">50% pagado</button>
           <button type="button" data-pago="pagado">Completo</button>
+        </div>
+        <div class="date-box">
+          <span class="pay-lbl">Show</span>
+          <input type="date" id="dFecha" aria-label="Fecha del show">
+          <input type="time" id="dHora" aria-label="Hora del show">
         </div>
         <span class="sp"></span>
         <button class="btn btn-danger btn-sm" id="btnDelete">Eliminar ticket</button>
@@ -720,7 +731,40 @@ let pagoElegido = null;
 function pintaPago() {
   const p = qDe(current).pago || '';
   $('payBox').querySelectorAll('button').forEach((b) => b.classList.toggle('on', b.dataset.pago === p));
+  const ev = qDe(current).evento || {};
+  $('dFecha').value = ev.fecha || parseFecha(current.date) || '';
+  $('dHora').value = ev.hora || '';
 }
+const fechaBonita = (f) => new Date(f + 'T12:00').toLocaleDateString('es-DO', { day: 'numeric', month: 'long', year: 'numeric' });
+
+/* editar fecha/hora del show desde la barra: manda sobre la cotización y la agenda */
+async function cambiaFechaShow() {
+  if (!current) return;
+  const fecha = $('dFecha').value;
+  const hora = $('dHora').value;
+  const q = { ...qDe(current), evento: { fecha, hora } };
+  current.quote = q;
+  const patch = { quote: q };
+  if (fecha) {
+    current.date = fechaBonita(fecha);
+    $('dEvDate').textContent = current.date;
+    patch.date = current.date;
+    calRef.setFullYear(+fecha.slice(0, 4), +fecha.slice(5, 7) - 1, 1);
+  }
+  renderCal();
+  if (q.pago && fecha) {
+    const ch = choquesDe(fecha, hora, current.id);
+    if (ch.length) {
+      $('choqueMsg').textContent = `El ${fechaBonita(fecha)} también: ${avisoChoques(ch)}. Revisa que las horas no choquen.`;
+      $('choqueAlert').hidden = false;
+    } else {
+      $('choqueAlert').hidden = true;
+    }
+  }
+  await dbUpdate(current.id, patch);
+}
+$('dFecha').addEventListener('change', cambiaFechaShow);
+$('dHora').addEventListener('change', cambiaFechaShow);
 function avisoChoques(lista) {
   return lista.map((e) => `${hora12(e.hora)} — ${e.k.name}`).join(' · ');
 }
@@ -761,7 +805,7 @@ $('evOk').addEventListener('click', async () => {
   const q = { ...qDe(current), pago: pagoElegido, evento: { fecha, hora } };
   current.quote = q;
   /* la fecha de la cotización queda igual que la agendada */
-  const bonita = new Date(fecha + 'T12:00').toLocaleDateString('es-DO', { day: 'numeric', month: 'long', year: 'numeric' });
+  const bonita = fechaBonita(fecha);
   current.date = bonita;
   $('dEvDate').textContent = bonita;
   $('evModal').hidden = true;
@@ -925,9 +969,9 @@ async function persistDoc() {
   /* si la cotización ya está agendada y cambió la fecha del evento,
      la agenda se mueve sola (y avisa si el nuevo día tiene choques) */
   const ev = patch.quote.evento;
-  if (patch.quote.pago && ev && ev.fecha) {
+  if (ev && ev.fecha) {
     const nueva = parseFecha(cli.date);
-    if (nueva && nueva !== ev.fecha) ev.fecha = nueva;
+    if (nueva && nueva !== ev.fecha) { ev.fecha = nueva; $('dFecha').value = nueva; }
   }
   Object.assign(current, patch);
   if (patch.quote.pago && ev && ev.fecha) {
