@@ -54,14 +54,23 @@ button{font-family:var(--fd);cursor:pointer}
 
 /* ── app ── */
 .top{
-  position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:14px;
+  position:sticky;top:0;z-index:10;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:14px;
   padding:14px clamp(16px,4vw,40px);background:rgba(11,11,14,.9);backdrop-filter:blur(12px);
   border-bottom:1px solid var(--line);
 }
-.top img{width:34px}
-.top .t{font-family:var(--fd);font-weight:600;letter-spacing:.05em}
+.top-l{display:flex;align-items:center;gap:14px}
+.top-r{display:flex;align-items:center;gap:10px;justify-content:flex-end}
+.top-mark{width:34px}
+.top .t{font-family:var(--fd);font-weight:600;letter-spacing:.05em;text-align:center}
 .top .t small{display:block;font-weight:400;color:var(--muted);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase}
-.top .sp{flex:1}
+.btn-back{background:var(--surface);color:var(--text);border:1px solid var(--line2);padding:11px 22px;font-size:.85rem}
+.btn-back:hover{border-color:var(--violet);color:var(--violet)}
+.btn-back span{font-size:1.05rem;line-height:1}
+@media(max-width:640px){
+  .top{grid-template-columns:auto 1fr auto;gap:10px}
+  .top .t{text-align:left;font-size:.92rem}
+  .top-mark{display:none}
+}
 .wrap{width:min(1080px,94%);margin:34px auto 80px}
 
 /* lista de tickets */
@@ -85,26 +94,35 @@ button{font-family:var(--fd);cursor:pointer}
   text-align:center;color:var(--muted);padding:70px 20px;border:1px dashed var(--line2);
   border-radius:16px;line-height:1.9;
 }
-/* barra de búsqueda y filtros */
-.toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px}
-.tabs{display:flex;border:1px solid var(--line2);border-radius:999px;padding:3px;gap:2px}
+/* encabezado de sección + barra de búsqueda y filtros */
+.sec-bar{
+  display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  margin:0 0 14px;
+}
+.sec-acts{display:flex;gap:10px;flex-wrap:wrap}
+.sec-acts .btn{padding:12px 22px;font-size:.85rem}
+.toolbar{
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px;
+  background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px;
+}
+.tabs{display:flex;border:1px solid var(--line2);border-radius:999px;padding:4px;gap:3px}
 .tab{
   border:none;background:transparent;color:var(--muted);cursor:pointer;
-  font-family:var(--fd);font-weight:600;font-size:.78rem;letter-spacing:.05em;
-  padding:7px 16px;border-radius:999px;
+  font-family:var(--fd);font-weight:600;font-size:.84rem;letter-spacing:.04em;
+  padding:9px 20px;border-radius:999px;
 }
 .tab.on{background:var(--text);color:var(--bg)}
 .tab .n{opacity:.65;font-weight:400;margin-left:4px}
 .toolbar input{
-  flex:1;min-width:180px;background:var(--surface);border:1px solid var(--line2);
-  border-radius:999px;padding:9px 16px;color:var(--text);font-size:.88rem;outline:none;
+  flex:1;min-width:200px;background:var(--bg);border:1px solid var(--line2);
+  border-radius:999px;padding:11px 18px;color:var(--text);font-size:.9rem;outline:none;
 }
 .toolbar input:focus{border-color:var(--violet)}
 .toolbar input::placeholder{color:#55515f}
 .fchips{display:flex;gap:6px}
 .fchip{
-  font-family:var(--fd);font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
-  padding:6px 12px;border-radius:999px;border:1px solid var(--line2);
+  font-family:var(--fd);font-size:.74rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  padding:9px 16px;border-radius:999px;border:1px solid var(--line2);
   background:transparent;color:var(--muted);cursor:pointer;
 }
 .fchip.on{border-color:var(--violet);color:var(--violet)}
@@ -147,8 +165,8 @@ button{font-family:var(--fd);cursor:pointer}
 .pay-box{display:inline-flex;align-items:center;gap:4px;border:1px solid var(--line2);border-radius:999px;padding:4px 6px 4px 14px}
 .pay-lbl{font-family:var(--fd);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-right:4px}
 .pay-box button{
-  font-family:var(--fd);font-size:.7rem;font-weight:600;letter-spacing:.04em;
-  padding:6px 12px;border-radius:999px;border:1px solid transparent;
+  font-family:var(--fd);font-size:.8rem;font-weight:600;letter-spacing:.03em;
+  padding:9px 18px;border-radius:999px;border:1px solid transparent;
   background:transparent;color:var(--muted);cursor:pointer;
 }
 .pay-box button.on[data-pago=""]{border-color:var(--line2);color:var(--text)}
@@ -157,7 +175,7 @@ button{font-family:var(--fd);cursor:pointer}
 .date-box{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line2);border-radius:999px;padding:4px 10px 4px 14px}
 .date-box input{
   background:var(--bg);border:1px solid var(--line2);border-radius:999px;
-  padding:5px 10px;color:var(--text);font-size:.8rem;outline:none;color-scheme:dark;
+  padding:8px 14px;color:var(--text);font-size:.85rem;outline:none;color-scheme:dark;
 }
 .date-box input:focus{border-color:var(--violet)}
 
@@ -189,7 +207,13 @@ button{font-family:var(--fd);cursor:pointer}
 .hint{color:var(--muted);font-size:.78rem;margin-top:18px;line-height:1.7}
 
 /* ── documento de cotización ── */
-.doc-tools{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px;align-items:center}
+.doc-tools{
+  display:flex;flex-direction:column;gap:12px;margin-bottom:20px;
+  background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px 16px;
+}
+.dt-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.dt-actions{border-top:1px solid var(--line);padding-top:12px}
+.dt-actions .btn{padding:13px 26px;font-size:.88rem}
 .doc-tools .sp{flex:1}
 .doc{
   position:relative;background:#fff;color:#17151d;border-radius:6px;overflow:hidden;
@@ -287,11 +311,14 @@ table.items td:nth-child(3),table.items td:nth-child(4),table.items td:nth-child
 <!-- ── APP ── -->
 <div id="appView" class="hide">
   <header class="top">
-    <img src="assets/img/logo-mark-glow.png" alt="">
+    <div class="top-l">
+      <button class="btn btn-back" id="btnBack" style="display:none"><span aria-hidden="true">←</span> Volver</button>
+      <img src="assets/img/logo-mark-glow.png" alt="" class="top-mark">
+    </div>
     <div class="t">Cotizaciones<small>CC Entertainment</small></div>
-    <span class="sp"></span>
-    <button class="btn btn-ghost btn-sm" id="btnBack" style="display:none">← Volver a la lista</button>
-    <button class="btn btn-ghost btn-sm" id="btnLogout">Salir</button>
+    <div class="top-r">
+      <button class="btn btn-ghost btn-sm" id="btnLogout">Salir</button>
+    </div>
   </header>
 
   <div class="wrap">
@@ -318,6 +345,16 @@ table.items td:nth-child(3),table.items td:nth-child(4),table.items td:nth-child
           <span><i class="dot dot-ch"></i>Horarios cercanos ese día</span>
         </p>
       </div>
+      <div class="sec-bar">
+        <div>
+          <h2 class="cal-title-h">Solicitudes de cotización</h2>
+          <p class="cal-sub">Búscalas, fíltralas y ábrelas para armar el presupuesto.</p>
+        </div>
+        <div class="sec-acts">
+          <button class="btn btn-ghost" id="btnRefresh">Actualizar</button>
+          <button class="btn" id="btnNew">+ Nueva cotización</button>
+        </div>
+      </div>
       <div class="toolbar">
         <div class="tabs" id="fTab">
           <button type="button" class="tab on" data-tab="activas">Activas<span class="n">0</span></button>
@@ -329,8 +366,6 @@ table.items td:nth-child(3),table.items td:nth-child(4),table.items td:nth-child
           <button type="button" class="fchip" data-st="nueva">Nuevas</button>
           <button type="button" class="fchip" data-st="atendida">Atendidas</button>
         </div>
-        <button class="btn btn-ghost btn-sm" id="btnRefresh">Actualizar</button>
-        <button class="btn btn-sm" id="btnNew">+ Nueva cotización manual</button>
       </div>
       <div class="tickets" id="tickets"></div>
       <p class="hint">Los tickets se crean automáticamente cuando un cliente arma su selección en la página y le da a
@@ -341,21 +376,25 @@ table.items td:nth-child(3),table.items td:nth-child(4),table.items td:nth-child
     <!-- documento -->
     <div id="docView" class="hide">
       <div class="doc-tools">
-        <button class="btn btn-sm" id="btnPrint">Descargar PDF</button>
-        <button class="btn btn-ghost btn-sm" id="btnSave">Guardar cambios</button>
-        <div class="pay-box" id="payBox">
-          <span class="pay-lbl">Pago</span>
-          <button type="button" data-pago="">Pendiente</button>
-          <button type="button" data-pago="avance">50% pagado</button>
-          <button type="button" data-pago="pagado">Completo</button>
+        <div class="dt-row">
+          <div class="pay-box" id="payBox">
+            <span class="pay-lbl">Pago</span>
+            <button type="button" data-pago="">Pendiente</button>
+            <button type="button" data-pago="avance">50% pagado</button>
+            <button type="button" data-pago="pagado">Completo</button>
+          </div>
+          <div class="date-box">
+            <span class="pay-lbl">Fecha del show</span>
+            <input type="date" id="dFecha" aria-label="Fecha del show">
+            <input type="time" id="dHora" aria-label="Hora del show">
+          </div>
         </div>
-        <div class="date-box">
-          <span class="pay-lbl">Show</span>
-          <input type="date" id="dFecha" aria-label="Fecha del show">
-          <input type="time" id="dHora" aria-label="Hora del show">
+        <div class="dt-row dt-actions">
+          <button class="btn" id="btnSave">Guardar cambios</button>
+          <button class="btn btn-ghost" id="btnPrint">Descargar PDF</button>
+          <span class="sp"></span>
+          <button class="btn btn-danger" id="btnDelete">Eliminar</button>
         </div>
-        <span class="sp"></span>
-        <button class="btn btn-danger btn-sm" id="btnDelete">Eliminar ticket</button>
       </div>
 
       <div class="doc" id="doc">
