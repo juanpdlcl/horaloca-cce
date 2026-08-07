@@ -134,26 +134,71 @@ button{font-family:var(--fd);cursor:pointer}
 .cal-sub{color:var(--muted);font-size:.78rem;margin-top:2px}
 .cal-nav{display:flex;align-items:center;gap:8px}
 .cal-nav strong{font-family:var(--fd);min-width:135px;text-align:center;text-transform:capitalize;font-size:.92rem}
-.cal-days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:6px}
-.cal-days span{text-align:center;font-family:var(--fd);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
-.cal-cell{min-height:88px;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:6px;display:flex;flex-direction:column;gap:4px}
-.cal-cell.fuera{opacity:.35}
-.cal-cell.hoy{border-color:var(--violet)}
-.cal-num{font-family:var(--fd);font-size:.72rem;color:var(--muted)}
-.cal-cell.hoy .cal-num{color:var(--violet);font-weight:700}
-.ev{
-  border:1px solid;border-radius:7px;padding:3px 6px;font-size:.68rem;line-height:1.35;
-  cursor:pointer;background:transparent;text-align:left;color:var(--text);width:100%;
+.cal-days{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-bottom:8px}
+.cal-days span{text-align:center;font-family:var(--fd);font-size:.66rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+.cal-cell{
+  position:relative;min-height:126px;background:var(--bg);border:1px solid var(--line);
+  border-radius:12px;padding:8px 7px;display:flex;flex-direction:column;gap:5px;
+  transition:border-color .2s;
 }
-.ev small{display:block;color:var(--muted);font-size:.62rem}
-.ev-avance{border-color:var(--warn)}
-.ev-pagado{border-color:var(--ok)}
-.ev.choque{border-style:dashed;box-shadow:0 0 0 1px var(--danger) inset}
-.cal-ley{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:.72rem;margin-top:12px;align-items:center}
-.dot{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:5px;vertical-align:-1px}
+.cal-cell.fuera{opacity:.3}
+.cal-cell.hoy{border-color:var(--violet);box-shadow:0 0 0 1px var(--violet) inset}
+.cal-cell.lleno{background:linear-gradient(180deg,rgba(160,107,245,.07),transparent 60%)}
+.cal-top{display:flex;align-items:center;justify-content:space-between;gap:4px;min-height:18px}
+.cal-num{font-family:var(--fd);font-size:.82rem;font-weight:600;color:var(--muted)}
+.cal-cell.hoy .cal-num{color:var(--violet)}
+.cal-cnt{
+  font-family:var(--fd);font-size:.6rem;font-weight:700;letter-spacing:.06em;
+  color:var(--violet);background:rgba(160,107,245,.14);border-radius:999px;padding:2px 7px;
+}
+/* tarjeta de evento */
+.ev{
+  position:relative;display:block;width:100%;text-align:left;cursor:pointer;
+  background:var(--surface);border:1px solid var(--line2);border-left:3px solid var(--fc,var(--violet));
+  border-radius:8px;padding:5px 7px 5px 8px;color:var(--text);
+  transition:transform .15s,border-color .2s;overflow:hidden;
+}
+.ev:hover{transform:translateX(2px);border-color:var(--fc,var(--violet))}
+.ev-h{display:block;font-family:var(--fd);font-size:.7rem;font-weight:700;color:var(--fc,var(--text));letter-spacing:.02em}
+.ev-n{display:block;font-size:.68rem;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ev-t{display:block;font-size:.6rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ev-avance{--fc:var(--warn)}
+.ev-pagado{--fc:var(--ok)}
+.ev.choque::after{
+  content:'';position:absolute;top:5px;right:5px;width:6px;height:6px;border-radius:50%;
+  background:var(--danger);box-shadow:0 0 0 2px rgba(244,63,94,.25);
+}
+.ev-mas{
+  background:transparent;border:1px dashed var(--line2);border-radius:8px;padding:4px;
+  font-family:var(--fd);font-size:.62rem;color:var(--muted);cursor:pointer;width:100%;
+}
+.ev-mas:hover{border-color:var(--violet);color:var(--violet)}
+.cal-ley{display:flex;gap:18px;flex-wrap:wrap;color:var(--muted);font-size:.74rem;margin-top:14px;align-items:center}
+.cal-ley .sp{flex:1}
+.dot{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:6px;vertical-align:-1px}
 .dot-av{background:var(--warn)}.dot-pg{background:var(--ok)}.dot-ch{background:var(--danger)}
-@media(max-width:720px){.cal-cell{min-height:62px}.ev small{display:none}}
+/* detalle del día */
+.day-list{display:flex;flex-direction:column;gap:10px;margin:4px 0 14px}
+.day-row{
+  display:flex;align-items:center;gap:12px;text-align:left;cursor:pointer;
+  background:var(--bg);color:var(--text);border:1px solid var(--line2);
+  border-left:3px solid var(--fc,var(--violet));border-radius:12px;padding:11px 14px;
+  transition:border-color .2s;
+}
+.day-row:hover{border-color:var(--fc,var(--violet))}
+.day-row.avance{--fc:var(--warn)}.day-row.pagado{--fc:var(--ok)}
+.day-h{font-family:var(--fd);font-weight:700;font-size:.9rem;color:var(--fc);min-width:74px}
+.day-info{flex:1;min-width:0}
+.day-info strong{display:block;font-family:var(--fd);font-size:.9rem;color:var(--text)}
+.day-info small{display:block;color:var(--muted);font-size:.75rem;margin-top:2px}
+.day-warn{display:flex;align-items:center;gap:8px;border:1px solid var(--warn);border-radius:10px;padding:9px 12px;color:var(--warn);font-size:.78rem;margin-bottom:12px;line-height:1.5}
+@media(max-width:720px){
+  .cal-cell{min-height:74px;padding:5px 4px;gap:3px}
+  .ev{padding:3px 4px}
+  .ev-n,.ev-t{display:none}
+  .cal-ley{font-size:.68rem;gap:12px}
+}
 
 /* estado de pago */
 .pay-badge{
@@ -343,6 +388,8 @@ table.items td:nth-child(3),table.items td:nth-child(4),table.items td:nth-child
           <span><i class="dot dot-av"></i>50% pagado</span>
           <span><i class="dot dot-pg"></i>Pagado completo</span>
           <span><i class="dot dot-ch"></i>Horarios cercanos ese día</span>
+          <span class="sp"></span>
+          <span id="calResumen"></span>
         </p>
       </div>
       <div class="sec-bar">
@@ -453,6 +500,17 @@ table.items td:nth-child(3),table.items td:nth-child(4),table.items td:nth-child
       <button class="btn btn-ghost btn-sm" id="evCancel" type="button">Cancelar</button>
       <button class="btn btn-sm" id="evOk" type="button">Guardar y agendar</button>
     </div>
+  </div>
+</div>
+
+<!-- detalle de un día con varios shows -->
+<div class="ev-modal" id="dayModal" hidden>
+  <div class="ev-box" style="width:min(520px,100%)">
+    <h3 id="dayTitle">Shows del día</h3>
+    <p id="daySub">Toca uno para abrir su cotización.</p>
+    <div class="day-warn" id="dayWarn" hidden></div>
+    <div class="day-list" id="dayList"></div>
+    <div class="ev-btns"><button class="btn btn-ghost btn-sm" id="dayClose" type="button">Cerrar</button></div>
   </div>
 </div>
 
@@ -721,22 +779,66 @@ function renderCal() {
   const hoyKey = fkey(new Date());
   const porDia = {};
   agendados().forEach((e) => { (porDia[e.fecha] = porDia[e.fecha] || []).push(e); });
-  let html = '';
+  const MAX_VISIBLE = 2; // en un día con más shows, el resto se ve en el detalle
+  let html = '', delMes = 0;
   for (let i = 0; i < 42; i++) {
     const d = new Date(inicio); d.setDate(inicio.getDate() + i);
     const key = fkey(d);
-    const dia = (porDia[key] || []).sort((a, b) => ((a.hora || '99') > (b.hora || '99') ? 1 : -1));
-    html += `<div class="cal-cell${d.getMonth() !== m ? ' fuera' : ''}${key === hoyKey ? ' hoy' : ''}">
-      <span class="cal-num">${d.getDate()}</span>
-      ${dia.map((e) => `
-        <button type="button" class="ev ev-${esc(qDe(e.k).pago)}${choquesDe(e.fecha, e.hora, e.k.id).length ? ' choque' : ''}" data-open="${esc(e.k.id)}" title="${esc(e.k.name)}">
-          ${esc(hora12(e.hora))}<small>${esc((e.k.name || '').split(' ')[0])}</small>
+    const dia = ordenDia(porDia[key] || []);
+    if (d.getMonth() === m) delMes += dia.length;
+    const visibles = dia.length > MAX_VISIBLE + 1 ? dia.slice(0, MAX_VISIBLE) : dia;
+    html += `<div class="cal-cell${d.getMonth() !== m ? ' fuera' : ''}${key === hoyKey ? ' hoy' : ''}${dia.length > 1 ? ' lleno' : ''}">
+      <div class="cal-top">
+        <span class="cal-num">${d.getDate()}</span>
+        ${dia.length > 1 ? `<span class="cal-cnt">${dia.length} shows</span>` : ''}
+      </div>
+      ${visibles.map((e) => `
+        <button type="button" class="ev ev-${esc(qDe(e.k).pago)}${choquesDe(e.fecha, e.hora, e.k.id).length ? ' choque' : ''}" data-open="${esc(e.k.id)}" title="${esc(hora12(e.hora))} · ${esc(e.k.name)}">
+          <span class="ev-h">${esc(hora12(e.hora))}</span>
+          <span class="ev-n">${esc(e.k.name || '')}</span>
+          <span class="ev-t">${esc(tematicaDe(e.k))}</span>
         </button>`).join('')}
+      ${dia.length > visibles.length ? `<button type="button" class="ev-mas" data-day="${key}">+${dia.length - visibles.length} más</button>` : ''}
     </div>`;
   }
   $('calGrid').innerHTML = html;
+  $('calResumen').textContent = delMes ? `${delMes} ${delMes === 1 ? 'show agendado' : 'shows agendados'} este mes` : 'Sin shows agendados este mes';
 }
+const ordenDia = (arr) => [...arr].sort((a, b) => (a.hora || '99:99').localeCompare(b.hora || '99:99'));
+const tematicaDe = (k) => {
+  const it = (k.items || [])[0];
+  const n = (it && it.name) || ((qDe(k).rows || [])[0] || {}).d || '';
+  return n.replace(/^Hora Loca\s*/i, '') || 'Show';
+};
+
+/* detalle de un día: todos sus shows en orden, con aviso de horas cercanas */
+function abreDia(fecha) {
+  const dia = ordenDia(agendados().filter((e) => e.fecha === fecha));
+  if (!dia.length) return;
+  $('dayTitle').textContent = fechaBonita(fecha);
+  $('daySub').textContent = `${dia.length} ${dia.length === 1 ? 'show agendado' : 'shows agendados'} · toca uno para abrir su cotización.`;
+  const cercanos = dia.filter((e) => choquesDe(e.fecha, e.hora, e.k.id).length);
+  $('dayWarn').hidden = !cercanos.length;
+  if (cercanos.length) $('dayWarn').textContent = `Ojo: ${cercanos.map((e) => hora12(e.hora)).join(' y ')} quedan muy cerca entre sí. Revisa que el equipo alcance.`;
+  $('dayList').innerHTML = dia.map((e) => `
+    <button type="button" class="day-row ${esc(qDe(e.k).pago)}" data-open="${esc(e.k.id)}">
+      <span class="day-h">${esc(hora12(e.hora))}</span>
+      <span class="day-info">
+        <strong>${esc(e.k.name || '')}</strong>
+        <small>${esc(tematicaDe(e.k))} · ${esc(e.k.place || 'Lugar por definir')} · ${qDe(e.k).pago === 'pagado' ? 'Pagado' : '50% pagado'}</small>
+      </span>
+    </button>`).join('');
+  $('dayModal').hidden = false;
+}
+$('dayList').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-open]');
+  if (b) { $('dayModal').hidden = true; openDoc(b.dataset.open); }
+});
+$('dayClose').addEventListener('click', () => { $('dayModal').hidden = true; });
+$('dayModal').addEventListener('click', (e) => { if (e.target === $('dayModal')) $('dayModal').hidden = true; });
 $('calGrid').addEventListener('click', (e) => {
+  const mas = e.target.closest('[data-day]');
+  if (mas) { abreDia(mas.dataset.day); return; }
   const b = e.target.closest('[data-open]');
   if (b) openDoc(b.dataset.open);
 });
