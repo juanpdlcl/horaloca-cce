@@ -331,6 +331,34 @@ table.items td:nth-child(3),table.items td:nth-child(4),table.items td:nth-child
   .items input,.doc-notes textarea{background:#fff;border:none;padding:0}
   .items .iq{width:auto}.items .ip{width:auto}
 }
+
+/* ── impresión del calendario ── */
+#printView{display:none}
+@media print{
+  body.print-cal > *:not(#printView){display:none!important}
+  body.print-cal #printView{display:block;color:#17151d}
+}
+#printView{font-family:var(--fb);color:#17151d;background:#fff}
+.pv-mes{page-break-after:always;padding:10px 4px}
+.pv-mes:last-child{page-break-after:auto}
+.pv-head{display:flex;align-items:center;justify-content:space-between;gap:14px;border-bottom:2px solid #17151d;padding-bottom:10px;margin-bottom:14px}
+.pv-head img{width:150px}
+.pv-head h2{font-family:var(--fd);font-size:1.3rem;font-weight:700;letter-spacing:.04em;text-transform:capitalize}
+.pv-head small{display:block;font-family:var(--fd);font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:#6d6a78;margin-top:2px}
+.pv-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:16px}
+.pv-dia{font-family:var(--fd);font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#6d6a78;text-align:center;padding:3px 0}
+.pv-cell{min-height:58px;border:1px solid #dcd9e8;border-radius:6px;padding:4px;font-size:.62rem}
+.pv-cell.fuera{background:#f6f5fa;color:#b9b6c6}
+.pv-cell b{font-family:var(--fd);font-size:.68rem;display:block;margin-bottom:2px}
+.pv-ev{display:block;border-left:3px solid var(--fc,#7a4fd0);padding:1px 0 1px 5px;margin-bottom:2px;line-height:1.3;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.pv-ev.avance{--fc:#c98a00}.pv-ev.pagado{--fc:#1a9a50}
+.pv-lista h3{font-family:var(--fd);font-size:.95rem;font-weight:700;margin:14px 0 8px;letter-spacing:.03em}
+.pv-lista table{width:100%;border-collapse:collapse;font-size:.78rem}
+.pv-lista th{font-family:var(--fd);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:#6d6a78;text-align:left;padding:6px 8px;border-bottom:2px solid #17151d}
+.pv-lista td{padding:7px 8px;border-bottom:1px solid #e6e4ef;vertical-align:top}
+.pv-pago{font-family:var(--fd);font-size:.62rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.pv-pago.avance{color:#c98a00}.pv-pago.pagado{color:#1a9a50}
+.pv-foot{margin-top:14px;font-size:.68rem;color:#6d6a78;display:flex;justify-content:space-between;gap:10px}
 @media(max-width:720px){
   .doc{padding:26px 18px}
   .doc-cli{grid-template-columns:1fr 1fr}
@@ -380,6 +408,7 @@ table.items td:nth-child(3),table.items td:nth-child(4),table.items td:nth-child
             <strong id="calTitle"></strong>
             <button class="btn btn-ghost btn-sm" id="calNext" aria-label="Mes siguiente">›</button>
             <button class="btn btn-ghost btn-sm" id="calHoy">Hoy</button>
+            <button class="btn btn-sm" id="btnPrintCal">Imprimir calendario</button>
           </div>
         </div>
         <div class="cal-days"><span>Dom</span><span>Lun</span><span>Mar</span><span>Mié</span><span>Jue</span><span>Vie</span><span>Sáb</span></div>
@@ -503,6 +532,21 @@ table.items td:nth-child(3),table.items td:nth-child(4),table.items td:nth-child
   </div>
 </div>
 
+<!-- imprimir calendario: rango de meses -->
+<div class="ev-modal" id="printModal" hidden>
+  <div class="ev-box">
+    <h3>Imprimir calendario</h3>
+    <p>Se imprime cada mes con su calendario y la lista de shows agendados.</p>
+    <label><span>Desde</span><input type="month" id="pvDesde"></label>
+    <label><span>Hasta</span><input type="month" id="pvHasta"></label>
+    <div class="ev-btns">
+      <button class="btn btn-ghost btn-sm" id="pvCancel" type="button">Cancelar</button>
+      <button class="btn btn-sm" id="pvOk" type="button">Imprimir</button>
+    </div>
+  </div>
+</div>
+<div id="printView"></div>
+
 <!-- detalle de un día con varios shows -->
 <div class="ev-modal" id="dayModal" hidden>
   <div class="ev-box" style="width:min(520px,100%)">
@@ -550,7 +594,7 @@ const TEMATICAS = {
   'gold': 'Dorado', 'led': 'Disco Ball', 'brasil': 'Brazil plateada', 'brazil': 'Brazil',
   'vegas': 'Viva las Vegas', 'dominicana': 'Dominicana', 'neon': 'Neón', 'tropical': 'Tropical',
   'gatsby': 'Gatsby', 'alas-led': 'Alas LED', 'carnaval': 'Carnaval Dominicano',
-  'marchantas': 'Marchantas', 'samba': 'Samba', 'vaqueros': 'Vaqueros', 'porristas': 'Porristas',
+  'marchantas': 'Marchantas', 'samba': 'Samba', 'africa': 'África', 'vaqueros': 'Vaqueros', 'porristas': 'Porristas',
   'bienvenida': 'Personajes para bienvenida', 'hadas': 'Hadas', 'astronauta': 'Astronauta y alien',
   'pelota': 'Pelota dominicana', 'cabezones': 'Cabezones', 'robot-espejo': 'Robot LED espejo',
   'led-show': 'Led', 'navidad': 'Navidad', 'disco': 'Disco', 'anos-90': 'Años 90',
@@ -561,7 +605,7 @@ const PRECIOS_TEMATICA = {
   'gold': 14500, 'led': 14500, 'brasil': 14500, 'brazil': 14500,
   'vegas': 14500, 'dominicana': 14500, 'neon': 14500, 'tropical': 14500,
   'gatsby': 14500, 'alas-led': 14500, 'carnaval': 14500, 'marchantas': 14500,
-  'samba': 14500, 'vaqueros': 14500, 'porristas': 14500, 'bienvenida': 14500,
+  'samba': 14500, 'africa': 14500, 'vaqueros': 14500, 'porristas': 14500, 'bienvenida': 14500,
   'hadas': 14500, 'astronauta': 14500, 'pelota': 14500, 'cabezones': 14500,
   'robot-espejo': 14500, 'led-show': 14500, 'navidad': 14500, 'disco': 14500,
   'anos-90': 14500, 'pilotos': 14500, 'marineros': 14500, 'mimos': 14500,
@@ -845,6 +889,80 @@ $('calGrid').addEventListener('click', (e) => {
 $('calPrev').addEventListener('click', () => { calRef.setMonth(calRef.getMonth() - 1); renderCal(); });
 $('calNext').addEventListener('click', () => { calRef.setMonth(calRef.getMonth() + 1); renderCal(); });
 $('calHoy').addEventListener('click', () => { const h = new Date(); calRef.setFullYear(h.getFullYear(), h.getMonth(), 1); renderCal(); });
+
+/* ── imprimir calendario: cada mes del rango con su grilla y su lista ── */
+const DIAS_CORTOS = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+function mesHTML(y, m) {
+  const ref = new Date(y, m, 1);
+  const titulo = ref.toLocaleDateString('es-DO', { month: 'long', year: 'numeric' });
+  const inicio = new Date(y, m, 1 - ref.getDay());
+  const evs = ordenDia(agendados().filter((e) => +e.fecha.slice(0, 4) === y && +e.fecha.slice(5, 7) === m + 1))
+    .sort((a, b) => a.fecha.localeCompare(b.fecha) || (a.hora || '99').localeCompare(b.hora || '99'));
+  const porDia = {};
+  evs.forEach((e) => { (porDia[e.fecha] = porDia[e.fecha] || []).push(e); });
+  let celdas = '';
+  for (let i = 0; i < 42; i++) {
+    const d = new Date(inicio); d.setDate(inicio.getDate() + i);
+    const dia = porDia[fkey(d)] || [];
+    celdas += `<div class="pv-cell${d.getMonth() !== m ? ' fuera' : ''}">
+      <b>${d.getDate()}</b>
+      ${dia.map((e) => `<span class="pv-ev ${esc(qDe(e.k).pago)}">${esc(hora12(e.hora))} · ${esc((e.k.name || '').split(' ')[0])}</span>`).join('')}
+    </div>`;
+  }
+  const filas = evs.map((e) => `<tr>
+    <td>${new Date(e.fecha + 'T12:00').toLocaleDateString('es-DO', { weekday: 'short', day: 'numeric' })}</td>
+    <td>${esc(hora12(e.hora))}</td>
+    <td><b>${esc(e.k.name || '')}</b></td>
+    <td>${esc(tematicaDe(e.k))}</td>
+    <td>${esc(e.k.place || 'Por definir')}</td>
+    <td>${esc(e.k.phone || '')}</td>
+    <td class="pv-pago ${esc(qDe(e.k).pago)}">${qDe(e.k).pago === 'pagado' ? 'Pagado' : '50%'}</td>
+  </tr>`).join('');
+  return `<section class="pv-mes">
+    <div class="pv-head">
+      <img src="assets/img/logo-full-light.png" alt="CC Entertainment">
+      <div style="text-align:right"><h2>${esc(titulo)}</h2><small>Agenda de shows</small></div>
+    </div>
+    <div class="pv-grid">
+      ${DIAS_CORTOS.map((d) => `<span class="pv-dia">${d}</span>`).join('')}
+      ${celdas}
+    </div>
+    <div class="pv-lista">
+      <h3>${evs.length ? `${evs.length} ${evs.length === 1 ? 'show agendado' : 'shows agendados'}` : 'Sin shows agendados este mes'}</h3>
+      ${evs.length ? `<table>
+        <thead><tr><th>Día</th><th>Hora</th><th>Cliente</th><th>Temática</th><th>Lugar</th><th>WhatsApp</th><th>Pago</th></tr></thead>
+        <tbody>${filas}</tbody>
+      </table>` : ''}
+    </div>
+    <div class="pv-foot"><span>CC Entertainment · (829) 343-5460 · @horaloca_cce</span><span>Impreso el ${new Date().toLocaleDateString('es-DO', { dateStyle: 'long' })}</span></div>
+  </section>`;
+}
+$('btnPrintCal').addEventListener('click', () => {
+  const ym = `${calRef.getFullYear()}-${String(calRef.getMonth() + 1).padStart(2, '0')}`;
+  $('pvDesde').value = ym;
+  $('pvHasta').value = ym;
+  $('printModal').hidden = false;
+});
+$('pvCancel').addEventListener('click', () => { $('printModal').hidden = true; });
+$('printModal').addEventListener('click', (e) => { if (e.target === $('printModal')) $('printModal').hidden = true; });
+$('pvOk').addEventListener('click', () => {
+  const de = $('pvDesde').value, ha = $('pvHasta').value;
+  if (!de) return;
+  let [y, m] = de.split('-').map(Number); m--;
+  let [yF, mF] = (ha && ha >= de ? ha : de).split('-').map(Number); mF--;
+  let html = '', tope = 0;
+  while ((y < yF || (y === yF && m <= mF)) && tope < 12) {
+    html += mesHTML(y, m);
+    m++; if (m > 11) { m = 0; y++; }
+    tope++;
+  }
+  $('printView').innerHTML = html;
+  $('printModal').hidden = true;
+  document.body.classList.add('print-cal');
+  const limpia = () => { document.body.classList.remove('print-cal'); window.removeEventListener('afterprint', limpia); };
+  window.addEventListener('afterprint', limpia);
+  window.print();
+});
 
 /* fecha en texto libre ("15 de octubre") → YYYY-MM-DD para el calendario */
 const MES_NUM = { enero: 1, febrero: 2, marzo: 3, abril: 4, mayo: 5, junio: 6, julio: 7, agosto: 8, septiembre: 9, setiembre: 9, octubre: 10, noviembre: 11, diciembre: 12 };
