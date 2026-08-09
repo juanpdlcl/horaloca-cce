@@ -35,7 +35,7 @@ const THEMES = [
   { id: 'tropical',    name: 'Tropical',        imgs: ['assets/img/ig/tropical-sunset.jpg', ...seq('tropical', 2)] },
   { id: 'gatsby',      name: 'Gatsby',          imgs: seq('gatsby', 6) },
   { id: 'alas-led',    name: 'Alas LED',        imgs: seq('alas-led', 4) },
-  { id: 'carnaval',    name: 'Carnaval Dominicano', desc: 'Con sus diablos cojuelos', imgs: ['assets/img/ig/carnaval.jpg', `${T}/carnaval/01.jpg`], more: true },
+  { id: 'carnaval',    name: 'Carnaval Dominicano', desc: 'Con diablos cojuelos y lechones', imgs: ['assets/img/ig/carnaval.jpg', `${T}/carnaval/01.jpg`], more: true },
   { id: 'marchantas',  name: 'Marchantas',      imgs: seq('marchantas', 3), more: true },
   { id: 'samba',       name: 'Samba',           imgs: seq('samba', 1), more: true },
   { id: 'africa',      name: 'África',          imgs: seq('africa', 1), more: true },
