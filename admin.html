@@ -591,26 +591,22 @@ const PRECIOS = {
 /* La temática ES la hora loca: no se cobra "hora loca" aparte.
    EDITA AQUÍ el precio de cada temática cuando tengas los montos reales. */
 const TEMATICAS = {
-  'gold': 'Dorado', 'led': 'Disco Ball', 'brasil': 'Brazil plateada', 'brazil': 'Brazil',
+  'gold': 'Dorado', 'shine-gold': 'Shine Gold', 'led': 'Disco Ball', 'brasil': 'Brazil plateada', 'brazil': 'Brazil',
   'vegas': 'Viva las Vegas', 'dominicana': 'Dominicana', 'neon': 'Neón', 'tropical': 'Tropical',
   'gatsby': 'Gatsby', 'alas-led': 'Alas LED', 'carnaval': 'Carnaval Dominicano',
-  'marchantas': 'Marchantas', 'samba': 'Samba', 'africa': 'África', 'vaqueros': 'Vaqueros', 'porristas': 'Porristas',
-  'bienvenida': 'Personajes para bienvenida', 'hadas': 'Hadas', 'astronauta': 'Astronauta y alien',
+  'marchantas': 'Marchantas', 'samba': 'Samba', 'africa': 'África', 'tropical-cuba': 'Tropical Cuba',
+  'playa': 'Playa', 'hawaii': 'Hawaii', 'vaqueros': 'Vaqueros', 'porristas': 'Porristas',
+  'ingenieros': 'Ingenieros', 'cocineros-show': 'Cocineros',
+  'bienvenida': 'Personajes para bienvenida', 'corazon': 'Personaje de corazón',
+  'personaje-playa': 'Personaje de playa', 'hadas': 'Hadas', 'astronauta': 'Astronauta y alien',
   'pelota': 'Pelota dominicana', 'cabezones': 'Cabezones', 'robot-espejo': 'Robot LED espejo',
-  'led-show': 'Led', 'navidad': 'Navidad', 'disco': 'Disco', 'anos-90': 'Años 90',
+  'led-show': 'Led', 'neon-2000': 'Neon 2000', 'navidad': 'Navidad', 'blanca-navidad': 'Blanca Navidad',
+  'disco': 'Disco', 'anos-80': 'Años 80', 'anos-90': 'Años 90', 'brigeston': 'Brigeston',
   'pilotos': 'Pilotos Formula 1', 'marineros': 'Marineros', 'mimos': 'Mimos',
   'rouge': 'Rouge Royal', 'catrinas': 'Catrinas', 'venezia': 'Venezia',
 };
-const PRECIOS_TEMATICA = {
-  'gold': 14500, 'led': 14500, 'brasil': 14500, 'brazil': 14500,
-  'vegas': 14500, 'dominicana': 14500, 'neon': 14500, 'tropical': 14500,
-  'gatsby': 14500, 'alas-led': 14500, 'carnaval': 14500, 'marchantas': 14500,
-  'samba': 14500, 'africa': 14500, 'vaqueros': 14500, 'porristas': 14500, 'bienvenida': 14500,
-  'hadas': 14500, 'astronauta': 14500, 'pelota': 14500, 'cabezones': 14500,
-  'robot-espejo': 14500, 'led-show': 14500, 'navidad': 14500, 'disco': 14500,
-  'anos-90': 14500, 'pilotos': 14500, 'marineros': 14500, 'mimos': 14500,
-  'rouge': 14500, 'catrinas': 14500, 'venezia': 14500,
-};
+const PRECIOS_TEMATICA = {};
+Object.keys(TEMATICAS).forEach((id) => { PRECIOS_TEMATICA[id] = 14500; }); // EDITA AQUÍ precios por temática
 const precioDe = (id) => {
   const [sid, tid] = String(id || '').split(':');
   if (tid && PRECIOS_TEMATICA[tid] != null) return PRECIOS_TEMATICA[tid];
