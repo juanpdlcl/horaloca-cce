@@ -882,10 +882,12 @@ h2{
 #tvAdd{white-space:nowrap}
 #tvAdd.quitar{background:transparent;color:var(--text);border:1px solid var(--line-strong)}
 @media(max-width:640px){
-  .tv-stage{padding:52px 10px 8px}
-  .tv-nav{top:auto;bottom:96px}
-  .tv-bar{padding-bottom:16px}
-  #tvAdd{flex:1}
+  .tv-nav{display:none} /* en el teléfono se pasa con swipe */
+  .tv-stage{padding:56px 12px 8px}
+  .tv-bar{flex-direction:column;align-items:stretch;gap:12px;padding-bottom:18px}
+  .tv-info{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .tv-info h3{font-size:1.05rem}
+  #tvAdd{width:100%}
 }
 
 /* ─────────── TOAST ─────────── */
@@ -959,4 +961,33 @@ h2{
   *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
   html{scroll-behavior:auto}
   .reveal{opacity:1;transform:none}
+}
+
+/* ─────────── PULIDO MÓVIL: sin choques de textos ni botones ─────────── */
+@media(max-width:640px){
+  /* visor del index: swipe en vez de flechas */
+  .lb-nav{display:none}
+  .lb-bar{flex-wrap:wrap;gap:10px;justify-content:center;text-align:center}
+  .lb-bar .btn{width:100%}
+  /* botones de catálogo a lo ancho, sin montarse */
+  .cat-links{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .cat-links .btn{width:100%;justify-content:center;padding:11px 8px;font-size:.78rem}
+  /* pasos y barra de cotización apilados */
+  .steps-line{gap:8px 16px;font-size:.8rem}
+  .quote-bar{flex-direction:column;align-items:stretch;gap:12px;text-align:center}
+  .quote-bar .btn{width:100%}
+  .themes-more-wrap .btn{width:100%}
+  /* barra de los destacados: el botón Ordenar no choca con títulos largos */
+  .feat-bar{flex-wrap:wrap}
+  .feat-bar .feat-cta{flex:1 1 100%;text-align:center}
+  /* botón flotante cómodo para el pulgar */
+  .sel-float{width:calc(100% - 28px);justify-content:center;bottom:14px;padding:15px 18px}
+  /* drawer: botón y campos con aire */
+  .cart-fields{grid-template-columns:1fr}
+  .cart-fields .chips button{padding:9px 13px}
+}
+@media(max-width:400px){
+  .page-head h1{font-size:1.7rem}
+  .hl-head h2{font-size:1.35rem}
+  .steps-line span{font-size:.76rem}
 }

@@ -74,6 +74,20 @@ const THEMES = [
 
 const byId = (id) => SERVICES.find((s) => s.id === id);
 const $ = (id) => document.getElementById(id);
+/* swipe con el dedo para pasar fotos en los visores (teléfono) */
+function conSwipe(el, siguiente, anterior) {
+  let x0 = null, y0 = null;
+  el.addEventListener('touchstart', (e) => {
+    x0 = e.touches[0].clientX; y0 = e.touches[0].clientY;
+  }, { passive: true });
+  el.addEventListener('touchend', (e) => {
+    if (x0 === null) return;
+    const dx = e.changedTouches[0].clientX - x0;
+    const dy = e.changedTouches[0].clientY - y0;
+    x0 = null;
+    if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.5) (dx < 0 ? siguiente : anterior)();
+  }, { passive: true });
+}
 /* miniatura ligera (t-*.jpg) para tarjetas y mosaico; el archivo completo
    queda para visores, destacados y links de WhatsApp */
 const thumb = (p) => typeof p === 'string' ? p.replace(/([^/]+)\.(jpg|png)$/i, 't-$1.jpg') : p;
@@ -388,6 +402,7 @@ if (servGrid) {
     if (e.key === 'ArrowLeft') $('tvPrev').click();
     if (e.key === 'ArrowRight') $('tvNext').click();
   });
+  conSwipe(tv, () => $('tvNext').click(), () => $('tvPrev').click());
 
   /* panel: foco, inert y apertura */
   const background = () => [
@@ -795,6 +810,7 @@ if (lb && document.querySelector('.feat-cover')) {
   $('lbPrev').addEventListener('click', () => { idx = (idx - 1 + pack.imgs.length) % pack.imgs.length; lbShow(); });
   $('lbNext').addEventListener('click', () => { idx = (idx + 1) % pack.imgs.length; lbShow(); });
   lb.addEventListener('click', (e) => { if (e.target === lb) lbClose(); });
+  conSwipe(lb, () => $('lbNext').click(), () => $('lbPrev').click());
   document.addEventListener('keydown', (e) => {
     if (lb.hidden) return;
     if (e.key === 'Escape') lbClose();
