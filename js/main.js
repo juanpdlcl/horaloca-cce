@@ -470,7 +470,7 @@ if (servGrid) {
     const lines = items.map((it, i) => [
       `${i + 1}) ${it.name}${it.qty > 1 ? ` ×${it.qty}` : ''}`,
       ...(it.note ? [`   Detalle: ${it.note}`] : []),
-      `   Foto: ${new URL(it.img, location.href).href}`,
+      `   Foto: ${new URL(it.img, document.baseURI).href}`,
     ].join('\n'));
     const msg = [
       `*COTIZACIÓN #${ticket.id}* — CC Entertainment`,
