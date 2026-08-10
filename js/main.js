@@ -74,6 +74,9 @@ const THEMES = [
 
 const byId = (id) => SERVICES.find((s) => s.id === id);
 const $ = (id) => document.getElementById(id);
+/* miniatura ligera (t-*.jpg) para tarjetas y mosaico; el archivo completo
+   queda para visores, destacados y links de WhatsApp */
+const thumb = (p) => typeof p === 'string' ? p.replace(/([^/]+)\.(jpg|png)$/i, 't-$1.jpg') : p;
 
 /* ─── PRELOADER (solo index) ─── */
 if ($('preloader')) {
@@ -118,7 +121,7 @@ if (servGrid) {
   servGrid.innerHTML = SERVICES.filter((s) => !s.themed).map((s) => `
     <button class="serv" data-id="${s.id}" type="button" aria-pressed="false">
       <span class="serv-check"><svg class="icon"><use href="#i-check"/></svg></span>
-      <span class="serv-img"><img src="${s.img}" alt="" loading="lazy" style="object-position:${s.pos}"></span>
+      <span class="serv-img"><img src="${thumb(s.img)}" alt="" loading="lazy" style="object-position:${s.pos}"></span>
       <span class="serv-body">
         <h3>${s.name}</h3>
         <p>${s.desc}</p>
@@ -137,7 +140,7 @@ if (servGrid) {
   };
   $('themePick').innerHTML = THEMES.map((t) => `
     <button class="pk${t.more ? ' pk-hid' : ''}" data-key="hora-loca:${t.id}" type="button" aria-pressed="false">
-      <img class="pk-img on" src="${t.imgs[0]}" alt="" loading="lazy">
+      <img class="pk-img on" src="${thumb(t.imgs[0])}" alt="" loading="lazy">
       ${t.imgs.length > 1 ? `<span class="pk-count" aria-hidden="true">${countLabel(t)}</span>` : ''}
       <span class="pk-name">${t.name}${t.desc ? `<small>${t.desc}</small>` : ''}</span>
       <span class="pk-check"><svg class="icon"><use href="#i-check"/></svg></span>
@@ -224,7 +227,7 @@ if (servGrid) {
           layer.alt = '';
           layer.onerror = done;
           layer.onload = show;
-          layer.src = item;
+          layer.src = thumb(item);
         }
       });
     }, 350);
@@ -292,7 +295,7 @@ if (servGrid) {
     cartItems.innerHTML = keys.map((key) => `
       <div class="cart-item">
         <div class="cart-item-row">
-          <img class="cart-item-thumb" src="${keyImg(key)}" alt="">
+          <img class="cart-item-thumb" src="${thumb(keyImg(key))}" alt="">
           <div class="cart-item-info"><strong>${keyName(key)}</strong></div>
           <div class="cart-qty">
             <button data-dec="${key}" aria-label="Quitar uno"><svg class="icon"><use href="#i-minus"/></svg></button>
@@ -610,7 +613,7 @@ if (mosaic) {
       el.play().catch(() => {});
     } else {
       el = document.createElement('img');
-      el.src = item; el.alt = '';
+      el.src = thumb(item); el.alt = '';
     }
     el.className = 'm-layer';
     return el;
