@@ -132,16 +132,9 @@ if (servGrid) {
   `).join('');
 
   /* temáticas de la Hora Loca, visibles en la página */
-  const countLabel = (t) => {
-    const vids = t.imgs.filter((x) => typeof x === 'object').length;
-    const fotos = t.imgs.length - vids;
-    if (!vids) return `${fotos} fotos`;
-    return fotos > 1 ? `${fotos} fotos + video` : 'Fotos + video';
-  };
   $('themePick').innerHTML = THEMES.map((t) => `
     <button class="pk${t.more ? ' pk-hid' : ''}" data-key="hora-loca:${t.id}" type="button" aria-pressed="false">
       <img class="pk-img on" src="${thumb(t.imgs[0])}" alt="" loading="lazy">
-      ${t.imgs.length > 1 ? `<span class="pk-count" aria-hidden="true">${countLabel(t)}</span>` : ''}
       <span class="pk-name">${t.name}${t.desc ? `<small>${t.desc}</small>` : ''}</span>
       <span class="pk-check"><svg class="icon"><use href="#i-check"/></svg></span>
     </button>
@@ -199,7 +192,7 @@ if (servGrid) {
         layer.className = 'pk-img';
         const done = () => { r.busy = false; r.next = performance.now() + (isVideo ? STEP_VIDEO : STEP); };
         const show = () => {
-          r.card.insertBefore(layer, r.card.querySelector('.pk-count, .pk-name'));
+          r.card.insertBefore(layer, r.card.querySelector('.pk-name'));
           requestAnimationFrame(() => requestAnimationFrame(() => {
             const old = [...r.card.querySelectorAll('.pk-img.on')];
             layer.classList.add('on');
@@ -211,7 +204,7 @@ if (servGrid) {
           layer.muted = true; layer.loop = true; layer.playsInline = true; layer.preload = 'auto';
           // al DOM desde ya (invisible con opacity 0): un <video> suelto sin
           // referencias puede ser recolectado y sus eventos jamás disparan
-          r.card.insertBefore(layer, r.card.querySelector('.pk-count, .pk-name'));
+          r.card.insertBefore(layer, r.card.querySelector('.pk-name'));
           const guard = setTimeout(() => {
             if (layer.oncanplay) { layer.oncanplay = null; layer.remove(); done(); }
           }, 6000);
@@ -284,6 +277,12 @@ if (servGrid) {
       ? 'Selecciona los elementos que quieras incluir'
       : `<strong>${keys.length}</strong> ${keys.length === 1 ? 'elemento seleccionado' : 'elementos seleccionados'}`;
 
+    /* botón flotante: aparece con la primera selección y siempre queda a mano */
+    if ($('selFloat')) {
+      $('selFloat').hidden = keys.length === 0;
+      $('selFloatN').textContent = keys.length;
+    }
+
     if (!keys.length) {
       cartItems.innerHTML = `
         <div class="cart-empty">
@@ -324,18 +323,73 @@ if (servGrid) {
     syncUI();
   }
 
-  /* toggle de temáticas (a la vista en la página) */
+  /* tocar una temática abre su visor con las fotos en grande */
+  const tv = $('tv');
+  let tvTheme = null, tvIdx = 0;
+  const tvItems = () => tvTheme.imgs;
+  function tvShow() {
+    const item = tvItems()[tvIdx];
+    const esVideo = typeof item === 'object';
+    $('tvImg').hidden = esVideo;
+    $('tvVid').hidden = !esVideo;
+    if (esVideo) {
+      $('tvVid').src = item.v;
+      $('tvVid').play().catch(() => {});
+    } else {
+      $('tvVid').pause();
+      $('tvImg').src = item; // tamaño completo, no miniatura
+    }
+    $('tvName').textContent = tvTheme.name + (tvTheme.desc ? ` — ${tvTheme.desc}` : '');
+    $('tvDots').innerHTML = tvItems().map((_, i) => `<i class="${i === tvIdx ? 'on' : ''}"></i>`).join('');
+    const nav = tvItems().length > 1;
+    $('tvPrev').hidden = !nav;
+    $('tvNext').hidden = !nav;
+    tvPintaBoton();
+  }
+  function tvPintaBoton() {
+    const on = !!quote[`hora-loca:${tvTheme.id}`];
+    $('tvAdd').textContent = on ? 'Quitar de mi cotización' : 'Agregar a mi cotización';
+    $('tvAdd').classList.toggle('quitar', on);
+  }
+  function tvOpen(id) {
+    tvTheme = THEMES.find((t) => t.id === id);
+    if (!tvTheme) return;
+    tvIdx = 0;
+    tv.hidden = false;
+    document.body.style.overflow = 'hidden';
+    tvShow();
+    $('tvClose').focus();
+  }
+  function tvCierra() {
+    tv.hidden = true;
+    $('tvVid').pause();
+    document.body.style.overflow = '';
+  }
   $('themePick').addEventListener('click', (e) => {
     const b = e.target.closest('.pk');
     if (!b) return;
-    const key = b.dataset.key;
-    if (quote[key]) removeKey(key); else addKey(key);
+    tvOpen(b.dataset.key.split(':')[1]);
+  });
+  $('tvClose').addEventListener('click', tvCierra);
+  $('tvPrev').addEventListener('click', () => { tvIdx = (tvIdx - 1 + tvItems().length) % tvItems().length; tvShow(); });
+  $('tvNext').addEventListener('click', () => { tvIdx = (tvIdx + 1) % tvItems().length; tvShow(); });
+  tv.addEventListener('click', (e) => { if (e.target === tv || e.target.classList.contains('tv-stage')) tvCierra(); });
+  $('tvAdd').addEventListener('click', () => {
+    const key = `hora-loca:${tvTheme.id}`;
+    if (quote[key]) { removeKey(key); tvPintaBoton(); }
+    else { addKey(key); tvCierra(); }
+  });
+  document.addEventListener('keydown', (e) => {
+    if (tv.hidden) return;
+    if (e.key === 'Escape') tvCierra();
+    if (e.key === 'ArrowLeft') $('tvPrev').click();
+    if (e.key === 'ArrowRight') $('tvNext').click();
   });
 
   /* panel: foco, inert y apertura */
   const background = () => [
     $('nav'),
-    ...document.querySelectorAll('body > .strip, body > main, body > section, body > footer'),
+    ...document.querySelectorAll('body > .strip, body > main, body > section, body > footer, body > .sel-float'),
   ];
   cartDrawer.inert = true; // cerrado al cargar: fuera del orden de tabulación
   function openCart() {
@@ -405,6 +459,7 @@ if (servGrid) {
   });
 
   $('cartBtn').addEventListener('click', openCart);
+  if ($('selFloat')) $('selFloat').addEventListener('click', openCart);
   $('quoteReview').addEventListener('click', () => {
     if (!Object.keys(quote).length) { showToast('Selecciona al menos un elemento'); return; }
     openCart();

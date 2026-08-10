@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/styles.css?v=8">
+<link rel="stylesheet" href="css/styles.css?v=10">
 </head>
 <body class="page-cotiza">
 
@@ -71,7 +71,11 @@
     <!-- Hora Loca: temáticas a la vista -->
     <div class="hl-head reveal">
       <h2>Hora Loca</h2>
-      <p>Elige la temática de tu show — puedes marcar más de una.</p>
+      <p>Toca una temática para ver sus fotos en grande y agregarla — puedes marcar más de una.</p>
+      <div class="cat-links">
+        <a class="btn btn-outline btn-sm" href="CC-Entertainment-Catalogo-Tematicas.pdf" target="_blank" rel="noopener">Ver catálogo PDF</a>
+        <a class="btn btn-outline btn-sm" href="CC-Entertainment-Catalogo-Navidad.pdf" target="_blank" rel="noopener">Catálogo de Navidad</a>
+      </div>
     </div>
     <div class="theme-pick" id="themePick"><!-- JS --></div>
     <div class="themes-more-wrap">
@@ -143,11 +147,36 @@
   </div>
 </aside>
 
+<!-- botón flotante: siempre a mano para revisar la selección -->
+<button class="sel-float" id="selFloat" type="button" hidden>
+  <svg class="icon"><use href="#i-cart"/></svg>
+  Ver mi selección
+  <span class="sel-float-n" id="selFloatN">0</span>
+</button>
+
+<!-- Visor de temática: fotos en grande -->
+<div class="tviewer" id="tv" hidden>
+  <button class="tv-close" id="tvClose" aria-label="Cerrar">✕</button>
+  <button class="tv-nav tv-prev" id="tvPrev" aria-label="Anterior">‹</button>
+  <div class="tv-stage">
+    <img id="tvImg" src="" alt="">
+    <video id="tvVid" muted loop playsinline hidden></video>
+  </div>
+  <button class="tv-nav tv-next" id="tvNext" aria-label="Siguiente">›</button>
+  <div class="tv-bar">
+    <div class="tv-info">
+      <h3 id="tvName"></h3>
+      <span id="tvDots" class="tv-dots"></span>
+    </div>
+    <button class="btn btn-solid" id="tvAdd" type="button">Agregar a mi cotización</button>
+  </div>
+</div>
+
 <!-- Toast -->
 <div class="toast" id="toast" role="status"><svg class="icon"><use href="#i-check"/></svg><span id="toastMsg"></span></div>
 
 
 <script src="js/config.js"></script>
-<script src="js/main.js?v=8"></script>
+<script src="js/main.js?v=10"></script>
 </body>
 </html>
