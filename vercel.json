@@ -1,6 +1,9 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false,
+  "redirects": [
+    { "source": "/cotiza.html", "destination": "/cotiza", "permanent": true },
+    { "source": "/admin.html", "destination": "/admin", "permanent": true }
+  ],
   "headers": [
     {
       "source": "/assets/(.*)",
