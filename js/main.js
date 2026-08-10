@@ -78,11 +78,14 @@ const $ = (id) => document.getElementById(id);
    queda para visores, destacados y links de WhatsApp */
 const thumb = (p) => typeof p === 'string' ? p.replace(/([^/]+)\.(jpg|png)$/i, 't-$1.jpg') : p;
 
-/* ─── PRELOADER (solo index) ─── */
+/* ─── PRELOADER (solo index) ───
+   Se quita apenas el documento está listo (no espera videos ni fotos),
+   con un tope duro de 2s: la página nunca se queda "cargando". */
 if ($('preloader')) {
-  window.addEventListener('load', () => {
-    setTimeout(() => $('preloader').classList.add('done'), 800);
-  });
+  const fuera = () => $('preloader').classList.add('done');
+  if (document.readyState !== 'loading') setTimeout(fuera, 450);
+  else document.addEventListener('DOMContentLoaded', () => setTimeout(fuera, 450));
+  setTimeout(fuera, 2000);
 }
 
 /* ─── SELECCIÓN (id -> cantidad), compartida entre páginas ─── */
@@ -676,11 +679,16 @@ if (mosaic) {
 
   mosaic.innerHTML = '';
   const brazilIdx = POOL.findIndex((p) => typeof p === 'object' && p.v.includes('brazil'));
+  const pickFotoLibre = () => {
+    let i;
+    do { i = Math.floor(Math.random() * POOL.length); } while (showing.includes(i) || typeof POOL[i] === 'object');
+    return i;
+  };
+  // al cargar, solo fotos ligeras: los videos entran cuando el mosaico se ve
   for (let t = 0; t < TILES; t++) {
     const tile = document.createElement('div');
     tile.className = 'm-tile';
-    // el video de Brazil abre la sección: siempre en el primer cuadro
-    const idx = t === 0 && brazilIdx >= 0 ? brazilIdx : pickFree();
+    const idx = pickFotoLibre();
     showing[t] = idx;
     const layer = makeLayer(idx);
     layer.classList.add('on');
@@ -689,8 +697,26 @@ if (mosaic) {
   }
 
   let mosaicVisible = true;
+  let brazilPuesto = false;
   new IntersectionObserver((entries) => {
-    entries.forEach((en) => { mosaicVisible = en.isIntersecting; });
+    entries.forEach((en) => {
+      mosaicVisible = en.isIntersecting;
+      // el video de Brazil abre la sección: entra al primer cuadro
+      // la primera vez que el mosaico aparece en pantalla
+      if (en.isIntersecting && !brazilPuesto && brazilIdx >= 0) {
+        brazilPuesto = true;
+        const tile = mosaic.children[0];
+        showing[0] = brazilIdx;
+        const fresh = makeLayer(brazilIdx);
+        tile.appendChild(fresh);
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          fresh.classList.add('on');
+          const old = tile.querySelector('.m-layer.on');
+          if (old && old !== fresh) old.classList.remove('on');
+          setTimeout(() => { [...tile.querySelectorAll('.m-layer:not(.on)')].forEach((l) => l.remove()); }, 1000);
+        }));
+      }
+    });
   }, { threshold: 0.05 }).observe(mosaic);
 
   let turn = 0;
