@@ -57,7 +57,7 @@ const THEMES = [
   { id: 'robot-espejo', name: 'Robot LED espejo', imgs: [`${T}/robot-espejo/02.jpg`, `${T}/robot-espejo/01.jpg`, `${T}/robot-espejo/03.jpg`], more: true },
   { id: 'led-show',    name: 'Led',             imgs: [...seq('led-show', 4), { v: 'assets/video/led-show.mp4' }], more: true },
   { id: 'neon-2000',   name: 'Neon 2000',       imgs: seq('neon-2000', 3), more: true },
-  { id: 'navidad',     name: 'Navidad',         imgs: seq('navidad', 8), more: true },
+  { id: 'navidad',     name: 'Navidad',         imgs: [`${T}/navidad/12.jpg`, ...seq('navidad', 8), `${T}/navidad/09.jpg`, `${T}/navidad/10.jpg`, `${T}/navidad/11.jpg`, `${T}/navidad/13.jpg`], more: true },
   { id: 'blanca-navidad', name: 'Blanca Navidad', imgs: seq('blanca-navidad', 1), more: true },
   { id: 'disco',       name: 'Disco',           imgs: seq('disco', 1), more: true },
   { id: 'anos-80',     name: 'Años 80',         imgs: seq('anos-80', 2), more: true },
