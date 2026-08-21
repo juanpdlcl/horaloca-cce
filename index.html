@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/styles.css?v=16">
+<link rel="stylesheet" href="css/styles.css?v=17">
 </head>
 <body>
 
@@ -241,7 +241,7 @@
 <div class="lb" id="lb" hidden>
   <button class="lb-close" id="lbClose" aria-label="Cerrar">✕</button>
   <button class="lb-nav lb-prev" id="lbPrev" aria-label="Anterior">‹</button>
-  <img id="lbImg" src="" alt="">
+  <img id="lbImg" alt="">
   <button class="lb-nav lb-next" id="lbNext" aria-label="Siguiente">›</button>
   <div class="lb-bar">
     <h3 id="lbName"></h3>
@@ -251,6 +251,9 @@
 </div>
 
 <script src="js/config.js"></script>
-<script src="js/main.js?v=16"></script>
+<script src="js/main.js?v=17"></script>
+<script>
+if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}));
+</script>
 </body>
 </html>
