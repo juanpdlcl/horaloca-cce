@@ -3,7 +3,7 @@
    La página queda guardada en el dispositivo:
    si el servidor o el internet fallan, igual abre.
    ═══════════════════════════════════════════ */
-const VERSION = 'cce-v1';
+const VERSION = 'cce-v2';
 const SHELL = `${VERSION}-shell`;
 const MEDIA = `${VERSION}-media`;
 
@@ -11,8 +11,8 @@ const MEDIA = `${VERSION}-media`;
 const BASE = [
   '/',
   '/cotiza',
-  '/css/styles.css?v=19',
-  '/js/main.js?v=19',
+  '/css/styles.css?v=20',
+  '/js/main.js?v=20',
   '/js/config.js',
   '/assets/img/logo-mark-glow.png',
   '/assets/img/hero-feathers.png',
@@ -42,16 +42,21 @@ self.addEventListener('fetch', (e) => {
   if (url.origin !== location.origin) return;      // Supabase y fuentes: directo a la red
   if (url.pathname.startsWith('/admin')) return;   // el panel siempre en vivo
 
-  /* fotos, videos y PDFs: del dispositivo primero (vuelan), y se guardan al vuelo */
+  /* fotos, videos y PDFs: se muestran al instante desde el dispositivo y
+     se refrescan en segundo plano, para que una foto reemplazada no se
+     quede pegada (stale-while-revalidate) */
   if (url.pathname.startsWith('/assets/') || url.pathname.endsWith('.pdf')) {
     e.respondWith(
-      caches.match(req).then((hit) => hit || fetch(req).then((res) => {
-        if (res.ok) {
-          const copia = res.clone();
-          caches.open(MEDIA).then((c) => c.put(req, copia));
-        }
-        return res;
-      }).catch(() => hit))
+      caches.match(req).then((hit) => {
+        const red = fetch(req).then((res) => {
+          if (res.ok) {
+            const copia = res.clone();
+            caches.open(MEDIA).then((c) => c.put(req, copia));
+          }
+          return res;
+        }).catch(() => hit);
+        return hit || red;
+      })
     );
     return;
   }
