@@ -74,6 +74,14 @@ button{font-family:var(--fd);cursor:pointer}
 }
 .wrap{width:min(1080px,94%);margin:34px auto 80px}
 
+.aviso-db{
+  background:rgba(245,197,66,.08);border:1px solid rgba(245,197,66,.45);
+  border-radius:14px;padding:14px 18px;margin-bottom:18px;
+  color:#f0e2bd;font-size:.9rem;line-height:1.65;
+}
+.aviso-db b{color:var(--warn)}
+.aviso-db a{color:var(--warn);text-decoration:underline}
+
 /* lista de tickets */
 .tickets{display:flex;flex-direction:column;gap:12px}
 .tk{
@@ -729,15 +737,25 @@ $('btnLogout').addEventListener('click', () => {
   location.reload();
 });
 if (REMOTE ? sbSecret : sessionStorage.getItem('cce-admin') === '1') {
-  showApp().catch(() => {
-    // sin conexión o clave guardada inválida: volver al formulario (sin
-    // recargar, para no caer en un bucle con la clave integrada)
-    sessionStorage.removeItem('cce-sb-secret');
-    localStorage.removeItem('cce-sb-secret');
-    sbSecret = null;
-    $('appView').classList.add('hide');
-    $('loginView').classList.remove('hide');
-    $('loErr').textContent = 'Sin conexión con la base de datos. Revisa tu internet y recarga la página.';
+  showApp().catch(async (err) => {
+    // distinguir "no hay internet" de "la base de datos no responde",
+    // y en ese caso abrir igual el panel con lo guardado en este equipo
+    const sinInternet = !navigator.onLine;
+    const guardadas = localAll();
+    $('appView').classList.remove('hide');
+    $('loginView').classList.add('hide');
+    TICKETS = guardadas;
+    renderList();
+    renderCal();
+    const aviso = document.createElement('div');
+    aviso.className = 'aviso-db';
+    aviso.innerHTML = sinInternet
+      ? '<b>Sin internet.</b> Estás viendo las cotizaciones guardadas en este equipo. Vuelve a cargar cuando tengas señal.'
+      : '<b>La base de datos está apagada.</b> Supabase pausa los proyectos gratis cuando pasan días sin usarse, y las cotizaciones nuevas no se están guardando. ' +
+        'Entra a <a href="https://supabase.com/dashboard/project/ovsnjriqopsyboxyqaoz" target="_blank" rel="noopener">supabase.com</a>, ' +
+        'inicia sesión y pulsa <b>Restore project</b>. Mientras tanto, aquí abajo está lo guardado en este equipo' +
+        (guardadas.length ? '.' : ' (no hay nada guardado en este dispositivo).');
+    $('listView').prepend(aviso);
   });
 }
 
