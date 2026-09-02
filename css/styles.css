@@ -991,3 +991,49 @@ h2{
   .hl-head h2{font-size:1.35rem}
   .steps-line span{font-size:.76rem}
 }
+
+/* ─────────── BUSCADOR DE TEMÁTICAS (estilo catálogo) ─────────── */
+.buscador{margin:0 0 22px}
+.bus-campo{
+  position:relative;display:flex;align-items:center;gap:10px;
+  background:var(--surface);border:1px solid var(--line-strong);border-radius:999px;
+  padding:0 16px;transition:border-color .2s;
+}
+.bus-campo:focus-within{border-color:var(--accent)}
+.bus-campo > .icon{width:19px;height:19px;color:var(--muted);flex:0 0 auto}
+.bus-campo input{
+  flex:1;background:none;border:none;outline:none;color:var(--text);
+  font-family:var(--font-body);font-size:1rem;padding:15px 0;min-width:0;
+}
+.bus-campo input::placeholder{color:#55515f}
+.bus-campo input::-webkit-search-cancel-button{display:none}
+.bus-x{
+  background:none;border:none;color:var(--muted);cursor:pointer;padding:6px;
+  display:grid;place-items:center;border-radius:50%;
+}
+.bus-x[hidden]{display:none}   /* [hidden] pierde contra display:grid */
+.bus-x:hover{color:var(--text);background:rgba(255,255,255,.06)}
+.bus-x .icon{width:16px;height:16px}
+.bus-cats{display:flex;flex-wrap:wrap;gap:8px;padding:14px 2px 4px;scrollbar-width:none}
+@media(max-width:760px){.bus-cats{flex-wrap:nowrap;overflow-x:auto}}
+.bus-cats::-webkit-scrollbar{display:none}
+.bcat{
+  flex:0 0 auto;background:transparent;border:1px solid var(--line-strong);color:var(--muted);
+  border-radius:999px;padding:9px 18px;cursor:pointer;
+  font-family:var(--font-display);font-weight:500;font-size:.85rem;letter-spacing:.02em;
+  transition:border-color .2s,color .2s,background .2s;
+}
+.bcat:hover{color:var(--text);border-color:var(--text)}
+.bcat.on{background:var(--text);color:var(--bg);border-color:var(--text)}
+.bus-n{color:var(--muted);font-size:.82rem;margin-top:12px}
+.bus-vacio{
+  color:var(--muted);text-align:center;padding:36px 20px;
+  border:1px dashed var(--line-strong);border-radius:var(--radius);margin-bottom:20px;
+}
+.bus-vacio[hidden]{display:none}
+.theme-pick .pk[hidden]{display:none}
+@media(max-width:640px){
+  .bus-campo input{font-size:16px}   /* evita el zoom de iOS al escribir */
+  .bcat{padding:8px 15px;font-size:.8rem}
+  .bus-cats{margin:0 -4px}
+}

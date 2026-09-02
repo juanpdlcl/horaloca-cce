@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/styles.css?v=18">
+<link rel="stylesheet" href="css/styles.css?v=19">
 </head>
 <body class="page-cotiza">
 
@@ -21,6 +21,7 @@
     <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="m4 7 8 6 8-6"/></symbol>
     <symbol id="i-ig" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="4.5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".9" fill="currentColor" stroke="none"/></symbol>
     <symbol id="i-cart" viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M3 4h2l2.4 11.5a1.8 1.8 0 0 0 1.8 1.4h8.4a1.8 1.8 0 0 0 1.8-1.5L21 8H6"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
     <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
     <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
     <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
@@ -71,12 +72,33 @@
     <!-- Hora Loca: temáticas a la vista -->
     <div class="hl-head reveal">
       <h2>Hora Loca</h2>
-      <p>Toca una temática para ver sus fotos en grande y agregarla — puedes marcar más de una.</p>
+      <p>Busca tu temática o filtra por estilo. Toca cualquiera para ver sus fotos en grande.</p>
     </div>
+
+    <!-- buscador con filtros -->
+    <div class="buscador reveal">
+      <div class="bus-campo">
+        <svg class="icon"><use href="#i-search"/></svg>
+        <input type="search" id="temaBuscar" placeholder="Buscar: dorado, navidad, brasil, payasos, espejos…" autocomplete="off" enterkeyhint="search">
+        <button class="bus-x" id="temaLimpiar" type="button" hidden aria-label="Limpiar búsqueda">
+          <svg class="icon"><use href="#i-x"/></svg>
+        </button>
+      </div>
+      <div class="bus-cats" id="temaCats" role="group" aria-label="Filtrar por estilo">
+        <button class="bcat on" type="button" data-cat="">Todas</button>
+        <button class="bcat" type="button" data-cat="brillo">Brillo</button>
+        <button class="bcat" type="button" data-cat="dominicano">Dominicano</button>
+        <button class="bcat" type="button" data-cat="tropical">Tropical</button>
+        <button class="bcat" type="button" data-cat="luces">Luces LED</button>
+        <button class="bcat" type="button" data-cat="epocas">Épocas</button>
+        <button class="bcat" type="button" data-cat="personajes">Personajes</button>
+        <button class="bcat" type="button" data-cat="navidad">Navidad</button>
+      </div>
+      <p class="bus-n" id="temaN" role="status"></p>
+    </div>
+
     <div class="theme-pick" id="themePick"><!-- JS --></div>
-    <div class="themes-more-wrap">
-      <button class="btn btn-outline" id="themesMore" type="button" aria-expanded="false" aria-controls="themePick">Ver todas las temáticas</button>
-    </div>
+    <p class="bus-vacio" id="temaVacio" hidden>No encontramos esa temática — prueba otra palabra, o pídenos la tuya a la medida.</p>
 
     <h3 class="extras-h reveal">Extras para tu show</h3>
     <div class="serv-grid" id="servGrid"><!-- JS --></div>
@@ -173,7 +195,7 @@
 
 
 <script src="js/config.js"></script>
-<script src="js/main.js?v=18"></script>
+<script src="js/main.js?v=19"></script>
 <script>
 if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}));
 </script>
