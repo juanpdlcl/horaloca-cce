@@ -82,9 +82,9 @@ TEMATICAS = [
     ('Personajes para bienvenida', t('bienvenida', 1), ''),
     # recibimiento / host de entrada
     ('Viva las Vegas — host', t('vegas', 5), 'Recibimiento de entrada'),
-    ('Bienvenida Blanca', t('bienvenida-blanca', 1), 'Recibimiento con rosas blancas'),
-    ('Bienvenida Roja', t('bienvenida-roja', 1), 'Recibimiento con rosas rojas'),
-    ('Bienvenida Roja — anfitriones', [t('bienvenida-roja', 5), t('bienvenida-roja', 6)], 'Lentejuelas rojas para recibir a tus invitados'),
+    ('Vogue', t('vogue', 1), 'Recibimiento en blanco y rojo'),
+    ('Vogue — blanco', t('vogue', 2), 'Rosas blancas'),
+    ('Vogue — anfitriones', [t('vogue', 7), t('vogue', 8)], 'Lentejuelas rojas para recibir a tus invitados'),
     ('Bar Neón', t('bar-neon', 1), 'Hostess iluminada con bandeja de canapés'),
     ('Personaje de corazón', t('corazon', 1), ''),
     ('Personaje de playa', t('personaje-playa', 1), ''),
