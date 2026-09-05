@@ -53,8 +53,8 @@ def ANCHO(nombre, img):
     return {'n': nombre, 'img': img, 'ancho': True}
 
 
-def PAGINA(tipo, items):
-    return {'pagina': tipo, 'items': items}
+def PAGINA(tipo, items, titulo=None):
+    return {'pagina': tipo, 'items': items, 'titulo': titulo}
 
 
 DISCO_BALL = [
@@ -77,11 +77,14 @@ DISCO_BALL = [
 
 # Cada concepto agrupado y, cuando se puede, en su propia hoja.
 TEMATICAS = [
-    PAGINA('grid', [ANCHO('Dorado', 'assets/img/destacado/dorado-4.jpg'), ('Shine Gold', t('shine-gold', 1)), ('Dorado — show girls', t('dorado', 6))]),
+    # Dorado (2 hojas)
+    PAGINA('grid', [ANCHO('Dorado', 'assets/img/destacado/dorado-4.jpg'), ('Dorado — show girls', t('dorado', 6)), ('Dorado', t('dorado', 4))]),
     PAGINA('grid', [ANCHO('Dorado — en evento', t('dorado', 8)), ('Dorado — anfitriones', t('dorado', 9)), ('Dorado — anfitriones', t('dorado', 10))]),
-    # Brazil plateada: ellas solas, con músicos, tres bailarines
-    PAGINA('grid', [ANCHO('Brazil plateada', t('brasil-plata', 1)), ('Brazil plateada', t('brasil-plata', 2)), ('Brazil plateada', t('brasil-plata', 3))]),
-    # Brazil, todos juntos
+    # Shine Gold
+    PAGINA('grid', [('Shine Gold', t('shine-gold', 1)), ('Shine Gold', t('shine-gold', 2))]),
+    # Brazil plateada: principal (main), con músicos, tres bailarinas
+    PAGINA('grid', [('Brazil plateada', f'{T}/brasil-plata/main.jpg'), ('Brazil plateada', t('brasil-plata', 2)), ('Brazil plateada', t('brasil-plata', 3))]),
+    # Brazil (2 hojas)
     PAGINA('grid', [('Brazil', t('brazil', 1)), ('Brazil', t('brazil', 3)), ('Brazil', t('brazil', 4)), ('Brazil', t('brazil', 5))]),
     PAGINA('grid', [ANCHO('Samba', t('samba', 1)), ('Brazil', t('brazil', 6)), ('Brazil — carnaval', t('brazil', 2))]),
     # Tropical: dos y dos
@@ -90,22 +93,26 @@ TEMATICAS = [
     PAGINA('grid', [('Viva las Vegas', t('vegas', 1)), ('Viva las Vegas', t('vegas', 3)), ('Viva las Vegas', t('vegas', 2)), ('Viva las Vegas', t('vegas', 4))]),
     PAGINA('grid', [('Neón', t('neon', 5)), ('Neón — grupo', t('neon', 6)), ('Neón', t('neon', 3)), ('Neón', t('neon', 4))]),
     PAGINA('grid', [('Gatsby', t('gatsby', 1)), ('Gatsby — pareja', t('gatsby', 2)), ('Gatsby', t('gatsby', 8)), ('Brigeston', t('brigeston', 1))]),
-    # Hosted: personajes de bienvenida — la blanca, la roja, la negra…
-    PAGINA('hero_port', [('Vogue — blanca', t('vogue', 10)), ('Vogue — roja', t('vogue', 4)), ('Viva las Vegas — host', t('vegas', 5)),
-                         ('Vogue', t('vogue', 1)), ('Personajes para bienvenida', t('bienvenida', 1))]),
-    PAGINA('grid', [('Personaje de corazón', t('corazon', 1)), ('Mimos', t('mimos', 1)), ('Personajes para bienvenida', t('bienvenida', 2)), ('Personajes para bienvenida', t('bienvenida', 3))]),
+    # Personajes de Bienvenida: dos hojas con título grande
+    PAGINA('hero_port', [('Vogue', t('vogue', 1)), ('Vogue — roja', t('vogue', 11)), ('Vogue — blanca', t('vogue', 10))], titulo='Personajes de Bienvenida'),
+    PAGINA('hero_port', [('Viva las Vegas', t('vegas', 5)), ('Corazón', t('corazon', 1)), ('Bienvenida', t('bienvenida', 1))], titulo='Personajes de Bienvenida'),
     # Personajes
     PAGINA('grid', [ANCHO('Porristas', t('porristas', 1)), ('Ingenieros', t('ingenieros', 1)), ('Cocineros', t('cocineros-show', 1))]),
     PAGINA('grid', [('Hadas', t('hadas', 2)), ('Astronauta y alien', t('astronauta', 1)), ('Cabezones', 'assets/img/promo/artistas.jpg'), ('Cabezones — Bad Bunny', t('cabezones', 3))]),
-    # Épocas: disco, 80 y 90 juntos
+    # Épocas
     PAGINA('grid', [ANCHO('Disco', t('disco', 1)), ('Años 80', t('anos-80', 2)), ('Años 90', t('anos-90', 1))]),
-    # Fórmula 1, todas juntas
+    # Fórmula 1
     PAGINA('grid', [ANCHO('Pilotos Formula 1 — pit stop', t('pilotos', 3)), ('Pilotos Formula 1', t('pilotos', 5)), ('Pilotos Formula 1', t('pilotos', 4))]),
-    PAGINA('grid', [('Vaqueros', t('vaqueros', 1)), ('Vaqueros', t('vaqueros', 2)), ('Feria/Circo', [t('feria-circo', 1), t('feria-circo', 2)])]),
-    PAGINA('grid', [('Venezia', 'assets/img/ig/venetian.jpg'), ('Venezia', 'assets/img/ig/venetian-2.jpg'), ('Venezia', 'assets/img/ig/venetian-3.jpg'), ('Catrinas', 'assets/img/catrinas.jpg')]),
-    # Playa y deporte: playa, hawaii, marineros y pelota
-    PAGINA('grid', [('Playa', t('playa', 1)), ('Hawaii', t('hawaii', 1)), ('Marineros', t('marineros', 1)), ('Personaje de playa', t('personaje-playa', 1))]),
-    PAGINA('hero_port', [('Pelota dominicana', t('pelota', 3)), ('Pelota dominicana', t('pelota', 1)), ('Pelota dominicana', t('pelota', 2))]),
+    # Feria/Circo con los mimos
+    PAGINA('grid', [('Feria/Circo', [t('feria-circo', 1), t('feria-circo', 2)]), ('Mimos', t('mimos', 1)), ('Feria/Circo', t('feria-circo', 3))]),
+    # Vaqueros solos
+    PAGINA('grid', [('Vaqueros', t('vaqueros', 1)), ('Vaqueros', t('vaqueros', 2)), ('Vaqueros', t('vaqueros', 3))]),
+    # Venezia sola
+    PAGINA('grid', [('Venezia', 'assets/img/ig/venetian.jpg'), ('Venezia', 'assets/img/ig/venetian-2.jpg'), ('Venezia', 'assets/img/ig/venetian-3.jpg')]),
+    # Catrinas solas
+    PAGINA('grid', [('Catrinas', 'assets/img/catrinas.jpg'), ('Catrinas', t('catrinas', 1)), ('Catrinas', t('catrinas', 2))]),
+    # Playa: playa, personaje de playa, hawaii, marineros
+    PAGINA('grid', [('Playa', t('playa', 1)), ('Personaje de playa', t('personaje-playa', 1)), ('Hawaii', t('hawaii', 1)), ('Marineros', t('marineros', 1))]),
 ]
 
 SHOW_LED = [
@@ -131,6 +138,7 @@ DOMINICANO = [
     ('Marchantas', t('marchantas', 1)),
     ('Marchanta', t('marchantas', 3)),
     ('Marchantas', t('marchantas', 2)),
+    PAGINA('hero_port', [('Pelota dominicana', t('pelota', 3)), ('Pelota dominicana', t('pelota', 1)), ('Pelota dominicana', t('pelota', 2))]),
 ]
 
 NAVIDAD = [   # las cuatro horizontales van a lo ancho, alternadas con las verticales
@@ -159,7 +167,7 @@ EXTRAS = [
     ('Percusión en vivo', 'assets/img/promo/musicos.jpg'),
     ('Coreografía personalizada', 'assets/img/destacado/plata-1.jpg'),
     ('Robot LED', 'assets/img/promo/robot-espejo.jpg'),
-    ('Bailarines adicionales', 'assets/img/promo/bailarinas-led.jpg'),
+    ('Bailarines adicionales', 'assets/img/promo/bailarines.jpg'),
 ]
 
 SECCIONES = [
@@ -445,7 +453,7 @@ def ratio(path):
 
 def es_horizontal_item(it):
     n, img, ancho = norm(it)
-    return ancho or ratio(img) >= 1.0
+    return ancho or ratio(img) >= 1.2   # las casi cuadradas van en celda, no a lo ancho
 
 
 def filas_de(items):
@@ -497,12 +505,26 @@ def pinta_fila(page, fila, y, alto, sec):
         etiqueta(page, r.x0, y + alto + 10, nombre, sec['color'])
 
 
-def pagina_hero_port(doc, items, sec, num):
+def titulo_grande(page, texto, color):
+    """Título de sección dentro de la hoja (grande y con la barrita de color)."""
+    texto_(page, texto, 82, 26, 'B', TXT, x=M)
+    linea(page, M, 120, M + 70, color, 3)
+
+
+texto_ = texto
+
+
+def pagina_hero_port(doc, items, sec, num, titulo=None):
     """Hoja completa: foto grande a la izquierda, dos apiladas a la derecha y (opcional) dos abajo."""
     page = doc.new_page(width=W, height=H); cabeza(page, sec, num)
+    y0 = Y_INI
+    if titulo:
+        titulo_grande(page, titulo, sec['color']); y0 = Y_INI + 62
     tres = len(items) <= 3
-    hero = fitz.Rect(M, Y_INI, 322, 700 if tres else 500)
-    lados = [fitz.Rect(334, Y_INI, W - M, 372 if tres else 268), fitz.Rect(334, 424 if tres else 320, W - M, 700 if tres else 500)]
+    fondo_hero = 700 if tres else 500
+    alto_lado = (fondo_hero - y0 - 52) / 2
+    hero = fitz.Rect(M, y0, 322, fondo_hero)
+    lados = [fitz.Rect(334, y0, W - M, y0 + alto_lado), fitz.Rect(334, fondo_hero - alto_lado, W - M, fondo_hero)]
     r = foto_auto(page, items[0][1], hero, alinear='centro')
     etiqueta(page, r.x0, r.y1 + 12, items[0][0], sec['color'], grande=True)
     for it, caja in zip(items[1:3], lados):
@@ -517,10 +539,12 @@ def pagina_hero_port(doc, items, sec, num):
     return num + 1
 
 
-def pagina_grid(doc, items, sec, num):
+def pagina_grid(doc, items, sec, num, titulo=None):
     """Hoja completa de un concepto: hasta dos filas."""
     page = doc.new_page(width=W, height=H); cabeza(page, sec, num)
     y = Y_INI
+    if titulo:
+        titulo_grande(page, titulo, sec['color']); y = Y_INI + 62
     for fila in filas_de(items)[:2]:
         alto = alto_fila(fila)
         pinta_fila(page, fila, y, alto, sec)
@@ -548,9 +572,9 @@ def seccion(doc, sec, num):
             if pendientes:
                 num = vaciar(pendientes, num); pendientes = []
             if it['pagina'] == 'grid':
-                num = pagina_grid(doc, it['items'], sec, num)
+                num = pagina_grid(doc, it['items'], sec, num, it.get('titulo'))
             else:
-                num = pagina_hero_port(doc, it['items'], sec, num)
+                num = pagina_hero_port(doc, it['items'], sec, num, it.get('titulo'))
         else:
             pendientes.append(it)
     if pendientes:

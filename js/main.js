@@ -16,7 +16,7 @@ const SERVICES = [
   { id: 'percusion',   img: 'assets/img/promo/musicos.jpg',        pos: '50% 42%', name: 'Percusión en vivo',      desc: 'Tambores en vivo que encienden la fiesta junto al DJ.' },
   { id: 'robot-led',   img: 'assets/img/promo/robot-espejo.jpg',   pos: '50% 0%', name: 'Robot LED',              desc: 'Show futurista iluminado para el punto alto de la noche.' },
   { id: 'cabezones',   img: 'assets/img/promo/artistas.jpg',       pos: '50% 12%', name: 'Cabezones',              desc: 'Bad Bunny, Karol G y Daddy Yankee en versión gigante, animando la pista.' },
-  { id: 'bailarines',  img: 'assets/img/promo/bailarinas-led.jpg', pos: '50% 35%', name: 'Bailarines adicionales', desc: 'Refuerza el cuerpo de baile de tu show.' },
+  { id: 'bailarines',  img: 'assets/img/promo/bailarines.jpg', pos: '50% 30%', name: 'Bailarines adicionales', desc: 'Refuerza el cuerpo de baile de tu show.' },
 ];
 
 /* temáticas de la Hora Loca (fotos reales del catálogo de Carolina).
@@ -27,7 +27,7 @@ const seq = (dir, n) => Array.from({ length: n }, (_, i) => `${T}/${dir}/${Strin
 const THEMES = [
   { id: 'gold', cat: 'brillo', tags: 'dorado oro gold show girls plumas',        name: 'Dorado',          imgs: ['assets/img/destacado/dorado-4.jpg', `${T}/dorado/06.jpg`, `${T}/dorado/09.jpg`, `${T}/dorado/10.jpg`, `${T}/dorado/08.jpg`, `${T}/dorado/04.jpg`, `${T}/dorado/05.jpg`, `${T}/dorado/07.jpg`, ...seq('dorado', 3)] },
   { id: 'led', cat: 'brillo', tags: 'espejos disco ball plateado bola',         name: 'Disco Ball',      imgs: [`${T}/espejos/main.jpg`, `${T}/espejos/09.jpg`, `${T}/espejos/10.jpg`, `${T}/espejos/11.jpg`, 'assets/img/destacado/plata-4.jpg', 'assets/img/destacado/plata-1.jpg', 'assets/img/destacado/plata-2.jpg', 'assets/img/destacado/plata-3.jpg', ...seq('espejos', 8)] },
-  { id: 'brasil', cat: 'brillo', tags: 'brazil plateada plumas carnaval',      name: 'Brazil plateada', imgs: [...seq('brasil-plata', 3), 'assets/img/destacado/brasil-1.jpg'] },
+  { id: 'brasil', cat: 'brillo', tags: 'brazil plateada plumas carnaval',      name: 'Brazil plateada', imgs: [`${T}/brasil-plata/main.jpg`, ...seq('brasil-plata', 3), 'assets/img/destacado/brasil-1.jpg'] },
   { id: 'brazil', cat: 'tropical', tags: 'brasil samba plumas carnaval rio',      name: 'Brazil',          imgs: [...seq('brazil', 6), { v: 'assets/video/brazil.mp4' }] },
   { id: 'vegas', cat: 'brillo', tags: 'casino show girls plumas host entrada',       name: 'Viva las Vegas',  desc: 'Show girls y host de entrada', imgs: [`${T}/vegas/05.jpg`, `${T}/vegas/06.jpg`, `${T}/vegas/07.jpg`, `${T}/vegas/08.jpg`, ...seq('vegas', 4)] },
   { id: 'dominicana', cat: 'dominicano', tags: 'bandera republica dominicana merengue',  name: 'Dominicana',      imgs: [`${T}/dominicana/01.jpg`, `${T}/dominicana/06.jpg`, `${T}/dominicana/02.jpg`, `${T}/dominicana/05.jpg`, `${T}/dominicana/03.jpg`, `${T}/dominicana/04.jpg`] },
@@ -36,7 +36,7 @@ const THEMES = [
   { id: 'gatsby', cat: 'epocas', tags: 'anos 20 vintage elegante charleston',      name: 'Gatsby',          imgs: [`${T}/gatsby/08.jpg`, ...seq('gatsby', 7)] },
   { id: 'alas-led', cat: 'luces', tags: 'alas angel luces',    name: 'Alas LED',        imgs: seq('alas-led', 4) },
   { id: 'bar-neon', cat: 'luces', tags: 'bar neon bandeja canapes pasabocas hostess luces led mesa humana recibimiento', name: 'Bar Neón', desc: 'Hostess iluminada con bandeja de canapés', imgs: seq('bar-neon', 2), more: true },
-  { id: 'shine-gold', cat: 'brillo', tags: 'dorado oro brillo',  name: 'Shine Gold',      imgs: seq('shine-gold', 1), more: true },
+  { id: 'shine-gold', cat: 'brillo', tags: 'dorado oro brillo',  name: 'Shine Gold',      imgs: seq('shine-gold', 2), more: true },
   { id: 'carnaval', cat: 'dominicano', tags: 'diablos cojuelos lechones vegano',    name: 'Carnaval Dominicano', desc: 'Con diablos cojuelos y lechones', imgs: ['assets/img/ig/carnaval.jpg', `${T}/carnaval/02.jpg`, `${T}/carnaval/03.jpg`, 'assets/img/ig/carnaval-2.jpg', `${T}/carnaval/01.jpg`], more: true },
   { id: 'marchantas', cat: 'dominicano', tags: 'mercado tipico campo',  name: 'Marchantas',      imgs: seq('marchantas', 3), more: true },
   { id: 'samba', cat: 'tropical', tags: 'brasil rio plumas',       name: 'Samba',           imgs: seq('samba', 1), more: true },
@@ -69,9 +69,9 @@ const THEMES = [
   { id: 'pilotos', cat: 'epocas', tags: 'formula 1 carreras autos f1',     name: 'Pilotos Formula 1', imgs: [`${T}/pilotos/05.jpg`, `${T}/pilotos/04.jpg`, `${T}/pilotos/03.jpg`, `${T}/pilotos/01.jpg`, `${T}/pilotos/02.jpg`], more: true },
   { id: 'marineros', cat: 'epocas', tags: 'marinos barco nautico',   name: 'Marineros',       imgs: seq('marineros', 1), more: true },
   { id: 'mimos', cat: 'personajes', tags: 'mimo circo blanco',       name: 'Mimos',           imgs: seq('mimos', 1), more: true },
-  { id: 'vogue', cat: 'personajes', tags: 'vogue recibimiento bienvenida rosas flores blanco rojo jaula host entrada anfitriones lentejuelas', name: 'Vogue', desc: 'Recibimiento en blanco y rojo', imgs: [`${T}/vogue/10.jpg`, `${T}/vogue/01.jpg`, `${T}/vogue/04.jpg`, `${T}/vogue/02.jpg`, `${T}/vogue/03.jpg`, `${T}/vogue/05.jpg`, `${T}/vogue/06.jpg`, `${T}/vogue/07.jpg`, `${T}/vogue/08.jpg`, `${T}/vogue/09.jpg`], more: true },
+  { id: 'vogue', cat: 'personajes', tags: 'vogue recibimiento bienvenida rosas flores blanco rojo jaula host entrada anfitriones lentejuelas', name: 'Vogue', desc: 'Recibimiento en blanco y rojo', imgs: [`${T}/vogue/10.jpg`, `${T}/vogue/11.jpg`, `${T}/vogue/01.jpg`, `${T}/vogue/04.jpg`, `${T}/vogue/02.jpg`, `${T}/vogue/03.jpg`, `${T}/vogue/05.jpg`, `${T}/vogue/06.jpg`, `${T}/vogue/07.jpg`, `${T}/vogue/08.jpg`, `${T}/vogue/09.jpg`], more: true },
   { id: 'safari', cat: 'tropical', tags: 'safari jungla exploradores aventura africa selva', name: 'Safari', desc: 'Exploradores', imgs: [`${T}/safari/03.jpg`, `${T}/safari/01.jpg`, `${T}/safari/02.jpg`], more: true },
-  { id: 'catrinas', cat: 'epocas', tags: 'muertos mexico calaveras',    name: 'Catrinas',        imgs: ['assets/img/catrinas.jpg'], more: true },
+  { id: 'catrinas', cat: 'epocas', tags: 'muertos mexico calaveras',    name: 'Catrinas',        imgs: ['assets/img/catrinas.jpg', `${T}/catrinas/01.jpg`, `${T}/catrinas/02.jpg`], more: true },
   { id: 'venezia', cat: 'epocas', tags: 'venecia mascaras italia',     name: 'Venezia',         imgs: ['assets/img/ig/venetian.jpg', 'assets/img/ig/venetian-2.jpg', 'assets/img/ig/venetian-3.jpg'], more: true },
   { id: 'otra', tags: 'personalizada medida idea',        name: 'Otra / por definir', imgs: ['assets/img/ig/troupe.jpg'] },
 ];
