@@ -1,18 +1,19 @@
 # -*- coding: utf-8 -*-
-"""Catálogos PDF de CC Entertainment — diseño FESTIVO.
+"""Catálogos PDF de CC Entertainment — diseño OSCURO (como la página web), fotos SIN recorte.
 
     python tools/catalogos.py            -> PDFs en la raíz del repo
     python tools/catalogos.py --hoja DIR -> además, hojas de contacto para revisar
 
-Fondos de color en degradado por sección, confeti, fotos con marco blanco y sombra,
-nombre de la temática en grande. Solo fotos y nombres: sin índice, cifras ni textos.
-Tipos de elemento en las listas de CONTENIDO:
-  ('Nombre', 'ruta.jpg')                       -> una celda
-  ('Nombre', ['a.jpg', 'b.jpg'])               -> dos celdas con un solo nombre centrado
-  F('Nombre', 'ruta.jpg', foco=0.3)            -> igual, con encuadre vertical (0 arriba … 1 abajo)
-  PAGINA('hero_port'|'hero_land'|'grandes'|'grid', [...]) -> hoja completa con ese esquema
+Cada foto se coloca completa: el marco se adapta a sus proporciones (nunca se corta).
+Las filas fluyen: dos fotos por fila (o una a lo ancho si es horizontal y va destacada),
+y la altura de cada fila la marca la foto más alta. Solo fotos y nombres.
+Tipos de elemento:
+  ('Nombre', 'ruta.jpg')                  -> una foto
+  ('Nombre', ['a.jpg', 'b.jpg'])          -> dos fotos con un solo nombre centrado
+  ANCHO('Nombre', 'ruta.jpg')             -> foto horizontal a todo lo ancho
+  PAGINA('hero_port', [...])              -> hoja completa: 1 foto grande a la izquierda + 2 al lado (+ 2 abajo)
 """
-import io, os, sys, random, math
+import io, os, sys, math
 import fitz
 from PIL import Image, ImageOps
 
@@ -26,14 +27,16 @@ def hx(h):
     h = h.lstrip('#'); return tuple(int(h[i:i + 2], 16) / 255 for i in (0, 2, 4))
 
 
-WHITE = (1, 1, 1); BLACK = (0, 0, 0)
-YELLOW = hx('FFD54F'); PINK = hx('FF4FA3'); CYANC = hx('4DD0E1'); LIMEC = hx('C6FF00'); ORANGE = hx('FF9F43'); LILA = hx('B388FF')
-RED = hx('E53935'); GREEN = hx('43A047'); GOLD = hx('F5C542')
-MARCA = [hx('F5C542'), hx('2FD0FF'), hx('FF2FB0'), hx('CDEA1F'), hx('A06BF5')]   # plumas del logo
-CONFETI = [YELLOW, PINK, CYANC, LIMEC, ORANGE, WHITE, LILA]
+# ─── paleta de la página web ───
+BG = hx('0b0b0e'); TXT = hx('f3f2f5'); MUTED = hx('9c99a8'); LINE = hx('2a2a33')
+GOLD = hx('f5c542'); CYAN = hx('2fd0ff'); MAGENTA = hx('ff2fb0'); LIME = hx('cdea1f'); VIOLET = hx('a06bf5')
+RED = hx('e63946'); GREEN = hx('1a9a50'); SILVER = hx('d4d9e6')
+ARCOIRIS = [GOLD, CYAN, MAGENTA, LIME, VIOLET]
 
 W, H = 595, 842
 M = 42
+ANCHO_UTIL = W - 2 * M          # 511
+COL = (ANCHO_UTIL - 18) / 2     # 246.5 por columna
 TEL = '(829) 343-5460'
 IG = '@horaloca_cce'
 WEB = 'horaloca-cce.vercel.app'
@@ -46,8 +49,8 @@ def t(d, n):
     return f'{T}/{d}/{n:02d}.jpg'
 
 
-def F(nombre, img, foco=0.18):
-    return {'n': nombre, 'img': img, 'foco': foco}
+def ANCHO(nombre, img):
+    return {'n': nombre, 'img': img, 'ancho': True}
 
 
 def PAGINA(tipo, items):
@@ -71,7 +74,7 @@ DISCO_BALL = [
 ]
 
 TEMATICAS = [
-    ('Dorado', 'assets/img/destacado/dorado-4.jpg'),
+    ANCHO('Dorado', 'assets/img/destacado/dorado-4.jpg'),
     ('Shine Gold', t('shine-gold', 1)),
     ('Dorado — show girls', t('dorado', 6)),
     ('Brazil plateada', t('brasil-plata', 1)),
@@ -111,7 +114,7 @@ TEMATICAS = [
     ]),
     ('Feria/Circo', [t('feria-circo', 1), t('feria-circo', 2)]),
     ('Disco', t('disco', 1)),
-    F('Años 80', t('anos-80', 2), foco=0.45),
+    ('Años 80', t('anos-80', 2)),
     ('Años 90', t('anos-90', 1)),
     ('Brigeston', t('brigeston', 1)),
     ('Pilotos Formula 1', t('pilotos', 5)),
@@ -123,7 +126,7 @@ TEMATICAS = [
 ]
 
 SHOW_LED = [
-    ('Show LED', t('led-show', 3)),
+    ANCHO('Show LED', t('led-show', 3)),
     ('Zancos LED', t('led-show', 1)),
     ('Alas LED', t('alas-led', 3)),
     ('Alas LED', t('alas-led', 1)),
@@ -133,7 +136,7 @@ SHOW_LED = [
 ]
 
 DOMINICANO = [
-    ('Carnaval Dominicano', 'assets/img/ig/carnaval.jpg'),
+    ANCHO('Carnaval Dominicano', 'assets/img/ig/carnaval.jpg'),
     ('Carnaval — comparsa', t('carnaval', 2)),
     ('Diablo cojuelo', 'assets/img/ig/carnaval-2.jpg'),
     ('Zancos dominicanos', t('zanqueros-rd', 1)),
@@ -149,38 +152,41 @@ DOMINICANO = [
     ]),
 ]
 
-NAVIDAD = [   # familias de fotos alternadas para que no se repitan seguidas
-    PAGINA('grandes', [('Show Navidad completo', t('navidad', 12)), ('Santa y los elfos', t('navidad', 9))]),
-    PAGINA('grid', [('Cascanueces y elfa', t('navidad', 15)), ('Pareja Candy', t('navidad', 18)),
-                    ('Elfa roja', t('navidad', 16)), ('Cocineros navideños', t('navidad', 19))]),
-    PAGINA('grandes', [('El Grinch y la galleta', t('navidad', 11)), ('Santa con elfos y galleta', t('navidad', 10))]),
-    PAGINA('grid', [('Santa y sus ayudantes', t('navidad', 13)), ('Santa', t('navidad', 7)),
-                    ('Chicas de Santa', t('navidad', 2)), ('Soldados de juguete', t('navidad', 4))]),
-    PAGINA('grid', [('Zancos navideños', t('navidad', 5)), ('Alas LED navideñas', t('navidad', 6)),
-                    ('Blanca Navidad', t('blanca-navidad', 1)), ('Cascanueces y Santa', t('navidad', 3))]),
+NAVIDAD = [   # las cuatro horizontales van a lo ancho, alternadas con las verticales
+    ANCHO('Show Navidad completo', t('navidad', 12)),
+    ('Cascanueces y elfa', t('navidad', 15)),
+    ('Pareja Candy', t('navidad', 18)),
+    ANCHO('Santa y los elfos', t('navidad', 9)),
+    ('Elfa roja', t('navidad', 16)),
+    ('Cocineros navideños', t('navidad', 19)),
+    ANCHO('El Grinch y la galleta', t('navidad', 11)),
+    ('Santa y sus ayudantes', t('navidad', 13)),
+    ('Santa', t('navidad', 7)),
+    ANCHO('Santa con elfos y galleta', t('navidad', 10)),
+    ('Chicas de Santa', t('navidad', 2)),
+    ('Soldados de juguete', t('navidad', 4)),
+    ('Zancos navideños', t('navidad', 5)),
+    ('Alas LED navideñas', t('navidad', 6)),
+    ('Blanca Navidad', t('blanca-navidad', 1)),
+    ('Cascanueces y Santa', t('navidad', 3)),
 ]
 
 EXTRAS = [
-    ('Zanqueros', 'assets/img/promo/zancos.jpg'),
+    ANCHO('Zanqueros', 'assets/img/promo/zancos.jpg'),
     ('Percusión en vivo', 'assets/img/promo/musicos.jpg'),
     ('Coreografía personalizada', 'assets/img/destacado/plata-1.jpg'),
     ('Robot LED', 'assets/img/promo/robot-espejo.jpg'),
     ('Bailarines adicionales', 'assets/img/promo/bailarinas-led.jpg'),
 ]
 
-# degradado (arriba -> abajo), color del acento de los nombres, imagen de portadilla
 SECCIONES = [
-    dict(num='01', titulo='Disco Ball', etiqueta='DISCO BALL', grad=('1E1B4B', '6D28D9'), acento=YELLOW, items=DISCO_BALL, imagen=f'{T}/espejos/main.jpg'),
-    dict(num='02', titulo='Temáticas', etiqueta='TEMÁTICAS', grad=('BE185D', 'F97316'), acento=YELLOW, items=TEMATICAS, imagen='assets/img/destacado/dorado-4.jpg'),
-    dict(num='03', titulo='Show LED', etiqueta='SHOW LED', grad=('0B3B8C', '06B6D4'), acento=LIMEC, items=SHOW_LED, imagen=t('led-show', 3)),
-    dict(num='04', titulo='Ritmo Dominicano', etiqueta='RITMO DOMINICANO', grad=('B91C1C', 'F59E0B'), acento=CYANC, items=DOMINICANO, imagen='assets/img/ig/carnaval.jpg'),
-    dict(num='05', titulo='Navidad', etiqueta='NAVIDAD', grad=('0F5132', '2E9E5B'), acento=YELLOW, items=NAVIDAD, imagen=t('navidad', 12), navidad=True),
-    dict(num='06', titulo='Extras para tu show', etiqueta='EXTRAS', grad=('4C1D95', 'C026D3'), acento=YELLOW, items=EXTRAS, imagen='assets/img/promo/zancos.jpg'),
+    dict(num='01', titulo='Disco Ball', etiqueta='DISCO BALL', color=SILVER, items=DISCO_BALL),
+    dict(num='02', titulo='Temáticas', etiqueta='TEMÁTICAS', color=GOLD, items=TEMATICAS),
+    dict(num='03', titulo='Show LED', etiqueta='SHOW LED', color=CYAN, items=SHOW_LED),
+    dict(num='04', titulo='Ritmo Dominicano', etiqueta='RITMO DOMINICANO', color=RED, items=DOMINICANO),
+    dict(num='05', titulo='Navidad', etiqueta='NAVIDAD', color=GREEN, items=NAVIDAD, navidad=True),
+    dict(num='06', titulo='Extras para tu show', etiqueta='EXTRAS', color=VIOLET, items=EXTRAS),
 ]
-GRAD_PORTADA = ('6D28D9', 'DB2777')
-GRAD_NAVIDAD = ('0F5132', 'B91C1C')
-MOSAICO_PORTADA = [f'{T}/espejos/main.jpg', t('vogue', 1), t('vegas', 5), t('bar-neon', 1), t('dorado', 6), t('navidad', 12)]
-MOSAICO_NAVIDAD = [t('navidad', 12), t('navidad', 15), t('navidad', 18), t('navidad', 19), t('navidad', 13), t('navidad', 7)]
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -190,12 +196,13 @@ ARCHIVO_FUENTE = {'B': 'Outfit-Bold.ttf', 'S': 'Outfit-SemiBold.ttf', 'M': 'Outf
 _FONT = {k: fitz.Font(fontfile=os.path.join(FUENTES, v)) for k, v in ARCHIVO_FUENTE.items()}
 
 
-def ancho(s, k, size, tracking=0.0):
-    return _FONT[k].text_length(s, fontsize=size) + tracking * size * max(len(s) - 1, 0)
+def ancho_txt(s, k, size):
+    return _FONT[k].text_length(s, fontsize=size)
 
 
-def texto(page, s, y, size, k='B', color=WHITE, x=None, alinear='izq', tracking=0.0, opacidad=1.0):
-    w = ancho(s, k, size, tracking)
+def texto(page, s, y, size, k='M', color=TXT, x=None, alinear='izq', opacidad=1.0):
+    """y = borde superior del texto. x=None centra en la página."""
+    w = ancho_txt(s, k, size)
     if x is None:
         px = (W - w) / 2
     elif alinear == 'der':
@@ -204,86 +211,53 @@ def texto(page, s, y, size, k='B', color=WHITE, x=None, alinear='izq', tracking=
         px = x - w / 2
     else:
         px = x
-    base = y + size * 0.78
-    ff = os.path.join(FUENTES, ARCHIVO_FUENTE[k])
-    if tracking:
-        cx = px
-        for ch in s:
-            page.insert_text((cx, base), ch, fontname='ou' + k, fontfile=ff, fontsize=size, color=color, fill_opacity=opacidad)
-            cx += _FONT[k].text_length(ch, fontsize=size) + tracking * size
-    else:
-        page.insert_text((px, base), s, fontname='ou' + k, fontfile=ff, fontsize=size, color=color, fill_opacity=opacidad)
+    page.insert_text((px, y + size * 0.78), s, fontname='ou' + k, fontfile=os.path.join(FUENTES, ARCHIVO_FUENTE[k]),
+                     fontsize=size, color=color, fill_opacity=opacidad)
     return w
 
 
-def linea(page, x0, y, x1, color=WHITE, grosor=0.6, opacidad=1.0):
-    sh = page.new_shape(); sh.draw_line((x0, y), (x1, y)); sh.finish(color=color, width=grosor, stroke_opacity=opacidad); sh.commit()
+def linea(page, x0, y, x1, color, grosor=2):
+    page.draw_line((x0, y), (x1, y), color=color, width=grosor)
 
 
-def barra_marca(page, x, y, w=44, grosor=2.4):
-    seg = w / len(MARCA)
-    for i, c in enumerate(MARCA):
-        page.draw_line((x + i * seg, y), (x + (i + 1) * seg - 1.2, y), color=c, width=grosor)
-
-
-# ═══════════════════════════════════════════════════════════════
-#  FONDO FESTIVO
-# ═══════════════════════════════════════════════════════════════
-def degradado(page, c1, c2, bandas=72):
-    a, b = hx(c1), hx(c2)
-    alto = H / bandas
-    for i in range(bandas):
-        f = i / (bandas - 1)
-        col = tuple(a[j] + (b[j] - a[j]) * f for j in range(3))
-        page.draw_rect(fitz.Rect(0, i * alto - 0.5, W, (i + 1) * alto + 0.5), color=None, fill=col)
-
-
-def confeti(page, semilla, cantidad=60, evitar=()):
-    rnd = random.Random(semilla)
-    sh = page.new_shape()
-    for _ in range(cantidad):
-        x, y = rnd.uniform(6, W - 6), rnd.uniform(6, H - 6)
-        if any(r.contains(fitz.Point(x, y)) for r in evitar):
-            continue
-        col = rnd.choice(CONFETI); op = rnd.uniform(0.35, 0.9); tipo = rnd.random()
-        if tipo < 0.45:
-            sh.draw_circle((x, y), rnd.uniform(1.8, 5))
-        elif tipo < 0.75:
-            s = rnd.uniform(4, 9); a = rnd.uniform(0, math.pi)
-            pts = [(x + s * math.cos(a + k * math.pi / 2), y + s * math.sin(a + k * math.pi / 2)) for k in range(4)]
-            sh.draw_polyline(pts + [pts[0]])
-        else:
-            l, g = rnd.uniform(8, 16), rnd.uniform(2, 3.2); a = rnd.uniform(0, math.pi)
-            dx, dy = math.cos(a), math.sin(a); nx, ny = -dy * g / 2, dx * g / 2
-            pts = [(x - dx * l / 2 + nx, y - dy * l / 2 + ny), (x + dx * l / 2 + nx, y + dy * l / 2 + ny),
-                   (x + dx * l / 2 - nx, y + dy * l / 2 - ny), (x - dx * l / 2 - nx, y - dy * l / 2 - ny)]
-            sh.draw_polyline(pts + [pts[0]])
-        sh.finish(color=None, fill=col, fill_opacity=op, closePath=True)
-    sh.commit()
+def arcoiris(page, x0, x1, y, grosor=2):
+    seg = (x1 - x0) / len(ARCOIRIS)
+    for i, c in enumerate(ARCOIRIS):
+        linea(page, x0 + i * seg, y, x0 + (i + 1) * seg, c, grosor)
 
 
 # ═══════════════════════════════════════════════════════════════
-#  IMÁGENES
+#  IMÁGENES (sin recorte)
 # ═══════════════════════════════════════════════════════════════
+_tam = {}
 _cache = {}
 
 
-def foto(path, rect, foco=0.18, escala=2.0):
-    key = (path, round(rect.width), round(rect.height), foco)
-    if key in _cache:
-        return _cache[key]
-    im = ImageOps.exif_transpose(Image.open(path)).convert('RGB')
-    cw, ch = rect.width * escala, rect.height * escala
-    r_cel = cw / ch; r_im = im.width / im.height
-    if r_im > r_cel:
-        nw = int(im.height * r_cel); x0 = (im.width - nw) // 2
-        im = im.crop((x0, 0, x0 + nw, im.height))
-    else:
-        nh = int(im.width / r_cel); sobra = im.height - nh; y0 = int(sobra * foco)
-        im = im.crop((0, y0, im.width, y0 + nh))
-    im = im.resize((int(cw), int(ch)), Image.LANCZOS)
-    b = io.BytesIO(); im.save(b, 'JPEG', quality=84, optimize=True, progressive=True)
-    _cache[key] = b.getvalue()
+def tam(path):
+    if path not in _tam:
+        _tam[path] = ImageOps.exif_transpose(Image.open(path)).size
+    return _tam[path]
+
+
+def ajustar(path, w_max, h_max):
+    """Tamaño de la foto completa dentro de w_max × h_max, sin recortar."""
+    w, h = tam(path)
+    e = min(w_max / w, h_max / h)
+    return w * e, h * e
+
+
+def es_horizontal(path, umbral=1.25):
+    w, h = tam(path)
+    return w / h >= umbral
+
+
+def jpeg(path, w_pt, h_pt, escala=2.0):
+    key = (path, round(w_pt), round(h_pt))
+    if key not in _cache:
+        im = ImageOps.exif_transpose(Image.open(path)).convert('RGB')
+        im = im.resize((max(1, int(w_pt * escala)), max(1, int(h_pt * escala))), Image.LANCZOS)
+        b = io.BytesIO(); im.save(b, 'JPEG', quality=84, optimize=True, progressive=True)
+        _cache[key] = b.getvalue()
     return _cache[key]
 
 
@@ -294,7 +268,7 @@ def redondeado(page, rect, r, fill=None, color=None, width=0.6, opacidad=1.0):
     sh.commit()
 
 
-def esquinas(page, rect, r, fondo):
+def esquinas(page, rect, r, fondo=BG):
     x0, y0, x1, y1 = rect.x0, rect.y0, rect.x1, rect.y1
     for (cx, cy, ax, ay, bx, by) in [(x0, y0, x0 + r, y0, x0, y0 + r), (x1, y0, x1 - r, y0, x1, y0 + r),
                                      (x1, y1, x1 - r, y1, x1, y1 - r), (x0, y1, x0 + r, y1, x0, y1 - r)]:
@@ -303,14 +277,26 @@ def esquinas(page, rect, r, fondo):
         sh.finish(color=fondo, fill=fondo, width=0.3, closePath=True); sh.commit()
 
 
-def celda(page, path, rect, foco=0.18, marco=6, r=10):
-    """Foto con marco blanco redondeado y sombra: tarjeta de fiesta."""
-    fr = rect + (-marco, -marco, marco, marco)
-    for dy, op in ((10, 0.10), (6, 0.12), (3, 0.14)):
-        redondeado(page, fr + (0, dy, 0, dy), r + marco, fill=BLACK, opacidad=op)
-    redondeado(page, fr, r + marco, fill=WHITE)
-    page.insert_image(rect, stream=foto(path, rect, foco))
-    esquinas(page, rect, r, WHITE)
+def foto_en(page, path, rect, r=8):
+    """Dibuja la foto completa ocupando exactamente rect (ya ajustado a su proporción)."""
+    page.insert_image(rect, stream=jpeg(path, rect.width, rect.height))
+    esquinas(page, rect, r)
+    redondeado(page, rect, r, color=(1, 1, 1), width=0.6, opacidad=0.10)
+
+
+def foto_ajustada(page, path, caja, alinear='abajo', r=8):
+    """Encaja la foto completa dentro de la caja (centrada en horizontal). Devuelve el rect real."""
+    w, h = ajustar(path, caja.width, caja.height)
+    x0 = caja.x0 + (caja.width - w) / 2
+    if alinear == 'abajo':
+        y0 = caja.y1 - h
+    elif alinear == 'centro':
+        y0 = caja.y0 + (caja.height - h) / 2
+    else:
+        y0 = caja.y0
+    rect = fitz.Rect(x0, y0, x0 + w, y0 + h)
+    foto_en(page, path, rect, r)
+    return rect
 
 
 _xref = {}
@@ -324,61 +310,67 @@ def imagen_compartida(page, rect, key, bytes_fn):
         _xref[doc_key] = page.insert_image(rect, stream=bytes_fn())
 
 
+def png_plumas(alpha):
+    im = Image.open('assets/img/logo-mark-glow.png').convert('RGBA')
+    im.putalpha(im.getchannel('A').point(lambda v: int(v * alpha)))
+    b = io.BytesIO(); im.save(b, 'PNG'); return b.getvalue()
+
+
 def png_qr():
     import qrcode
     im = qrcode.make('https://' + WEB, box_size=10, border=1).convert('RGB')
     b = io.BytesIO(); im.save(b, 'PNG'); return b.getvalue()
 
 
-def png_logo():
-    return open('assets/img/logo-mark-glow.png', 'rb').read()
+# ═══════════════════════════════════════════════════════════════
+#  ELEMENTOS DE PÁGINA (diseño original oscuro)
+# ═══════════════════════════════════════════════════════════════
+def fondo(page):
+    page.draw_rect(page.rect, color=None, fill=BG)
 
 
-# ═══════════════════════════════════════════════════════════════
-#  ELEMENTOS DE PÁGINA
-# ═══════════════════════════════════════════════════════════════
-def cabeza(page, sec, numero, semilla, evitar=()):
-    degradado(page, *sec['grad'])
-    confeti(page, semilla, 56, evitar)
-    texto(page, 'CC ENTERTAINMENT', 30, 8, 'B', WHITE, x=M, tracking=0.18)
-    texto(page, sec['etiqueta'], 30.5, 7.5, 'B', sec['acento'], x=W - M - 34, alinear='der', tracking=0.18)
-    texto(page, f'{numero:02d}', 28, 10, 'B', WHITE, x=W - M, alinear='der')
-    linea(page, M, 52, W - M, WHITE, 0.6, 0.4)
-    pie(page)
+def plumas(page, rect, alpha):
+    imagen_compartida(page, rect, ('plumas', alpha), lambda: png_plumas(alpha))
+
+
+def cabeza(page, sec, numero):
+    fondo(page)
+    plumas(page, fitz.Rect(110, 196, 485, 626), 0.10)
+    texto(page, 'CC ENTERTAINMENT', 36, 10, 'B', TXT, x=M)
+    texto(page, sec['etiqueta'], 52, 7.5, 'M', sec['color'], x=M)
+    texto(page, f'{numero:02d}', 41, 11, 'B', GOLD, x=W - M, alinear='der')
+    arcoiris(page, M, W - M, 69, 2)
+    texto(page, f'{TEL} · {IG}', 804, 7.5, 'M', MUTED, x=M)
     if sec.get('navidad'):
-        campana(page, W - M - 50, 40, 0.6, GOLD)
-        lucecitas(page, M + 4, W - M - 4, 55)
-        copo(page, M + 8, 786, 6); copo(page, W - M - 8, 782, 6)
+        campana(page, 505, 46, 0.75); lucecitas(page, 48, 547, 72, 24)
+        copo(page, 50, 790, 7); copo(page, 545, 785, 7)
 
 
-def pie(page):
-    barra_marca(page, M, 806)
-    texto(page, f'{WEB}   ·   {TEL}   ·   {IG}', 800, 7, 'M', WHITE, x=W - M, alinear='der', opacidad=0.85)
-
-
-def etiqueta(page, rect, nombre, acento, grande=False, centrada=False):
-    ts = 17 if grande else 12.5
-    y_n = rect.y1 + 16
-    if centrada:
-        cx = (rect.x0 + rect.x1) / 2
-        texto(page, nombre, y_n, ts, 'B', WHITE, x=cx, alinear='centro')
-        redondeado(page, fitz.Rect(cx - 14, y_n + ts + 8, cx + 14, y_n + ts + 11.5), 1.5, fill=acento)
+def etiqueta(page, x, y, nombre, color, grande=False, centro=None):
+    """Guion de color + nombre. y = borde superior del texto."""
+    ts = 19 if grande else 14
+    dx, gl = (48, 30) if grande else (34, 22)
+    if centro is not None:
+        w = ancho_txt(nombre, 'S', ts)
+        x_txt = centro - (w + gl + 8) / 2 + gl + 8
+        linea(page, x_txt - gl - 8, y + ts * 0.55, x_txt - 8, color, 2.5)
+        texto(page, nombre, y, ts, 'S', TXT, x=x_txt)
         return
-    texto(page, nombre, y_n, ts, 'B', WHITE, x=rect.x0 + 2)
-    redondeado(page, fitz.Rect(rect.x0 + 2, y_n + ts + 8, rect.x0 + 30, y_n + ts + 11.5), 1.5, fill=acento)
+    linea(page, x, y + ts * 0.55, x + gl, color, 2.5)
+    texto(page, nombre, y, ts, 'S', TXT, x=x + dx)
 
 
-# ─── decoración navideña ───
+# ─── decoración navideña (como el original) ───
 def campana(page, cx, cy, s=1.0, color=GOLD):
     sh = page.new_shape()
     sh.draw_line((cx, cy - 22 * s), (cx, cy - 17 * s)); sh.draw_circle((cx, cy - 22 * s), 2 * s)
     sh.draw_bezier((cx - 12 * s, cy + 6 * s), (cx - 12 * s, cy - 14 * s), (cx + 12 * s, cy - 14 * s), (cx + 12 * s, cy + 6 * s))
     sh.draw_line((cx - 15 * s, cy + 6 * s), (cx + 15 * s, cy + 6 * s))
-    sh.finish(color=color, width=1.2 * s)
+    sh.finish(color=color, width=1.3 * s)
     sh.draw_circle((cx, cy + 9 * s), 2.2 * s); sh.finish(color=color, fill=color, width=0.5); sh.commit()
 
 
-def copo(page, cx, cy, r=7, color=WHITE):
+def copo(page, cx, cy, r=7, color=SILVER):
     sh = page.new_shape()
     for i in range(6):
         a = math.radians(i * 60); x1, y1 = cx + r * math.cos(a), cy + r * math.sin(a)
@@ -386,236 +378,236 @@ def copo(page, cx, cy, r=7, color=WHITE):
         for lado in (-1, 1):
             b = a + lado * math.radians(35); xm, ym = cx + r * 0.6 * math.cos(a), cy + r * 0.6 * math.sin(a)
             sh.draw_line((xm, ym), (xm + r * 0.3 * math.cos(b), ym + r * 0.3 * math.sin(b)))
-    sh.finish(color=color, width=0.8, stroke_opacity=0.9); sh.commit()
+    sh.finish(color=color, width=0.7); sh.commit()
 
 
-def lucecitas(page, x0, x1, y, n=26):
-    colores = [RED, YELLOW, CYANC, PINK, LIMEC]
+def lucecitas(page, x0, x1, y, n=24):
+    colores = [RED, GREEN, GOLD, CYAN, MAGENTA]
     paso = (x1 - x0) / (n - 1); sh = page.new_shape()
     for i in range(n):
-        sh.draw_circle((x0 + i * paso, y + (2 if i % 2 else 5)), 1.6); sh.finish(color=None, fill=colores[i % 5])
+        sh.draw_circle((x0 + i * paso, y + (3 if i % 2 else 6)), 1.6); sh.finish(color=colores[i % 5], fill=colores[i % 5], width=0.3)
     sh.commit()
 
 
 # ═══════════════════════════════════════════════════════════════
-#  PLANTILLAS
+#  MAQUETACIÓN FLUIDA
 # ═══════════════════════════════════════════════════════════════
-CEL = {
-    'hero_land': dict(hero=fitz.Rect(M, 74, W - M, 396), abajo=[fitz.Rect(M, 456, 294, 716), fitz.Rect(301, 456, W - M, 716)]),
-    'hero_port': dict(hero=fitz.Rect(M, 74, 322, 496), lado=[fitz.Rect(334, 74, W - M, 266), fitz.Rect(334, 316, W - M, 496)],
-                      abajo=[fitz.Rect(M, 560, 294, 758), fitz.Rect(301, 560, W - M, 758)]),
-    'hero_port3': dict(hero=fitz.Rect(M, 74, 322, 700), lado=[fitz.Rect(334, 74, W - M, 366), fitz.Rect(334, 420, W - M, 700)]),
-    'grid': [[fitz.Rect(M, 74, 294, 372), fitz.Rect(301, 74, W - M, 372)], [fitz.Rect(M, 436, 294, 734), fitz.Rect(301, 436, W - M, 734)]],
-    'duo': [fitz.Rect(M, 150, 294, 620), fitz.Rect(301, 150, W - M, 620)],
-    'grandes': [fitz.Rect(M, 74, W - M, 370), fitz.Rect(M, 434, W - M, 730)],
-}
+Y_INI = 88          # primera fila bajo la cabecera
+Y_FIN = 782         # límite inferior (encima del pie)
+ALTO_MAX = 300      # alto máximo de una foto en fila de dos (2 filas por hoja)
+ALTO_ANCHO = 280    # alto máximo de una foto a lo ancho (deja sitio a otra fila debajo)
+GAP_FILA = 52       # nombre + aire entre filas
+GAP_PAR = 18        # separación entre las dos fotos de una fila
 
 
 def norm(it):
-    """-> (nombre, img|[img,img], foco)"""
     if isinstance(it, dict):
-        return (it['n'], it['img'], it.get('foco', 0.18))
-    return (it[0], it[1], 0.18)
+        return it['n'], it['img'], it.get('ancho', False)
+    return it[0], it[1], False
 
 
 def es_par(it):
     return isinstance(it, tuple) and isinstance(it[1], list)
 
 
-def rects_de(fila, celdas):
-    if len(fila) == 1 and es_par(fila[0]):
-        return list(celdas)
-    return list(celdas[:len(fila)])
-
-
-def pinta_celda(page, it, rect, sec, grande=False):
-    n, img, foco = norm(it)
-    celda(page, img, rect, foco=foco)
-    etiqueta(page, rect, n, sec['acento'], grande=grande)
-
-
-def pinta_fila(page, fila, celdas, sec):
-    if len(fila) == 1 and es_par(fila[0]):
-        n, rutas = fila[0]
-        celda(page, rutas[0], celdas[0]); celda(page, rutas[1], celdas[1])
-        union = fitz.Rect(celdas[0].x0, celdas[0].y0, celdas[1].x1, celdas[1].y1)
-        etiqueta(page, union, n, sec['acento'], centrada=True)
-        return
-    for it, r in zip(fila, celdas):
-        pinta_celda(page, it, r, sec)
+def es_pagina(it):
+    return isinstance(it, dict) and 'pagina' in it
 
 
 def filas_de(items):
+    """Agrupa en filas: a lo ancho (1 foto), par con nombre centrado (2 fotos) o dos sencillas."""
     pend = list(items); filas = []
     while pend:
         it = pend.pop(0)
-        if es_par(it):
+        if es_par(it) or norm(it)[2]:
             filas.append([it]); continue
         fila = [it]
         for j, cand in enumerate(pend):
-            if not es_par(cand):
+            if not es_par(cand) and not norm(cand)[2]:
                 fila.append(pend.pop(j)); break
         filas.append(fila)
     return filas
 
 
-def nueva(doc, sec, num, evitar):
-    page = doc.new_page(width=W, height=H)
-    cabeza(page, sec, num, semilla=num * 7 + len(sec['titulo']), evitar=evitar)
-    return page
+def alto_fila(fila):
+    if len(fila) == 1 and es_par(fila[0]):
+        return max(ajustar(p, COL, ALTO_MAX)[1] for p in fila[0][1])
+    if len(fila) == 1:
+        n, img, ancho = norm(fila[0])
+        return ajustar(img, ANCHO_UTIL, ALTO_ANCHO)[1] if ancho else ajustar(img, COL, ALTO_MAX)[1]
+    return max(ajustar(norm(it)[1], COL, ALTO_MAX)[1] for it in fila)
 
 
-def pagina_especial(doc, spec, sec, num):
-    tipo, items = spec['pagina'], spec['items']
-    if tipo == 'hero_port' and len(items) <= 3:
-        tipo = 'hero_port3'
-    if tipo in ('hero_port', 'hero_port3'):
-        c = CEL[tipo]
-        evitar = [c['hero']] + c['lado'] + (c.get('abajo') or [])
-        page = nueva(doc, sec, num, evitar)
-        pinta_celda(page, items[0], c['hero'], sec, grande=True)
-        for it, r in zip(items[1:3], c['lado']):
-            pinta_celda(page, it, r, sec)
-        if tipo == 'hero_port' and items[3:]:
-            pinta_fila(page, items[3:5], c['abajo'], sec)
-    elif tipo == 'hero_land':
-        c = CEL['hero_land']
-        page = nueva(doc, sec, num, [c['hero']] + c['abajo'])
-        pinta_celda(page, items[0], c['hero'], sec, grande=True)
-        pinta_fila(page, items[1:3], c['abajo'], sec)
-    elif tipo == 'grandes':
-        page = nueva(doc, sec, num, CEL['grandes'])
-        for it, r in zip(items[:2], CEL['grandes']):
-            pinta_celda(page, it, r, sec, grande=True)
-    elif tipo == 'grid':
-        filas = filas_de(items)
-        pagina_filas(doc, sec, num, filas[:2])
+def pinta_fila(page, fila, y, alto, sec):
+    """Dibuja una fila con las fotos alineadas por abajo y el nombre debajo."""
+    base = y + alto
+    if len(fila) == 1 and es_par(fila[0]):
+        nombre, rutas = fila[0]
+        for k, p in enumerate(rutas):
+            caja = fitz.Rect(M + k * (COL + GAP_PAR), y, M + k * (COL + GAP_PAR) + COL, base)
+            foto_ajustada(page, p, caja, 'abajo')
+        etiqueta(page, 0, base + 10, nombre, sec['color'], centro=W / 2)
+        return
+    if len(fila) == 1:
+        nombre, img, ancho = norm(fila[0])
+        if ancho:
+            r = foto_ajustada(page, img, fitz.Rect(M, y, W - M, base), 'abajo')
+            etiqueta(page, r.x0, base + 10, nombre, sec['color'], grande=True)
+        else:
+            r = foto_ajustada(page, img, fitz.Rect(M, y, M + COL, base), 'abajo')
+            etiqueta(page, r.x0, base + 10, nombre, sec['color'])
+        return
+    for k, it in enumerate(fila):
+        nombre, img, _ = norm(it)
+        caja = fitz.Rect(M + k * (COL + GAP_PAR), y, M + k * (COL + GAP_PAR) + COL, base)
+        r = foto_ajustada(page, img, caja, 'abajo')
+        etiqueta(page, r.x0, base + 10, nombre, sec['color'])
+
+
+def pagina_hero_port(doc, items, sec, num):
+    """Hoja completa: foto grande a la izquierda, dos apiladas a la derecha y (opcional) dos abajo."""
+    page = doc.new_page(width=W, height=H); cabeza(page, sec, num)
+    tres = len(items) <= 3
+    hero = fitz.Rect(M, Y_INI, 322, 700 if tres else 500)
+    lados = [fitz.Rect(334, Y_INI, W - M, 372 if tres else 268), fitz.Rect(334, 424 if tres else 320, W - M, 700 if tres else 500)]
+    r = foto_ajustada(page, items[0][1], hero, 'centro')
+    etiqueta(page, r.x0, r.y1 + 12, items[0][0], sec['color'], grande=True)
+    for it, caja in zip(items[1:3], lados):
+        r = foto_ajustada(page, it[1], caja, 'abajo')
+        etiqueta(page, r.x0, caja.y1 + 8, it[0], sec['color'])
+    if not tres and items[3:]:
+        y0 = 560
+        alto = max(ajustar(it[1], COL, 200)[1] for it in items[3:5])
+        for k, it in enumerate(items[3:5]):
+            caja = fitz.Rect(M + k * (COL + GAP_PAR), y0, M + k * (COL + GAP_PAR) + COL, y0 + alto)
+            r = foto_ajustada(page, it[1], caja, 'abajo')
+            etiqueta(page, r.x0, y0 + alto + 10, it[0], sec['color'])
     return num + 1
 
 
-def pagina_filas(doc, sec, num, filas):
-    """Una hoja con 1 o 2 filas. Con una sola fila, las fotos van más altas (dúo)."""
-    if len(filas) == 1:
-        page = nueva(doc, sec, num, CEL['duo'])
-        pinta_fila(page, filas[0], CEL['duo'], sec)
-    else:
-        page = nueva(doc, sec, num, CEL['grid'][0] + CEL['grid'][1])
-        for k, fila in enumerate(filas[:2]):
-            pinta_fila(page, fila, CEL['grid'][k], sec)
-    return page
-
-
 def seccion(doc, sec, num):
-    items = list(sec['items'])
-    if items and not isinstance(items[0], dict):
-        hero = items.pop(0)
-        c = CEL['hero_land']
-        page = nueva(doc, sec, num, [c['hero']] + c['abajo']); num += 1
-        pinta_celda(page, hero, c['hero'], sec, grande=True)
-        primeros = []
-        while items and len(primeros) < 2 and not (isinstance(items[0], dict) and 'pagina' in items[0]):
-            if es_par(items[0]):
-                if not primeros:
-                    primeros = [items.pop(0)]
-                break
-            primeros.append(items.pop(0))
-        if primeros:
-            pinta_fila(page, primeros, c['abajo'], sec)
+    """Maqueta la sección con filas fluidas; las PAGINA se insertan como hojas completas."""
+    pendientes = []
 
     def vaciar(pendientes, num):
         filas = filas_de(pendientes)
-        while filas:
-            pagina_filas(doc, sec, num, filas[:2]); filas = filas[2:]; num += 1
+        page = None; y = Y_INI
+        for fila in filas:
+            alto = alto_fila(fila)
+            if page is None or y + alto + 28 > Y_FIN:
+                page = doc.new_page(width=W, height=H); cabeza(page, sec, num); num += 1; y = Y_INI
+            pinta_fila(page, fila, y, alto, sec)
+            y += alto + GAP_FILA
         return num
 
-    pendientes = []
-    for it in items:
-        if isinstance(it, dict) and 'pagina' in it:
-            num = vaciar(pendientes, num); pendientes = []
-            num = pagina_especial(doc, it, sec, num)
+    for it in sec['items']:
+        if es_pagina(it):
+            if pendientes:
+                num = vaciar(pendientes, num); pendientes = []
+            num = pagina_hero_port(doc, it['items'], sec, num)
         else:
             pendientes.append(it)
-    return vaciar(pendientes, num)
+    if pendientes:
+        num = vaciar(pendientes, num)
+    return num
 
 
 # ═══════════════════════════════════════════════════════════════
-#  PORTADA, PORTADILLAS, CONTRAPORTADA
+#  PORTADA, PORTADILLAS, CONTRAPORTADA (diseño original)
 # ═══════════════════════════════════════════════════════════════
-def mosaico(page, rutas, y0, y1, gutter=12):
-    cw = (W - 2 * M - 2 * gutter) / 3; ch = (y1 - y0 - gutter) / 2
-    for i, p in enumerate(rutas[:6]):
-        x = M + (i % 3) * (cw + gutter); y = y0 + (i // 3) * (ch + gutter)
-        celda(page, p, fitz.Rect(x, y, x + cw, y + ch), foco=0.15, marco=5, r=8)
-
-
-def portada(doc, grad, titulo1, titulo2, lema, rutas, navidad=False):
-    page = doc.new_page(width=W, height=H)
-    degradado(page, *grad); confeti(page, 2026, 110)
-    mosaico(page, rutas, 46, 452)
-    imagen_compartida(page, fitz.Rect(M, 486, M + 74, 560), 'logo', png_logo)
-    texto(page, 'CC ENTERTAINMENT', 500, 22, 'B', WHITE, x=M + 88, tracking=0.14)
-    texto(page, 'PRODUCCIÓN DE ESPECTÁCULOS TEMÁTICOS', 534, 8, 'B', YELLOW, x=M + 88, tracking=0.2)
-    texto(page, titulo1, 596, 50, 'B', WHITE, x=M)
-    texto(page, titulo2, 652, 50, 'B', YELLOW, x=M)
-    texto(page, lema, 724, 10, 'B', WHITE, x=M, tracking=0.2)
-    barra_marca(page, M, 790, w=130, grosor=3.2)
-    texto(page, f'{TEL}  ·  {IG}  ·  {WEB}', 782, 8.5, 'M', WHITE, x=W - M, alinear='der', opacidad=0.9)
+def portada(doc, titulo, lema, color_lema, navidad=False):
+    page = doc.new_page(width=W, height=H); fondo(page)
+    page.insert_image(fitz.Rect(178, 130, 417, 405), filename='assets/img/logo-mark-glow.png')
+    texto(page, 'CC ENTERTAINMENT', 425, 34, 'B')
+    texto(page, 'PRODUCCIÓN DE ESPECTÁCULOS TEMÁTICOS', 474, 9.5, 'M', MUTED)
     if navidad:
-        campana(page, W - M - 24, 512, 1.2, GOLD); copo(page, W - M - 80, 500, 8); copo(page, W - M - 50, 548, 6)
-        lucecitas(page, M, W - M, 760, 30)
+        for i, c in enumerate([GREEN, RED, GOLD]):
+            linea(page, 187 + i * 74, 508, 187 + (i + 1) * 74 - 4, c, 2.5)
+    else:
+        arcoiris(page, 187, 408, 508, 2.5)
+    texto(page, titulo, 543, 30, 'L')
+    texto(page, lema, 590, 11, 'S', color_lema)
+    texto(page, 'República Dominicana', 752, 10.5, 'M', MUTED)
+    texto(page, f'{TEL}  ·  {IG}', 786, 10.5, 'S')
+    if navidad:
+        campana(page, 95, 118, 1.4); campana(page, 500, 118, 1.4)
+        for (x, y, r) in [(60, 300, 9), (535, 318, 9), (78, 560, 7), (515, 585, 7), (150, 690, 6), (438, 695, 6)]:
+            copo(page, x, y, r)
+        lucecitas(page, 150, 445, 706, 14)
     return page
 
 
+def nombres_de(sec):
+    out = []
+    for it in sec['items']:
+        grupo = it['items'] if es_pagina(it) else [it]
+        for x in grupo:
+            n = norm(x)[0]
+            if n not in out:
+                out.append(n)
+    return out
+
+
 def portadilla(doc, sec):
-    page = doc.new_page(width=W, height=H)
-    degradado(page, *sec['grad']); confeti(page, 500 + int(sec['num']), 80, [fitz.Rect(M, 60, W - M, 470)])
-    celda(page, sec['imagen'], fitz.Rect(M, 70, W - M, 470), foco=0.2, marco=7, r=14)
-    texto(page, sec['num'], 486, 92, 'B', WHITE, x=M - 3, opacidad=0.3)
-    texto(page, sec['titulo'], 590, 42, 'B', WHITE, x=M)
-    redondeado(page, fitz.Rect(M, 650, M + 60, 654.5), 2, fill=sec['acento'])
-    pie(page)
+    page = doc.new_page(width=W, height=H); fondo(page)
+    plumas(page, fitz.Rect(80, 161, 515, 661), 0.13)
+    texto(page, sec['num'], 240, 60, 'B', sec['color'])
+    texto(page, sec['titulo'], 326, 34, 'L')
+    linea(page, 208, 388, 388, SILVER, 1.5)
+    nombres = nombres_de(sec)
+    if len(nombres) <= 12:
+        y = 424
+        for n in nombres:
+            texto(page, n, y, 11.5, 'M', MUTED); y += 20
+    else:                                   # dos columnas
+        por_col = math.ceil(min(len(nombres), 26) / 2)
+        for i, n in enumerate(nombres[:26]):
+            col, fila = divmod(i, por_col)
+            texto(page, n, 424 + fila * 17, 9.5, 'M', MUTED, x=W / 2 - 200 + col * 220)
+        if len(nombres) > 26:
+            texto(page, '…', 424 + por_col * 17, 9.5, 'M', MUTED, x=W / 2 - 200 + 220)
+    texto(page, 'CC ENTERTAINMENT · CATÁLOGO DE TEMÁTICAS', 804, 7.5, 'M', MUTED, x=M)
     if sec.get('navidad'):
-        campana(page, W - M - 24, 500, 1.1, GOLD); copo(page, W - M - 70, 492, 8)
+        campana(page, 505, 60, 0.9); copo(page, 60, 700, 8); copo(page, 535, 690, 8)
 
 
-def contraportada(doc, grad, ruta_foto, navidad=False):
-    page = doc.new_page(width=W, height=H)
-    degradado(page, *grad); confeti(page, 9090, 90, [fitz.Rect(M, 30, W - M, 410)])
-    celda(page, ruta_foto, fitz.Rect(M, 46, W - M, 400), foco=0.25, marco=7, r=14)
-    texto(page, 'Convertimos tu evento', 440, 32, 'B', WHITE, x=M)
-    texto(page, 'en un espectáculo', 478, 32, 'B', YELLOW, x=M)
-    redondeado(page, fitz.Rect(M, 546, M + 126, 672), 10, fill=WHITE)
-    imagen_compartida(page, fitz.Rect(M + 9, 555, M + 117, 663), 'qr', png_qr)
-    texto(page, 'ESCANEA Y COTIZA TU SHOW', 552, 7.5, 'B', YELLOW, x=M + 146, tracking=0.2)
-    texto(page, WEB, 568, 17, 'B', WHITE, x=M + 146)
-    texto(page, f'WhatsApp  {TEL}', 608, 12.5, 'B', WHITE, x=M + 146)
-    texto(page, f'Instagram  {IG}', 632, 12.5, 'B', WHITE, x=M + 146)
-    texto(page, 'Santo Domingo · República Dominicana', 660, 9, 'M', WHITE, x=M + 146, opacidad=0.85)
-    barra_marca(page, M, 790, w=130, grosor=3.2)
-    texto(page, 'CC Entertainment · Producción de espectáculos temáticos', 782, 8, 'M', WHITE, x=W - M, alinear='der', opacidad=0.9)
+def contraportada(doc, navidad=False):
+    page = doc.new_page(width=W, height=H); fondo(page)
+    plumas(page, fitz.Rect(71, 151, 524, 671), 0.13)
+    texto(page, 'Convertimos tu evento', 304, 26, 'L')
+    texto(page, 'en un espectáculo', 336, 26, 'L')
+    arcoiris(page, 208, 388, 388, 2.5)
+    texto(page, 'Cotiza tu show a la medida:', 425, 11, 'M', MUTED)
+    texto(page, WEB, 443, 13, 'S', CYAN)
+    texto(page, f'WhatsApp {TEL}', 478, 12, 'S')
+    texto(page, f'Instagram {IG}', 498, 12, 'S')
+    # QR a la web
+    redondeado(page, fitz.Rect(W / 2 - 52, 540, W / 2 + 52, 644), 8, fill=(1, 1, 1))
+    imagen_compartida(page, fitz.Rect(W / 2 - 46, 546, W / 2 + 46, 638), 'qr', png_qr)
+    texto(page, 'Escanea y cotiza tu show', 654, 8.5, 'M', MUTED)
+    texto(page, 'CC Entertainment · Producción de espectáculos temáticos · República Dominicana', 774, 8.5, 'M', MUTED)
     if navidad:
-        lucecitas(page, M, W - M, 760, 30); copo(page, W - M - 30, 450, 8)
+        lucecitas(page, 150, 445, 706, 14); copo(page, 60, 300, 9); copo(page, 535, 318, 9)
 
 
 # ═══════════════════════════════════════════════════════════════
 def catalogo_general():
     doc = fitz.open()
-    portada(doc, GRAD_PORTADA, 'Catálogo de', 'Temáticas', 'HORAS LOCAS  ·  SHOWS TEMÁTICOS  ·  2026', MOSAICO_PORTADA)
+    portada(doc, 'Catálogo de Temáticas', 'HORAS LOCAS · SHOWS TEMÁTICOS', GOLD)
     num = 1
     for sec in SECCIONES:
         portadilla(doc, sec)
         num = seccion(doc, sec, num)
-    contraportada(doc, GRAD_PORTADA, t('vegas', 6))
+    contraportada(doc)
     return doc
 
 
 def catalogo_navidad():
     doc = fitz.open()
-    sec = dict(num='01', titulo='Navidad', etiqueta='EDICIÓN NAVIDAD', grad=('0F5132', '2E9E5B'), acento=YELLOW, items=NAVIDAD,
-               imagen=t('navidad', 12), navidad=True)
-    portada(doc, GRAD_NAVIDAD, 'Edición', 'Navidad', 'SHOWS NAVIDEÑOS  ·  HORAS LOCAS  ·  2026', MOSAICO_NAVIDAD, navidad=True)
+    sec = dict(num='01', titulo='Navidad', etiqueta='EDICIÓN NAVIDAD', color=GREEN, items=NAVIDAD, navidad=True)
+    portada(doc, 'Edición Navidad', 'SHOWS NAVIDEÑOS · HORAS LOCAS', GREEN, navidad=True)
     seccion(doc, sec, 1)
-    contraportada(doc, GRAD_NAVIDAD, t('navidad', 10), navidad=True)
+    contraportada(doc, navidad=True)
     return doc
 
 
@@ -633,7 +625,7 @@ if __name__ == '__main__':
     rutas = []
     for s in SECCIONES:
         for it in s['items']:
-            grupo = it['items'] if isinstance(it, dict) and 'pagina' in it else [it]
+            grupo = it['items'] if es_pagina(it) else [it]
             for x in grupo:
                 img = norm(x)[1]
                 rutas += img if isinstance(img, list) else [img]
