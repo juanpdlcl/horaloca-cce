@@ -84,6 +84,7 @@ TEMATICAS = [
     ('Viva las Vegas — host', t('vegas', 5), 'Recibimiento de entrada'),
     ('Bienvenida Blanca', t('bienvenida-blanca', 1), 'Recibimiento con rosas blancas'),
     ('Bienvenida Roja', t('bienvenida-roja', 1), 'Recibimiento con rosas rojas'),
+    ('Bienvenida Roja — anfitriones', [t('bienvenida-roja', 5), t('bienvenida-roja', 6)], 'Lentejuelas rojas para recibir a tus invitados'),
     ('Bar Neón', t('bar-neon', 1), 'Hostess iluminada con bandeja de canapés'),
     ('Personaje de corazón', t('corazon', 1), ''),
     ('Personaje de playa', t('personaje-playa', 1), ''),
@@ -99,9 +100,7 @@ TEMATICAS = [
     ('Pilotos Formula 1 — pit stop', t('pilotos', 3), ''),
     ('Marineros', t('marineros', 1), ''),
     ('Mimos', t('mimos', 1), ''),
-    ('Rouge Royal', t('rouge', 1), 'Lentejuelas rojas'),
-    ('Rouge Royal — baile', t('rouge', 2), ''),
-    ('Rouge Royal — pareja', t('rouge', 3), 'Show girl de cartas'),
+
     ('Catrinas', 'assets/img/catrinas.jpg', ''),
     ('Venezia', 'assets/img/ig/venetian.jpg', ''),
 ]
