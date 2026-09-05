@@ -78,6 +78,7 @@ DISCO_BALL = [
 # Cada concepto agrupado y, cuando se puede, en su propia hoja.
 TEMATICAS = [
     PAGINA('grid', [ANCHO('Dorado', 'assets/img/destacado/dorado-4.jpg'), ('Shine Gold', t('shine-gold', 1)), ('Dorado — show girls', t('dorado', 6))]),
+    PAGINA('grid', [ANCHO('Dorado — en evento', t('dorado', 8)), ('Dorado — anfitriones', t('dorado', 9)), ('Dorado — anfitriones', t('dorado', 10))]),
     # Brazil plateada: ellas solas, con músicos, tres bailarines
     PAGINA('grid', [ANCHO('Brazil plateada', t('brasil-plata', 1)), ('Brazil plateada', t('brasil-plata', 2)), ('Brazil plateada', t('brasil-plata', 3))]),
     # Brazil, todos juntos
@@ -88,7 +89,7 @@ TEMATICAS = [
     PAGINA('grid', [('África', t('africa', 2)), ('África', t('africa', 1)), ('Safari', t('safari', 3)), ('Safari', t('safari', 2))]),
     PAGINA('grid', [('Viva las Vegas', t('vegas', 1)), ('Viva las Vegas', t('vegas', 3)), ('Viva las Vegas', t('vegas', 2)), ('Viva las Vegas', t('vegas', 4))]),
     PAGINA('grid', [('Neón', t('neon', 5)), ('Neón — grupo', t('neon', 6)), ('Neón', t('neon', 3)), ('Neón', t('neon', 4))]),
-    PAGINA('grid', [('Gatsby', t('gatsby', 1)), ('Gatsby — pareja', t('gatsby', 2)), ('Gatsby', t('gatsby', 3)), ('Brigeston', t('brigeston', 1))]),
+    PAGINA('grid', [('Gatsby', t('gatsby', 1)), ('Gatsby — pareja', t('gatsby', 2)), ('Gatsby', t('gatsby', 8)), ('Brigeston', t('brigeston', 1))]),
     # Hosted: personajes de bienvenida — la blanca, la roja, la negra…
     PAGINA('hero_port', [('Vogue — blanca', t('vogue', 10)), ('Vogue — roja', t('vogue', 4)), ('Viva las Vegas — host', t('vegas', 5)),
                          ('Vogue', t('vogue', 1)), ('Personajes para bienvenida', t('bienvenida', 1))]),
@@ -149,6 +150,8 @@ NAVIDAD = [   # las cuatro horizontales van a lo ancho, alternadas con las verti
     ('Alas LED navideñas', t('navidad', 6)),
     ('Blanca Navidad', t('blanca-navidad', 1)),
     ('Cascanueces y Santa', t('navidad', 3)),
+    ('Chicas de Navidad', t('navidad', 20)),
+    ('Chicas de Navidad', t('navidad', 21)),
 ]
 
 EXTRAS = [

@@ -25,7 +25,7 @@ const SERVICES = [
 const T = 'assets/img/tematicas';
 const seq = (dir, n) => Array.from({ length: n }, (_, i) => `${T}/${dir}/${String(i + 1).padStart(2, '0')}.jpg`);
 const THEMES = [
-  { id: 'gold', cat: 'brillo', tags: 'dorado oro gold show girls plumas',        name: 'Dorado',          imgs: ['assets/img/destacado/dorado-4.jpg', `${T}/dorado/06.jpg`, `${T}/dorado/04.jpg`, `${T}/dorado/05.jpg`, `${T}/dorado/07.jpg`, ...seq('dorado', 3)] },
+  { id: 'gold', cat: 'brillo', tags: 'dorado oro gold show girls plumas',        name: 'Dorado',          imgs: ['assets/img/destacado/dorado-4.jpg', `${T}/dorado/06.jpg`, `${T}/dorado/09.jpg`, `${T}/dorado/10.jpg`, `${T}/dorado/08.jpg`, `${T}/dorado/04.jpg`, `${T}/dorado/05.jpg`, `${T}/dorado/07.jpg`, ...seq('dorado', 3)] },
   { id: 'led', cat: 'brillo', tags: 'espejos disco ball plateado bola',         name: 'Disco Ball',      imgs: [`${T}/espejos/main.jpg`, `${T}/espejos/09.jpg`, `${T}/espejos/10.jpg`, `${T}/espejos/11.jpg`, 'assets/img/destacado/plata-4.jpg', 'assets/img/destacado/plata-1.jpg', 'assets/img/destacado/plata-2.jpg', 'assets/img/destacado/plata-3.jpg', ...seq('espejos', 8)] },
   { id: 'brasil', cat: 'brillo', tags: 'brazil plateada plumas carnaval',      name: 'Brazil plateada', imgs: [...seq('brasil-plata', 3), 'assets/img/destacado/brasil-1.jpg'] },
   { id: 'brazil', cat: 'tropical', tags: 'brasil samba plumas carnaval rio',      name: 'Brazil',          imgs: [...seq('brazil', 6), { v: 'assets/video/brazil.mp4' }] },
@@ -33,7 +33,7 @@ const THEMES = [
   { id: 'dominicana', cat: 'dominicano', tags: 'bandera republica dominicana merengue',  name: 'Dominicana',      imgs: [`${T}/dominicana/01.jpg`, `${T}/dominicana/06.jpg`, `${T}/dominicana/02.jpg`, `${T}/dominicana/05.jpg`, `${T}/dominicana/03.jpg`, `${T}/dominicana/04.jpg`] },
   { id: 'neon', cat: 'luces', tags: 'fluorescente luces glow',        name: 'Neón',            imgs: [`${T}/neon/05.jpg`, `${T}/neon/06.jpg`, ...seq('neon', 4)] },
   { id: 'tropical', cat: 'tropical', tags: 'verano flores colores',    name: 'Tropical',        imgs: ['assets/img/ig/tropical-sunset.jpg', ...seq('tropical', 2)] },
-  { id: 'gatsby', cat: 'epocas', tags: 'anos 20 vintage elegante charleston',      name: 'Gatsby',          imgs: seq('gatsby', 7) },
+  { id: 'gatsby', cat: 'epocas', tags: 'anos 20 vintage elegante charleston',      name: 'Gatsby',          imgs: [`${T}/gatsby/08.jpg`, ...seq('gatsby', 7)] },
   { id: 'alas-led', cat: 'luces', tags: 'alas angel luces',    name: 'Alas LED',        imgs: seq('alas-led', 4) },
   { id: 'bar-neon', cat: 'luces', tags: 'bar neon bandeja canapes pasabocas hostess luces led mesa humana recibimiento', name: 'Bar Neón', desc: 'Hostess iluminada con bandeja de canapés', imgs: seq('bar-neon', 2), more: true },
   { id: 'shine-gold', cat: 'brillo', tags: 'dorado oro brillo',  name: 'Shine Gold',      imgs: seq('shine-gold', 1), more: true },
@@ -59,7 +59,7 @@ const THEMES = [
   { id: 'robot-espejo', cat: 'luces', tags: 'robot espejo futurista', name: 'Robot LED espejo', imgs: [`${T}/robot-espejo/02.jpg`, `${T}/robot-espejo/01.jpg`, `${T}/robot-espejo/03.jpg`], more: true },
   { id: 'led-show', cat: 'luces', tags: 'led robots tambores zancos luces',    name: 'Led',             imgs: [...seq('led-show', 4), { v: 'assets/video/led-show.mp4' }], more: true },
   { id: 'neon-2000', cat: 'luces', tags: 'fluorescente 2000 retro',   name: 'Neon 2000',       imgs: seq('neon-2000', 3), more: true },
-  { id: 'navidad', cat: 'navidad', tags: 'santa grinch galleta elfos diciembre navideno',     name: 'Navidad',         imgs: [`${T}/navidad/12.jpg`, `${T}/navidad/13.jpg`, `${T}/navidad/09.jpg`, `${T}/navidad/10.jpg`, `${T}/navidad/11.jpg`, `${T}/navidad/15.jpg`, `${T}/navidad/16.jpg`, `${T}/navidad/17.jpg`, `${T}/navidad/18.jpg`, `${T}/navidad/19.jpg`, ...seq('navidad', 8)], more: true },
+  { id: 'navidad', cat: 'navidad', tags: 'santa grinch galleta elfos diciembre navideno',     name: 'Navidad',         imgs: [`${T}/navidad/12.jpg`, `${T}/navidad/13.jpg`, `${T}/navidad/09.jpg`, `${T}/navidad/10.jpg`, `${T}/navidad/11.jpg`, `${T}/navidad/15.jpg`, `${T}/navidad/16.jpg`, `${T}/navidad/17.jpg`, `${T}/navidad/18.jpg`, `${T}/navidad/19.jpg`, `${T}/navidad/20.jpg`, `${T}/navidad/21.jpg`, ...seq('navidad', 8)], more: true },
   { id: 'feria-circo', cat: 'personajes', tags: 'payasos mimos circo feria carpa', name: 'Feria/Circo',     desc: 'Payasos y mimos', imgs: seq('feria-circo', 3), more: true },
   { id: 'blanca-navidad', cat: 'navidad', tags: 'navidad blanca invierno nieve', name: 'Blanca Navidad', imgs: seq('blanca-navidad', 1), more: true },
   { id: 'disco', cat: 'brillo', tags: 'setenta disco fiebre',       name: 'Disco',           imgs: seq('disco', 1), more: true },
