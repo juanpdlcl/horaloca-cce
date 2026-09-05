@@ -71,57 +71,40 @@ DISCO_BALL = [
     ('Disco Ball — trío', t('espejos', 10)),
     ('Show en vivo', t('espejos', 1)),
     ('Show en vivo', t('espejos', 5)),
+    ('Disco Ball — bola', t('espejos', 3)),
+    ('Show en vivo', t('espejos', 7)),
 ]
 
+# Cada concepto agrupado y, cuando se puede, en su propia hoja.
 TEMATICAS = [
-    ANCHO('Dorado', 'assets/img/destacado/dorado-4.jpg'),
-    ('Shine Gold', t('shine-gold', 1)),
-    ('Dorado — show girls', t('dorado', 6)),
-    ('Brazil plateada', t('brasil-plata', 1)),
-    ('Brazil', t('brazil', 1)),
-    ('Brazil — carnaval', t('brazil', 2)),
-    ('Viva las Vegas', t('vegas', 1)),
-    ('Viva las Vegas — show girls', t('vegas', 3)),
-    ('Neón', t('neon', 5)),
-    ('Neón — grupo', t('neon', 6)),
-    ('Tropical', 'assets/img/ig/tropical-sunset.jpg'),
-    ('Gatsby', t('gatsby', 1)),
-    ('Gatsby — pareja', t('gatsby', 2)),
-    ('Samba', t('samba', 1)),
-    ('África', t('africa', 2)),
-    ('Safari', t('safari', 3)),
-    ('Tropical Cuba', t('tropical-cuba', 1)),
-    ('Playa', t('playa', 1)),
-    ('Hawaii', t('hawaii', 1)),
-    ('Vaqueros', t('vaqueros', 1)),
-    ('Porristas', t('porristas', 1)),
-    ('Ingenieros', t('ingenieros', 1)),
-    ('Cocineros', t('cocineros-show', 1)),
-    ('Personajes para bienvenida', t('bienvenida', 1)),
-    ('Viva las Vegas — host', t('vegas', 5)),
-    ('Personaje de corazón', t('corazon', 1)),
-    ('Personaje de playa', t('personaje-playa', 1)),
-    ('Hadas', t('hadas', 1)),
-    ('Astronauta y alien', t('astronauta', 1)),
-    ('Cabezones', 'assets/img/promo/artistas.jpg'),
-    PAGINA('hero_port', [
-        ('Vogue', t('vogue', 1)),
-        ('Vogue — blanco', t('vogue', 2)),
-        ('Vogue — rojo', t('vogue', 4)),
-        ('Vogue — anfitriones', t('vogue', 7)),
-        ('Vogue — anfitriones', t('vogue', 8)),
-    ]),
-    ('Feria/Circo', [t('feria-circo', 1), t('feria-circo', 2)]),
-    ('Disco', t('disco', 1)),
-    ('Años 80', t('anos-80', 2)),
-    ('Años 90', t('anos-90', 1)),
-    ('Brigeston', t('brigeston', 1)),
-    ('Pilotos Formula 1', t('pilotos', 5)),
-    ('Pilotos Formula 1 — pit stop', t('pilotos', 3)),
-    ('Marineros', t('marineros', 1)),
-    ('Mimos', t('mimos', 1)),
-    ('Catrinas', 'assets/img/catrinas.jpg'),
-    ('Venezia', 'assets/img/ig/venetian.jpg'),
+    PAGINA('grid', [ANCHO('Dorado', 'assets/img/destacado/dorado-4.jpg'), ('Shine Gold', t('shine-gold', 1)), ('Dorado — show girls', t('dorado', 6))]),
+    # Brazil plateada: ellas solas, con músicos, tres bailarines
+    PAGINA('grid', [ANCHO('Brazil plateada', t('brasil-plata', 1)), ('Brazil plateada', t('brasil-plata', 2)), ('Brazil plateada', t('brasil-plata', 3))]),
+    # Brazil, todos juntos
+    PAGINA('grid', [('Brazil', t('brazil', 1)), ('Brazil', t('brazil', 3)), ('Brazil', t('brazil', 4)), ('Brazil', t('brazil', 5))]),
+    PAGINA('grid', [ANCHO('Samba', t('samba', 1)), ('Brazil', t('brazil', 6)), ('Brazil — carnaval', t('brazil', 2))]),
+    # Tropical: dos y dos
+    PAGINA('grid', [('Tropical', 'assets/img/ig/tropical-sunset.jpg'), ('Tropical', t('tropical', 1)), ('Tropical Cuba', t('tropical-cuba', 1)), ('Tropical Cuba', t('tropical-cuba', 3))]),
+    PAGINA('grid', [('África', t('africa', 2)), ('África', t('africa', 1)), ('Safari', t('safari', 3)), ('Safari', t('safari', 2))]),
+    PAGINA('grid', [('Viva las Vegas', t('vegas', 1)), ('Viva las Vegas', t('vegas', 3)), ('Viva las Vegas', t('vegas', 2)), ('Viva las Vegas', t('vegas', 4))]),
+    PAGINA('grid', [('Neón', t('neon', 5)), ('Neón — grupo', t('neon', 6)), ('Neón', t('neon', 3)), ('Neón', t('neon', 4))]),
+    PAGINA('grid', [('Gatsby', t('gatsby', 1)), ('Gatsby — pareja', t('gatsby', 2)), ('Gatsby', t('gatsby', 3)), ('Brigeston', t('brigeston', 1))]),
+    # Hosted: personajes de bienvenida — la blanca, la roja, la negra…
+    PAGINA('hero_port', [('Vogue — blanca', t('vogue', 10)), ('Vogue — roja', t('vogue', 4)), ('Viva las Vegas — host', t('vegas', 5)),
+                         ('Vogue', t('vogue', 1)), ('Personajes para bienvenida', t('bienvenida', 1))]),
+    PAGINA('grid', [('Personaje de corazón', t('corazon', 1)), ('Mimos', t('mimos', 1)), ('Personajes para bienvenida', t('bienvenida', 2)), ('Personajes para bienvenida', t('bienvenida', 3))]),
+    # Personajes
+    PAGINA('grid', [ANCHO('Porristas', t('porristas', 1)), ('Ingenieros', t('ingenieros', 1)), ('Cocineros', t('cocineros-show', 1))]),
+    PAGINA('grid', [('Hadas', t('hadas', 2)), ('Astronauta y alien', t('astronauta', 1)), ('Cabezones', 'assets/img/promo/artistas.jpg'), ('Cabezones — Bad Bunny', t('cabezones', 3))]),
+    # Épocas: disco, 80 y 90 juntos
+    PAGINA('grid', [ANCHO('Disco', t('disco', 1)), ('Años 80', t('anos-80', 2)), ('Años 90', t('anos-90', 1))]),
+    # Fórmula 1, todas juntas
+    PAGINA('grid', [ANCHO('Pilotos Formula 1 — pit stop', t('pilotos', 3)), ('Pilotos Formula 1', t('pilotos', 5)), ('Pilotos Formula 1', t('pilotos', 4))]),
+    PAGINA('grid', [('Vaqueros', t('vaqueros', 1)), ('Vaqueros', t('vaqueros', 2)), ('Feria/Circo', [t('feria-circo', 1), t('feria-circo', 2)])]),
+    PAGINA('grid', [('Venezia', 'assets/img/ig/venetian.jpg'), ('Venezia', 'assets/img/ig/venetian-2.jpg'), ('Venezia', 'assets/img/ig/venetian-3.jpg'), ('Catrinas', 'assets/img/catrinas.jpg')]),
+    # Playa y deporte: playa, hawaii, marineros y pelota
+    PAGINA('grid', [('Playa', t('playa', 1)), ('Hawaii', t('hawaii', 1)), ('Marineros', t('marineros', 1)), ('Personaje de playa', t('personaje-playa', 1))]),
+    PAGINA('hero_port', [('Pelota dominicana', t('pelota', 3)), ('Pelota dominicana', t('pelota', 1)), ('Pelota dominicana', t('pelota', 2))]),
 ]
 
 SHOW_LED = [
@@ -138,17 +121,15 @@ DOMINICANO = [
     ANCHO('Carnaval Dominicano', 'assets/img/ig/carnaval.jpg'),
     ('Carnaval — comparsa', t('carnaval', 2)),
     ('Diablo cojuelo', 'assets/img/ig/carnaval-2.jpg'),
+    ANCHO('Carnaval Dominicano', t('carnaval', 3)),
     ('Zancos dominicanos', t('zanqueros-rd', 1)),
     ('Dominicana', t('dominicana', 1)),
     ('Pareja dominicana', t('dominicana', 2)),
+    ('Pareja dominicana', t('dominicana', 6)),
     ('Dominicana en evento', t('dominicana', 5)),
     ('Marchantas', t('marchantas', 1)),
     ('Marchanta', t('marchantas', 3)),
-    PAGINA('hero_port', [
-        ('Pelota dominicana', t('pelota', 3)),
-        ('Pelota dominicana', t('pelota', 1)),
-        ('Pelota dominicana', t('pelota', 2)),
-    ]),
+    ('Marchantas', t('marchantas', 2)),
 ]
 
 NAVIDAD = [   # las cuatro horizontales van a lo ancho, alternadas con las verticales
@@ -533,6 +514,17 @@ def pagina_hero_port(doc, items, sec, num):
     return num + 1
 
 
+def pagina_grid(doc, items, sec, num):
+    """Hoja completa de un concepto: hasta dos filas."""
+    page = doc.new_page(width=W, height=H); cabeza(page, sec, num)
+    y = Y_INI
+    for fila in filas_de(items)[:2]:
+        alto = alto_fila(fila)
+        pinta_fila(page, fila, y, alto, sec)
+        y += alto + GAP_FILA
+    return num + 1
+
+
 def seccion(doc, sec, num):
     """Maqueta la sección con filas fluidas; las PAGINA se insertan como hojas completas."""
     pendientes = []
@@ -552,7 +544,10 @@ def seccion(doc, sec, num):
         if es_pagina(it):
             if pendientes:
                 num = vaciar(pendientes, num); pendientes = []
-            num = pagina_hero_port(doc, it['items'], sec, num)
+            if it['pagina'] == 'grid':
+                num = pagina_grid(doc, it['items'], sec, num)
+            else:
+                num = pagina_hero_port(doc, it['items'], sec, num)
         else:
             pendientes.append(it)
     if pendientes:
