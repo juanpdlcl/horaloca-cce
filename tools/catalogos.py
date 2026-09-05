@@ -91,7 +91,7 @@ TEMATICAS = [
     PAGINA('grid', [('África', t('africa', 2)), ('África', t('africa', 1)), ('Safari', t('safari', 3)), ('Safari', t('safari', 2))], titulo='África y Safari'),
     PAGINA('grid', [('Viva las Vegas', t('vegas', 1)), ('Viva las Vegas', t('vegas', 3)), ('Viva las Vegas', t('vegas', 2)), ('Viva las Vegas', t('vegas', 4))]),
     PAGINA('grid', [('Neón', t('neon', 5)), ('Neón — grupo', t('neon', 6)), ('Neón', t('neon', 3)), ('Neón', t('neon', 4))]),
-    PAGINA('grid', [('Gatsby', t('gatsby', 1)), ('Gatsby — pareja', t('gatsby', 2)), ('Gatsby', t('gatsby', 8)), ('Brigeston', t('brigeston', 1))], titulo='Gatsby y Brigeston'),
+    PAGINA('grid', [('Gatsby', t('gatsby', 1)), ('Gatsby — pareja', t('gatsby', 2)), ('Gatsby', t('gatsby', 8)), ('Bridgerton', t('brigeston', 1))], titulo='Gatsby y Bridgerton'),
     # Personajes
     PAGINA('grid', [ANCHO('Porristas', t('porristas', 1)), ('Ingenieros', t('ingenieros', 1)), ('Cocineros', t('cocineros-show', 1))], titulo='Personajes'),
     PAGINA('grid', [('Hadas', t('hadas', 2)), ('Astronauta y alien', t('astronauta', 1)), ('Cabezones — Karol G, Bad Bunny y Daddy Yankee', 'assets/img/promo/artistas.jpg'), ('Cabezones', f'{T}/cabezones/main.jpg')], titulo='Personajes'),
@@ -128,8 +128,7 @@ SHOW_LED = [
 
 DOMINICANO = [
     ANCHO('Carnaval Dominicano', 'assets/img/ig/carnaval.jpg'),
-    ('Carnaval — comparsa', t('carnaval', 2)),
-    ('Diablo cojuelo', 'assets/img/ig/carnaval-2.jpg'),
+    PAGINA('hero_port', [('Carnaval — lechón', t('carnaval', 4)), ('Carnaval — comparsa', t('carnaval', 2)), ('Diablo cojuelo', 'assets/img/ig/carnaval-2.jpg')], titulo='Carnaval Dominicano'),
     ANCHO('Carnaval Dominicano', t('carnaval', 3)),
     ('Zancos dominicanos', t('zanqueros-rd', 1)),
     ('Dominicana', t('dominicana', 1)),
