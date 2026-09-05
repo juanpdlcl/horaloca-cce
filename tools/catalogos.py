@@ -85,18 +85,18 @@ TEMATICAS = [
     PAGINA('grid', [('Brazil plateada', f'{T}/brasil-plata/main.jpg'), ('Brazil plateada', t('brasil-plata', 2)), ('Brazil plateada', t('brasil-plata', 3))]),
     # Brazil (2 hojas)
     PAGINA('grid', [('Brazil', t('brazil', 1)), ('Brazil', t('brazil', 3)), ('Brazil', t('brazil', 4)), ('Brazil', t('brazil', 5))]),
-    PAGINA('grid', [ANCHO('Samba', t('samba', 1)), ('Brazil', t('brazil', 6)), ('Brazil — carnaval', t('brazil', 2))]),
+    PAGINA('grid', [ANCHO('Samba', t('samba', 1)), ('Brazil', t('brazil', 6)), ('Brazil — carnaval', t('brazil', 2))], titulo='Brazil'),
     # Tropical: dos y dos
     PAGINA('grid', [('Tropical', 'assets/img/ig/tropical-sunset.jpg'), ('Tropical', t('tropical', 1)), ('Tropical Cuba', t('tropical-cuba', 1)), ('Tropical Cuba', t('tropical-cuba', 3))]),
-    PAGINA('grid', [('África', t('africa', 2)), ('África', t('africa', 1)), ('Safari', t('safari', 3)), ('Safari', t('safari', 2))]),
+    PAGINA('grid', [('África', t('africa', 2)), ('África', t('africa', 1)), ('Safari', t('safari', 3)), ('Safari', t('safari', 2))], titulo='África y Safari'),
     PAGINA('grid', [('Viva las Vegas', t('vegas', 1)), ('Viva las Vegas', t('vegas', 3)), ('Viva las Vegas', t('vegas', 2)), ('Viva las Vegas', t('vegas', 4))]),
     PAGINA('grid', [('Neón', t('neon', 5)), ('Neón — grupo', t('neon', 6)), ('Neón', t('neon', 3)), ('Neón', t('neon', 4))]),
-    PAGINA('grid', [('Gatsby', t('gatsby', 1)), ('Gatsby — pareja', t('gatsby', 2)), ('Gatsby', t('gatsby', 8)), ('Brigeston', t('brigeston', 1))]),
+    PAGINA('grid', [('Gatsby', t('gatsby', 1)), ('Gatsby — pareja', t('gatsby', 2)), ('Gatsby', t('gatsby', 8)), ('Brigeston', t('brigeston', 1))], titulo='Gatsby y Brigeston'),
     # Personajes
-    PAGINA('grid', [ANCHO('Porristas', t('porristas', 1)), ('Ingenieros', t('ingenieros', 1)), ('Cocineros', t('cocineros-show', 1))]),
-    PAGINA('grid', [('Hadas', t('hadas', 2)), ('Astronauta y alien', t('astronauta', 1)), ('Cabezones — Karol G, Bad Bunny y Daddy Yankee', 'assets/img/promo/artistas.jpg'), ('Cabezones', t('cabezones', 2))]),
+    PAGINA('grid', [ANCHO('Porristas', t('porristas', 1)), ('Ingenieros', t('ingenieros', 1)), ('Cocineros', t('cocineros-show', 1))], titulo='Personajes'),
+    PAGINA('grid', [('Hadas', t('hadas', 2)), ('Astronauta y alien', t('astronauta', 1)), ('Cabezones — Karol G, Bad Bunny y Daddy Yankee', 'assets/img/promo/artistas.jpg'), ('Cabezones', f'{T}/cabezones/main.jpg')], titulo='Personajes'),
     # Épocas
-    PAGINA('grid', [ANCHO('Disco', t('disco', 1)), ('Años 80', t('anos-80', 2)), ('Años 90', t('anos-90', 1))]),
+    PAGINA('grid', [ANCHO('Disco', t('disco', 1)), ('Años 80', t('anos-80', 2)), ('Años 90', t('anos-90', 1))], titulo='Épocas'),
     # Fórmula 1
     PAGINA('grid', [ANCHO('Pilotos Formula 1 — pit stop', t('pilotos', 3)), ('Pilotos Formula 1', t('pilotos', 5)), ('Pilotos Formula 1', t('pilotos', 4))]),
     # Feria/Circo con los mimos
@@ -108,7 +108,7 @@ TEMATICAS = [
     # Catrinas solas
     PAGINA('grid', [('Catrinas', 'assets/img/catrinas.jpg'), ('Catrinas', t('catrinas', 1)), ('Catrinas', t('catrinas', 2))]),
     # Playa: playa, personaje de playa, hawaii, marineros
-    PAGINA('grid', [('Playa', t('playa', 1)), ('Personaje de playa', t('personaje-playa', 1)), ('Hawaii', t('hawaii', 1)), ('Marineros', t('marineros', 1))]),
+    PAGINA('grid', [('Playa', t('playa', 1)), ('Personaje de playa', t('personaje-playa', 1)), ('Hawaii', t('hawaii', 1)), ('Marineros', t('marineros', 1))], titulo='Playa y mar'),
 ]
 
 BIENVENIDA = [
