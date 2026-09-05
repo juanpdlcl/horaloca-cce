@@ -87,7 +87,6 @@ TEMATICAS = [
     ('Tropical', 'assets/img/ig/tropical-sunset.jpg'),
     ('Gatsby', t('gatsby', 1)),
     ('Gatsby — pareja', t('gatsby', 2)),
-    ('Neon 2000', t('neon-2000', 1)),
     ('Samba', t('samba', 1)),
     ('África', t('africa', 2)),
     ('Safari', t('safari', 3)),
@@ -284,6 +283,39 @@ def foto_en(page, path, rect, r=8):
     redondeado(page, rect, r, color=(1, 1, 1), width=0.6, opacidad=0.10)
 
 
+def jpeg_recorte(path, rect, foco=0.18, escala=2.0):
+    """Recorta la foto a la proporción de rect (centrado; en vertical sesgado arriba)."""
+    key = ('rec', path, round(rect.width), round(rect.height), foco)
+    if key not in _cache:
+        im = ImageOps.exif_transpose(Image.open(path)).convert('RGB')
+        r_cel = rect.width / rect.height; r_im = im.width / im.height
+        if r_im > r_cel:
+            nw = int(im.height * r_cel); x0 = (im.width - nw) // 2
+            im = im.crop((x0, 0, x0 + nw, im.height))
+        else:
+            nh = int(im.width / r_cel); y0 = int((im.height - nh) * foco)
+            im = im.crop((0, y0, im.width, y0 + nh))
+        im = im.resize((int(rect.width * escala), int(rect.height * escala)), Image.LANCZOS)
+        b = io.BytesIO(); im.save(b, 'JPEG', quality=84, optimize=True, progressive=True)
+        _cache[key] = b.getvalue()
+    return _cache[key]
+
+
+MAX_RECORTE = 0.25   # como mucho se sacrifica un cuarto de la foto; si hace falta más, va completa
+
+
+def foto_auto(page, path, caja, foco=0.18, r=8, alinear='centro'):
+    """Llena la caja recortando un poco la foto; si habría que cortar demasiado, la pone completa."""
+    r_im = ratio(path); r_caja = caja.width / caja.height
+    corte = 1 - min(r_im, r_caja) / max(r_im, r_caja)
+    if corte <= MAX_RECORTE:
+        page.insert_image(caja, stream=jpeg_recorte(path, caja, foco))
+        esquinas(page, caja, r)
+        redondeado(page, caja, r, color=(1, 1, 1), width=0.6, opacidad=0.10)
+        return caja
+    return foto_ajustada(page, path, caja, alinear, r)
+
+
 def foto_ajustada(page, path, caja, alinear='abajo', r=8):
     """Encaja la foto completa dentro de la caja (centrada en horizontal). Devuelve el rect real."""
     w, h = ajustar(path, caja.width, caja.height)
@@ -422,78 +454,63 @@ def ratio(path):
     return w / h
 
 
+def ratio(path):
+    w, h = tam(path)
+    return w / h
+
+
+def es_horizontal_item(it):
+    n, img, ancho = norm(it)
+    return ancho or ratio(img) >= 1.0
+
+
 def filas_de(items):
-    """Agrupa en filas equilibradas: dos fotos con la misma altura, o una a lo ancho."""
+    """Verticales de dos en dos (celdas iguales); horizontales solas a todo lo ancho."""
     pend = list(items); filas = []
     while pend:
         it = pend.pop(0)
-        if es_par(it):
+        if es_par(it) or es_horizontal_item(it):
             filas.append([it]); continue
-        if norm(it)[2]:                       # marcada a lo ancho
-            filas.append([it]); continue
-        # buscar compañera sencilla
-        comp = None
+        fila = [it]
         for j, cand in enumerate(pend):
-            if not es_par(cand) and not norm(cand)[2]:
-                comp = pend.pop(j); break
-        if comp is None:
-            filas.append([it]); continue
-        h = (ANCHO_UTIL - GAP_PAR) / (ratio(norm(it)[1]) + ratio(norm(comp)[1]))
-        if h < ALTO_MIN_PAR:                  # quedarían pequeñas: cada una a lo ancho
-            filas.append([ANCHO(norm(it)[0], norm(it)[1])])
-            pend.insert(0, comp)   # la otra vuelve a la cola y se empareja con la siguiente
-        else:
-            filas.append([it, comp])
+            if not es_par(cand) and not es_horizontal_item(cand):
+                fila.append(pend.pop(j)); break
+        filas.append(fila)
     return filas
 
 
-def plan_fila(fila):
-    """-> (alto, [(nombre, ruta, x0, w), ...]) con todas las fotos a la misma altura."""
-    if len(fila) == 1 and es_par(fila[0]):
-        nombre, rutas = fila[0]
-        rs = [ratio(r) for r in rutas]
-        h = min(ALTO_MAX, (ANCHO_UTIL - GAP_PAR) / sum(rs))
-        ws = [h * r for r in rs]
-        total = sum(ws) + GAP_PAR
-        x = M + (ANCHO_UTIL - total) / 2
-        celdas = []
-        for r_, w_ in zip(rutas, ws):
-            celdas.append((nombre, r_, x, w_)); x += w_ + GAP_PAR
-        return h, celdas
-    if len(fila) == 1:
-        nombre, img, ancho = norm(fila[0])
-        r = ratio(img)
-        if ancho or r >= 1.0:
-            w, h = ajustar(img, ANCHO_UTIL, ALTO_ANCHO)
-        else:                                 # vertical suelta: tamaño de columna, centrada
-            w, h = ajustar(img, COL, ALTO_MAX)
-        return h, [(nombre, img, M + (ANCHO_UTIL - w) / 2, w)]
-    rs = [ratio(norm(it)[1]) for it in fila]
-    h = min(ALTO_MAX, (ANCHO_UTIL - GAP_PAR) / sum(rs))
-    ws = [h * r for r in rs]
-    total = sum(ws) + GAP_PAR
-    x = M + (ANCHO_UTIL - total) / 2
-    celdas = []
-    for it, w_ in zip(fila, ws):
-        celdas.append((norm(it)[0], norm(it)[1], x, w_)); x += w_ + GAP_PAR
-    return h, celdas
-
-
 def alto_fila(fila):
-    return plan_fila(fila)[0]
+    if len(fila) == 1 and not es_par(fila[0]) and es_horizontal_item(fila[0]):
+        n, img, ancho = norm(fila[0])
+        return min(ALTO_ANCHO, ANCHO_UTIL / ratio(img))
+    return ALTO_MAX
 
 
 def pinta_fila(page, fila, y, alto, sec):
-    """Dibuja la fila: fotos completas, misma altura, nombre debajo de cada una."""
-    h, celdas = plan_fila(fila)
-    par = len(fila) == 1 and es_par(fila[0])
-    grande = len(celdas) == 1 and celdas[0][3] > COL + 20
-    for nombre, img, x0, w in celdas:
-        foto_en(page, img, fitz.Rect(x0, y, x0 + w, y + h))
-        if not par:
-            etiqueta(page, x0, y + h + 10, nombre, sec['color'], grande=grande)
-    if par:
-        etiqueta(page, 0, y + h + 10, fila[0][0], sec['color'], centro=W / 2)
+    """Celdas del mismo tamaño en la fila; el nombre debajo de cada foto."""
+    if len(fila) == 1 and es_par(fila[0]):
+        nombre, rutas = fila[0]
+        for k, p in enumerate(rutas):
+            caja = fitz.Rect(M + k * (COL + GAP_PAR), y, M + k * (COL + GAP_PAR) + COL, y + alto)
+            foto_auto(page, p, caja, alinear='abajo')
+        etiqueta(page, 0, y + alto + 10, nombre, sec['color'], centro=W / 2)
+        return
+    if len(fila) == 1 and es_horizontal_item(fila[0]):
+        nombre, img, ancho = norm(fila[0])
+        r = foto_auto(page, img, fitz.Rect(M, y, W - M, y + alto), alinear='abajo')
+        etiqueta(page, r.x0, y + alto + 10, nombre, sec['color'], grande=True)
+        return
+    if len(fila) == 1:                                   # vertical suelta: centrada
+        nombre, img, _ = norm(fila[0])
+        x0 = M + (ANCHO_UTIL - COL) / 2
+        r = foto_auto(page, img, fitz.Rect(x0, y, x0 + COL, y + alto), alinear='abajo')
+        etiqueta(page, r.x0, y + alto + 10, nombre, sec['color'])
+        return
+    for k, it in enumerate(fila):
+        nombre, img, _ = norm(it)
+        caja = fitz.Rect(M + k * (COL + GAP_PAR), y, M + k * (COL + GAP_PAR) + COL, y + alto)
+        r = foto_auto(page, img, caja, alinear='abajo')
+        etiqueta(page, r.x0, y + alto + 10, nombre, sec['color'])
 
 
 def pagina_hero_port(doc, items, sec, num):
@@ -502,17 +519,16 @@ def pagina_hero_port(doc, items, sec, num):
     tres = len(items) <= 3
     hero = fitz.Rect(M, Y_INI, 322, 700 if tres else 500)
     lados = [fitz.Rect(334, Y_INI, W - M, 372 if tres else 268), fitz.Rect(334, 424 if tres else 320, W - M, 700 if tres else 500)]
-    r = foto_ajustada(page, items[0][1], hero, 'centro')
+    r = foto_auto(page, items[0][1], hero, alinear='centro')
     etiqueta(page, r.x0, r.y1 + 12, items[0][0], sec['color'], grande=True)
     for it, caja in zip(items[1:3], lados):
-        r = foto_ajustada(page, it[1], caja, 'abajo')
+        r = foto_auto(page, it[1], caja, alinear='abajo')
         etiqueta(page, r.x0, caja.y1 + 8, it[0], sec['color'])
     if not tres and items[3:]:
-        y0 = 560
-        alto = max(ajustar(it[1], COL, 200)[1] for it in items[3:5])
+        y0 = 560; alto = 200
         for k, it in enumerate(items[3:5]):
             caja = fitz.Rect(M + k * (COL + GAP_PAR), y0, M + k * (COL + GAP_PAR) + COL, y0 + alto)
-            r = foto_ajustada(page, it[1], caja, 'abajo')
+            r = foto_auto(page, it[1], caja, alinear='abajo')
             etiqueta(page, r.x0, y0 + alto + 10, it[0], sec['color'])
     return num + 1
 
