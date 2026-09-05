@@ -66,7 +66,7 @@ const THEMES = [
   { id: 'anos-80', cat: 'epocas', tags: '80 ochenta retro',     name: 'Años 80',         imgs: seq('anos-80', 2), more: true },
   { id: 'anos-90', cat: 'epocas', tags: '90 noventa retro',     name: 'Años 90',         imgs: seq('anos-90', 1), more: true },
   { id: 'brigeston', cat: 'epocas', tags: 'bridgerton epoca vintage realeza',   name: 'Brigeston',       imgs: seq('brigeston', 1), more: true },
-  { id: 'pilotos', cat: 'epocas', tags: 'formula 1 carreras autos f1',     name: 'Pilotos Formula 1', imgs: [`${T}/pilotos/01.jpg`, `${T}/pilotos/04.jpg`, `${T}/pilotos/03.jpg`, `${T}/pilotos/02.jpg`], more: true },
+  { id: 'pilotos', cat: 'epocas', tags: 'formula 1 carreras autos f1',     name: 'Pilotos Formula 1', imgs: [`${T}/pilotos/05.jpg`, `${T}/pilotos/04.jpg`, `${T}/pilotos/03.jpg`, `${T}/pilotos/01.jpg`, `${T}/pilotos/02.jpg`], more: true },
   { id: 'marineros', cat: 'epocas', tags: 'marinos barco nautico',   name: 'Marineros',       imgs: seq('marineros', 1), more: true },
   { id: 'mimos', cat: 'personajes', tags: 'mimo circo blanco',       name: 'Mimos',           imgs: seq('mimos', 1), more: true },
   { id: 'vogue', cat: 'personajes', tags: 'vogue recibimiento bienvenida rosas flores blanco rojo jaula host entrada anfitriones lentejuelas', name: 'Vogue', desc: 'Recibimiento en blanco y rojo', imgs: [...seq('vogue', 9), 'assets/img/rojo.jpg'], more: true },

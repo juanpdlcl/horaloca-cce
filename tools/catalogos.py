@@ -96,7 +96,7 @@ TEMATICAS = [
     ('Años 80', t('anos-80', 1), ''),
     ('Años 90', t('anos-90', 1), ''),
     ('Brigeston', t('brigeston', 1), ''),
-    ('Pilotos Formula 1', t('pilotos', 1), ''),
+    ('Pilotos Formula 1', t('pilotos', 5), 'Equipo de carreras'),
     ('Pilotos Formula 1 — pit stop', t('pilotos', 3), ''),
     ('Marineros', t('marineros', 1), ''),
     ('Mimos', t('mimos', 1), ''),
