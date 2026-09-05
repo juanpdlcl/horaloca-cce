@@ -441,7 +441,7 @@ def filas_de(items):
         h = (ANCHO_UTIL - GAP_PAR) / (ratio(norm(it)[1]) + ratio(norm(comp)[1]))
         if h < ALTO_MIN_PAR:                  # quedarían pequeñas: cada una a lo ancho
             filas.append([ANCHO(norm(it)[0], norm(it)[1])])
-            pend.insert(0, ANCHO(norm(comp)[0], norm(comp)[1]))
+            pend.insert(0, comp)   # la otra vuelve a la cola y se empareja con la siguiente
         else:
             filas.append([it, comp])
     return filas
