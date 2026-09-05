@@ -93,9 +93,6 @@ TEMATICAS = [
     PAGINA('grid', [('Viva las Vegas', t('vegas', 1)), ('Viva las Vegas', t('vegas', 3)), ('Viva las Vegas', t('vegas', 2)), ('Viva las Vegas', t('vegas', 4))]),
     PAGINA('grid', [('Neón', t('neon', 5)), ('Neón — grupo', t('neon', 6)), ('Neón', t('neon', 3)), ('Neón', t('neon', 4))]),
     PAGINA('grid', [('Gatsby', t('gatsby', 1)), ('Gatsby — pareja', t('gatsby', 2)), ('Gatsby', t('gatsby', 8)), ('Brigeston', t('brigeston', 1))]),
-    # Personajes de Bienvenida: dos hojas con título grande
-    PAGINA('hero_port', [('Vogue', t('vogue', 1)), ('Vogue — roja', t('vogue', 11)), ('Vogue — blanca', t('vogue', 10))], titulo='Personajes de Bienvenida'),
-    PAGINA('hero_port', [('Viva las Vegas', t('vegas', 5)), ('Corazón', t('corazon', 1)), ('Bienvenida', t('bienvenida', 1))], titulo='Personajes de Bienvenida'),
     # Personajes
     PAGINA('grid', [ANCHO('Porristas', t('porristas', 1)), ('Ingenieros', t('ingenieros', 1)), ('Cocineros', t('cocineros-show', 1))]),
     PAGINA('grid', [('Hadas', t('hadas', 2)), ('Astronauta y alien', t('astronauta', 1)), ('Cabezones', 'assets/img/promo/artistas.jpg'), ('Cabezones — Bad Bunny', t('cabezones', 3))]),
@@ -113,6 +110,11 @@ TEMATICAS = [
     PAGINA('grid', [('Catrinas', 'assets/img/catrinas.jpg'), ('Catrinas', t('catrinas', 1)), ('Catrinas', t('catrinas', 2))]),
     # Playa: playa, personaje de playa, hawaii, marineros
     PAGINA('grid', [('Playa', t('playa', 1)), ('Personaje de playa', t('personaje-playa', 1)), ('Hawaii', t('hawaii', 1)), ('Marineros', t('marineros', 1))]),
+]
+
+BIENVENIDA = [
+    PAGINA('hero_port', [('Vogue', t('vogue', 1)), ('Vogue — roja', t('vogue', 11)), ('Vogue — blanca', t('vogue', 10))], titulo='Vogue'),
+    PAGINA('hero_port', [('Viva las Vegas', t('vegas', 5)), ('Corazón', t('corazon', 1)), ('Bienvenida', t('bienvenida', 1))], titulo='Recibimiento'),
 ]
 
 SHOW_LED = [
@@ -173,10 +175,11 @@ EXTRAS = [
 SECCIONES = [
     dict(num='01', titulo='Disco Ball', etiqueta='DISCO BALL', color=SILVER, items=DISCO_BALL),
     dict(num='02', titulo='Temáticas', etiqueta='TEMÁTICAS', color=GOLD, items=TEMATICAS),
-    dict(num='03', titulo='Show LED', etiqueta='SHOW LED', color=CYAN, items=SHOW_LED),
-    dict(num='04', titulo='Ritmo Dominicano', etiqueta='RITMO DOMINICANO', color=RED, items=DOMINICANO),
-    dict(num='05', titulo='Navidad', etiqueta='NAVIDAD', color=GREEN, items=NAVIDAD, navidad=True),
-    dict(num='06', titulo='Extras para tu show', etiqueta='EXTRAS', color=VIOLET, items=EXTRAS),
+    dict(num='03', titulo='Personajes de Bienvenida', etiqueta='PERSONAJES DE BIENVENIDA', color=MAGENTA, items=BIENVENIDA),
+    dict(num='04', titulo='Show LED', etiqueta='SHOW LED', color=CYAN, items=SHOW_LED),
+    dict(num='05', titulo='Ritmo Dominicano', etiqueta='RITMO DOMINICANO', color=RED, items=DOMINICANO),
+    dict(num='06', titulo='Navidad', etiqueta='NAVIDAD', color=GREEN, items=NAVIDAD, navidad=True),
+    dict(num='07', titulo='Extras para tu show', etiqueta='EXTRAS', color=VIOLET, items=EXTRAS),
 ]
 
 
@@ -357,21 +360,49 @@ def plumas(page, rect, alpha):
     imagen_compartida(page, rect, ('plumas', alpha), lambda: png_plumas(alpha))
 
 
-def cabeza(page, sec, numero):
+TITULO_ACTUAL = [None]
+
+
+def decoracion(page, color, semilla):
+    """Luces de escenario difusas (como la web) y destellos sutiles en los márgenes."""
+    import random
+    sh = page.new_shape()
+    for (cx, cy, r0, col) in [(W - 60, 130, 210, color), (40, H - 120, 190, VIOLET), (W / 2, H + 40, 260, MAGENTA)]:
+        for k in range(9, 0, -1):
+            sh.draw_circle((cx, cy), r0 * k / 9)
+            sh.finish(color=None, fill=col, fill_opacity=0.012)
+    rnd = random.Random(semilla)
+    for _ in range(26):
+        x = rnd.choice([rnd.uniform(6, M - 8), rnd.uniform(W - M + 8, W - 6)]) if rnd.random() < 0.7 else rnd.uniform(M, W - M)
+        y = rnd.uniform(90, 790) if x < M or x > W - M else rnd.choice([rnd.uniform(74, 84), rnd.uniform(786, 796)])
+        r = rnd.uniform(0.6, 1.8)
+        sh.draw_circle((x, y), r)
+        sh.finish(color=None, fill=rnd.choice([TXT, GOLD, CYAN, MAGENTA]), fill_opacity=rnd.uniform(0.15, 0.55))
+    sh.commit()
+
+
+def cabeza(page, sec, numero, titulo=None):
     fondo(page)
+    decoracion(page, sec['color'], numero * 31 + len(sec['titulo']))
     plumas(page, fitz.Rect(110, 196, 485, 626), 0.10)
     texto(page, 'CC ENTERTAINMENT', 36, 10, 'B', TXT, x=M)
     texto(page, sec['etiqueta'], 52, 7.5, 'M', sec['color'], x=M)
     texto(page, f'{numero:02d}', 41, 11, 'B', GOLD, x=W - M, alinear='der')
     arcoiris(page, M, W - M, 69, 2)
     texto(page, f'{TEL} · {IG}', 804, 7.5, 'M', MUTED, x=M)
+    TITULO_ACTUAL[0] = titulo
+    if titulo:
+        texto(page, titulo, 80, 24, 'B', TXT, x=M)
+        linea(page, M, 116, M + 58, sec['color'], 3)
     if sec.get('navidad'):
         campana(page, 505, 46, 0.75); lucecitas(page, 48, 547, 72, 24)
         copo(page, 50, 790, 7); copo(page, 545, 785, 7)
 
 
 def etiqueta(page, x, y, nombre, color, grande=False, centro=None):
-    """Guion de color + nombre. y = borde superior del texto."""
+    """Guion de color + nombre. y = borde superior del texto. Se omite si repite el título de la hoja."""
+    if TITULO_ACTUAL[0] and nombre == TITULO_ACTUAL[0]:
+        return
     ts = 19 if grande else 14
     dx, gl = (48, 30) if grande else (34, 22)
     if centro is not None:
@@ -418,8 +449,9 @@ def lucecitas(page, x0, x1, y, n=24):
 # ═══════════════════════════════════════════════════════════════
 Y_INI = 88          # primera fila bajo la cabecera
 Y_FIN = 782         # límite inferior (encima del pie)
-ALTO_MAX = 300      # alto máximo de una foto en fila de dos (2 filas por hoja)
-ALTO_ANCHO = 280    # alto máximo de una foto a lo ancho (deja sitio a otra fila debajo)
+ALTO_MAX = 285      # alto máximo de una foto en fila de dos (2 filas por hoja, con título arriba)
+OFF_TITULO = 40     # espacio que ocupa el título grande de la hoja
+ALTO_ANCHO = 265    # alto máximo de una foto a lo ancho (deja sitio a otra fila debajo)
 GAP_FILA = 52       # nombre + aire entre filas
 GAP_PAR = 18        # separación entre las dos fotos de una fila
 
@@ -505,23 +537,17 @@ def pinta_fila(page, fila, y, alto, sec):
         etiqueta(page, r.x0, y + alto + 10, nombre, sec['color'])
 
 
-def titulo_grande(page, texto, color):
-    """Título de sección dentro de la hoja (grande y con la barrita de color)."""
-    texto_(page, texto, 82, 26, 'B', TXT, x=M)
-    linea(page, M, 120, M + 70, color, 3)
-
-
-texto_ = texto
+def base(nombre):
+    return nombre.split(' — ')[0].strip()
 
 
 def pagina_hero_port(doc, items, sec, num, titulo=None):
     """Hoja completa: foto grande a la izquierda, dos apiladas a la derecha y (opcional) dos abajo."""
-    page = doc.new_page(width=W, height=H); cabeza(page, sec, num)
-    y0 = Y_INI
-    if titulo:
-        titulo_grande(page, titulo, sec['color']); y0 = Y_INI + 62
+    titulo = titulo or base(items[0][0])
+    page = doc.new_page(width=W, height=H); cabeza(page, sec, num, titulo)
+    y0 = Y_INI + OFF_TITULO
     tres = len(items) <= 3
-    fondo_hero = 700 if tres else 500
+    fondo_hero = 720 if tres else 500
     alto_lado = (fondo_hero - y0 - 52) / 2
     hero = fitz.Rect(M, y0, 322, fondo_hero)
     lados = [fitz.Rect(334, y0, W - M, y0 + alto_lado), fitz.Rect(334, fondo_hero - alto_lado, W - M, fondo_hero)]
@@ -540,11 +566,12 @@ def pagina_hero_port(doc, items, sec, num, titulo=None):
 
 
 def pagina_grid(doc, items, sec, num, titulo=None):
-    """Hoja completa de un concepto: hasta dos filas."""
-    page = doc.new_page(width=W, height=H); cabeza(page, sec, num)
-    y = Y_INI
-    if titulo:
-        titulo_grande(page, titulo, sec['color']); y = Y_INI + 62
+    """Hoja completa de un concepto: hasta dos filas. Con 3 fotos verticales, la primera va grande."""
+    if len(items) == 3 and all(not es_par(it) and not es_horizontal_item(it) for it in items):
+        return pagina_hero_port(doc, items, sec, num, titulo)
+    titulo = titulo or base(norm(items[0])[0] if not es_par(items[0]) else items[0][0])
+    page = doc.new_page(width=W, height=H); cabeza(page, sec, num, titulo)
+    y = Y_INI + OFF_TITULO
     for fila in filas_de(items)[:2]:
         alto = alto_fila(fila)
         pinta_fila(page, fila, y, alto, sec)
@@ -561,8 +588,8 @@ def seccion(doc, sec, num):
         page = None; y = Y_INI
         for fila in filas:
             alto = alto_fila(fila)
-            if page is None or y + alto + 28 > Y_FIN:
-                page = doc.new_page(width=W, height=H); cabeza(page, sec, num); num += 1; y = Y_INI
+            if page is None or y + alto + 26 > Y_FIN:
+                page = doc.new_page(width=W, height=H); cabeza(page, sec, num, sec['titulo']); num += 1; y = Y_INI + OFF_TITULO
             pinta_fila(page, fila, y, alto, sec)
             y += alto + GAP_FILA
         return num
