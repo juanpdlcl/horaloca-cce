@@ -414,54 +414,86 @@ def es_pagina(it):
     return isinstance(it, dict) and 'pagina' in it
 
 
+ALTO_MIN_PAR = 200   # si dos fotos juntas quedan más bajas que esto, van una por fila a lo ancho
+
+
+def ratio(path):
+    w, h = tam(path)
+    return w / h
+
+
 def filas_de(items):
-    """Agrupa en filas: a lo ancho (1 foto), par con nombre centrado (2 fotos) o dos sencillas."""
+    """Agrupa en filas equilibradas: dos fotos con la misma altura, o una a lo ancho."""
     pend = list(items); filas = []
     while pend:
         it = pend.pop(0)
-        if es_par(it) or norm(it)[2]:
+        if es_par(it):
             filas.append([it]); continue
-        fila = [it]
+        if norm(it)[2]:                       # marcada a lo ancho
+            filas.append([it]); continue
+        # buscar compañera sencilla
+        comp = None
         for j, cand in enumerate(pend):
             if not es_par(cand) and not norm(cand)[2]:
-                fila.append(pend.pop(j)); break
-        filas.append(fila)
+                comp = pend.pop(j); break
+        if comp is None:
+            filas.append([it]); continue
+        h = (ANCHO_UTIL - GAP_PAR) / (ratio(norm(it)[1]) + ratio(norm(comp)[1]))
+        if h < ALTO_MIN_PAR:                  # quedarían pequeñas: cada una a lo ancho
+            filas.append([ANCHO(norm(it)[0], norm(it)[1])])
+            pend.insert(0, ANCHO(norm(comp)[0], norm(comp)[1]))
+        else:
+            filas.append([it, comp])
     return filas
 
 
-def alto_fila(fila):
+def plan_fila(fila):
+    """-> (alto, [(nombre, ruta, x0, w), ...]) con todas las fotos a la misma altura."""
     if len(fila) == 1 and es_par(fila[0]):
-        return max(ajustar(p, COL, ALTO_MAX)[1] for p in fila[0][1])
+        nombre, rutas = fila[0]
+        rs = [ratio(r) for r in rutas]
+        h = min(ALTO_MAX, (ANCHO_UTIL - GAP_PAR) / sum(rs))
+        ws = [h * r for r in rs]
+        total = sum(ws) + GAP_PAR
+        x = M + (ANCHO_UTIL - total) / 2
+        celdas = []
+        for r_, w_ in zip(rutas, ws):
+            celdas.append((nombre, r_, x, w_)); x += w_ + GAP_PAR
+        return h, celdas
     if len(fila) == 1:
-        n, img, ancho = norm(fila[0])
-        return ajustar(img, ANCHO_UTIL, ALTO_ANCHO)[1] if ancho else ajustar(img, COL, ALTO_MAX)[1]
-    return max(ajustar(norm(it)[1], COL, ALTO_MAX)[1] for it in fila)
+        nombre, img, ancho = norm(fila[0])
+        r = ratio(img)
+        if ancho or r >= 1.0:
+            w, h = ajustar(img, ANCHO_UTIL, ALTO_ANCHO)
+        else:                                 # vertical suelta: tamaño de columna, centrada
+            w, h = ajustar(img, COL, ALTO_MAX)
+        return h, [(nombre, img, M + (ANCHO_UTIL - w) / 2, w)]
+    rs = [ratio(norm(it)[1]) for it in fila]
+    h = min(ALTO_MAX, (ANCHO_UTIL - GAP_PAR) / sum(rs))
+    ws = [h * r for r in rs]
+    total = sum(ws) + GAP_PAR
+    x = M + (ANCHO_UTIL - total) / 2
+    celdas = []
+    for it, w_ in zip(fila, ws):
+        celdas.append((norm(it)[0], norm(it)[1], x, w_)); x += w_ + GAP_PAR
+    return h, celdas
+
+
+def alto_fila(fila):
+    return plan_fila(fila)[0]
 
 
 def pinta_fila(page, fila, y, alto, sec):
-    """Dibuja una fila con las fotos alineadas por abajo y el nombre debajo."""
-    base = y + alto
-    if len(fila) == 1 and es_par(fila[0]):
-        nombre, rutas = fila[0]
-        for k, p in enumerate(rutas):
-            caja = fitz.Rect(M + k * (COL + GAP_PAR), y, M + k * (COL + GAP_PAR) + COL, base)
-            foto_ajustada(page, p, caja, 'abajo')
-        etiqueta(page, 0, base + 10, nombre, sec['color'], centro=W / 2)
-        return
-    if len(fila) == 1:
-        nombre, img, ancho = norm(fila[0])
-        if ancho:
-            r = foto_ajustada(page, img, fitz.Rect(M, y, W - M, base), 'abajo')
-            etiqueta(page, r.x0, base + 10, nombre, sec['color'], grande=True)
-        else:
-            r = foto_ajustada(page, img, fitz.Rect(M, y, M + COL, base), 'abajo')
-            etiqueta(page, r.x0, base + 10, nombre, sec['color'])
-        return
-    for k, it in enumerate(fila):
-        nombre, img, _ = norm(it)
-        caja = fitz.Rect(M + k * (COL + GAP_PAR), y, M + k * (COL + GAP_PAR) + COL, base)
-        r = foto_ajustada(page, img, caja, 'abajo')
-        etiqueta(page, r.x0, base + 10, nombre, sec['color'])
+    """Dibuja la fila: fotos completas, misma altura, nombre debajo de cada una."""
+    h, celdas = plan_fila(fila)
+    par = len(fila) == 1 and es_par(fila[0])
+    grande = len(celdas) == 1 and celdas[0][3] > COL + 20
+    for nombre, img, x0, w in celdas:
+        foto_en(page, img, fitz.Rect(x0, y, x0 + w, y + h))
+        if not par:
+            etiqueta(page, x0, y + h + 10, nombre, sec['color'], grande=grande)
+    if par:
+        etiqueta(page, 0, y + h + 10, fila[0][0], sec['color'], centro=W / 2)
 
 
 def pagina_hero_port(doc, items, sec, num):
