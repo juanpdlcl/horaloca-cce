@@ -68,7 +68,6 @@ DISCO_BALL = [
     ('Hombre LED', 'assets/img/destacado/plata-2.jpg'),
     ('Hombre espejo', 'assets/img/destacado/plata-3.jpg'),
     ('Disco Ball — grupo', 'assets/img/destacado/plata-4.jpg'),
-    ('Disco Ball — trío', t('espejos', 10)),
     ('Show en vivo', t('espejos', 1)),
     ('Show en vivo', t('espejos', 5)),
     ('Disco Ball — bola', t('espejos', 3)),
