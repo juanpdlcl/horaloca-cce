@@ -94,7 +94,7 @@ TEMATICAS = [
     PAGINA('grid', [('Gatsby', t('gatsby', 1)), ('Gatsby — pareja', t('gatsby', 2)), ('Gatsby', t('gatsby', 8)), ('Brigeston', t('brigeston', 1))]),
     # Personajes
     PAGINA('grid', [ANCHO('Porristas', t('porristas', 1)), ('Ingenieros', t('ingenieros', 1)), ('Cocineros', t('cocineros-show', 1))]),
-    PAGINA('grid', [('Hadas', t('hadas', 2)), ('Astronauta y alien', t('astronauta', 1)), ('Cabezones', 'assets/img/promo/artistas.jpg'), ('Cabezones — Bad Bunny', t('cabezones', 3))]),
+    PAGINA('grid', [('Hadas', t('hadas', 2)), ('Astronauta y alien', t('astronauta', 1)), ('Cabezones — Karol G, Bad Bunny y Daddy Yankee', 'assets/img/promo/artistas.jpg'), ('Cabezones', t('cabezones', 2))]),
     # Épocas
     PAGINA('grid', [ANCHO('Disco', t('disco', 1)), ('Años 80', t('anos-80', 2)), ('Años 90', t('anos-90', 1))]),
     # Fórmula 1
@@ -410,6 +410,8 @@ def etiqueta(page, x, y, nombre, color, grande=False, centro=None):
         linea(page, x_txt - gl - 8, y + ts * 0.55, x_txt - 8, color, 2.5)
         texto(page, nombre, y, ts, 'S', TXT, x=x_txt)
         return
+    while ts > 9 and ancho_txt(nombre, 'S', ts) > COL - dx - 4:
+        ts -= 1
     linea(page, x, y + ts * 0.55, x + gl, color, 2.5)
     texto(page, nombre, y, ts, 'S', TXT, x=x + dx)
 
