@@ -1,0 +1,783 @@
+[
+ {
+  "page": 1,
+  "imgs": [
+   {
+    "rect": [
+     178,
+     130,
+     417,
+     405
+    ],
+    "asset": "assets/img/logo-mark-glow.png",
+    "d": 4
+   }
+  ],
+  "textos": [
+   {
+    "t": "CC ENTERTAINMENT",
+    "x": 126,
+    "y": 425,
+    "font": "Outfit-Bold",
+    "size": 34.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "PRODUCCIÓN DE ESPECTÁCULOS TEMÁTICOS",
+    "x": 194,
+    "y": 474,
+    "font": "Outfit-Medium",
+    "size": 9.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Edición Navidad",
+    "x": 190,
+    "y": 543,
+    "font": "Outfit-Light",
+    "size": 30.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "SHOWS NAVIDEÑOS · HORAS LOCAS",
+    "x": 203,
+    "y": 590,
+    "font": "Outfit-SemiBold",
+    "size": 11.0,
+    "color": "#1a9a50"
+   },
+   {
+    "t": "15 propuestas para tu fiesta navideña",
+    "x": 210,
+    "y": 740,
+    "font": "Outfit-Medium",
+    "size": 10.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "República Dominicana · 2026",
+    "x": 230,
+    "y": 758,
+    "font": "Outfit-Medium",
+    "size": 10.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "(829) 343-5460  ·  @horaloca_cce",
+    "x": 220,
+    "y": 786,
+    "font": "Outfit-SemiBold",
+    "size": 10.5,
+    "color": "#f3f2f5"
+   }
+  ]
+ },
+ {
+  "page": 2,
+  "imgs": [
+   {
+    "rect": [
+     42,
+     86,
+     553,
+     382
+    ],
+    "asset": "assets/img/tematicas/navidad/09.jpg",
+    "d": 68
+   },
+   {
+    "rect": [
+     110,
+     196,
+     485,
+     626
+    ],
+    "asset": "assets/img/logo-mark-glow.png",
+    "d": 5
+   },
+   {
+    "rect": [
+     42,
+     438,
+     553,
+     734
+    ],
+    "asset": "assets/img/tematicas/navidad/09.jpg",
+    "d": 57
+   }
+  ],
+  "textos": [
+   {
+    "t": "CC ENTERTAINMENT",
+    "x": 42,
+    "y": 36,
+    "font": "Outfit-Bold",
+    "size": 10.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "EDICIÓN NAVIDAD",
+    "x": 42,
+    "y": 52,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#1a9a50"
+   },
+   {
+    "t": "01",
+    "x": 542,
+    "y": 41,
+    "font": "Outfit-Bold",
+    "size": 11.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "(829) 343-5460 · @horaloca_cce",
+    "x": 42,
+    "y": 804,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Show Navidad completo",
+    "x": 90,
+    "y": 384,
+    "font": "Outfit-SemiBold",
+    "size": 19.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "Grinch, Santa, galleta de jengibre y elfos",
+    "x": 90,
+    "y": 410,
+    "font": "Outfit-Medium",
+    "size": 9.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "Santa con elfos y galleta",
+    "x": 90,
+    "y": 736,
+    "font": "Outfit-SemiBold",
+    "size": 19.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "SHOW NAVIDEÑO",
+    "x": 90,
+    "y": 764,
+    "font": "Outfit-Medium",
+    "size": 7.0,
+    "color": "#9c99a8"
+   }
+  ]
+ },
+ {
+  "page": 3,
+  "imgs": [
+   {
+    "rect": [
+     42,
+     86,
+     553,
+     382
+    ],
+    "asset": "assets/img/tematicas/navidad/11.jpg",
+    "d": 45
+   },
+   {
+    "rect": [
+     110,
+     196,
+     485,
+     626
+    ],
+    "asset": "assets/img/logo-mark-glow.png",
+    "d": 5
+   },
+   {
+    "rect": [
+     42,
+     438,
+     553,
+     734
+    ],
+    "asset": "assets/img/tematicas/navidad/09.jpg",
+    "d": 65
+   }
+  ],
+  "textos": [
+   {
+    "t": "CC ENTERTAINMENT",
+    "x": 42,
+    "y": 36,
+    "font": "Outfit-Bold",
+    "size": 10.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "EDICIÓN NAVIDAD",
+    "x": 42,
+    "y": 52,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#1a9a50"
+   },
+   {
+    "t": "02",
+    "x": 539,
+    "y": 41,
+    "font": "Outfit-Bold",
+    "size": 11.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "(829) 343-5460 · @horaloca_cce",
+    "x": 42,
+    "y": 804,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "El Grinch y la galleta",
+    "x": 90,
+    "y": 384,
+    "font": "Outfit-SemiBold",
+    "size": 19.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "SHOW NAVIDEÑO",
+    "x": 90,
+    "y": 412,
+    "font": "Outfit-Medium",
+    "size": 7.0,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Santa y los elfos",
+    "x": 90,
+    "y": 736,
+    "font": "Outfit-SemiBold",
+    "size": 19.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "SHOW NAVIDEÑO",
+    "x": 90,
+    "y": 764,
+    "font": "Outfit-Medium",
+    "size": 7.0,
+    "color": "#9c99a8"
+   }
+  ]
+ },
+ {
+  "page": 4,
+  "imgs": [
+   {
+    "rect": [
+     42,
+     86,
+     288,
+     386
+    ],
+    "asset": "assets/img/tematicas/navidad/13.jpg",
+    "d": 84
+   },
+   {
+    "rect": [
+     307,
+     86,
+     553,
+     386
+    ],
+    "asset": "assets/img/tematicas/navidad/15.jpg",
+    "d": 71
+   },
+   {
+    "rect": [
+     110,
+     196,
+     485,
+     626
+    ],
+    "asset": "assets/img/logo-mark-glow.png",
+    "d": 5
+   },
+   {
+    "rect": [
+     42,
+     456,
+     288,
+     756
+    ],
+    "asset": "assets/img/tematicas/navidad/16.jpg",
+    "d": 52
+   },
+   {
+    "rect": [
+     307,
+     456,
+     553,
+     756
+    ],
+    "asset": "assets/img/tematicas/navidad/18.jpg",
+    "d": 39
+   }
+  ],
+  "textos": [
+   {
+    "t": "CC ENTERTAINMENT",
+    "x": 42,
+    "y": 36,
+    "font": "Outfit-Bold",
+    "size": 10.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "EDICIÓN NAVIDAD",
+    "x": 42,
+    "y": 52,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "03",
+    "x": 540,
+    "y": 41,
+    "font": "Outfit-Bold",
+    "size": 11.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "(829) 343-5460 · @horaloca_cce",
+    "x": 42,
+    "y": 804,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Santa y sus ayudantes",
+    "x": 76,
+    "y": 389,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "SHOW NAVIDEÑO",
+    "x": 76,
+    "y": 410,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Cascanueces y elfa",
+    "x": 340,
+    "y": 389,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "Trío rojo y dorado",
+    "x": 340,
+    "y": 409,
+    "font": "Outfit-Medium",
+    "size": 8.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "Elfa roja",
+    "x": 76,
+    "y": 759,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "SHOW NAVIDEÑO",
+    "x": 76,
+    "y": 780,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Pareja Candy",
+    "x": 340,
+    "y": 759,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "Bastones de caramelo",
+    "x": 340,
+    "y": 779,
+    "font": "Outfit-Medium",
+    "size": 8.0,
+    "color": "#f5c542"
+   }
+  ]
+ },
+ {
+  "page": 5,
+  "imgs": [
+   {
+    "rect": [
+     42,
+     86,
+     288,
+     386
+    ],
+    "asset": "assets/img/tematicas/navidad/19.jpg",
+    "d": 69
+   },
+   {
+    "rect": [
+     307,
+     86,
+     553,
+     386
+    ],
+    "asset": "assets/img/tematicas/navidad/07.jpg",
+    "d": 27
+   },
+   {
+    "rect": [
+     110,
+     196,
+     485,
+     626
+    ],
+    "asset": "assets/img/logo-mark-glow.png",
+    "d": 5
+   },
+   {
+    "rect": [
+     42,
+     456,
+     288,
+     756
+    ],
+    "asset": "assets/img/tematicas/navidad/02.jpg",
+    "d": 25
+   },
+   {
+    "rect": [
+     307,
+     456,
+     553,
+     756
+    ],
+    "asset": "assets/img/tematicas/navidad/04.jpg",
+    "d": 62
+   }
+  ],
+  "textos": [
+   {
+    "t": "CC ENTERTAINMENT",
+    "x": 42,
+    "y": 36,
+    "font": "Outfit-Bold",
+    "size": 10.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "EDICIÓN NAVIDAD",
+    "x": 42,
+    "y": 52,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "04",
+    "x": 539,
+    "y": 41,
+    "font": "Outfit-Bold",
+    "size": 11.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "(829) 343-5460 · @horaloca_cce",
+    "x": 42,
+    "y": 804,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Cocineros navideños",
+    "x": 76,
+    "y": 389,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "Con cuchara y palomitas gigantes",
+    "x": 76,
+    "y": 409,
+    "font": "Outfit-Medium",
+    "size": 8.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "Santa",
+    "x": 340,
+    "y": 389,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "Con soldados de juguete y tambores",
+    "x": 340,
+    "y": 409,
+    "font": "Outfit-Medium",
+    "size": 8.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "Chicas de Santa",
+    "x": 76,
+    "y": 759,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "SHOW NAVIDEÑO",
+    "x": 76,
+    "y": 780,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Soldados de juguete",
+    "x": 340,
+    "y": 759,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "SHOW NAVIDEÑO",
+    "x": 340,
+    "y": 780,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   }
+  ]
+ },
+ {
+  "page": 6,
+  "imgs": [
+   {
+    "rect": [
+     42,
+     86,
+     288,
+     386
+    ],
+    "asset": "assets/img/tematicas/navidad/05.jpg",
+    "d": 49
+   },
+   {
+    "rect": [
+     307,
+     86,
+     553,
+     386
+    ],
+    "asset": "assets/img/tematicas/alas-led/02.jpg",
+    "d": 22
+   },
+   {
+    "rect": [
+     110,
+     196,
+     485,
+     626
+    ],
+    "asset": "assets/img/logo-mark-glow.png",
+    "d": 5
+   },
+   {
+    "rect": [
+     42,
+     456,
+     288,
+     756
+    ],
+    "asset": "assets/img/tematicas/blanca-navidad/01.jpg",
+    "d": 29
+   }
+  ],
+  "textos": [
+   {
+    "t": "CC ENTERTAINMENT",
+    "x": 42,
+    "y": 36,
+    "font": "Outfit-Bold",
+    "size": 10.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "EDICIÓN NAVIDAD",
+    "x": 42,
+    "y": 52,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "05",
+    "x": 540,
+    "y": 41,
+    "font": "Outfit-Bold",
+    "size": 11.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "(829) 343-5460 · @horaloca_cce",
+    "x": 42,
+    "y": 804,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Zancos navideños",
+    "x": 76,
+    "y": 389,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "SHOW NAVIDEÑO",
+    "x": 76,
+    "y": 410,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Alas LED navideñas",
+    "x": 340,
+    "y": 389,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "SHOW NAVIDEÑO",
+    "x": 340,
+    "y": 410,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Blanca Navidad",
+    "x": 76,
+    "y": 759,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "Invierno blanco con nieve",
+    "x": 76,
+    "y": 779,
+    "font": "Outfit-Medium",
+    "size": 8.0,
+    "color": "#f5c542"
+   }
+  ]
+ },
+ {
+  "page": 7,
+  "imgs": [
+   {
+    "rect": [
+     71,
+     151,
+     524,
+     671
+    ],
+    "asset": "assets/img/logo-mark-glow.png",
+    "d": 5
+   }
+  ],
+  "textos": [
+   {
+    "t": "Convertimos tu evento",
+    "x": 167,
+    "y": 304,
+    "font": "Outfit-Light",
+    "size": 26.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "en un espectáculo",
+    "x": 195,
+    "y": 336,
+    "font": "Outfit-Light",
+    "size": 26.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "Cotiza tu show a la medida:",
+    "x": 231,
+    "y": 425,
+    "font": "Outfit-Medium",
+    "size": 11.0,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "horaloca-cce.vercel.app",
+    "x": 225,
+    "y": 443,
+    "font": "Outfit-SemiBold",
+    "size": 13.0,
+    "color": "#2fd0ff"
+   },
+   {
+    "t": "WhatsApp (829) 343-5460",
+    "x": 225,
+    "y": 478,
+    "font": "Outfit-SemiBold",
+    "size": 12.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "Instagram @horaloca_cce",
+    "x": 227,
+    "y": 498,
+    "font": "Outfit-SemiBold",
+    "size": 12.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "CC Entertainment · Producción de espectáculos temáticos · República Dominicana",
+    "x": 144,
+    "y": 774,
+    "font": "Outfit-Medium",
+    "size": 8.5,
+    "color": "#9c99a8"
+   }
+  ]
+ }
+]

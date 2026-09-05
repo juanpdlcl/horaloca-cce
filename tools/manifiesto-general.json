@@ -1,0 +1,3897 @@
+[
+ {
+  "page": 1,
+  "imgs": [
+   {
+    "rect": [
+     178,
+     130,
+     417,
+     405
+    ],
+    "asset": "assets/img/logo-mark-glow.png",
+    "d": 4
+   }
+  ],
+  "textos": [
+   {
+    "t": "CC ENTERTAINMENT",
+    "x": 126,
+    "y": 425,
+    "font": "Outfit-Bold",
+    "size": 34.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "PRODUCCIÓN DE ESPECTÁCULOS TEMÁTICOS",
+    "x": 194,
+    "y": 474,
+    "font": "Outfit-Medium",
+    "size": 9.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Catálogo de Temáticas",
+    "x": 142,
+    "y": 543,
+    "font": "Outfit-Light",
+    "size": 30.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "HORAS LOCAS · SHOWS TEMÁTICOS",
+    "x": 203,
+    "y": 590,
+    "font": "Outfit-SemiBold",
+    "size": 11.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "70 temáticas y 5 extras de producción propia",
+    "x": 192,
+    "y": 740,
+    "font": "Outfit-Medium",
+    "size": 10.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "República Dominicana · 2026",
+    "x": 230,
+    "y": 758,
+    "font": "Outfit-Medium",
+    "size": 10.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "(829) 343-5460  ·  @horaloca_cce",
+    "x": 220,
+    "y": 786,
+    "font": "Outfit-SemiBold",
+    "size": 10.5,
+    "color": "#f3f2f5"
+   }
+  ]
+ },
+ {
+  "page": 2,
+  "imgs": [
+   {
+    "rect": [
+     80,
+     161,
+     515,
+     661
+    ],
+    "asset": "assets/img/logo-mark-glow.png",
+    "d": 5
+   }
+  ],
+  "textos": [
+   {
+    "t": "01",
+    "x": 266,
+    "y": 240,
+    "font": "Outfit-Bold",
+    "size": 60.0,
+    "color": "#d4d9e6"
+   },
+   {
+    "t": "Disco Ball",
+    "x": 225,
+    "y": 326,
+    "font": "Outfit-Light",
+    "size": 34.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "Disco Ball",
+    "x": 273,
+    "y": 424,
+    "font": "Outfit-Medium",
+    "size": 11.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Disco Ball — gorras",
+    "x": 248,
+    "y": 444,
+    "font": "Outfit-Medium",
+    "size": 11.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Disco Ball — salida",
+    "x": 250,
+    "y": 464,
+    "font": "Outfit-Medium",
+    "size": 11.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Chicas de espejos",
+    "x": 253,
+    "y": 484,
+    "font": "Outfit-Medium",
+    "size": 11.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Hombre LED",
+    "x": 264,
+    "y": 504,
+    "font": "Outfit-Medium",
+    "size": 11.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Hombre espejo",
+    "x": 259,
+    "y": 524,
+    "font": "Outfit-Medium",
+    "size": 11.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Disco Ball — grupo",
+    "x": 250,
+    "y": 544,
+    "font": "Outfit-Medium",
+    "size": 11.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Show en vivo",
+    "x": 265,
+    "y": 564,
+    "font": "Outfit-Medium",
+    "size": 11.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Show en vivo",
+    "x": 265,
+    "y": 584,
+    "font": "Outfit-Medium",
+    "size": 11.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "CC ENTERTAINMENT · CATÁLOGO DE TEMÁTICAS",
+    "x": 42,
+    "y": 804,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   }
+  ]
+ },
+ {
+  "page": 3,
+  "imgs": [
+   {
+    "rect": [
+     42,
+     86,
+     553,
+     414
+    ],
+    "asset": "assets/img/tematicas/espejos/main.jpg",
+    "d": 82
+   },
+   {
+    "rect": [
+     110,
+     196,
+     485,
+     626
+    ],
+    "asset": "assets/img/logo-mark-glow.png",
+    "d": 5
+   },
+   {
+    "rect": [
+     42,
+     470,
+     288,
+     722
+    ],
+    "asset": "assets/img/tematicas/espejos/09.jpg",
+    "d": 45
+   },
+   {
+    "rect": [
+     306,
+     470,
+     553,
+     722
+    ],
+    "asset": "assets/img/tematicas/espejos/11.jpg",
+    "d": 66
+   }
+  ],
+  "textos": [
+   {
+    "t": "CC ENTERTAINMENT",
+    "x": 42,
+    "y": 36,
+    "font": "Outfit-Bold",
+    "size": 10.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "DISCO BALL",
+    "x": 42,
+    "y": 52,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#d4d9e6"
+   },
+   {
+    "t": "01",
+    "x": 542,
+    "y": 41,
+    "font": "Outfit-Bold",
+    "size": 11.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "(829) 343-5460 · @horaloca_cce",
+    "x": 42,
+    "y": 804,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Disco Ball",
+    "x": 90,
+    "y": 416,
+    "font": "Outfit-SemiBold",
+    "size": 19.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "El paquete plateado completo",
+    "x": 90,
+    "y": 442,
+    "font": "Outfit-Medium",
+    "size": 9.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "Disco Ball — gorras",
+    "x": 76,
+    "y": 725,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "Trajes de espejos con gorras de cristal",
+    "x": 76,
+    "y": 745,
+    "font": "Outfit-Medium",
+    "size": 8.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "Disco Ball — salida",
+    "x": 340,
+    "y": 725,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "Cabezas de bola disco con capas LED",
+    "x": 340,
+    "y": 745,
+    "font": "Outfit-Medium",
+    "size": 8.0,
+    "color": "#f5c542"
+   }
+  ]
+ },
+ {
+  "page": 4,
+  "imgs": [
+   {
+    "rect": [
+     42,
+     86,
+     288,
+     386
+    ],
+    "asset": "assets/img/destacado/plata-1.jpg",
+    "d": 3
+   },
+   {
+    "rect": [
+     307,
+     86,
+     553,
+     386
+    ],
+    "asset": "assets/img/destacado/plata-2.jpg",
+    "d": 5
+   },
+   {
+    "rect": [
+     110,
+     196,
+     485,
+     626
+    ],
+    "asset": "assets/img/logo-mark-glow.png",
+    "d": 5
+   },
+   {
+    "rect": [
+     42,
+     456,
+     288,
+     756
+    ],
+    "asset": "assets/img/destacado/plata-3.jpg",
+    "d": 8
+   },
+   {
+    "rect": [
+     307,
+     456,
+     553,
+     756
+    ],
+    "asset": "assets/img/destacado/plata-4.jpg",
+    "d": 4
+   }
+  ],
+  "textos": [
+   {
+    "t": "CC ENTERTAINMENT",
+    "x": 42,
+    "y": 36,
+    "font": "Outfit-Bold",
+    "size": 10.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "DISCO BALL",
+    "x": 42,
+    "y": 52,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#d4d9e6"
+   },
+   {
+    "t": "02",
+    "x": 539,
+    "y": 41,
+    "font": "Outfit-Bold",
+    "size": 11.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "(829) 343-5460 · @horaloca_cce",
+    "x": 42,
+    "y": 804,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Chicas de espejos",
+    "x": 76,
+    "y": 389,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "DISCO BALL",
+    "x": 76,
+    "y": 410,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Hombre LED",
+    "x": 340,
+    "y": 389,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "DISCO BALL",
+    "x": 340,
+    "y": 410,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Hombre espejo",
+    "x": 76,
+    "y": 759,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "DISCO BALL",
+    "x": 76,
+    "y": 780,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Disco Ball — grupo",
+    "x": 340,
+    "y": 759,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "DISCO BALL",
+    "x": 340,
+    "y": 780,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   }
+  ]
+ },
+ {
+  "page": 5,
+  "imgs": [
+   {
+    "rect": [
+     42,
+     86,
+     288,
+     386
+    ],
+    "asset": "assets/img/tematicas/espejos/01.jpg",
+    "d": 33
+   },
+   {
+    "rect": [
+     307,
+     86,
+     553,
+     386
+    ],
+    "asset": "assets/img/tematicas/espejos/05.jpg",
+    "d": 27
+   },
+   {
+    "rect": [
+     110,
+     196,
+     485,
+     626
+    ],
+    "asset": "assets/img/logo-mark-glow.png",
+    "d": 5
+   }
+  ],
+  "textos": [
+   {
+    "t": "CC ENTERTAINMENT",
+    "x": 42,
+    "y": 36,
+    "font": "Outfit-Bold",
+    "size": 10.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "DISCO BALL",
+    "x": 42,
+    "y": 52,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#d4d9e6"
+   },
+   {
+    "t": "03",
+    "x": 540,
+    "y": 41,
+    "font": "Outfit-Bold",
+    "size": 11.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "(829) 343-5460 · @horaloca_cce",
+    "x": 42,
+    "y": 804,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Show en vivo",
+    "x": 76,
+    "y": 389,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "Cabeza de bola disco en evento",
+    "x": 76,
+    "y": 409,
+    "font": "Outfit-Medium",
+    "size": 8.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "Show en vivo",
+    "x": 340,
+    "y": 389,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "Disco Ball en evento",
+    "x": 340,
+    "y": 409,
+    "font": "Outfit-Medium",
+    "size": 8.0,
+    "color": "#f5c542"
+   }
+  ]
+ },
+ {
+  "page": 6,
+  "imgs": [
+   {
+    "rect": [
+     80,
+     161,
+     515,
+     661
+    ],
+    "asset": "assets/img/logo-mark-glow.png",
+    "d": 5
+   }
+  ],
+  "textos": [
+   {
+    "t": "02",
+    "x": 261,
+    "y": 240,
+    "font": "Outfit-Bold",
+    "size": 60.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "Temáticas",
+    "x": 218,
+    "y": 326,
+    "font": "Outfit-Light",
+    "size": 34.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "36 temáticas para tu show",
+    "x": 227,
+    "y": 428,
+    "font": "Outfit-Medium",
+    "size": 12.0,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "CC ENTERTAINMENT · CATÁLOGO DE TEMÁTICAS",
+    "x": 42,
+    "y": 804,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   }
+  ]
+ },
+ {
+  "page": 7,
+  "imgs": [
+   {
+    "rect": [
+     42,
+     86,
+     553,
+     414
+    ],
+    "asset": "assets/img/destacado/dorado-4.jpg",
+    "d": 26
+   },
+   {
+    "rect": [
+     110,
+     196,
+     485,
+     626
+    ],
+    "asset": "assets/img/logo-mark-glow.png",
+    "d": 5
+   },
+   {
+    "rect": [
+     42,
+     470,
+     288,
+     722
+    ],
+    "asset": "assets/img/tematicas/shine-gold/01.jpg",
+    "d": 37
+   },
+   {
+    "rect": [
+     306,
+     470,
+     553,
+     722
+    ],
+    "asset": "assets/img/tematicas/brasil-plata/02.jpg",
+    "d": 83
+   }
+  ],
+  "textos": [
+   {
+    "t": "CC ENTERTAINMENT",
+    "x": 42,
+    "y": 36,
+    "font": "Outfit-Bold",
+    "size": 10.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "CATÁLOGO DE TEMÁTICAS",
+    "x": 42,
+    "y": 52,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "04",
+    "x": 539,
+    "y": 41,
+    "font": "Outfit-Bold",
+    "size": 11.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "(829) 343-5460 · @horaloca_cce",
+    "x": 42,
+    "y": 804,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Dorado",
+    "x": 90,
+    "y": 416,
+    "font": "Outfit-SemiBold",
+    "size": 19.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "HORA LOCA",
+    "x": 90,
+    "y": 444,
+    "font": "Outfit-Medium",
+    "size": 7.0,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Shine Gold",
+    "x": 76,
+    "y": 725,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "HORA LOCA",
+    "x": 76,
+    "y": 746,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Brazil plateada",
+    "x": 340,
+    "y": 725,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "HORA LOCA",
+    "x": 340,
+    "y": 746,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   }
+  ]
+ },
+ {
+  "page": 8,
+  "imgs": [
+   {
+    "rect": [
+     42,
+     86,
+     288,
+     386
+    ],
+    "asset": "assets/img/tematicas/brazil/01.jpg",
+    "d": 21
+   },
+   {
+    "rect": [
+     307,
+     86,
+     553,
+     386
+    ],
+    "asset": "assets/img/tematicas/vegas/01.jpg",
+    "d": 19
+   },
+   {
+    "rect": [
+     110,
+     196,
+     485,
+     626
+    ],
+    "asset": "assets/img/logo-mark-glow.png",
+    "d": 5
+   },
+   {
+    "rect": [
+     42,
+     456,
+     288,
+     756
+    ],
+    "asset": "assets/img/tematicas/dorado/05.jpg",
+    "d": 80
+   },
+   {
+    "rect": [
+     307,
+     456,
+     553,
+     756
+    ],
+    "asset": "assets/img/ig/tropical-sunset.jpg",
+    "d": 15
+   }
+  ],
+  "textos": [
+   {
+    "t": "CC ENTERTAINMENT",
+    "x": 42,
+    "y": 36,
+    "font": "Outfit-Bold",
+    "size": 10.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "CATÁLOGO DE TEMÁTICAS",
+    "x": 42,
+    "y": 52,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "05",
+    "x": 540,
+    "y": 41,
+    "font": "Outfit-Bold",
+    "size": 11.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "(829) 343-5460 · @horaloca_cce",
+    "x": 42,
+    "y": 804,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Brazil",
+    "x": 76,
+    "y": 389,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "HORA LOCA",
+    "x": 76,
+    "y": 410,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Viva las Vegas",
+    "x": 340,
+    "y": 389,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "HORA LOCA",
+    "x": 340,
+    "y": 410,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Neón",
+    "x": 76,
+    "y": 759,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "HORA LOCA",
+    "x": 76,
+    "y": 780,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Tropical",
+    "x": 340,
+    "y": 759,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "HORA LOCA",
+    "x": 340,
+    "y": 780,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   }
+  ]
+ },
+ {
+  "page": 9,
+  "imgs": [
+   {
+    "rect": [
+     42,
+     86,
+     288,
+     386
+    ],
+    "asset": "assets/img/tematicas/gatsby/01.jpg",
+    "d": 28
+   },
+   {
+    "rect": [
+     307,
+     86,
+     553,
+     386
+    ],
+    "asset": "assets/img/tematicas/neon-2000/01.jpg",
+    "d": 33
+   },
+   {
+    "rect": [
+     110,
+     196,
+     485,
+     626
+    ],
+    "asset": "assets/img/logo-mark-glow.png",
+    "d": 5
+   },
+   {
+    "rect": [
+     42,
+     456,
+     288,
+     756
+    ],
+    "asset": "assets/img/tematicas/samba/01.jpg",
+    "d": 75
+   },
+   {
+    "rect": [
+     307,
+     456,
+     553,
+     756
+    ],
+    "asset": "assets/img/tematicas/africa/02.jpg",
+    "d": 37
+   }
+  ],
+  "textos": [
+   {
+    "t": "CC ENTERTAINMENT",
+    "x": 42,
+    "y": 36,
+    "font": "Outfit-Bold",
+    "size": 10.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "CATÁLOGO DE TEMÁTICAS",
+    "x": 42,
+    "y": 52,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "06",
+    "x": 539,
+    "y": 41,
+    "font": "Outfit-Bold",
+    "size": 11.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "(829) 343-5460 · @horaloca_cce",
+    "x": 42,
+    "y": 804,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Gatsby",
+    "x": 76,
+    "y": 389,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "HORA LOCA",
+    "x": 76,
+    "y": 410,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Neon 2000",
+    "x": 340,
+    "y": 389,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "HORA LOCA",
+    "x": 340,
+    "y": 410,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Samba",
+    "x": 76,
+    "y": 759,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "HORA LOCA",
+    "x": 76,
+    "y": 780,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "África",
+    "x": 340,
+    "y": 759,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "HORA LOCA",
+    "x": 340,
+    "y": 780,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   }
+  ]
+ },
+ {
+  "page": 10,
+  "imgs": [
+   {
+    "rect": [
+     42,
+     86,
+     288,
+     386
+    ],
+    "asset": "assets/img/ig/tropical.jpg",
+    "d": 32
+   },
+   {
+    "rect": [
+     307,
+     86,
+     553,
+     386
+    ],
+    "asset": "assets/img/tematicas/playa/01.jpg",
+    "d": 31
+   },
+   {
+    "rect": [
+     110,
+     196,
+     485,
+     626
+    ],
+    "asset": "assets/img/logo-mark-glow.png",
+    "d": 5
+   },
+   {
+    "rect": [
+     42,
+     456,
+     288,
+     756
+    ],
+    "asset": "assets/img/tematicas/vegas/06.jpg",
+    "d": 94
+   },
+   {
+    "rect": [
+     307,
+     456,
+     553,
+     756
+    ],
+    "asset": "assets/img/tematicas/vaqueros/01.jpg",
+    "d": 31
+   }
+  ],
+  "textos": [
+   {
+    "t": "CC ENTERTAINMENT",
+    "x": 42,
+    "y": 36,
+    "font": "Outfit-Bold",
+    "size": 10.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "CATÁLOGO DE TEMÁTICAS",
+    "x": 42,
+    "y": 52,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "07",
+    "x": 540,
+    "y": 41,
+    "font": "Outfit-Bold",
+    "size": 11.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "(829) 343-5460 · @horaloca_cce",
+    "x": 42,
+    "y": 804,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Tropical Cuba",
+    "x": 76,
+    "y": 389,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "HORA LOCA",
+    "x": 76,
+    "y": 410,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Playa",
+    "x": 340,
+    "y": 389,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "HORA LOCA",
+    "x": 340,
+    "y": 410,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Hawaii",
+    "x": 76,
+    "y": 759,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "HORA LOCA",
+    "x": 76,
+    "y": 780,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Vaqueros",
+    "x": 340,
+    "y": 759,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "HORA LOCA",
+    "x": 340,
+    "y": 780,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   }
+  ]
+ },
+ {
+  "page": 11,
+  "imgs": [
+   {
+    "rect": [
+     42,
+     86,
+     288,
+     386
+    ],
+    "asset": "assets/img/tematicas/porristas/01.jpg",
+    "d": 68
+   },
+   {
+    "rect": [
+     307,
+     86,
+     553,
+     386
+    ],
+    "asset": "assets/img/tematicas/ingenieros/01.jpg",
+    "d": 28
+   },
+   {
+    "rect": [
+     110,
+     196,
+     485,
+     626
+    ],
+    "asset": "assets/img/logo-mark-glow.png",
+    "d": 5
+   },
+   {
+    "rect": [
+     42,
+     456,
+     288,
+     756
+    ],
+    "asset": "assets/img/tematicas/cocineros-show/01.jpg",
+    "d": 19
+   },
+   {
+    "rect": [
+     307,
+     456,
+     553,
+     756
+    ],
+    "asset": "assets/img/tematicas/bienvenida/01.jpg",
+    "d": 7
+   }
+  ],
+  "textos": [
+   {
+    "t": "CC ENTERTAINMENT",
+    "x": 42,
+    "y": 36,
+    "font": "Outfit-Bold",
+    "size": 10.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "CATÁLOGO DE TEMÁTICAS",
+    "x": 42,
+    "y": 52,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "08",
+    "x": 539,
+    "y": 41,
+    "font": "Outfit-Bold",
+    "size": 11.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "(829) 343-5460 · @horaloca_cce",
+    "x": 42,
+    "y": 804,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Porristas",
+    "x": 76,
+    "y": 389,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "HORA LOCA",
+    "x": 76,
+    "y": 410,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Ingenieros",
+    "x": 340,
+    "y": 389,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "HORA LOCA",
+    "x": 340,
+    "y": 410,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Cocineros",
+    "x": 76,
+    "y": 759,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "HORA LOCA",
+    "x": 76,
+    "y": 780,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Personajes para bienvenida",
+    "x": 340,
+    "y": 759,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "HORA LOCA",
+    "x": 340,
+    "y": 780,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   }
+  ]
+ },
+ {
+  "page": 12,
+  "imgs": [
+   {
+    "rect": [
+     42,
+     86,
+     288,
+     386
+    ],
+    "asset": "assets/img/tematicas/corazon/01.jpg",
+    "d": 50
+   },
+   {
+    "rect": [
+     307,
+     86,
+     553,
+     386
+    ],
+    "asset": "assets/img/tematicas/personaje-playa/01.jpg",
+    "d": 17
+   },
+   {
+    "rect": [
+     110,
+     196,
+     485,
+     626
+    ],
+    "asset": "assets/img/logo-mark-glow.png",
+    "d": 5
+   },
+   {
+    "rect": [
+     42,
+     456,
+     288,
+     756
+    ],
+    "asset": "assets/img/tematicas/hadas/01.jpg",
+    "d": 32
+   },
+   {
+    "rect": [
+     307,
+     456,
+     553,
+     756
+    ],
+    "asset": "assets/img/tematicas/astronauta/01.jpg",
+    "d": 29
+   }
+  ],
+  "textos": [
+   {
+    "t": "CC ENTERTAINMENT",
+    "x": 42,
+    "y": 36,
+    "font": "Outfit-Bold",
+    "size": 10.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "CATÁLOGO DE TEMÁTICAS",
+    "x": 42,
+    "y": 52,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "09",
+    "x": 539,
+    "y": 41,
+    "font": "Outfit-Bold",
+    "size": 11.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "(829) 343-5460 · @horaloca_cce",
+    "x": 42,
+    "y": 804,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Personaje de corazón",
+    "x": 76,
+    "y": 389,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "HORA LOCA",
+    "x": 76,
+    "y": 410,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Personaje de playa",
+    "x": 340,
+    "y": 389,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "HORA LOCA",
+    "x": 340,
+    "y": 410,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Hadas",
+    "x": 76,
+    "y": 759,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "HORA LOCA",
+    "x": 76,
+    "y": 780,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Astronauta y alien",
+    "x": 340,
+    "y": 759,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "HORA LOCA",
+    "x": 340,
+    "y": 780,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   }
+  ]
+ },
+ {
+  "page": 13,
+  "imgs": [
+   {
+    "rect": [
+     42,
+     86,
+     288,
+     386
+    ],
+    "asset": "assets/img/promo/artistas.jpg",
+    "d": 43
+   },
+   {
+    "rect": [
+     110,
+     196,
+     485,
+     626
+    ],
+    "asset": "assets/img/logo-mark-glow.png",
+    "d": 5
+   },
+   {
+    "rect": [
+     42,
+     456,
+     288,
+     756
+    ],
+    "asset": "assets/img/tematicas/feria-circo/01.jpg",
+    "d": 10
+   },
+   {
+    "rect": [
+     307,
+     456,
+     553,
+     756
+    ],
+    "asset": "assets/img/tematicas/feria-circo/02.jpg",
+    "d": 14
+   }
+  ],
+  "textos": [
+   {
+    "t": "CC ENTERTAINMENT",
+    "x": 42,
+    "y": 36,
+    "font": "Outfit-Bold",
+    "size": 10.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "CATÁLOGO DE TEMÁTICAS",
+    "x": 42,
+    "y": 52,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "10",
+    "x": 542,
+    "y": 41,
+    "font": "Outfit-Bold",
+    "size": 11.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "(829) 343-5460 · @horaloca_cce",
+    "x": 42,
+    "y": 804,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Cabezones",
+    "x": 76,
+    "y": 389,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "Bad Bunny, Karol G y Daddy Yankee",
+    "x": 76,
+    "y": 409,
+    "font": "Outfit-Medium",
+    "size": 8.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "Feria/Circo",
+    "x": 258,
+    "y": 758,
+    "font": "Outfit-SemiBold",
+    "size": 15.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "Payasos y mimos",
+    "x": 265,
+    "y": 778,
+    "font": "Outfit-Medium",
+    "size": 8.5,
+    "color": "#f5c542"
+   }
+  ]
+ },
+ {
+  "page": 14,
+  "imgs": [
+   {
+    "rect": [
+     42,
+     86,
+     288,
+     386
+    ],
+    "asset": "assets/img/tematicas/disco/01.jpg",
+    "d": 16
+   },
+   {
+    "rect": [
+     307,
+     86,
+     553,
+     386
+    ],
+    "asset": "assets/img/tematicas/anos-80/01.jpg",
+    "d": 68
+   },
+   {
+    "rect": [
+     110,
+     196,
+     485,
+     626
+    ],
+    "asset": "assets/img/logo-mark-glow.png",
+    "d": 5
+   },
+   {
+    "rect": [
+     42,
+     456,
+     288,
+     756
+    ],
+    "asset": "assets/img/tematicas/anos-90/01.jpg",
+    "d": 30
+   },
+   {
+    "rect": [
+     307,
+     456,
+     553,
+     756
+    ],
+    "asset": "assets/img/tematicas/brigeston/01.jpg",
+    "d": 35
+   }
+  ],
+  "textos": [
+   {
+    "t": "CC ENTERTAINMENT",
+    "x": 42,
+    "y": 36,
+    "font": "Outfit-Bold",
+    "size": 10.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "CATÁLOGO DE TEMÁTICAS",
+    "x": 42,
+    "y": 52,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "11",
+    "x": 545,
+    "y": 41,
+    "font": "Outfit-Bold",
+    "size": 11.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "(829) 343-5460 · @horaloca_cce",
+    "x": 42,
+    "y": 804,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Disco",
+    "x": 76,
+    "y": 389,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "HORA LOCA",
+    "x": 76,
+    "y": 410,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Años 80",
+    "x": 340,
+    "y": 389,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "HORA LOCA",
+    "x": 340,
+    "y": 410,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Años 90",
+    "x": 76,
+    "y": 759,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "HORA LOCA",
+    "x": 76,
+    "y": 780,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Brigeston",
+    "x": 340,
+    "y": 759,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "HORA LOCA",
+    "x": 340,
+    "y": 780,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   }
+  ]
+ },
+ {
+  "page": 15,
+  "imgs": [
+   {
+    "rect": [
+     42,
+     86,
+     288,
+     386
+    ],
+    "asset": "assets/img/tematicas/pilotos/01.jpg",
+    "d": 39
+   },
+   {
+    "rect": [
+     307,
+     86,
+     553,
+     386
+    ],
+    "asset": "assets/img/tematicas/marineros/01.jpg",
+    "d": 22
+   },
+   {
+    "rect": [
+     110,
+     196,
+     485,
+     626
+    ],
+    "asset": "assets/img/logo-mark-glow.png",
+    "d": 5
+   },
+   {
+    "rect": [
+     42,
+     456,
+     288,
+     756
+    ],
+    "asset": "assets/img/tematicas/mimos/01.jpg",
+    "d": 21
+   },
+   {
+    "rect": [
+     307,
+     456,
+     553,
+     756
+    ],
+    "asset": "assets/img/rojo.jpg",
+    "d": 21
+   }
+  ],
+  "textos": [
+   {
+    "t": "CC ENTERTAINMENT",
+    "x": 42,
+    "y": 36,
+    "font": "Outfit-Bold",
+    "size": 10.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "CATÁLOGO DE TEMÁTICAS",
+    "x": 42,
+    "y": 52,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "12",
+    "x": 543,
+    "y": 41,
+    "font": "Outfit-Bold",
+    "size": 11.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "(829) 343-5460 · @horaloca_cce",
+    "x": 42,
+    "y": 804,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Pilotos Formula 1",
+    "x": 76,
+    "y": 389,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "HORA LOCA",
+    "x": 76,
+    "y": 410,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Marineros",
+    "x": 340,
+    "y": 389,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "HORA LOCA",
+    "x": 340,
+    "y": 410,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Mimos",
+    "x": 76,
+    "y": 759,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "HORA LOCA",
+    "x": 76,
+    "y": 780,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Rouge Royal",
+    "x": 340,
+    "y": 759,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "HORA LOCA",
+    "x": 340,
+    "y": 780,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   }
+  ]
+ },
+ {
+  "page": 16,
+  "imgs": [
+   {
+    "rect": [
+     42,
+     86,
+     288,
+     386
+    ],
+    "asset": "assets/img/catrinas.jpg",
+    "d": 28
+   },
+   {
+    "rect": [
+     307,
+     86,
+     553,
+     386
+    ],
+    "asset": "assets/img/ig/venetian.jpg",
+    "d": 14
+   },
+   {
+    "rect": [
+     110,
+     196,
+     485,
+     626
+    ],
+    "asset": "assets/img/logo-mark-glow.png",
+    "d": 5
+   }
+  ],
+  "textos": [
+   {
+    "t": "CC ENTERTAINMENT",
+    "x": 42,
+    "y": 36,
+    "font": "Outfit-Bold",
+    "size": 10.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "CATÁLOGO DE TEMÁTICAS",
+    "x": 42,
+    "y": 52,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "13",
+    "x": 543,
+    "y": 41,
+    "font": "Outfit-Bold",
+    "size": 11.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "(829) 343-5460 · @horaloca_cce",
+    "x": 42,
+    "y": 804,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Catrinas",
+    "x": 76,
+    "y": 389,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "HORA LOCA",
+    "x": 76,
+    "y": 410,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Venezia",
+    "x": 340,
+    "y": 389,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "HORA LOCA",
+    "x": 340,
+    "y": 410,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   }
+  ]
+ },
+ {
+  "page": 17,
+  "imgs": [
+   {
+    "rect": [
+     80,
+     161,
+     515,
+     661
+    ],
+    "asset": "assets/img/logo-mark-glow.png",
+    "d": 5
+   }
+  ],
+  "textos": [
+   {
+    "t": "03",
+    "x": 261,
+    "y": 240,
+    "font": "Outfit-Bold",
+    "size": 60.0,
+    "color": "#2fd0ff"
+   },
+   {
+    "t": "Show LED",
+    "x": 221,
+    "y": 326,
+    "font": "Outfit-Light",
+    "size": 34.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "Show LED",
+    "x": 272,
+    "y": 424,
+    "font": "Outfit-Medium",
+    "size": 11.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Zancos LED",
+    "x": 267,
+    "y": 444,
+    "font": "Outfit-Medium",
+    "size": 11.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Alas LED",
+    "x": 274,
+    "y": 464,
+    "font": "Outfit-Medium",
+    "size": 11.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Alas LED",
+    "x": 274,
+    "y": 484,
+    "font": "Outfit-Medium",
+    "size": 11.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "CC ENTERTAINMENT · CATÁLOGO DE TEMÁTICAS",
+    "x": 42,
+    "y": 804,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   }
+  ]
+ },
+ {
+  "page": 18,
+  "imgs": [
+   {
+    "rect": [
+     42,
+     86,
+     553,
+     414
+    ],
+    "asset": "assets/img/tematicas/led-show/03.jpg",
+    "d": 45
+   },
+   {
+    "rect": [
+     110,
+     196,
+     485,
+     626
+    ],
+    "asset": "assets/img/logo-mark-glow.png",
+    "d": 5
+   },
+   {
+    "rect": [
+     42,
+     470,
+     288,
+     722
+    ],
+    "asset": "assets/img/tematicas/led-show/01.jpg",
+    "d": 30
+   },
+   {
+    "rect": [
+     306,
+     470,
+     553,
+     722
+    ],
+    "asset": "assets/img/tematicas/alas-led/03.jpg",
+    "d": 57
+   }
+  ],
+  "textos": [
+   {
+    "t": "CC ENTERTAINMENT",
+    "x": 42,
+    "y": 36,
+    "font": "Outfit-Bold",
+    "size": 10.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "SHOW LED",
+    "x": 42,
+    "y": 52,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#2fd0ff"
+   },
+   {
+    "t": "14",
+    "x": 542,
+    "y": 41,
+    "font": "Outfit-Bold",
+    "size": 11.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "(829) 343-5460 · @horaloca_cce",
+    "x": 42,
+    "y": 804,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Show LED",
+    "x": 90,
+    "y": 416,
+    "font": "Outfit-SemiBold",
+    "size": 19.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "Robots, tambores y zancos iluminados",
+    "x": 90,
+    "y": 442,
+    "font": "Outfit-Medium",
+    "size": 9.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "Zancos LED",
+    "x": 76,
+    "y": 725,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "Zanquero iluminado en la pista",
+    "x": 76,
+    "y": 745,
+    "font": "Outfit-Medium",
+    "size": 8.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "Alas LED",
+    "x": 340,
+    "y": 725,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "Alas de luz desplegadas",
+    "x": 340,
+    "y": 745,
+    "font": "Outfit-Medium",
+    "size": 8.0,
+    "color": "#f5c542"
+   }
+  ]
+ },
+ {
+  "page": 19,
+  "imgs": [
+   {
+    "rect": [
+     42,
+     86,
+     288,
+     386
+    ],
+    "asset": "assets/img/tematicas/alas-led/01.jpg",
+    "d": 12
+   },
+   {
+    "rect": [
+     110,
+     196,
+     485,
+     626
+    ],
+    "asset": "assets/img/logo-mark-glow.png",
+    "d": 5
+   }
+  ],
+  "textos": [
+   {
+    "t": "CC ENTERTAINMENT",
+    "x": 42,
+    "y": 36,
+    "font": "Outfit-Bold",
+    "size": 10.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "SHOW LED",
+    "x": 42,
+    "y": 52,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#2fd0ff"
+   },
+   {
+    "t": "15",
+    "x": 543,
+    "y": 41,
+    "font": "Outfit-Bold",
+    "size": 11.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "(829) 343-5460 · @horaloca_cce",
+    "x": 42,
+    "y": 804,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Alas LED",
+    "x": 76,
+    "y": 389,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "Show nocturno",
+    "x": 76,
+    "y": 409,
+    "font": "Outfit-Medium",
+    "size": 8.0,
+    "color": "#f5c542"
+   }
+  ]
+ },
+ {
+  "page": 20,
+  "imgs": [
+   {
+    "rect": [
+     80,
+     161,
+     515,
+     661
+    ],
+    "asset": "assets/img/logo-mark-glow.png",
+    "d": 5
+   }
+  ],
+  "textos": [
+   {
+    "t": "04",
+    "x": 259,
+    "y": 240,
+    "font": "Outfit-Bold",
+    "size": 60.0,
+    "color": "#e63946"
+   },
+   {
+    "t": "Ritmo Dominicano",
+    "x": 159,
+    "y": 326,
+    "font": "Outfit-Light",
+    "size": 34.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "Carnaval Dominicano",
+    "x": 242,
+    "y": 424,
+    "font": "Outfit-Medium",
+    "size": 11.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Diablos cojuelos",
+    "x": 257,
+    "y": 444,
+    "font": "Outfit-Medium",
+    "size": 11.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Diablo cojuelo",
+    "x": 261,
+    "y": 464,
+    "font": "Outfit-Medium",
+    "size": 11.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Dominicana",
+    "x": 267,
+    "y": 484,
+    "font": "Outfit-Medium",
+    "size": 11.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Pareja dominicana",
+    "x": 249,
+    "y": 504,
+    "font": "Outfit-Medium",
+    "size": 11.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Dominicana en evento",
+    "x": 240,
+    "y": 524,
+    "font": "Outfit-Medium",
+    "size": 11.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Marchantas",
+    "x": 266,
+    "y": 544,
+    "font": "Outfit-Medium",
+    "size": 11.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Marchanta",
+    "x": 269,
+    "y": 564,
+    "font": "Outfit-Medium",
+    "size": 11.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Pelota dominicana",
+    "x": 250,
+    "y": 584,
+    "font": "Outfit-Medium",
+    "size": 11.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Pelota dominicana",
+    "x": 250,
+    "y": 604,
+    "font": "Outfit-Medium",
+    "size": 11.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "CC ENTERTAINMENT · CATÁLOGO DE TEMÁTICAS",
+    "x": 42,
+    "y": 804,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   }
+  ]
+ },
+ {
+  "page": 21,
+  "imgs": [
+   {
+    "rect": [
+     42,
+     86,
+     553,
+     414
+    ],
+    "asset": "assets/img/tematicas/shine-gold/01.jpg",
+    "d": 71
+   },
+   {
+    "rect": [
+     110,
+     196,
+     485,
+     626
+    ],
+    "asset": "assets/img/logo-mark-glow.png",
+    "d": 5
+   },
+   {
+    "rect": [
+     42,
+     470,
+     288,
+     722
+    ],
+    "asset": "assets/img/ig/carnaval.jpg",
+    "d": 1
+   },
+   {
+    "rect": [
+     306,
+     470,
+     553,
+     722
+    ],
+    "asset": "assets/img/ig/carnaval-2.jpg",
+    "d": 13
+   }
+  ],
+  "textos": [
+   {
+    "t": "CC ENTERTAINMENT",
+    "x": 42,
+    "y": 36,
+    "font": "Outfit-Bold",
+    "size": 10.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "RITMO DOMINICANO",
+    "x": 42,
+    "y": 52,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#e63946"
+   },
+   {
+    "t": "16",
+    "x": 543,
+    "y": 41,
+    "font": "Outfit-Bold",
+    "size": 11.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "(829) 343-5460 · @horaloca_cce",
+    "x": 42,
+    "y": 804,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Carnaval Dominicano",
+    "x": 90,
+    "y": 416,
+    "font": "Outfit-SemiBold",
+    "size": 19.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "Con diablos cojuelos y lechones",
+    "x": 90,
+    "y": 442,
+    "font": "Outfit-Medium",
+    "size": 9.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "Diablos cojuelos",
+    "x": 76,
+    "y": 725,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "Carnaval Dominicano",
+    "x": 76,
+    "y": 745,
+    "font": "Outfit-Medium",
+    "size": 8.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "Diablo cojuelo",
+    "x": 340,
+    "y": 725,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "Carnaval Dominicano",
+    "x": 340,
+    "y": 745,
+    "font": "Outfit-Medium",
+    "size": 8.0,
+    "color": "#f5c542"
+   }
+  ]
+ },
+ {
+  "page": 22,
+  "imgs": [
+   {
+    "rect": [
+     42,
+     86,
+     288,
+     386
+    ],
+    "asset": "assets/img/tematicas/dominicana/01.jpg",
+    "d": 12
+   },
+   {
+    "rect": [
+     307,
+     86,
+     553,
+     386
+    ],
+    "asset": "assets/img/tematicas/dominicana/02.jpg",
+    "d": 21
+   },
+   {
+    "rect": [
+     110,
+     196,
+     485,
+     626
+    ],
+    "asset": "assets/img/logo-mark-glow.png",
+    "d": 5
+   },
+   {
+    "rect": [
+     42,
+     456,
+     288,
+     756
+    ],
+    "asset": "assets/img/tematicas/dominicana/05.jpg",
+    "d": 30
+   },
+   {
+    "rect": [
+     307,
+     456,
+     553,
+     756
+    ],
+    "asset": "assets/img/tematicas/vegas/03.jpg",
+    "d": 99
+   }
+  ],
+  "textos": [
+   {
+    "t": "CC ENTERTAINMENT",
+    "x": 42,
+    "y": 36,
+    "font": "Outfit-Bold",
+    "size": 10.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "RITMO DOMINICANO",
+    "x": 42,
+    "y": 52,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#e63946"
+   },
+   {
+    "t": "17",
+    "x": 543,
+    "y": 41,
+    "font": "Outfit-Bold",
+    "size": 11.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "(829) 343-5460 · @horaloca_cce",
+    "x": 42,
+    "y": 804,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Dominicana",
+    "x": 76,
+    "y": 389,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "Vestido de bandera",
+    "x": 76,
+    "y": 409,
+    "font": "Outfit-Medium",
+    "size": 8.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "Pareja dominicana",
+    "x": 340,
+    "y": 389,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "HORA LOCA",
+    "x": 340,
+    "y": 410,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Dominicana en evento",
+    "x": 76,
+    "y": 759,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "HORA LOCA",
+    "x": 76,
+    "y": 780,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Marchantas",
+    "x": 340,
+    "y": 759,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "HORA LOCA",
+    "x": 340,
+    "y": 780,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   }
+  ]
+ },
+ {
+  "page": 23,
+  "imgs": [
+   {
+    "rect": [
+     42,
+     86,
+     288,
+     386
+    ],
+    "asset": "assets/img/tematicas/marchantas/03.jpg",
+    "d": 23
+   },
+   {
+    "rect": [
+     307,
+     86,
+     553,
+     386
+    ],
+    "asset": "assets/img/tematicas/pelota/01.jpg",
+    "d": 20
+   },
+   {
+    "rect": [
+     110,
+     196,
+     485,
+     626
+    ],
+    "asset": "assets/img/logo-mark-glow.png",
+    "d": 5
+   },
+   {
+    "rect": [
+     42,
+     456,
+     288,
+     756
+    ],
+    "asset": "assets/img/tematicas/pelota/02.jpg",
+    "d": 28
+   }
+  ],
+  "textos": [
+   {
+    "t": "CC ENTERTAINMENT",
+    "x": 42,
+    "y": 36,
+    "font": "Outfit-Bold",
+    "size": 10.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "RITMO DOMINICANO",
+    "x": 42,
+    "y": 52,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#e63946"
+   },
+   {
+    "t": "18",
+    "x": 543,
+    "y": 41,
+    "font": "Outfit-Bold",
+    "size": 11.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "(829) 343-5460 · @horaloca_cce",
+    "x": 42,
+    "y": 804,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Marchanta",
+    "x": 76,
+    "y": 389,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "HORA LOCA",
+    "x": 76,
+    "y": 410,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Pelota dominicana",
+    "x": 340,
+    "y": 389,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "Equipos de beisbol",
+    "x": 340,
+    "y": 409,
+    "font": "Outfit-Medium",
+    "size": 8.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "Pelota dominicana",
+    "x": 76,
+    "y": 759,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "Con las mascotas",
+    "x": 76,
+    "y": 779,
+    "font": "Outfit-Medium",
+    "size": 8.0,
+    "color": "#f5c542"
+   }
+  ]
+ },
+ {
+  "page": 24,
+  "imgs": [
+   {
+    "rect": [
+     80,
+     161,
+     515,
+     661
+    ],
+    "asset": "assets/img/logo-mark-glow.png",
+    "d": 5
+   }
+  ],
+  "textos": [
+   {
+    "t": "05",
+    "x": 261,
+    "y": 240,
+    "font": "Outfit-Bold",
+    "size": 60.0,
+    "color": "#1a9a50"
+   },
+   {
+    "t": "Navidad",
+    "x": 233,
+    "y": 326,
+    "font": "Outfit-Light",
+    "size": 34.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "15 temáticas para tu show",
+    "x": 228,
+    "y": 428,
+    "font": "Outfit-Medium",
+    "size": 12.0,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "CC ENTERTAINMENT · CATÁLOGO DE TEMÁTICAS",
+    "x": 42,
+    "y": 804,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   }
+  ]
+ },
+ {
+  "page": 25,
+  "imgs": [
+   {
+    "rect": [
+     42,
+     86,
+     553,
+     382
+    ],
+    "asset": "assets/img/tematicas/navidad/09.jpg",
+    "d": 68
+   },
+   {
+    "rect": [
+     110,
+     196,
+     485,
+     626
+    ],
+    "asset": "assets/img/logo-mark-glow.png",
+    "d": 5
+   },
+   {
+    "rect": [
+     42,
+     438,
+     553,
+     734
+    ],
+    "asset": "assets/img/tematicas/navidad/09.jpg",
+    "d": 57
+   }
+  ],
+  "textos": [
+   {
+    "t": "CC ENTERTAINMENT",
+    "x": 42,
+    "y": 36,
+    "font": "Outfit-Bold",
+    "size": 10.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "NAVIDAD",
+    "x": 42,
+    "y": 52,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#1a9a50"
+   },
+   {
+    "t": "19",
+    "x": 543,
+    "y": 41,
+    "font": "Outfit-Bold",
+    "size": 11.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "(829) 343-5460 · @horaloca_cce",
+    "x": 42,
+    "y": 804,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Show Navidad completo",
+    "x": 90,
+    "y": 384,
+    "font": "Outfit-SemiBold",
+    "size": 19.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "Grinch, Santa, galleta de jengibre y elfos",
+    "x": 90,
+    "y": 410,
+    "font": "Outfit-Medium",
+    "size": 9.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "Santa con elfos y galleta",
+    "x": 90,
+    "y": 736,
+    "font": "Outfit-SemiBold",
+    "size": 19.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "SHOW NAVIDEÑO",
+    "x": 90,
+    "y": 764,
+    "font": "Outfit-Medium",
+    "size": 7.0,
+    "color": "#9c99a8"
+   }
+  ]
+ },
+ {
+  "page": 26,
+  "imgs": [
+   {
+    "rect": [
+     42,
+     86,
+     553,
+     382
+    ],
+    "asset": "assets/img/tematicas/navidad/11.jpg",
+    "d": 45
+   },
+   {
+    "rect": [
+     110,
+     196,
+     485,
+     626
+    ],
+    "asset": "assets/img/logo-mark-glow.png",
+    "d": 5
+   },
+   {
+    "rect": [
+     42,
+     438,
+     553,
+     734
+    ],
+    "asset": "assets/img/tematicas/navidad/09.jpg",
+    "d": 65
+   }
+  ],
+  "textos": [
+   {
+    "t": "CC ENTERTAINMENT",
+    "x": 42,
+    "y": 36,
+    "font": "Outfit-Bold",
+    "size": 10.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "NAVIDAD",
+    "x": 42,
+    "y": 52,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#1a9a50"
+   },
+   {
+    "t": "20",
+    "x": 539,
+    "y": 41,
+    "font": "Outfit-Bold",
+    "size": 11.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "(829) 343-5460 · @horaloca_cce",
+    "x": 42,
+    "y": 804,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "El Grinch y la galleta",
+    "x": 90,
+    "y": 384,
+    "font": "Outfit-SemiBold",
+    "size": 19.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "SHOW NAVIDEÑO",
+    "x": 90,
+    "y": 412,
+    "font": "Outfit-Medium",
+    "size": 7.0,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Santa y los elfos",
+    "x": 90,
+    "y": 736,
+    "font": "Outfit-SemiBold",
+    "size": 19.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "SHOW NAVIDEÑO",
+    "x": 90,
+    "y": 764,
+    "font": "Outfit-Medium",
+    "size": 7.0,
+    "color": "#9c99a8"
+   }
+  ]
+ },
+ {
+  "page": 27,
+  "imgs": [
+   {
+    "rect": [
+     42,
+     86,
+     288,
+     386
+    ],
+    "asset": "assets/img/tematicas/navidad/13.jpg",
+    "d": 84
+   },
+   {
+    "rect": [
+     307,
+     86,
+     553,
+     386
+    ],
+    "asset": "assets/img/tematicas/navidad/15.jpg",
+    "d": 71
+   },
+   {
+    "rect": [
+     110,
+     196,
+     485,
+     626
+    ],
+    "asset": "assets/img/logo-mark-glow.png",
+    "d": 5
+   },
+   {
+    "rect": [
+     42,
+     456,
+     288,
+     756
+    ],
+    "asset": "assets/img/tematicas/navidad/16.jpg",
+    "d": 52
+   },
+   {
+    "rect": [
+     307,
+     456,
+     553,
+     756
+    ],
+    "asset": "assets/img/tematicas/navidad/18.jpg",
+    "d": 39
+   }
+  ],
+  "textos": [
+   {
+    "t": "CC ENTERTAINMENT",
+    "x": 42,
+    "y": 36,
+    "font": "Outfit-Bold",
+    "size": 10.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "NAVIDAD",
+    "x": 42,
+    "y": 52,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#1a9a50"
+   },
+   {
+    "t": "21",
+    "x": 543,
+    "y": 41,
+    "font": "Outfit-Bold",
+    "size": 11.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "(829) 343-5460 · @horaloca_cce",
+    "x": 42,
+    "y": 804,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Santa y sus ayudantes",
+    "x": 76,
+    "y": 389,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "SHOW NAVIDEÑO",
+    "x": 76,
+    "y": 410,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Cascanueces y elfa",
+    "x": 340,
+    "y": 389,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "Trío rojo y dorado",
+    "x": 340,
+    "y": 409,
+    "font": "Outfit-Medium",
+    "size": 8.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "Elfa roja",
+    "x": 76,
+    "y": 759,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "SHOW NAVIDEÑO",
+    "x": 76,
+    "y": 780,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Pareja Candy",
+    "x": 340,
+    "y": 759,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "Bastones de caramelo",
+    "x": 340,
+    "y": 779,
+    "font": "Outfit-Medium",
+    "size": 8.0,
+    "color": "#f5c542"
+   }
+  ]
+ },
+ {
+  "page": 28,
+  "imgs": [
+   {
+    "rect": [
+     42,
+     86,
+     288,
+     386
+    ],
+    "asset": "assets/img/tematicas/navidad/19.jpg",
+    "d": 69
+   },
+   {
+    "rect": [
+     307,
+     86,
+     553,
+     386
+    ],
+    "asset": "assets/img/tematicas/navidad/07.jpg",
+    "d": 27
+   },
+   {
+    "rect": [
+     110,
+     196,
+     485,
+     626
+    ],
+    "asset": "assets/img/logo-mark-glow.png",
+    "d": 5
+   },
+   {
+    "rect": [
+     42,
+     456,
+     288,
+     756
+    ],
+    "asset": "assets/img/tematicas/navidad/02.jpg",
+    "d": 25
+   },
+   {
+    "rect": [
+     307,
+     456,
+     553,
+     756
+    ],
+    "asset": "assets/img/tematicas/navidad/04.jpg",
+    "d": 62
+   }
+  ],
+  "textos": [
+   {
+    "t": "CC ENTERTAINMENT",
+    "x": 42,
+    "y": 36,
+    "font": "Outfit-Bold",
+    "size": 10.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "NAVIDAD",
+    "x": 42,
+    "y": 52,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#1a9a50"
+   },
+   {
+    "t": "22",
+    "x": 541,
+    "y": 41,
+    "font": "Outfit-Bold",
+    "size": 11.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "(829) 343-5460 · @horaloca_cce",
+    "x": 42,
+    "y": 804,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Cocineros navideños",
+    "x": 76,
+    "y": 389,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "Con cuchara y palomitas gigantes",
+    "x": 76,
+    "y": 409,
+    "font": "Outfit-Medium",
+    "size": 8.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "Santa",
+    "x": 340,
+    "y": 389,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "Con soldados de juguete y tambores",
+    "x": 340,
+    "y": 409,
+    "font": "Outfit-Medium",
+    "size": 8.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "Chicas de Santa",
+    "x": 76,
+    "y": 759,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "SHOW NAVIDEÑO",
+    "x": 76,
+    "y": 780,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Soldados de juguete",
+    "x": 340,
+    "y": 759,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "SHOW NAVIDEÑO",
+    "x": 340,
+    "y": 780,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   }
+  ]
+ },
+ {
+  "page": 29,
+  "imgs": [
+   {
+    "rect": [
+     42,
+     86,
+     288,
+     386
+    ],
+    "asset": "assets/img/tematicas/navidad/05.jpg",
+    "d": 49
+   },
+   {
+    "rect": [
+     307,
+     86,
+     553,
+     386
+    ],
+    "asset": "assets/img/tematicas/alas-led/02.jpg",
+    "d": 22
+   },
+   {
+    "rect": [
+     110,
+     196,
+     485,
+     626
+    ],
+    "asset": "assets/img/logo-mark-glow.png",
+    "d": 5
+   },
+   {
+    "rect": [
+     42,
+     456,
+     288,
+     756
+    ],
+    "asset": "assets/img/tematicas/blanca-navidad/01.jpg",
+    "d": 29
+   }
+  ],
+  "textos": [
+   {
+    "t": "CC ENTERTAINMENT",
+    "x": 42,
+    "y": 36,
+    "font": "Outfit-Bold",
+    "size": 10.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "NAVIDAD",
+    "x": 42,
+    "y": 52,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#1a9a50"
+   },
+   {
+    "t": "23",
+    "x": 541,
+    "y": 41,
+    "font": "Outfit-Bold",
+    "size": 11.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "(829) 343-5460 · @horaloca_cce",
+    "x": 42,
+    "y": 804,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Zancos navideños",
+    "x": 76,
+    "y": 389,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "SHOW NAVIDEÑO",
+    "x": 76,
+    "y": 410,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Alas LED navideñas",
+    "x": 340,
+    "y": 389,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "SHOW NAVIDEÑO",
+    "x": 340,
+    "y": 410,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Blanca Navidad",
+    "x": 76,
+    "y": 759,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "Invierno blanco con nieve",
+    "x": 76,
+    "y": 779,
+    "font": "Outfit-Medium",
+    "size": 8.0,
+    "color": "#f5c542"
+   }
+  ]
+ },
+ {
+  "page": 30,
+  "imgs": [
+   {
+    "rect": [
+     80,
+     161,
+     515,
+     661
+    ],
+    "asset": "assets/img/logo-mark-glow.png",
+    "d": 5
+   }
+  ],
+  "textos": [
+   {
+    "t": "06",
+    "x": 260,
+    "y": 240,
+    "font": "Outfit-Bold",
+    "size": 60.0,
+    "color": "#a06bf5"
+   },
+   {
+    "t": "Extras para tu show",
+    "x": 147,
+    "y": 326,
+    "font": "Outfit-Light",
+    "size": 34.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "Zanqueros",
+    "x": 270,
+    "y": 424,
+    "font": "Outfit-Medium",
+    "size": 11.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Percusión en vivo",
+    "x": 254,
+    "y": 444,
+    "font": "Outfit-Medium",
+    "size": 11.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Coreografía personalizada",
+    "x": 228,
+    "y": 464,
+    "font": "Outfit-Medium",
+    "size": 11.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Robot LED",
+    "x": 270,
+    "y": 484,
+    "font": "Outfit-Medium",
+    "size": 11.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Bailarines adicionales",
+    "x": 242,
+    "y": 504,
+    "font": "Outfit-Medium",
+    "size": 11.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "CC ENTERTAINMENT · CATÁLOGO DE TEMÁTICAS",
+    "x": 42,
+    "y": 804,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   }
+  ]
+ },
+ {
+  "page": 31,
+  "imgs": [
+   {
+    "rect": [
+     42,
+     86,
+     553,
+     414
+    ],
+    "asset": "assets/img/promo/zancos.jpg",
+    "d": 74
+   },
+   {
+    "rect": [
+     110,
+     196,
+     485,
+     626
+    ],
+    "asset": "assets/img/logo-mark-glow.png",
+    "d": 5
+   },
+   {
+    "rect": [
+     42,
+     470,
+     288,
+     722
+    ],
+    "asset": "assets/img/promo/musicos.jpg",
+    "d": 58
+   },
+   {
+    "rect": [
+     306,
+     470,
+     553,
+     722
+    ],
+    "asset": "assets/img/destacado/plata-1.jpg",
+    "d": 59
+   }
+  ],
+  "textos": [
+   {
+    "t": "CC ENTERTAINMENT",
+    "x": 42,
+    "y": 36,
+    "font": "Outfit-Bold",
+    "size": 10.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "EXTRAS PARA TU SHOW",
+    "x": 42,
+    "y": 52,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "24",
+    "x": 540,
+    "y": 41,
+    "font": "Outfit-Bold",
+    "size": 11.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "(829) 343-5460 · @horaloca_cce",
+    "x": 42,
+    "y": 804,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Zanqueros",
+    "x": 90,
+    "y": 416,
+    "font": "Outfit-SemiBold",
+    "size": 19.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "EXTRA",
+    "x": 90,
+    "y": 444,
+    "font": "Outfit-Medium",
+    "size": 7.0,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Percusión en vivo",
+    "x": 76,
+    "y": 725,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "Tambores que encienden la pista",
+    "x": 76,
+    "y": 745,
+    "font": "Outfit-Medium",
+    "size": 8.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "Coreografía personalizada",
+    "x": 340,
+    "y": 725,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "Entradas, aperturas y sorpresas",
+    "x": 340,
+    "y": 745,
+    "font": "Outfit-Medium",
+    "size": 8.0,
+    "color": "#f5c542"
+   }
+  ]
+ },
+ {
+  "page": 32,
+  "imgs": [
+   {
+    "rect": [
+     42,
+     86,
+     288,
+     386
+    ],
+    "asset": "assets/img/promo/robot-espejo.jpg",
+    "d": 45
+   },
+   {
+    "rect": [
+     307,
+     86,
+     553,
+     386
+    ],
+    "asset": "assets/img/promo/bailarinas-led.jpg",
+    "d": 10
+   },
+   {
+    "rect": [
+     110,
+     196,
+     485,
+     626
+    ],
+    "asset": "assets/img/logo-mark-glow.png",
+    "d": 5
+   }
+  ],
+  "textos": [
+   {
+    "t": "CC ENTERTAINMENT",
+    "x": 42,
+    "y": 36,
+    "font": "Outfit-Bold",
+    "size": 10.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "EXTRAS PARA TU SHOW",
+    "x": 42,
+    "y": 52,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "25",
+    "x": 541,
+    "y": 41,
+    "font": "Outfit-Bold",
+    "size": 11.0,
+    "color": "#f5c542"
+   },
+   {
+    "t": "(829) 343-5460 · @horaloca_cce",
+    "x": 42,
+    "y": 804,
+    "font": "Outfit-Medium",
+    "size": 7.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Robot LED",
+    "x": 76,
+    "y": 389,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "EXTRA",
+    "x": 76,
+    "y": 410,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "Bailarines adicionales",
+    "x": 340,
+    "y": 389,
+    "font": "Outfit-SemiBold",
+    "size": 14.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "EXTRA",
+    "x": 340,
+    "y": 410,
+    "font": "Outfit-Medium",
+    "size": 6.5,
+    "color": "#9c99a8"
+   }
+  ]
+ },
+ {
+  "page": 33,
+  "imgs": [
+   {
+    "rect": [
+     71,
+     151,
+     524,
+     671
+    ],
+    "asset": "assets/img/logo-mark-glow.png",
+    "d": 5
+   }
+  ],
+  "textos": [
+   {
+    "t": "Convertimos tu evento",
+    "x": 167,
+    "y": 304,
+    "font": "Outfit-Light",
+    "size": 26.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "en un espectáculo",
+    "x": 195,
+    "y": 336,
+    "font": "Outfit-Light",
+    "size": 26.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "Cotiza tu show a la medida:",
+    "x": 231,
+    "y": 425,
+    "font": "Outfit-Medium",
+    "size": 11.0,
+    "color": "#9c99a8"
+   },
+   {
+    "t": "horaloca-cce.vercel.app",
+    "x": 225,
+    "y": 443,
+    "font": "Outfit-SemiBold",
+    "size": 13.0,
+    "color": "#2fd0ff"
+   },
+   {
+    "t": "WhatsApp (829) 343-5460",
+    "x": 225,
+    "y": 478,
+    "font": "Outfit-SemiBold",
+    "size": 12.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "Instagram @horaloca_cce",
+    "x": 227,
+    "y": 498,
+    "font": "Outfit-SemiBold",
+    "size": 12.0,
+    "color": "#f3f2f5"
+   },
+   {
+    "t": "CC Entertainment · Producción de espectáculos temáticos · República Dominicana",
+    "x": 144,
+    "y": 774,
+    "font": "Outfit-Medium",
+    "size": 8.5,
+    "color": "#9c99a8"
+   }
+  ]
+ }
+]
