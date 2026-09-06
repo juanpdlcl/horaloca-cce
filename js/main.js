@@ -42,6 +42,7 @@ const THEMES = [
   { id: 'samba', cat: 'tropical', tags: 'brasil rio plumas',       name: 'Samba',           imgs: seq('samba', 1), more: true },
   { id: 'africa', cat: 'tropical', tags: 'jungla safari selva animal print',      name: 'África',          imgs: seq('africa', 4), more: true },
   { id: 'tropical-cuba', cat: 'tropical', tags: 'cuba habana caribe', name: 'Tropical Cuba', imgs: seq('tropical-cuba', 3), more: true },
+  { id: 'salsa', cat: 'tropical', tags: 'salsa baile bailarines latino cuba caribe', name: 'Salsa', imgs: seq('salsa', 2), more: true },
   { id: 'playa', cat: 'tropical', tags: 'verano mar arena',       name: 'Playa',           imgs: seq('playa', 1), more: true },
   { id: 'hawaii', cat: 'tropical', tags: 'hula isla verano',      name: 'Hawaii',          imgs: seq('hawaii', 1), more: true },
   { id: 'vaqueros', cat: 'epocas', tags: 'cowboy oeste western texas',    name: 'Vaqueros',        imgs: seq('vaqueros', 3), more: true },

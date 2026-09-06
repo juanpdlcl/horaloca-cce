@@ -88,6 +88,8 @@ TEMATICAS = [
     PAGINA('grid', [ANCHO('Samba', t('samba', 1)), ('Brazil', t('brazil', 6)), ('Brazil — carnaval', t('brazil', 2))], titulo='Brazil'),
     # Tropical: dos y dos
     PAGINA('grid', [('Tropical', 'assets/img/ig/tropical-sunset.jpg'), ('Tropical', t('tropical', 1)), ('Tropical Cuba', t('tropical-cuba', 1)), ('Tropical Cuba', t('tropical-cuba', 3))]),
+    # Salsa: hoja aparte, dos fotos grandes
+    PAGINA('dos', [('Salsa', t('salsa', 1)), ('Salsa', t('salsa', 2))]),
     PAGINA('grid', [('África', t('africa', 2)), ('África', t('africa', 1)), ('Safari', t('safari', 3)), ('Safari', t('safari', 2))], titulo='África y Safari'),
     PAGINA('grid', [('Viva las Vegas', t('vegas', 1)), ('Viva las Vegas', t('vegas', 3)), ('Viva las Vegas', t('vegas', 2)), ('Viva las Vegas', t('vegas', 4))]),
     PAGINA('grid', [('Neón', t('neon', 5)), ('Neón — grupo', t('neon', 6)), ('Neón', t('neon', 3)), ('Neón', t('neon', 4))]),
@@ -579,6 +581,17 @@ def pagina_grid(doc, items, sec, num, titulo=None):
     return num + 1
 
 
+ALTO_DOS = 430      # hoja 'dos': dos fotos verticales grandes, una junto a otra
+
+
+def pagina_dos(doc, items, sec, num, titulo=None):
+    """Hoja completa con dos fotos verticales grandes lado a lado (celdas iguales)."""
+    titulo = titulo or base(norm(items[0])[0])
+    page = doc.new_page(width=W, height=H); cabeza(page, sec, num, titulo)
+    pinta_fila(page, list(items[:2]), Y_INI + OFF_TITULO, ALTO_DOS, sec)
+    return num + 1
+
+
 def seccion(doc, sec, num):
     """Maqueta la sección con filas fluidas; las PAGINA se insertan como hojas completas."""
     pendientes = []
@@ -600,6 +613,8 @@ def seccion(doc, sec, num):
                 num = vaciar(pendientes, num); pendientes = []
             if it['pagina'] == 'grid':
                 num = pagina_grid(doc, it['items'], sec, num, it.get('titulo'))
+            elif it['pagina'] == 'dos':
+                num = pagina_dos(doc, it['items'], sec, num, it.get('titulo'))
             else:
                 num = pagina_hero_port(doc, it['items'], sec, num, it.get('titulo'))
         else:
