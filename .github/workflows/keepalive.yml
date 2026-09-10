@@ -1,0 +1,22 @@
+# Segunda red de seguridad: mantiene despierta la base de datos de Supabase.
+# El vigilante principal es el cron de Vercel (/api/keepalive, ver vercel.json);
+# este corre en paralelo cada dos dias por si aquel fallara.
+# Aviso: GitHub apaga los cron de repos sin actividad durante 60 dias.
+name: Mantener la base despierta
+
+on:
+  schedule:
+    - cron: '0 12 */2 * *'   # cada dos dias a las 12:00 UTC
+  workflow_dispatch:          # y a mano desde la pestana Actions
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Consultar Supabase
+        run: |
+          codigo=$(curl -s -o /dev/null -w '%{http_code}' --max-time 30 \
+            'https://ovsnjriqopsyboxyqaoz.supabase.co/rest/v1/tickets?select=id&limit=1' \
+            -H 'apikey: sb_publishable_G5Z6TqEay-PZ8w0TWiq9dA_J64WLawK')
+          echo "Supabase respondio $codigo"
+          test "$codigo" = "200"

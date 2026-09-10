@@ -1,5 +1,8 @@
 {
   "cleanUrls": true,
+  "crons": [
+    { "path": "/api/keepalive", "schedule": "0 13 * * *" }
+  ],
   "redirects": [
     { "source": "/cotiza.html", "destination": "/cotiza", "permanent": true },
     { "source": "/admin.html", "destination": "/admin", "permanent": true }
