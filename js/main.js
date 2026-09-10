@@ -87,7 +87,7 @@ const THEMES = [
 /* las mismas secciones (y el mismo orden) que el catálogo impreso */
 const SECCIONES = [
   { id: 'disco',      num: '01', name: 'Disco Ball',                color: '--silver',  deco: 'd-ball',    mov: 'disco', img: 'assets/img/deco/disco-ball.webp' },
-  { id: 'tematicas',  num: '02', name: 'Temáticas',                 color: '--gold',    deco: 'd-feather', mov: 'flota' },
+  { id: 'tematicas',  num: '02', name: 'Temáticas',                 color: '--gold',    deco: 'd-feather', mov: 'flota', img: 'assets/img/deco/pluma.webp' },
   { id: 'bienvenida', num: '03', name: 'Personajes de Bienvenida',  color: '--magenta', deco: 'd-rosa',    mov: 'flota', img: 'assets/img/deco/rosa.webp' },
   { id: 'led',        num: '04', name: 'Show LED',                  color: '--cyan',    deco: 'd-bolt',    mov: 'late' },
   { id: 'dominicano', num: '05', name: 'Ritmo Dominicano',          color: '--red',     deco: 'd-mask',    mov: 'flota', img: 'assets/img/deco/tambora.webp' },
