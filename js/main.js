@@ -25,8 +25,10 @@ const T = 'assets/img/tematicas';
 const seq = (dir, n) => Array.from({ length: n }, (_, i) => `${T}/${dir}/${String(i + 1).padStart(2, '0')}.jpg`);
 const THEMES = [
   /* ── Disco Ball ── */
-  { id: 'led', sec: 'disco', tags: 'espejos disco ball plateado bola',         name: 'Disco Ball',      imgs: [`${T}/espejos/main.jpg`, `${T}/espejos/09.jpg`, `${T}/espejos/10.jpg`, `${T}/espejos/11.jpg`, 'assets/img/destacado/plata-4.jpg', 'assets/img/destacado/plata-1.jpg', 'assets/img/destacado/plata-2.jpg', 'assets/img/destacado/plata-3.jpg', ...seq('espejos', 8)] },
+  { id: 'led', sec: 'disco', tags: 'espejos disco ball plateado bola',         name: 'Disco Ball',      imgs: [`${T}/espejos/main.jpg`, `${T}/espejos/09.jpg`, `${T}/espejos/10.jpg`, `${T}/espejos/11.jpg`, ...seq('espejos', 8)] },
   { id: 'bar-neon', sec: 'disco', tags: 'bar neon bandeja canapes pasabocas hostess luces led mesa humana recibimiento', name: 'Bar Neón', desc: 'Hostess iluminada con bandeja de canapés', imgs: [`${T}/bar-neon/01.jpg`], more: true },
+  { id: 'chicas-espejos', sec: 'disco', tags: 'espejos bola cabeza plateado capa chicas', name: 'Chicas de espejos', desc: 'Cabezas de bola y capas plateadas', imgs: ['assets/img/destacado/plata-1.jpg', 'assets/img/destacado/plata-4.jpg'], more: true },
+  { id: 'hombre-led', sec: 'disco', tags: 'hombre led traje luces espejo plateado', name: 'Hombre LED', desc: 'Traje iluminado y traje de espejos', imgs: ['assets/img/destacado/plata-2.jpg', 'assets/img/destacado/plata-3.jpg'], more: true },
   /* ── Temáticas ── */
   { id: 'gold', sec: 'tematicas', tags: 'dorado oro gold show girls plumas',        name: 'Dorado',          imgs: ['assets/img/destacado/dorado-4.jpg', `${T}/dorado/06.jpg`, `${T}/dorado/09.jpg`, `${T}/dorado/10.jpg`, `${T}/dorado/08.jpg`, `${T}/dorado/04.jpg`, `${T}/dorado/05.jpg`, `${T}/dorado/07.jpg`, ...seq('dorado', 3)] },
   { id: 'shine-gold', sec: 'tematicas', tags: 'dorado oro brillo',  name: 'Shine Gold',      imgs: seq('shine-gold', 2), more: true },
@@ -38,7 +40,7 @@ const THEMES = [
   { id: 'salsa', sec: 'tematicas', tags: 'salsa baile bailarines latino cuba caribe', name: 'Salsa', imgs: seq('salsa', 2), more: true },
   { id: 'africa', sec: 'tematicas', tags: 'jungla safari selva animal print',      name: 'África',          imgs: seq('africa', 4), more: true },
   { id: 'safari', sec: 'tematicas', tags: 'safari jungla exploradores aventura africa selva', name: 'Safari', desc: 'Exploradores', imgs: [`${T}/safari/03.jpg`, `${T}/safari/01.jpg`, `${T}/safari/02.jpg`], more: true },
-  { id: 'vegas', sec: 'tematicas', tags: 'casino show girls plumas host entrada',       name: 'Viva las Vegas',  desc: 'Show girls y host de entrada', imgs: [`${T}/vegas/05.jpg`, `${T}/vegas/06.jpg`, `${T}/vegas/07.jpg`, `${T}/vegas/08.jpg`, ...seq('vegas', 4)] },
+  { id: 'vegas', sec: 'tematicas', tags: 'casino show girls plumas blanco',       name: 'Viva las Vegas',  desc: 'Show girls', imgs: seq('vegas', 4) },
   { id: 'neon', sec: 'tematicas', tags: 'fluorescente luces glow',        name: 'Neón',            imgs: [`${T}/neon/05.jpg`, `${T}/neon/06.jpg`, ...seq('neon', 4)] },
   { id: 'gatsby', sec: 'tematicas', tags: 'anos 20 vintage elegante charleston',      name: 'Gatsby',          imgs: [`${T}/gatsby/08.jpg`, ...seq('gatsby', 7)] },
   { id: 'brigeston', sec: 'tematicas', tags: 'bridgerton epoca vintage realeza',   name: 'Bridgerton',       imgs: seq('brigeston', 1), more: true },
@@ -63,6 +65,7 @@ const THEMES = [
   { id: 'marineros', sec: 'tematicas', tags: 'marinos barco nautico',   name: 'Marineros',       imgs: seq('marineros', 1), more: true },
   { id: 'otra', sec: 'tematicas', tags: 'personalizada medida idea',        name: 'Otra / por definir', imgs: ['assets/img/ig/troupe.jpg'] },
   /* ── Personajes de Bienvenida ── */
+  { id: 'vegas-host', sec: 'bienvenida', tags: 'vegas casino host anfitriona plumas negro recibimiento entrada', name: 'Host de Viva las Vegas', desc: 'Anfitriona de entrada', imgs: [`${T}/vegas/05.jpg`, `${T}/vegas/06.jpg`, `${T}/vegas/07.jpg`, `${T}/vegas/08.jpg`], more: true },
   { id: 'vogue', sec: 'bienvenida', tags: 'vogue recibimiento bienvenida rosas flores blanco rojo jaula host entrada anfitriones lentejuelas', name: 'Vogue', desc: 'Recibimiento en blanco y rojo', imgs: [`${T}/vogue/10.jpg`, `${T}/vogue/11.jpg`, `${T}/vogue/01.jpg`, `${T}/vogue/04.jpg`, `${T}/vogue/02.jpg`, `${T}/vogue/03.jpg`, `${T}/vogue/05.jpg`, `${T}/vogue/06.jpg`, `${T}/vogue/07.jpg`, `${T}/vogue/08.jpg`, `${T}/vogue/09.jpg`], more: true },
   { id: 'corazon', sec: 'bienvenida', tags: 'amor san valentin recibimiento',     name: 'Personaje de corazón', imgs: seq('corazon', 1), more: true },
   { id: 'bienvenida', sec: 'bienvenida', tags: 'recibimiento host entrada hostess',  name: 'Personajes para bienvenida', imgs: seq('bienvenida', 3), more: true },
@@ -87,7 +90,7 @@ const SECCIONES = [
   { id: 'tematicas',  num: '02', name: 'Temáticas',                 color: '--gold',    deco: 'd-feather', mov: 'flota' },
   { id: 'bienvenida', num: '03', name: 'Personajes de Bienvenida',  color: '--magenta', deco: 'd-rosa',    mov: 'flota', img: 'assets/img/deco/rosa.webp' },
   { id: 'led',        num: '04', name: 'Show LED',                  color: '--cyan',    deco: 'd-bolt',    mov: 'late' },
-  { id: 'dominicano', num: '05', name: 'Ritmo Dominicano',          color: '--red',     deco: 'd-mask',    mov: 'flota' },
+  { id: 'dominicano', num: '05', name: 'Ritmo Dominicano',          color: '--red',     deco: 'd-mask',    mov: 'flota', img: 'assets/img/deco/tambora.webp' },
   { id: 'navidad',    num: '06', name: 'Navidad',                   color: '--green',   deco: 'd-snow',    mov: 'gira' },
 ];
 

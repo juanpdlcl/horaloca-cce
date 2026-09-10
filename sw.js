@@ -11,8 +11,8 @@ const MEDIA = `${VERSION}-media`;
 const BASE = [
   '/',
   '/cotiza',
-  '/css/styles.css?v=37',
-  '/js/main.js?v=37',
+  '/css/styles.css?v=39',
+  '/js/main.js?v=39',
   '/js/config.js',
   '/assets/img/logo-mark-glow.png',
   '/assets/img/hero-feathers.png',
