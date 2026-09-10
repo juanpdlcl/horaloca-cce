@@ -657,6 +657,13 @@ function olvidaEnlace() {
   localStorage.removeItem(GUARDA);
 }
 
+/* Si el enlace se pega en una pestaña que YA tiene /admin abierto, el
+   navegador no recarga (solo cambia el trozo tras la almohadilla), así que
+   nada leería el secreto. Con esto se recarga y entra igual. */
+window.addEventListener('hashchange', () => {
+  if (location.hash.includes('k=')) location.reload();
+});
+
 const sbHeaders = (extra) => Object.assign({
   apikey: SB.key,
   Authorization: 'Bearer ' + SB.key,
