@@ -574,7 +574,7 @@ grant execute on function public.admin_delete_ticket(text, text)        to anon;
 --
 -- La clave debe coincidir EXACTAMENTE con admin/index.html:641 (PANEL_KEY).
 -- Como ese HTML es público y está en un repo público, la clave vieja
--- 'CCE-IaRvRdOMLumAX9tH' está QUEMADA: no la reutilices. Genera una nueva,
+-- '<clave-vieja-ya-invalidada>' está QUEMADA: no la reutilices. Genera una nueva,
 -- larga y aleatoria, y cámbiala también en el HTML antes de desplegar.
 -- ═══════════════════════════════════════════════════════════════════════════
 
@@ -584,7 +584,7 @@ on conflict (secret) do nothing;
 
 -- Si estás rotando la clave: primero inserta la nueva (arriba), verifica que
 -- el panel entra, y recién entonces borra la vieja:
--- delete from public.admin_config where secret = 'CCE-IaRvRdOMLumAX9tH';
+-- delete from public.admin_config where secret = '<clave-vieja-ya-invalidada>';
 
 -- PostgREST cachea el esquema: esto le dice que lo recargue ya.
 notify pgrst, 'reload schema';

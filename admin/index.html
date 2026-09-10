@@ -377,17 +377,14 @@ table.items td:nth-child(3),table.items td:nth-child(4),table.items td:nth-child
 </head>
 <body>
 
-<!-- ── LOGIN ── -->
+<!-- ── PUERTA: sin el enlace privado no se ve nada ── -->
 <div class="login-wrap" id="loginView">
-  <form class="login" id="loginForm">
+  <div class="login">
     <img src="assets/img/logo-mark-glow.webp" alt="">
     <h1>Panel administrativo</h1>
     <p>CC Entertainment · acceso privado</p>
-    <label><span>Correo</span><input type="email" id="loUser" autocomplete="username" inputmode="email" required></label>
-    <label><span>Contraseña</span><input type="password" id="loPass" autocomplete="current-password" required></label>
-    <div class="err" id="loErr"></div>
-    <button class="btn btn-block" type="submit">Entrar</button>
-  </form>
+    <div class="err" id="loErr">Esta página solo se abre desde el enlace privado.</div>
+  </div>
 </div>
 
 <!-- ── APP ── -->
@@ -630,74 +627,51 @@ const TERMS_DEFAULT = 'Cotización válida por 15 días. Se requiere un avance d
 const esc = (v) => String(v == null ? '' : v).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
 /* ── capa de datos: Supabase si está configurado, localStorage si no ──
-   El panel entra con una SESIÓN de verdad (correo + contraseña de
-   Authentication → Users). Ya no hay ninguna clave escrita en esta página:
-   lo único que se guarda es un token que caduca y que solo funciona si el
-   correo está en la lista blanca de la base (función es_panel).
-   Antes vivía aquí una clave fija, y esta página es pública. */
+   El panel se abre con un ENLACE PRIVADO:  /admin#k=<secreto>
+   El secreto NO está escrito en esta página (ese era el fallo anterior).
+   Llega en el trozo de URL después de la almohadilla, que el navegador
+   NO manda al servidor, así que no queda en ningún registro. Se guarda en
+   este dispositivo para no tener que repetir el enlace, y se borra de la
+   barra de direcciones al instante.
+   Quien abra /admin sin el enlace no ve absolutamente nada. */
 const SB = window.CCE_SUPABASE || {};
 const REMOTE = !!(SB.url && SB.key);
 let TICKETS = [];
 
-/* ── sesión ── */
-const SESION = 'cce-sb-sesion';
-let sesion = null;
-try { sesion = JSON.parse(localStorage.getItem(SESION) || 'null'); } catch (_) { sesion = null; }
-
-function guardaSesion(d) {
-  sesion = {
-    access_token: d.access_token,
-    refresh_token: d.refresh_token,
-    expira: Date.now() + (d.expires_in || 3600) * 1000,
-    correo: (d.user && d.user.email) || '',
-  };
-  localStorage.setItem(SESION, JSON.stringify(sesion));
-}
-function cierraSesion() {
-  sesion = null;
-  localStorage.removeItem(SESION);
-}
-
-async function authFetch(ruta, cuerpo) {
-  const r = await fetch(SB.url + '/auth/v1/' + ruta, {
-    method: 'POST',
-    headers: { apikey: SB.key, 'Content-Type': 'application/json' },
-    body: JSON.stringify(cuerpo),
-  });
-  const d = await r.json().catch(() => ({}));
-  if (!r.ok) throw new Error(d.error_description || d.msg || d.error || ('auth ' + r.status));
-  return d;
-}
-async function entrar(correo, clave) {
-  guardaSesion(await authFetch('token?grant_type=password', { email: correo, password: clave }));
-}
-/* el token dura una hora: se renueva solo antes de caducar */
-async function token() {
-  if (!sesion) throw new Error('sin sesión');
-  if (Date.now() < sesion.expira - 60000) return sesion.access_token;
-  try {
-    guardaSesion(await authFetch('token?grant_type=refresh_token', { refresh_token: sesion.refresh_token }));
-    return sesion.access_token;
-  } catch (e) {
-    cierraSesion();
-    throw new Error('sesión caducada');
+const GUARDA = 'cce-panel-k';
+let secreto = '';
+try {
+  let h = decodeURIComponent(location.hash.slice(1) || '');
+  if (h.startsWith('k=')) h = h.slice(2);
+  if (h) {
+    secreto = h;
+    localStorage.setItem(GUARDA, secreto);
+    history.replaceState(null, '', location.pathname + location.search);
+  } else {
+    secreto = localStorage.getItem(GUARDA) || '';
   }
+} catch (_) { secreto = ''; }
+
+function olvidaEnlace() {
+  secreto = '';
+  localStorage.removeItem(GUARDA);
 }
 
-async function sbHeaders(extra) {
-  return Object.assign({
-    apikey: SB.key,
-    Authorization: 'Bearer ' + (await token()),
-    'Content-Type': 'application/json',
-  }, extra || {});
-}
-async function sbFetch(ruta, opciones) {
-  const o = opciones || {};
-  const r = await fetch(SB.url + '/rest/v1/' + ruta, Object.assign({}, o, {
-    headers: await sbHeaders(o.headers),
-  }));
-  if (r.status === 401 || r.status === 403) { cierraSesion(); throw new Error('sin permiso'); }
-  if (!r.ok) throw new Error('supabase ' + r.status + ' ' + (await r.text()).slice(0, 120));
+const sbHeaders = (extra) => Object.assign({
+  apikey: SB.key,
+  Authorization: 'Bearer ' + SB.key,
+  'Content-Type': 'application/json',
+}, extra || {});
+
+async function rpc(fn, body) {
+  const r = await fetch(SB.url + '/rest/v1/rpc/' + fn, {
+    method: 'POST', headers: sbHeaders(), body: JSON.stringify(body),
+  });
+  if (r.status === 400 || r.status === 401 || r.status === 403) {
+    olvidaEnlace();
+    throw new Error('enlace no válido');
+  }
+  if (!r.ok) throw new Error('rpc ' + fn + ' ' + r.status);
   const t = await r.text();
   return t ? JSON.parse(t) : null;
 }
@@ -707,11 +681,11 @@ const localSave = (a) => localStorage.setItem('cce-tickets', JSON.stringify(a));
 
 async function dbList() {
   if (!REMOTE) return localAll();
-  return (await sbFetch('tickets?select=*&order=ts.desc')) || [];
+  return (await rpc('admin_tickets', { p_secret: secreto })) || [];
 }
 async function dbInsert(k) {
   if (!REMOTE) { const a = localAll(); a.unshift(k); localSave(a); return; }
-  await sbFetch('tickets', { method: 'POST', headers: { Prefer: 'return=minimal' }, body: JSON.stringify(k) });
+  await rpc('admin_insert_ticket', { p_secret: secreto, p_ticket: k });
 }
 async function dbUpdate(id, patch) {
   if (!REMOTE) {
@@ -719,13 +693,11 @@ async function dbUpdate(id, patch) {
     if (k) Object.assign(k, patch);
     localSave(a); return;
   }
-  await sbFetch('tickets?id=eq.' + encodeURIComponent(id), {
-    method: 'PATCH', headers: { Prefer: 'return=minimal' }, body: JSON.stringify(patch),
-  });
+  await rpc('admin_update_ticket', { p_secret: secreto, p_id: id, p_patch: patch });
 }
 async function dbDelete(id) {
   if (!REMOTE) { localSave(localAll().filter((x) => x.id !== id)); return; }
-  await sbFetch('tickets?id=eq.' + encodeURIComponent(id), { method: 'DELETE', headers: { Prefer: 'return=minimal' } });
+  await rpc('admin_delete_ticket', { p_secret: secreto, p_id: id });
 }
 
 async function sha256(s) {
@@ -743,42 +715,17 @@ async function refresh() {
   TICKETS = await dbList();
   renderList();
 }
-$('loginForm').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  $('loErr').textContent = '';
-  const boton = e.target.querySelector('button[type=submit]');
-  if (REMOTE) {
-    boton.disabled = true;
-    try {
-      await entrar($('loUser').value.trim(), $('loPass').value);
-    } catch (err) {
-      const m = String(err.message || '');
-      $('loErr').textContent = /Invalid login/i.test(m)
-        ? 'Correo o contraseña incorrectos'
-        : (navigator.onLine ? 'No se pudo entrar: ' + m : 'Sin conexión');
-      boton.disabled = false;
-      return;
-    }
-    boton.disabled = false;
-    try {
-      await showApp();
-    } catch (_) {
-      cierraSesion();
-      $('loErr').textContent = 'Ese correo no tiene permiso para el panel';
-    }
-    return;
-  }
-  const ok = $('loUser').value.trim() === USER && (await sha256($('loPass').value)) === PASS_HASH;
-  if (!ok) { $('loErr').textContent = 'Usuario o clave incorrectos'; return; }
-  sessionStorage.setItem('cce-admin', '1');
-  showApp();
-});
 $('btnLogout').addEventListener('click', () => {
   sessionStorage.removeItem('cce-admin');
-  cierraSesion();
+  olvidaEnlace();
   location.reload();
 });
-if (REMOTE ? !!sesion : sessionStorage.getItem('cce-admin') === '1') {
+function puertaCerrada(msg) {
+  $('appView').classList.add('hide');
+  $('loginView').classList.remove('hide');
+  if (msg) $('loErr').textContent = msg;
+}
+if (REMOTE ? !!secreto : sessionStorage.getItem('cce-admin') === '1') {
   showApp().catch(async (err) => {
     // distinguir "no hay internet" de "la base de datos no responde",
     // y en ese caso abrir igual el panel con lo guardado en este equipo
