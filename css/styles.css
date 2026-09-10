@@ -1187,11 +1187,11 @@ h2{
 .bus-x:hover{color:var(--text);background:rgba(255,255,255,.06)}
 .bus-x .icon{width:16px;height:16px}
 .bus-cats{display:flex;flex-wrap:wrap;gap:8px;padding:14px 2px 4px;scrollbar-width:none}
-/* los 7 filtros caben en dos lineas: antes 4 quedaban fuera de pantalla
-   en una fila que se deslizaba sin ninguna pista visual */
+/* los 7 filtros envuelven: antes 4 quedaban fuera de pantalla en una fila
+   que se deslizaba sin ninguna pista visual. El tamaño va al bloque final,
+   porque la regla base de .bcat viene despues en esta hoja y la pisaria. */
 @media(max-width:760px){
   .bus-cats{flex-wrap:wrap;overflow-x:visible;gap:6px}
-  .bcat{font-size:.73rem;padding:7px 12px;letter-spacing:0;min-height:40px}
 }
 .bus-cats::-webkit-scrollbar{display:none}
 .bcat{
@@ -1211,8 +1211,7 @@ h2{
 .theme-pick .pk[hidden]{display:none}
 @media(max-width:640px){
   .bus-campo input{font-size:16px}   /* evita el zoom de iOS al escribir */
-  .bcat{padding:8px 15px;font-size:.8rem}
-  .bus-cats{margin:0 -4px}
+
 }
 
 /* ─── Menos carga en el teléfono: menos aire muerto y menos texto pequeño ─── */
@@ -1236,4 +1235,55 @@ h2{
   .pk-name{font-size:.8rem;bottom:8px}
   .pk-group{margin-bottom:26px}
   .pk-sec{font-size:1.05rem;margin-bottom:11px}
+}
+
+/* ═══════════ MÓVIL: menos desenfoque, menos parpadeo, botones para el dedo ═══════════
+   Los filtros de desenfoque son lo más caro que pinta un teléfono: obligan a
+   rasterizar el elemento entero en una textura aparte y a rehacerla al hacer
+   scroll. Aquí se pagaban cuatro resplandores de 640px, seis del alto de una
+   sección completa y dos backdrop-filter fijos, para un efecto que casi no se
+   ve. En pantalla pequeña se sustituyen por degradados planos, que son gratis. */
+@media(max-width:900px){
+  .glow-blob{filter:none;width:min(84vw,380px);height:min(84vw,380px);opacity:.7}
+  .gb-violet{top:-90px;right:-110px}
+  .gb-magenta{bottom:-100px;left:-120px}
+  .gb-cyan{top:-80px;left:-110px}
+  .deco-glow{display:none}
+  .nav{transition:background .4s,border-color .4s}
+  .nav.scrolled{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(11,11,14,.94)}
+  .nav-links{backdrop-filter:none;-webkit-backdrop-filter:none}
+  .hero-video{filter:none}
+}
+@media(max-width:700px){
+  /* la insignia "N fotos" se repetía en 37 tarjetas, cada una con su propio
+     desenfoque de fondo: misma pastilla, sin el coste */
+  .pk-count{
+    backdrop-filter:none;-webkit-backdrop-filter:none;border:0;
+    background:rgba(8,8,11,.66);font-size:.64rem;padding:2px 7px;
+  }
+}
+
+/* Objetivos táctiles: nada por debajo de 44px, que es lo que ocupa un pulgar */
+@media(pointer:coarse),(max-width:640px){
+  .nav-burger{min-width:44px;min-height:44px;padding:0;align-items:center;justify-content:center}
+  .bus-x{width:44px;height:44px;padding:0;margin-right:-10px;flex:0 0 auto}
+  .bus-cats{padding-left:0;padding-right:0}
+  .bus-cats .bcat{min-height:44px;padding:0 11px;font-size:.74rem;letter-spacing:0}
+  .chips button{min-height:44px}
+  .icon-btn{width:44px;height:44px}
+  .mas-datos > summary{min-height:44px}
+  .cart-item-mas > summary{min-height:44px;display:flex;align-items:center;padding:10px 2px;font-size:14px}
+  /* El nombre de cada elegido se quedaba en 69px y todos se leían "Hora Loca…".
+     Ahora ocupa la fila entera y los controles bajan debajo, con 44px cada uno. */
+  .cart-scroll{padding:16px}
+  .cart-item{padding:12px}
+  .cart-item-row{flex-wrap:wrap;gap:10px}
+  .cart-item-info{flex:1 1 calc(100% - 56px);min-width:0}
+  .cart-item-info strong{white-space:normal;font-size:.95rem;line-height:1.35}
+  .cart-qty{margin-left:auto}
+  .cart-qty button,.cart-item-del{width:44px;height:44px}
+  /* el botón flotante de selección tapaba el final de la página */
+  .section-cotiza{padding-bottom:124px}
+  /* por debajo de 305px de ancho la rejilla de extras se salía */
+  .serv-grid{grid-template-columns:1fr}
 }

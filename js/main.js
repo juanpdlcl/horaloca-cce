@@ -259,7 +259,12 @@ if (servGrid) {
   filtrar();
 
   /* slideshow: las tarjetas con varias fotos rotan estando a la vista */
-  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  /* En el telefono las fotos cambiaban cada segundo en 7 tarjetas a la vez:
+     el catalogo entero parpadeaba mientras se intentaba leer un nombre, y
+     descargaba ~3 MB por minuto. Ahi la portada se queda quieta y el resto
+     de fotos se ven al abrir la tematica. */
+  const MOVIL = matchMedia('(max-width:700px)').matches;
+  if (!MOVIL && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const rotating = [];
     const rotObs = new IntersectionObserver((entries) => {
       entries.forEach((en) => {
