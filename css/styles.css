@@ -882,13 +882,13 @@ h2{
 .deco-s4{left:22%;bottom:6%;width:13px;height:13px}
 .deco-s5{right:22%;top:6%;width:16px;height:16px}
 /* la bola de disco es una foto recortada: gira despacio y destella */
-.deco-img{opacity:.5;filter:drop-shadow(0 0 16px rgba(212,217,230,.28))}
+.deco-img{opacity:.5;filter:drop-shadow(0 0 18px color-mix(in srgb,var(--sc,var(--gold)) 45%,transparent))}
 .deco-img.deco-1{opacity:.55}
 .deco-img.deco-2{opacity:.4}
 .deco-img.deco-3{opacity:.3}
 @keyframes decoDestello{
-  0%,100%{filter:drop-shadow(0 0 10px rgba(212,217,230,.2)) brightness(.9)}
-  50%{filter:drop-shadow(0 0 30px rgba(212,217,230,.6)) brightness(1.18)}
+  0%,100%{filter:drop-shadow(0 0 10px color-mix(in srgb,var(--sc) 25%,transparent)) brightness(.9)}
+  50%{filter:drop-shadow(0 0 30px color-mix(in srgb,var(--sc) 62%,transparent)) brightness(1.18)}
 }
 .mov-disco{animation:decoGira 42s linear infinite,decoDestello 5.5s ease-in-out infinite}
 .deco-2.mov-disco{animation-duration:31s,7s;animation-direction:reverse,normal;animation-delay:0s,-2.4s}
