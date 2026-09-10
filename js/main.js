@@ -11,11 +11,11 @@ const WHATSAPP = '18293435460';
    themed = al agregarlo se elige la temática */
 const SERVICES = [
   { id: 'hora-loca',   img: 'assets/img/destacado/dorado-4.jpg', pos: '50% 40%', themed: true, name: 'Hora Loca', desc: 'Personajes, cotillón y 45–60 minutos de pura energía. Elige tu temática.' },
-  { id: 'coreografia', img: 'assets/img/ig/coreografia.jpg',  pos: '50% 30%', name: 'Coreografía personalizada', desc: 'Montaje profesional para tu entrada, apertura o sorpresa.' },
+  { id: 'coreografia', img: 'assets/img/promo/bailarines.jpg', pos: '50% 38%', name: 'Coreografía personalizada', desc: 'Montaje profesional para tu entrada, apertura o sorpresa.' },
   { id: 'zanqueros',   img: 'assets/img/promo/zancos.jpg',     pos: '50% 20%', name: 'Zanqueros',                 desc: 'Altura y espectáculo que llenan la pista.' },
   { id: 'percusion',   img: 'assets/img/promo/musicos.jpg',        pos: '50% 42%', name: 'Percusión en vivo',      desc: 'Tambores en vivo que encienden la fiesta junto al DJ.' },
   { id: 'robot-led',   img: 'assets/img/promo/robot-espejo.jpg',   pos: '50% 0%', name: 'Robot LED',              desc: 'Show futurista iluminado para el punto alto de la noche.' },
-  { id: 'bailarines',  img: 'assets/img/promo/bailarines.jpg', pos: '50% 30%', name: 'Bailarines adicionales', desc: 'Refuerza el cuerpo de baile de tu show.' },
+  { id: 'bailarines',  img: 'assets/img/ig/white-dancers.jpg', pos: '50% 28%', name: 'Bailarines adicionales', desc: 'Refuerza el cuerpo de baile de tu show.' },
 ];
 
 /* temáticas de la Hora Loca (fotos reales del catálogo de Carolina).
@@ -26,7 +26,7 @@ const seq = (dir, n) => Array.from({ length: n }, (_, i) => `${T}/${dir}/${Strin
 const THEMES = [
   /* ── Disco Ball ── */
   { id: 'led', sec: 'disco', tags: 'espejos disco ball plateado bola',         name: 'Disco Ball',      imgs: [`${T}/espejos/main.jpg`, `${T}/espejos/09.jpg`, `${T}/espejos/10.jpg`, `${T}/espejos/11.jpg`, 'assets/img/destacado/plata-4.jpg', 'assets/img/destacado/plata-1.jpg', 'assets/img/destacado/plata-2.jpg', 'assets/img/destacado/plata-3.jpg', ...seq('espejos', 8)] },
-  { id: 'bar-neon', sec: 'disco', tags: 'bar neon bandeja canapes pasabocas hostess luces led mesa humana recibimiento', name: 'Bar Neón', desc: 'Hostess iluminada con bandeja de canapés', imgs: seq('bar-neon', 2), more: true },
+  { id: 'bar-neon', sec: 'disco', tags: 'bar neon bandeja canapes pasabocas hostess luces led mesa humana recibimiento', name: 'Bar Neón', desc: 'Hostess iluminada con bandeja de canapés', imgs: [`${T}/bar-neon/01.jpg`], more: true },
   /* ── Temáticas ── */
   { id: 'gold', sec: 'tematicas', tags: 'dorado oro gold show girls plumas',        name: 'Dorado',          imgs: ['assets/img/destacado/dorado-4.jpg', `${T}/dorado/06.jpg`, `${T}/dorado/09.jpg`, `${T}/dorado/10.jpg`, `${T}/dorado/08.jpg`, `${T}/dorado/04.jpg`, `${T}/dorado/05.jpg`, `${T}/dorado/07.jpg`, ...seq('dorado', 3)] },
   { id: 'shine-gold', sec: 'tematicas', tags: 'dorado oro brillo',  name: 'Shine Gold',      imgs: seq('shine-gold', 2), more: true },

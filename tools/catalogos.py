@@ -167,9 +167,9 @@ NAVIDAD = [   # las cuatro horizontales van a lo ancho, alternadas con las verti
 EXTRAS = [
     ANCHO('Zanqueros', 'assets/img/promo/zancos.jpg'),
     ('Percusión en vivo', 'assets/img/promo/musicos.jpg'),
-    ('Coreografía personalizada', 'assets/img/destacado/plata-1.jpg'),
+    ('Coreografía personalizada', 'assets/img/promo/bailarines.jpg'),
     ('Robot LED', 'assets/img/promo/robot-espejo.jpg'),
-    ('Bailarines adicionales', 'assets/img/promo/bailarines.jpg'),
+    ('Bailarines adicionales', 'assets/img/ig/white-dancers.jpg'),
 ]
 
 SECCIONES = [

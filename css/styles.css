@@ -781,7 +781,7 @@ h2{
   margin-bottom:22px;
   scroll-margin-top:calc(var(--nav-h) + 12px);
 }
-.theme-pick > .pk{flex:1 1 202px;max-width:258px}
+.theme-pick > .pk{flex:1 1 172px;max-width:214px}
 .cat-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
 /* temáticas plegadas hasta "Ver todas" */
 .theme-pick .pk-hid{display:none}
