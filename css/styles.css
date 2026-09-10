@@ -774,11 +774,14 @@ h2{
 .hl-head{margin-bottom:18px}
 .hl-head h2{margin-bottom:4px}
 .hl-head p{color:var(--muted);font-size:.95rem}
+/* Las tarjetas se centran en la fila: una sección de dos temáticas ya no queda
+   pegada a la izquierda con medio ancho vacío al lado. */
 .theme-pick{
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;
+  display:flex;flex-wrap:wrap;justify-content:center;gap:16px;
   margin-bottom:22px;
   scroll-margin-top:calc(var(--nav-h) + 12px);
 }
+.theme-pick > .pk{flex:1 1 202px;max-width:258px}
 .cat-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
 /* temáticas plegadas hasta "Ver todas" */
 .theme-pick .pk-hid{display:none}
@@ -791,7 +794,8 @@ h2{
   margin-bottom:20px;
 }
 @media(max-width:560px){
-  .theme-pick{grid-template-columns:1fr 1fr;gap:10px}
+  .theme-pick{gap:10px}
+  .theme-pick > .pk{flex:1 1 calc(50% - 5px);max-width:none}
   .hl-hero-text p{max-width:220px}
 }
 
@@ -958,12 +962,15 @@ h2{
 }
 
 /* ─────────── TOAST ─────────── */
+/* por encima del botón flotante "Ver mi selección", que vive en bottom:20px:
+   los dos van centrados abajo y antes se tapaban entre sí */
 .toast{
-  position:fixed;bottom:28px;left:50%;transform:translate(-50%,120px);z-index:400;
+  position:fixed;bottom:94px;left:50%;transform:translate(-50%,120px);z-index:400;
   display:flex;align-items:center;gap:10px;
   background:#1b1b22;border:1px solid var(--line-strong);
   padding:13px 24px;border-radius:999px;
   font-family:var(--font-display);font-weight:500;font-size:.88rem;letter-spacing:.02em;
+  text-align:center;max-width:calc(100vw - 36px);
   box-shadow:0 16px 40px rgba(0,0,0,.5);
   transition:transform .45s var(--ease);pointer-events:none;
 }

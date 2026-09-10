@@ -11,7 +11,7 @@ const WHATSAPP = '18293435460';
    themed = al agregarlo se elige la temática */
 const SERVICES = [
   { id: 'hora-loca',   img: 'assets/img/destacado/dorado-4.jpg', pos: '50% 40%', themed: true, name: 'Hora Loca', desc: 'Personajes, cotillón y 45–60 minutos de pura energía. Elige tu temática.' },
-  { id: 'coreografia', img: 'assets/img/destacado/plata-1.jpg',  pos: '50% 25%', name: 'Coreografía personalizada', desc: 'Montaje profesional para tu entrada, apertura o sorpresa.' },
+  { id: 'coreografia', img: 'assets/img/ig/coreografia.jpg',  pos: '50% 30%', name: 'Coreografía personalizada', desc: 'Montaje profesional para tu entrada, apertura o sorpresa.' },
   { id: 'zanqueros',   img: 'assets/img/promo/zancos.jpg',     pos: '50% 20%', name: 'Zanqueros',                 desc: 'Altura y espectáculo que llenan la pista.' },
   { id: 'percusion',   img: 'assets/img/promo/musicos.jpg',        pos: '50% 42%', name: 'Percusión en vivo',      desc: 'Tambores en vivo que encienden la fiesta junto al DJ.' },
   { id: 'robot-led',   img: 'assets/img/promo/robot-espejo.jpg',   pos: '50% 0%', name: 'Robot LED',              desc: 'Show futurista iluminado para el punto alto de la noche.' },
@@ -48,11 +48,11 @@ const THEMES = [
   { id: 'hadas', sec: 'tematicas', tags: 'hada fantasia alas',       name: 'Hadas',           imgs: [`${T}/hadas/02.jpg`, `${T}/hadas/01.jpg`], more: true },
   { id: 'astronauta', sec: 'tematicas', tags: 'espacio alien galaxia',  name: 'Astronauta y alien', imgs: seq('astronauta', 6), more: true },
   { id: 'cabezones', sec: 'tematicas', tags: 'bad bunny karol g daddy yankee artistas cabezas',   name: 'Cabezones',       desc: 'Bad Bunny, Karol G y Daddy Yankee', imgs: [`${T}/cabezones/main.jpg`, `${T}/cabezones/03.jpg`, `${T}/cabezones/02.jpg`, 'assets/img/promo/artistas.jpg', `${T}/cabezones/01.jpg`], more: true },
-  { id: 'disco', sec: 'tematicas', tags: 'setenta disco fiebre',       name: 'Disco',           imgs: seq('disco', 1), more: true },
+  { id: 'disco', sec: 'tematicas', tags: 'setenta 70 retro disco fiebre sabado noche', name: 'Disco años 70',   imgs: seq('disco', 1), more: true },
   { id: 'anos-80', sec: 'tematicas', tags: '80 ochenta retro',     name: 'Años 80',         imgs: seq('anos-80', 2), more: true },
   { id: 'anos-90', sec: 'tematicas', tags: '90 noventa retro',     name: 'Años 90',         imgs: seq('anos-90', 1), more: true },
   { id: 'pilotos', sec: 'tematicas', tags: 'formula 1 carreras autos f1',     name: 'Pilotos Formula 1', imgs: [`${T}/pilotos/05.jpg`, `${T}/pilotos/04.jpg`, `${T}/pilotos/03.jpg`, `${T}/pilotos/01.jpg`, `${T}/pilotos/02.jpg`], more: true },
-  { id: 'feria-circo', sec: 'tematicas', tags: 'payasos mimos circo feria carpa', name: 'Feria/Circo',     desc: 'Payasos y mimos', imgs: seq('feria-circo', 3), more: true },
+  { id: 'feria-circo', sec: 'tematicas', tags: 'payasos mimos circo feria carpa', name: 'Feria/Circo',     desc: 'Payasos y carpa de feria', imgs: seq('feria-circo', 3), more: true },
   { id: 'mimos', sec: 'tematicas', tags: 'mimo circo blanco',       name: 'Mimos',           imgs: seq('mimos', 1), more: true },
   { id: 'vaqueros', sec: 'tematicas', tags: 'cowboy oeste western texas',    name: 'Vaqueros',        imgs: seq('vaqueros', 3), more: true },
   { id: 'venezia', sec: 'tematicas', tags: 'venecia mascaras italia',     name: 'Venezia',         imgs: ['assets/img/ig/venetian.jpg', 'assets/img/ig/venetian-2.jpg', 'assets/img/ig/venetian-3.jpg'], more: true },
@@ -69,7 +69,7 @@ const THEMES = [
   /* ── Show LED ── */
   { id: 'led-show', sec: 'led', tags: 'led robots tambores zancos luces',    name: 'Show LED',        imgs: [...seq('led-show', 4), { v: 'assets/video/led-show.mp4' }], more: true },
   { id: 'alas-led', sec: 'led', tags: 'alas angel luces',    name: 'Alas LED',        imgs: seq('alas-led', 4) },
-  { id: 'robot-espejo', sec: 'led', tags: 'robot espejo futurista', name: 'Robot LED espejo', imgs: [`${T}/robot-espejo/02.jpg`, `${T}/robot-espejo/01.jpg`, `${T}/robot-espejo/03.jpg`], more: true },
+  { id: 'robot-espejo', sec: 'led', tags: 'robot espejo futurista', name: 'Robot de espejos', imgs: [`${T}/robot-espejo/02.jpg`, `${T}/robot-espejo/01.jpg`, `${T}/robot-espejo/03.jpg`], more: true },
   /* ── Ritmo Dominicano ── */
   { id: 'carnaval', sec: 'dominicano', tags: 'diablos cojuelos lechones vegano',    name: 'Carnaval Dominicano', desc: 'Con diablos cojuelos y lechones', imgs: ['assets/img/ig/carnaval.jpg', `${T}/carnaval/04.jpg`, `${T}/carnaval/02.jpg`, `${T}/carnaval/03.jpg`, 'assets/img/ig/carnaval-2.jpg', `${T}/carnaval/01.jpg`], more: true },
   { id: 'zanqueros-rd', sec: 'dominicano', tags: 'zancos zanqueros bandera patria dominicana altura', name: 'Zancos dominicanos', desc: 'Con la bandera en alto', imgs: seq('zanqueros-rd', 1), more: true },
