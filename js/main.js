@@ -15,7 +15,6 @@ const SERVICES = [
   { id: 'zanqueros',   img: 'assets/img/promo/zancos.jpg',     pos: '50% 20%', name: 'Zanqueros',                 desc: 'Altura y espectáculo que llenan la pista.' },
   { id: 'percusion',   img: 'assets/img/promo/musicos.jpg',        pos: '50% 42%', name: 'Percusión en vivo',      desc: 'Tambores en vivo que encienden la fiesta junto al DJ.' },
   { id: 'robot-led',   img: 'assets/img/promo/robot-espejo.jpg',   pos: '50% 0%', name: 'Robot LED',              desc: 'Show futurista iluminado para el punto alto de la noche.' },
-  { id: 'cabezones',   img: 'assets/img/promo/artistas.jpg',       pos: '50% 12%', name: 'Cabezones',              desc: 'Bad Bunny, Karol G y Daddy Yankee en versión gigante, animando la pista.' },
   { id: 'bailarines',  img: 'assets/img/promo/bailarines.jpg', pos: '50% 30%', name: 'Bailarines adicionales', desc: 'Refuerza el cuerpo de baile de tu show.' },
 ];
 
@@ -25,56 +24,71 @@ const SERVICES = [
 const T = 'assets/img/tematicas';
 const seq = (dir, n) => Array.from({ length: n }, (_, i) => `${T}/${dir}/${String(i + 1).padStart(2, '0')}.jpg`);
 const THEMES = [
-  { id: 'gold', cat: 'brillo', tags: 'dorado oro gold show girls plumas',        name: 'Dorado',          imgs: ['assets/img/destacado/dorado-4.jpg', `${T}/dorado/06.jpg`, `${T}/dorado/09.jpg`, `${T}/dorado/10.jpg`, `${T}/dorado/08.jpg`, `${T}/dorado/04.jpg`, `${T}/dorado/05.jpg`, `${T}/dorado/07.jpg`, ...seq('dorado', 3)] },
-  { id: 'led', cat: 'brillo', tags: 'espejos disco ball plateado bola',         name: 'Disco Ball',      imgs: [`${T}/espejos/main.jpg`, `${T}/espejos/09.jpg`, `${T}/espejos/10.jpg`, `${T}/espejos/11.jpg`, 'assets/img/destacado/plata-4.jpg', 'assets/img/destacado/plata-1.jpg', 'assets/img/destacado/plata-2.jpg', 'assets/img/destacado/plata-3.jpg', ...seq('espejos', 8)] },
-  { id: 'brasil', cat: 'brillo', tags: 'brazil plateada plumas carnaval',      name: 'Brazil plateada', imgs: [`${T}/brasil-plata/main.jpg`, ...seq('brasil-plata', 3), 'assets/img/destacado/brasil-1.jpg'] },
-  { id: 'brazil', cat: 'tropical', tags: 'brasil samba plumas carnaval rio',      name: 'Brazil',          imgs: [...seq('brazil', 6), { v: 'assets/video/brazil.mp4' }] },
-  { id: 'vegas', cat: 'brillo', tags: 'casino show girls plumas host entrada',       name: 'Viva las Vegas',  desc: 'Show girls y host de entrada', imgs: [`${T}/vegas/05.jpg`, `${T}/vegas/06.jpg`, `${T}/vegas/07.jpg`, `${T}/vegas/08.jpg`, ...seq('vegas', 4)] },
-  { id: 'dominicana', cat: 'dominicano', tags: 'bandera republica dominicana merengue',  name: 'Dominicana',      imgs: [`${T}/dominicana/01.jpg`, `${T}/dominicana/06.jpg`, `${T}/dominicana/02.jpg`, `${T}/dominicana/05.jpg`, `${T}/dominicana/03.jpg`, `${T}/dominicana/04.jpg`] },
-  { id: 'neon', cat: 'luces', tags: 'fluorescente luces glow',        name: 'Neón',            imgs: [`${T}/neon/05.jpg`, `${T}/neon/06.jpg`, ...seq('neon', 4)] },
-  { id: 'tropical', cat: 'tropical', tags: 'verano flores colores',    name: 'Tropical',        imgs: ['assets/img/ig/tropical-sunset.jpg', ...seq('tropical', 2)] },
-  { id: 'gatsby', cat: 'epocas', tags: 'anos 20 vintage elegante charleston',      name: 'Gatsby',          imgs: [`${T}/gatsby/08.jpg`, ...seq('gatsby', 7)] },
-  { id: 'alas-led', cat: 'luces', tags: 'alas angel luces',    name: 'Alas LED',        imgs: seq('alas-led', 4) },
-  { id: 'bar-neon', cat: 'luces', tags: 'bar neon bandeja canapes pasabocas hostess luces led mesa humana recibimiento', name: 'Bar Neón', desc: 'Hostess iluminada con bandeja de canapés', imgs: seq('bar-neon', 2), more: true },
-  { id: 'shine-gold', cat: 'brillo', tags: 'dorado oro brillo',  name: 'Shine Gold',      imgs: seq('shine-gold', 2), more: true },
-  { id: 'carnaval', cat: 'dominicano', tags: 'diablos cojuelos lechones vegano',    name: 'Carnaval Dominicano', desc: 'Con diablos cojuelos y lechones', imgs: ['assets/img/ig/carnaval.jpg', `${T}/carnaval/04.jpg`, `${T}/carnaval/02.jpg`, `${T}/carnaval/03.jpg`, 'assets/img/ig/carnaval-2.jpg', `${T}/carnaval/01.jpg`], more: true },
-  { id: 'marchantas', cat: 'dominicano', tags: 'mercado tipico campo',  name: 'Marchantas',      imgs: seq('marchantas', 3), more: true },
-  { id: 'samba', cat: 'tropical', tags: 'brasil rio plumas',       name: 'Samba',           imgs: seq('samba', 1), more: true },
-  { id: 'africa', cat: 'tropical', tags: 'jungla safari selva animal print',      name: 'África',          imgs: seq('africa', 4), more: true },
-  { id: 'tropical-cuba', cat: 'tropical', tags: 'cuba habana caribe', name: 'Tropical Cuba', imgs: seq('tropical-cuba', 3), more: true },
-  { id: 'salsa', cat: 'tropical', tags: 'salsa baile bailarines latino cuba caribe', name: 'Salsa', imgs: seq('salsa', 2), more: true },
-  { id: 'playa', cat: 'tropical', tags: 'verano mar arena',       name: 'Playa',           imgs: seq('playa', 1), more: true },
-  { id: 'hawaii', cat: 'tropical', tags: 'hula isla verano',      name: 'Hawaii',          imgs: seq('hawaii', 1), more: true },
-  { id: 'vaqueros', cat: 'epocas', tags: 'cowboy oeste western texas',    name: 'Vaqueros',        imgs: seq('vaqueros', 3), more: true },
-  { id: 'porristas', cat: 'personajes', tags: 'cheerleaders animadoras deporte',   name: 'Porristas',       imgs: seq('porristas', 1), more: true },
-  { id: 'ingenieros', cat: 'personajes', tags: 'construccion casco obra',  name: 'Ingenieros',      imgs: seq('ingenieros', 4), more: true },
-  { id: 'cocineros-show', cat: 'personajes', tags: 'chef cocina comida', name: 'Cocineros',    imgs: seq('cocineros-show', 3), more: true },
-  { id: 'bienvenida', cat: 'personajes', tags: 'recibimiento host entrada hostess',  name: 'Personajes para bienvenida', imgs: seq('bienvenida', 3), more: true },
-  { id: 'corazon', cat: 'personajes', tags: 'amor san valentin recibimiento',     name: 'Personaje de corazón', imgs: seq('corazon', 1), more: true },
-  { id: 'personaje-playa', cat: 'personajes', tags: 'playa verano recibimiento', name: 'Personaje de playa', imgs: seq('personaje-playa', 1), more: true },
-  { id: 'hadas', cat: 'personajes', tags: 'hada fantasia alas',       name: 'Hadas',           imgs: [`${T}/hadas/02.jpg`, `${T}/hadas/01.jpg`], more: true },
-  { id: 'astronauta', cat: 'personajes', tags: 'espacio alien galaxia',  name: 'Astronauta y alien', imgs: seq('astronauta', 6), more: true },
-  { id: 'pelota', cat: 'dominicano', tags: 'beisbol baseball deporte licey leones mascotas', name: 'Pelota dominicana', imgs: [`${T}/pelota/03.jpg`, ...seq('pelota', 2)], more: true },
-  { id: 'zanqueros-rd', cat: 'dominicano', tags: 'zancos zanqueros bandera patria dominicana altura', name: 'Zancos dominicanos', desc: 'Con la bandera en alto', imgs: seq('zanqueros-rd', 1), more: true },
-  { id: 'cabezones', cat: 'personajes', tags: 'bad bunny karol g daddy yankee artistas cabezas',   name: 'Cabezones',       desc: 'Bad Bunny, Karol G y Daddy Yankee', imgs: [`${T}/cabezones/main.jpg`, `${T}/cabezones/03.jpg`, `${T}/cabezones/02.jpg`, 'assets/img/promo/artistas.jpg', `${T}/cabezones/01.jpg`], more: true },
-  { id: 'robot-espejo', cat: 'luces', tags: 'robot espejo futurista', name: 'Robot LED espejo', imgs: [`${T}/robot-espejo/02.jpg`, `${T}/robot-espejo/01.jpg`, `${T}/robot-espejo/03.jpg`], more: true },
-  { id: 'led-show', cat: 'luces', tags: 'led robots tambores zancos luces',    name: 'Led',             imgs: [...seq('led-show', 4), { v: 'assets/video/led-show.mp4' }], more: true },
-  { id: 'neon-2000', cat: 'luces', tags: 'fluorescente 2000 retro',   name: 'Neon 2000',       imgs: seq('neon-2000', 3), more: true },
-  { id: 'navidad', cat: 'navidad', tags: 'santa grinch galleta elfos diciembre navideno',     name: 'Navidad',         imgs: [`${T}/navidad/12.jpg`, `${T}/navidad/13.jpg`, `${T}/navidad/09.jpg`, `${T}/navidad/10.jpg`, `${T}/navidad/11.jpg`, `${T}/navidad/15.jpg`, `${T}/navidad/16.jpg`, `${T}/navidad/17.jpg`, `${T}/navidad/18.jpg`, `${T}/navidad/19.jpg`, `${T}/navidad/20.jpg`, `${T}/navidad/21.jpg`, ...seq('navidad', 8)], more: true },
-  { id: 'feria-circo', cat: 'personajes', tags: 'payasos mimos circo feria carpa', name: 'Feria/Circo',     desc: 'Payasos y mimos', imgs: seq('feria-circo', 3), more: true },
-  { id: 'blanca-navidad', cat: 'navidad', tags: 'navidad blanca invierno nieve', name: 'Blanca Navidad', imgs: seq('blanca-navidad', 1), more: true },
-  { id: 'disco', cat: 'brillo', tags: 'setenta disco fiebre',       name: 'Disco',           imgs: seq('disco', 1), more: true },
-  { id: 'anos-80', cat: 'epocas', tags: '80 ochenta retro',     name: 'Años 80',         imgs: seq('anos-80', 2), more: true },
-  { id: 'anos-90', cat: 'epocas', tags: '90 noventa retro',     name: 'Años 90',         imgs: seq('anos-90', 1), more: true },
-  { id: 'brigeston', cat: 'epocas', tags: 'bridgerton epoca vintage realeza',   name: 'Bridgerton',       imgs: seq('brigeston', 1), more: true },
-  { id: 'pilotos', cat: 'epocas', tags: 'formula 1 carreras autos f1',     name: 'Pilotos Formula 1', imgs: [`${T}/pilotos/05.jpg`, `${T}/pilotos/04.jpg`, `${T}/pilotos/03.jpg`, `${T}/pilotos/01.jpg`, `${T}/pilotos/02.jpg`], more: true },
-  { id: 'marineros', cat: 'epocas', tags: 'marinos barco nautico',   name: 'Marineros',       imgs: seq('marineros', 1), more: true },
-  { id: 'mimos', cat: 'personajes', tags: 'mimo circo blanco',       name: 'Mimos',           imgs: seq('mimos', 1), more: true },
-  { id: 'vogue', cat: 'personajes', tags: 'vogue recibimiento bienvenida rosas flores blanco rojo jaula host entrada anfitriones lentejuelas', name: 'Vogue', desc: 'Recibimiento en blanco y rojo', imgs: [`${T}/vogue/10.jpg`, `${T}/vogue/11.jpg`, `${T}/vogue/01.jpg`, `${T}/vogue/04.jpg`, `${T}/vogue/02.jpg`, `${T}/vogue/03.jpg`, `${T}/vogue/05.jpg`, `${T}/vogue/06.jpg`, `${T}/vogue/07.jpg`, `${T}/vogue/08.jpg`, `${T}/vogue/09.jpg`], more: true },
-  { id: 'safari', cat: 'tropical', tags: 'safari jungla exploradores aventura africa selva', name: 'Safari', desc: 'Exploradores', imgs: [`${T}/safari/03.jpg`, `${T}/safari/01.jpg`, `${T}/safari/02.jpg`], more: true },
-  { id: 'catrinas', cat: 'epocas', tags: 'muertos mexico calaveras',    name: 'Catrinas',        imgs: ['assets/img/catrinas.jpg', `${T}/catrinas/01.jpg`, `${T}/catrinas/02.jpg`], more: true },
-  { id: 'venezia', cat: 'epocas', tags: 'venecia mascaras italia',     name: 'Venezia',         imgs: ['assets/img/ig/venetian.jpg', 'assets/img/ig/venetian-2.jpg', 'assets/img/ig/venetian-3.jpg'], more: true },
-  { id: 'otra', tags: 'personalizada medida idea',        name: 'Otra / por definir', imgs: ['assets/img/ig/troupe.jpg'] },
+  /* ── Disco Ball ── */
+  { id: 'led', sec: 'disco', tags: 'espejos disco ball plateado bola',         name: 'Disco Ball',      imgs: [`${T}/espejos/main.jpg`, `${T}/espejos/09.jpg`, `${T}/espejos/10.jpg`, `${T}/espejos/11.jpg`, 'assets/img/destacado/plata-4.jpg', 'assets/img/destacado/plata-1.jpg', 'assets/img/destacado/plata-2.jpg', 'assets/img/destacado/plata-3.jpg', ...seq('espejos', 8)] },
+  { id: 'bar-neon', sec: 'disco', tags: 'bar neon bandeja canapes pasabocas hostess luces led mesa humana recibimiento', name: 'Bar Neón', desc: 'Hostess iluminada con bandeja de canapés', imgs: seq('bar-neon', 2), more: true },
+  /* ── Temáticas ── */
+  { id: 'gold', sec: 'tematicas', tags: 'dorado oro gold show girls plumas',        name: 'Dorado',          imgs: ['assets/img/destacado/dorado-4.jpg', `${T}/dorado/06.jpg`, `${T}/dorado/09.jpg`, `${T}/dorado/10.jpg`, `${T}/dorado/08.jpg`, `${T}/dorado/04.jpg`, `${T}/dorado/05.jpg`, `${T}/dorado/07.jpg`, ...seq('dorado', 3)] },
+  { id: 'shine-gold', sec: 'tematicas', tags: 'dorado oro brillo',  name: 'Shine Gold',      imgs: seq('shine-gold', 2), more: true },
+  { id: 'brasil', sec: 'tematicas', tags: 'brazil plateada plumas carnaval',      name: 'Brazil plateada', imgs: [`${T}/brasil-plata/main.jpg`, ...seq('brasil-plata', 3), 'assets/img/destacado/brasil-1.jpg'] },
+  { id: 'brazil', sec: 'tematicas', tags: 'brasil samba plumas carnaval rio',      name: 'Brazil',          imgs: [...seq('brazil', 6), { v: 'assets/video/brazil.mp4' }] },
+  { id: 'samba', sec: 'tematicas', tags: 'brasil rio plumas',       name: 'Samba',           imgs: seq('samba', 1), more: true },
+  { id: 'tropical', sec: 'tematicas', tags: 'verano flores colores',    name: 'Tropical',        imgs: ['assets/img/ig/tropical-sunset.jpg', ...seq('tropical', 2)] },
+  { id: 'tropical-cuba', sec: 'tematicas', tags: 'cuba habana caribe', name: 'Tropical Cuba', imgs: seq('tropical-cuba', 3), more: true },
+  { id: 'salsa', sec: 'tematicas', tags: 'salsa baile bailarines latino cuba caribe', name: 'Salsa', imgs: seq('salsa', 2), more: true },
+  { id: 'africa', sec: 'tematicas', tags: 'jungla safari selva animal print',      name: 'África',          imgs: seq('africa', 4), more: true },
+  { id: 'safari', sec: 'tematicas', tags: 'safari jungla exploradores aventura africa selva', name: 'Safari', desc: 'Exploradores', imgs: [`${T}/safari/03.jpg`, `${T}/safari/01.jpg`, `${T}/safari/02.jpg`], more: true },
+  { id: 'vegas', sec: 'tematicas', tags: 'casino show girls plumas host entrada',       name: 'Viva las Vegas',  desc: 'Show girls y host de entrada', imgs: [`${T}/vegas/05.jpg`, `${T}/vegas/06.jpg`, `${T}/vegas/07.jpg`, `${T}/vegas/08.jpg`, ...seq('vegas', 4)] },
+  { id: 'neon', sec: 'tematicas', tags: 'fluorescente luces glow',        name: 'Neón',            imgs: [`${T}/neon/05.jpg`, `${T}/neon/06.jpg`, ...seq('neon', 4)] },
+  { id: 'gatsby', sec: 'tematicas', tags: 'anos 20 vintage elegante charleston',      name: 'Gatsby',          imgs: [`${T}/gatsby/08.jpg`, ...seq('gatsby', 7)] },
+  { id: 'brigeston', sec: 'tematicas', tags: 'bridgerton epoca vintage realeza',   name: 'Bridgerton',       imgs: seq('brigeston', 1), more: true },
+  { id: 'porristas', sec: 'tematicas', tags: 'cheerleaders animadoras deporte',   name: 'Porristas',       imgs: seq('porristas', 1), more: true },
+  { id: 'ingenieros', sec: 'tematicas', tags: 'construccion casco obra',  name: 'Ingenieros',      imgs: seq('ingenieros', 4), more: true },
+  { id: 'cocineros-show', sec: 'tematicas', tags: 'chef cocina comida', name: 'Cocineros',    imgs: seq('cocineros-show', 3), more: true },
+  { id: 'hadas', sec: 'tematicas', tags: 'hada fantasia alas',       name: 'Hadas',           imgs: [`${T}/hadas/02.jpg`, `${T}/hadas/01.jpg`], more: true },
+  { id: 'astronauta', sec: 'tematicas', tags: 'espacio alien galaxia',  name: 'Astronauta y alien', imgs: seq('astronauta', 6), more: true },
+  { id: 'cabezones', sec: 'tematicas', tags: 'bad bunny karol g daddy yankee artistas cabezas',   name: 'Cabezones',       desc: 'Bad Bunny, Karol G y Daddy Yankee', imgs: [`${T}/cabezones/main.jpg`, `${T}/cabezones/03.jpg`, `${T}/cabezones/02.jpg`, 'assets/img/promo/artistas.jpg', `${T}/cabezones/01.jpg`], more: true },
+  { id: 'disco', sec: 'tematicas', tags: 'setenta disco fiebre',       name: 'Disco',           imgs: seq('disco', 1), more: true },
+  { id: 'anos-80', sec: 'tematicas', tags: '80 ochenta retro',     name: 'Años 80',         imgs: seq('anos-80', 2), more: true },
+  { id: 'anos-90', sec: 'tematicas', tags: '90 noventa retro',     name: 'Años 90',         imgs: seq('anos-90', 1), more: true },
+  { id: 'pilotos', sec: 'tematicas', tags: 'formula 1 carreras autos f1',     name: 'Pilotos Formula 1', imgs: [`${T}/pilotos/05.jpg`, `${T}/pilotos/04.jpg`, `${T}/pilotos/03.jpg`, `${T}/pilotos/01.jpg`, `${T}/pilotos/02.jpg`], more: true },
+  { id: 'feria-circo', sec: 'tematicas', tags: 'payasos mimos circo feria carpa', name: 'Feria/Circo',     desc: 'Payasos y mimos', imgs: seq('feria-circo', 3), more: true },
+  { id: 'mimos', sec: 'tematicas', tags: 'mimo circo blanco',       name: 'Mimos',           imgs: seq('mimos', 1), more: true },
+  { id: 'vaqueros', sec: 'tematicas', tags: 'cowboy oeste western texas',    name: 'Vaqueros',        imgs: seq('vaqueros', 3), more: true },
+  { id: 'venezia', sec: 'tematicas', tags: 'venecia mascaras italia',     name: 'Venezia',         imgs: ['assets/img/ig/venetian.jpg', 'assets/img/ig/venetian-2.jpg', 'assets/img/ig/venetian-3.jpg'], more: true },
+  { id: 'catrinas', sec: 'tematicas', tags: 'muertos mexico calaveras',    name: 'Catrinas',        imgs: ['assets/img/catrinas.jpg', `${T}/catrinas/01.jpg`, `${T}/catrinas/02.jpg`], more: true },
+  { id: 'playa', sec: 'tematicas', tags: 'verano mar arena',       name: 'Playa',           imgs: seq('playa', 1), more: true },
+  { id: 'personaje-playa', sec: 'tematicas', tags: 'playa verano recibimiento', name: 'Personaje de playa', imgs: seq('personaje-playa', 1), more: true },
+  { id: 'hawaii', sec: 'tematicas', tags: 'hula isla verano',      name: 'Hawaii',          imgs: seq('hawaii', 1), more: true },
+  { id: 'marineros', sec: 'tematicas', tags: 'marinos barco nautico',   name: 'Marineros',       imgs: seq('marineros', 1), more: true },
+  { id: 'otra', sec: 'tematicas', tags: 'personalizada medida idea',        name: 'Otra / por definir', imgs: ['assets/img/ig/troupe.jpg'] },
+  /* ── Personajes de Bienvenida ── */
+  { id: 'vogue', sec: 'bienvenida', tags: 'vogue recibimiento bienvenida rosas flores blanco rojo jaula host entrada anfitriones lentejuelas', name: 'Vogue', desc: 'Recibimiento en blanco y rojo', imgs: [`${T}/vogue/10.jpg`, `${T}/vogue/11.jpg`, `${T}/vogue/01.jpg`, `${T}/vogue/04.jpg`, `${T}/vogue/02.jpg`, `${T}/vogue/03.jpg`, `${T}/vogue/05.jpg`, `${T}/vogue/06.jpg`, `${T}/vogue/07.jpg`, `${T}/vogue/08.jpg`, `${T}/vogue/09.jpg`], more: true },
+  { id: 'corazon', sec: 'bienvenida', tags: 'amor san valentin recibimiento',     name: 'Personaje de corazón', imgs: seq('corazon', 1), more: true },
+  { id: 'bienvenida', sec: 'bienvenida', tags: 'recibimiento host entrada hostess',  name: 'Personajes para bienvenida', imgs: seq('bienvenida', 3), more: true },
+  /* ── Show LED ── */
+  { id: 'led-show', sec: 'led', tags: 'led robots tambores zancos luces',    name: 'Show LED',        imgs: [...seq('led-show', 4), { v: 'assets/video/led-show.mp4' }], more: true },
+  { id: 'alas-led', sec: 'led', tags: 'alas angel luces',    name: 'Alas LED',        imgs: seq('alas-led', 4) },
+  { id: 'robot-espejo', sec: 'led', tags: 'robot espejo futurista', name: 'Robot LED espejo', imgs: [`${T}/robot-espejo/02.jpg`, `${T}/robot-espejo/01.jpg`, `${T}/robot-espejo/03.jpg`], more: true },
+  /* ── Ritmo Dominicano ── */
+  { id: 'carnaval', sec: 'dominicano', tags: 'diablos cojuelos lechones vegano',    name: 'Carnaval Dominicano', desc: 'Con diablos cojuelos y lechones', imgs: ['assets/img/ig/carnaval.jpg', `${T}/carnaval/04.jpg`, `${T}/carnaval/02.jpg`, `${T}/carnaval/03.jpg`, 'assets/img/ig/carnaval-2.jpg', `${T}/carnaval/01.jpg`], more: true },
+  { id: 'zanqueros-rd', sec: 'dominicano', tags: 'zancos zanqueros bandera patria dominicana altura', name: 'Zancos dominicanos', desc: 'Con la bandera en alto', imgs: seq('zanqueros-rd', 1), more: true },
+  { id: 'dominicana', sec: 'dominicano', tags: 'bandera republica dominicana merengue',  name: 'Dominicana',      imgs: [`${T}/dominicana/01.jpg`, `${T}/dominicana/06.jpg`, `${T}/dominicana/02.jpg`, `${T}/dominicana/05.jpg`, `${T}/dominicana/03.jpg`, `${T}/dominicana/04.jpg`] },
+  { id: 'marchantas', sec: 'dominicano', tags: 'mercado tipico campo',  name: 'Marchantas',      imgs: seq('marchantas', 3), more: true },
+  { id: 'pelota', sec: 'dominicano', tags: 'beisbol baseball deporte licey leones mascotas', name: 'Pelota dominicana', imgs: [`${T}/pelota/03.jpg`, ...seq('pelota', 2)], more: true },
+  /* ── Navidad ── */
+  { id: 'navidad', sec: 'navidad', tags: 'santa grinch galleta elfos diciembre navideno',     name: 'Navidad',         imgs: [`${T}/navidad/12.jpg`, `${T}/navidad/13.jpg`, `${T}/navidad/09.jpg`, `${T}/navidad/10.jpg`, `${T}/navidad/11.jpg`, `${T}/navidad/15.jpg`, `${T}/navidad/16.jpg`, `${T}/navidad/17.jpg`, `${T}/navidad/18.jpg`, `${T}/navidad/19.jpg`, `${T}/navidad/20.jpg`, `${T}/navidad/21.jpg`, ...seq('navidad', 8)], more: true },
+  { id: 'blanca-navidad', sec: 'navidad', tags: 'navidad blanca invierno nieve', name: 'Blanca Navidad', imgs: seq('blanca-navidad', 1), more: true },
+];
+
+/* las mismas secciones (y el mismo orden) que el catálogo impreso */
+const SECCIONES = [
+  { id: 'disco',      num: '01', name: 'Disco Ball',                color: '--silver' },
+  { id: 'tematicas',  num: '02', name: 'Temáticas',                 color: '--gold' },
+  { id: 'bienvenida', num: '03', name: 'Personajes de Bienvenida',  color: '--magenta' },
+  { id: 'led',        num: '04', name: 'Show LED',                  color: '--cyan' },
+  { id: 'dominicano', num: '05', name: 'Ritmo Dominicano',          color: '--red' },
+  { id: 'navidad',    num: '06', name: 'Navidad',                   color: '--green' },
 ];
 
 const byId = (id) => SERVICES.find((s) => s.id === id);
@@ -153,14 +167,34 @@ if (servGrid) {
     </button>
   `).join('');
 
-  /* temáticas de la Hora Loca, visibles en la página */
-  $('themePick').innerHTML = THEMES.map((t) => `
-    <button class="pk" data-key="hora-loca:${t.id}" data-cat="${t.cat || ''}" data-buscar="${(t.name + ' ' + (t.desc || '') + ' ' + (t.tags || '')).toLowerCase()}" type="button" aria-pressed="false">
-      <img class="pk-img on" src="${thumb(t.imgs[0])}" alt="" loading="lazy">
-      <span class="pk-name">${t.name}${t.desc ? `<small>${t.desc}</small>` : ''}</span>
-      <span class="pk-check"><svg class="icon"><use href="#i-check"/></svg></span>
-    </button>
-  `).join('');
+  /* temáticas agrupadas igual que el catálogo: cada sección con su título.
+     La tarjeta NO es un botón (no se pueden anidar): la foto abre el visor
+     y el botón "Agregar" de abajo la mete en la cotización de un solo toque. */
+  const tarjeta = (t) => `
+    <article class="pk" data-key="hora-loca:${t.id}" data-sec="${t.sec || ''}" data-buscar="${(t.name + ' ' + (t.desc || '') + ' ' + (t.tags || '')).toLowerCase()}">
+      <button class="pk-ver" type="button" aria-label="Ver las fotos de ${t.name}">
+        <img class="pk-img on" src="${thumb(t.imgs[0])}" alt="" loading="lazy">
+        ${t.imgs.length > 1 ? `<span class="pk-count">${t.imgs.length} fotos</span>` : ''}
+        <span class="pk-name">${t.name}${t.desc ? `<small>${t.desc}</small>` : ''}</span>
+      </button>
+      <button class="pk-add" type="button" aria-pressed="false" aria-label="Agregar ${t.name} a mi cotización">
+        <span class="pk-add-off"><svg class="icon"><use href="#i-plus"/></svg>Agregar</span>
+        <span class="pk-add-on"><svg class="icon"><use href="#i-check"/></svg>Agregado</span>
+      </button>
+    </article>`;
+
+  $('themePick').innerHTML = SECCIONES.map((s) => {
+    const suyas = THEMES.filter((t) => t.sec === s.id);
+    if (!suyas.length) return '';
+    return `
+      <section class="pk-group" data-sec="${s.id}">
+        <h3 class="pk-sec" style="--sc:var(${s.color})">
+          <span class="pk-sec-n">${s.num}</span>${s.name}
+          <small>${suyas.length} ${suyas.length === 1 ? 'temática' : 'temáticas'}</small>
+        </h3>
+        <div class="theme-pick">${suyas.map(tarjeta).join('')}</div>
+      </section>`;
+  }).join('');
 
   /* ─── BUSCADOR TIPO CATÁLOGO: escribe o filtra por estilo ─── */
   const buscar = $('temaBuscar');
@@ -177,11 +211,15 @@ if (servGrid) {
     let visibles = 0;
     document.querySelectorAll('#themePick .pk').forEach((card) => {
       const texto = limpia(card.dataset.buscar || '');
-      const okCat = !catActiva || card.dataset.cat === catActiva;
+      const okCat = !catActiva || card.dataset.sec === catActiva;
       const okQ = palabras.every((p) => texto.includes(p));
       const ok = okCat && okQ;
       card.hidden = !ok;
       if (ok) visibles++;
+    });
+    /* una sección entera desaparece si ninguna de sus temáticas encaja */
+    document.querySelectorAll('#themePick .pk-group').forEach((g) => {
+      g.hidden = !g.querySelector('.pk:not([hidden])');
     });
     vacio.hidden = visibles > 0;
     contador.textContent = visibles === THEMES.length
@@ -209,14 +247,15 @@ if (servGrid) {
         const r = rotating.find((x) => x.card === en.target);
         if (!r) return;
         r.visible = en.isIntersecting;
-        const v = r.card.querySelector('video.pk-img.on');
+        const v = r.stage.querySelector('video.pk-img.on');
         if (v) { if (en.isIntersecting) v.play().catch(() => {}); else v.pause(); }
       });
     }, { threshold: 0.25 });
     document.querySelectorAll('#themePick .pk').forEach((card, i) => {
       const t = THEMES.find((x) => `hora-loca:${x.id}` === card.dataset.key);
       if (!t || t.imgs.length < 2) return;
-      const r = { card, imgs: t.imgs, idx: 0, visible: false, busy: false, next: (i % 7) * 620 };
+      // las fotos viven dentro del botón .pk-ver, no en la tarjeta
+      const r = { card, stage: card.querySelector('.pk-ver'), imgs: t.imgs, idx: 0, visible: false, busy: false, next: (i % 7) * 620 };
       rotating.push(r);
       rotObs.observe(card);
     });
@@ -236,9 +275,9 @@ if (servGrid) {
         layer.className = 'pk-img';
         const done = () => { r.busy = false; r.next = performance.now() + (isVideo ? STEP_VIDEO : STEP); };
         const show = () => {
-          r.card.insertBefore(layer, r.card.querySelector('.pk-name'));
+          r.stage.insertBefore(layer, r.stage.querySelector('.pk-name'));
           requestAnimationFrame(() => requestAnimationFrame(() => {
-            const old = [...r.card.querySelectorAll('.pk-img.on')];
+            const old = [...r.stage.querySelectorAll('.pk-img.on')];
             layer.classList.add('on');
             old.forEach((l) => l.classList.remove('on'));
             setTimeout(() => { old.forEach((l) => l.remove()); done(); }, 950);
@@ -248,7 +287,7 @@ if (servGrid) {
           layer.muted = true; layer.loop = true; layer.playsInline = true; layer.preload = 'auto';
           // al DOM desde ya (invisible con opacity 0): un <video> suelto sin
           // referencias puede ser recolectado y sus eventos jamás disparan
-          r.card.insertBefore(layer, r.card.querySelector('.pk-name'));
+          r.stage.insertBefore(layer, r.stage.querySelector('.pk-name'));
           const guard = setTimeout(() => {
             if (layer.oncanplay) { layer.oncanplay = null; layer.remove(); done(); }
           }, 6000);
@@ -314,7 +353,11 @@ if (servGrid) {
     document.querySelectorAll('.pk').forEach((p) => {
       const on = !!quote[p.dataset.key];
       p.classList.toggle('on', on);
-      p.setAttribute('aria-pressed', on);
+      const add = p.querySelector('.pk-add');
+      if (add) {
+        add.setAttribute('aria-pressed', on);
+        add.setAttribute('aria-label', `${on ? 'Quitar' : 'Agregar'} ${p.querySelector('.pk-name').firstChild.textContent.trim()}`);
+      }
     });
 
     $('quoteHint').innerHTML = keys.length === 0
@@ -347,7 +390,10 @@ if (servGrid) {
           </div>
           <button class="cart-item-del" data-del="${key}" aria-label="Eliminar"><svg class="icon"><use href="#i-trash"/></svg></button>
         </div>
-        <input class="cart-item-note" data-note="${key}" placeholder="¿Algo específico? (opcional)" value="${(quoteNotes[key] || '').replace(/"/g, '&quot;')}">
+        <details class="cart-item-mas"${(quoteNotes[key] || '').trim() ? ' open' : ''}>
+          <summary>Añadir una nota</summary>
+          <input class="cart-item-note" data-note="${key}" placeholder="Ej. quiero el cabezón de Karol G" value="${(quoteNotes[key] || '').replace(/"/g, '&quot;')}">
+        </details>
       </div>`).join('');
   }
 
@@ -410,9 +456,15 @@ if (servGrid) {
     document.body.style.overflow = '';
   }
   $('themePick').addEventListener('click', (e) => {
-    const b = e.target.closest('.pk');
-    if (!b) return;
-    tvOpen(b.dataset.key.split(':')[1]);
+    const tarjeta = e.target.closest('.pk');
+    if (!tarjeta) return;
+    const key = tarjeta.dataset.key;
+    /* un solo toque: el botón agrega o quita sin abrir nada */
+    if (e.target.closest('.pk-add')) {
+      if (quote[key]) removeKey(key); else addKey(key);
+      return;
+    }
+    tvOpen(key.split(':')[1]);
   });
   $('tvClose').addEventListener('click', tvCierra);
   $('tvPrev').addEventListener('click', () => { tvIdx = (tvIdx - 1 + tvItems().length) % tvItems().length; tvShow(); });

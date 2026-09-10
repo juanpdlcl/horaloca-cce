@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/styles.css?v=31">
+<link rel="stylesheet" href="css/styles.css?v=32">
 </head>
 <body class="page-cotiza">
 
@@ -72,7 +72,7 @@
     <!-- Hora Loca: temáticas a la vista -->
     <div class="hl-head reveal">
       <h2>Hora Loca</h2>
-      <p>Busca tu temática o filtra por estilo. Toca cualquiera para ver sus fotos en grande.</p>
+      <p>Organizadas igual que nuestro catálogo. Toca <b>Agregar</b> para incluir una temática, o toca la foto para verla en grande.</p>
     </div>
 
     <!-- buscador con filtros -->
@@ -84,20 +84,19 @@
           <svg class="icon"><use href="#i-x"/></svg>
         </button>
       </div>
-      <div class="bus-cats" id="temaCats" role="group" aria-label="Filtrar por estilo">
+      <div class="bus-cats" id="temaCats" role="group" aria-label="Filtrar por sección del catálogo">
         <button class="bcat on" type="button" data-cat="">Todas</button>
-        <button class="bcat" type="button" data-cat="brillo">Brillo</button>
+        <button class="bcat" type="button" data-cat="disco">Disco Ball</button>
+        <button class="bcat" type="button" data-cat="tematicas">Temáticas</button>
+        <button class="bcat" type="button" data-cat="bienvenida">Bienvenida</button>
+        <button class="bcat" type="button" data-cat="led">Show LED</button>
         <button class="bcat" type="button" data-cat="dominicano">Dominicano</button>
-        <button class="bcat" type="button" data-cat="tropical">Tropical</button>
-        <button class="bcat" type="button" data-cat="luces">Luces LED</button>
-        <button class="bcat" type="button" data-cat="epocas">Épocas</button>
-        <button class="bcat" type="button" data-cat="personajes">Personajes</button>
         <button class="bcat" type="button" data-cat="navidad">Navidad</button>
       </div>
       <p class="bus-n" id="temaN" role="status"></p>
     </div>
 
-    <div class="theme-pick" id="themePick"><!-- JS --></div>
+    <div class="theme-groups" id="themePick"><!-- JS --></div>
     <p class="bus-vacio" id="temaVacio" hidden>No encontramos esa temática — prueba otra palabra, o pídenos la tuya a la medida.</p>
 
     <h3 class="extras-h reveal">Extras para tu show</h3>
@@ -143,20 +142,26 @@
   <div class="cart-scroll">
     <div class="cart-items" id="cartItems"><!-- JS --></div>
     <div class="cart-fields">
-      <label><span>Tu nombre *</span><input type="text" id="qName" placeholder="¿Cómo te llamas?" autocomplete="name"></label>
-      <label><span>Tu WhatsApp *</span><input type="tel" id="qPhone" placeholder="829 000 0000" autocomplete="tel"></label>
-      <div class="chip-field cf-full">
-        <span>Tipo de evento</span>
-        <div class="chips" id="qType">
-          <button type="button" data-type="Boda">Boda</button>
-          <button type="button" data-type="Cumpleaños">Cumpleaños</button>
-          <button type="button" data-type="XV años">XV años</button>
-          <button type="button" data-type="Empresa">Empresa</button>
-          <button type="button" data-type="Otro">Otro</button>
+      <p class="cf-nota">Solo necesitamos <b>dos datos</b> para pasarte el precio.</p>
+      <label><span>Tu nombre *</span><input type="text" id="qName" placeholder="¿Cómo te llamas?" autocomplete="name" enterkeyhint="next"></label>
+      <label><span>Tu WhatsApp *</span><input type="tel" id="qPhone" inputmode="tel" placeholder="829 000 0000" autocomplete="tel" enterkeyhint="done"></label>
+      <details class="mas-datos">
+        <summary>Añadir detalles del evento <small>(opcional)</small></summary>
+        <div class="mas-datos-cuerpo">
+          <div class="chip-field cf-full">
+            <span>Tipo de evento</span>
+            <div class="chips" id="qType">
+              <button type="button" data-type="Boda">Boda</button>
+              <button type="button" data-type="Cumpleaños">Cumpleaños</button>
+              <button type="button" data-type="XV años">XV años</button>
+              <button type="button" data-type="Empresa">Empresa</button>
+              <button type="button" data-type="Otro">Otro</button>
+            </div>
+          </div>
+          <label><span>¿Dónde será?</span><input type="text" id="qPlace" placeholder="Ciudad o zona" autocomplete="off"></label>
+          <label><span>Fecha</span><input type="text" id="qDate" placeholder="Ej. 15 de octubre" autocomplete="off"></label>
         </div>
-      </div>
-      <label><span>¿Dónde será?</span><input type="text" id="qPlace" placeholder="Ciudad o zona" autocomplete="off"></label>
-      <label><span>Fecha (opcional)</span><input type="text" id="qDate" placeholder="Ej. 15 de octubre" autocomplete="off"></label>
+      </details>
     </div>
   </div>
   <div class="cart-foot">
@@ -195,7 +200,7 @@
 
 
 <script src="js/config.js"></script>
-<script src="js/main.js?v=31"></script>
+<script src="js/main.js?v=32"></script>
 <script>
 if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}));
 </script>

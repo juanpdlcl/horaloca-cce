@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "horaloca",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8634"],
+      "port": 8634
+    }
+  ]
+}
