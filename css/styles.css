@@ -946,6 +946,26 @@ h2{
   margin-left:auto;font-family:var(--font-body);font-size:.72rem;
   font-weight:400;color:var(--muted);white-space:nowrap;
 }
+/* ── Adorno de fondo de una sección de la portada (Destacados) ── */
+.sec-deco{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+#destacados > .container{position:relative;z-index:1}
+.sd{
+  position:absolute;width:150px;height:auto;opacity:.26;
+  filter:drop-shadow(0 0 18px rgba(255,255,255,.18));
+}
+.sd-1{width:172px;left:-46px;top:14%;animation:decoGira 46s linear infinite}
+.sd-2{width:132px;right:-30px;top:6%;animation:decoFlota 11s ease-in-out infinite}
+.sd-3{width:96px;left:3%;bottom:7%;animation:decoFlota 14s ease-in-out infinite;animation-delay:-5s;opacity:.2}
+.sd-4{width:104px;right:4%;bottom:11%;animation:decoGira 34s linear infinite reverse;opacity:.22}
+.sd-5{width:64px;left:46%;top:2%;animation:decoGira 26s linear infinite;opacity:.16}
+@media(max-width:900px){
+  .sd-3,.sd-5{display:none}
+  .sd-1{width:110px;left:-40px}
+  .sd-2{width:88px;right:-26px}
+  .sd-4{width:70px}
+}
+@media(prefers-reduced-motion:reduce){.sd{animation:none}}
+
 .theme-groups{margin-bottom:22px}
 .pk-group .theme-pick{margin-bottom:0}
 .pk-count{
