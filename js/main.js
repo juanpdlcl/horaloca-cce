@@ -83,12 +83,12 @@ const THEMES = [
 
 /* las mismas secciones (y el mismo orden) que el catálogo impreso */
 const SECCIONES = [
-  { id: 'disco',      num: '01', name: 'Disco Ball',                color: '--silver' },
-  { id: 'tematicas',  num: '02', name: 'Temáticas',                 color: '--gold' },
-  { id: 'bienvenida', num: '03', name: 'Personajes de Bienvenida',  color: '--magenta' },
-  { id: 'led',        num: '04', name: 'Show LED',                  color: '--cyan' },
-  { id: 'dominicano', num: '05', name: 'Ritmo Dominicano',          color: '--red' },
-  { id: 'navidad',    num: '06', name: 'Navidad',                   color: '--green' },
+  { id: 'disco',      num: '01', name: 'Disco Ball',                color: '--silver',  deco: 'd-ball',    mov: 'disco', img: 'assets/img/deco/disco-ball.png' },
+  { id: 'tematicas',  num: '02', name: 'Temáticas',                 color: '--gold',    deco: 'd-feather', mov: 'flota' },
+  { id: 'bienvenida', num: '03', name: 'Personajes de Bienvenida',  color: '--magenta', deco: 'd-rosa',    mov: 'flota' },
+  { id: 'led',        num: '04', name: 'Show LED',                  color: '--cyan',    deco: 'd-bolt',    mov: 'late' },
+  { id: 'dominicano', num: '05', name: 'Ritmo Dominicano',          color: '--red',     deco: 'd-mask',    mov: 'flota' },
+  { id: 'navidad',    num: '06', name: 'Navidad',                   color: '--green',   deco: 'd-snow',    mov: 'gira' },
 ];
 
 const byId = (id) => SERVICES.find((s) => s.id === id);
@@ -186,9 +186,23 @@ if (servGrid) {
   $('themePick').innerHTML = SECCIONES.map((s) => {
     const suyas = THEMES.filter((t) => t.sec === s.id);
     if (!suyas.length) return '';
+    /* adorno de la sección: el motivo grande a los lados (donde queda sitio
+       cuando la sección tiene pocas temáticas) más destellos parpadeando */
+    /* si la sección trae foto (la bola de disco), se usa esa; si no, el dibujo */
+    const motivo = (n) => s.img
+      ? `<img class="deco deco-img deco-${n} mov-${s.mov}" src="${s.img}" alt="" loading="lazy">`
+      : `<svg class="deco deco-${n} mov-${s.mov}"><use href="#${s.deco}"/></svg>`;
+    const deco = `
+      <div class="pk-deco" aria-hidden="true">
+        <i class="deco-glow"></i>
+        ${motivo(1)}${motivo(2)}${motivo(3)}
+        ${[1, 2, 3, 4, 5].map((i) => `<svg class="deco deco-s deco-s${i}"><use href="#d-sparkle"/></svg>`).join('')}
+      </div>`;
     return `
-      <section class="pk-group" data-sec="${s.id}">
-        <h3 class="pk-sec" style="--sc:var(${s.color})">
+      <section class="pk-group" data-sec="${s.id}" style="--sc:var(${s.color})">
+        ${deco}
+        <h3 class="pk-sec">
+          <svg class="pk-sec-ico"><use href="#${s.deco}"/></svg>
           <span class="pk-sec-n">${s.num}</span>${s.name}
           <small>${suyas.length} ${suyas.length === 1 ? 'temática' : 'temáticas'}</small>
         </h3>
