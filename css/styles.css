@@ -925,10 +925,11 @@ h2{
 }
 @media(prefers-reduced-motion:reduce){.pk-sec-ico{animation:none}}
 @media(max-width:700px){
-  /* en el teléfono las tarjetas ocupan todo el ancho: adorno más discreto */
-  .deco-1{width:96px;left:-3%;opacity:.12}
-  .deco-2{width:66px;height:66px;right:-3%;opacity:.1}
-  .deco-3{display:none}
+  /* En el telefono las tarjetas ocupan todo el ancho, asi que los motivos de
+     fondo quedan tapados: solo gastarian bateria. Se queda el resplandor
+     (estatico y barato) y el iconito del titulo, que si se ve. */
+  .pk-deco .deco{display:none}
+  .deco-glow{opacity:.75}
 }
 @media(prefers-reduced-motion:reduce){
   .deco{animation:none !important}
@@ -959,10 +960,10 @@ h2{
 .sd-4{width:104px;right:4%;bottom:11%;animation:decoGira 34s linear infinite reverse;opacity:.22}
 .sd-5{width:64px;left:46%;top:2%;animation:decoGira 26s linear infinite;opacity:.16}
 @media(max-width:900px){
-  .sd-3,.sd-5{display:none}
-  .sd-1{width:110px;left:-40px}
-  .sd-2{width:88px;right:-26px}
-  .sd-4{width:70px}
+  /* solo dos, en las esquinas y lejos del texto */
+  .sd-2,.sd-3,.sd-5{display:none}
+  .sd-1{width:104px;left:-42px;top:auto;bottom:16%;opacity:.16}
+  .sd-4{width:76px;right:-22px;bottom:auto;top:5%;opacity:.16}
 }
 @media(prefers-reduced-motion:reduce){.sd{animation:none}}
 
@@ -1186,7 +1187,12 @@ h2{
 .bus-x:hover{color:var(--text);background:rgba(255,255,255,.06)}
 .bus-x .icon{width:16px;height:16px}
 .bus-cats{display:flex;flex-wrap:wrap;gap:8px;padding:14px 2px 4px;scrollbar-width:none}
-@media(max-width:760px){.bus-cats{flex-wrap:nowrap;overflow-x:auto}}
+/* los 7 filtros caben en dos lineas: antes 4 quedaban fuera de pantalla
+   en una fila que se deslizaba sin ninguna pista visual */
+@media(max-width:760px){
+  .bus-cats{flex-wrap:wrap;overflow-x:visible;gap:6px}
+  .bcat{font-size:.73rem;padding:7px 12px;letter-spacing:0;min-height:40px}
+}
 .bus-cats::-webkit-scrollbar{display:none}
 .bcat{
   flex:0 0 auto;background:transparent;border:1px solid var(--line-strong);color:var(--muted);

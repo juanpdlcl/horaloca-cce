@@ -96,7 +96,7 @@ TEMATICAS = [
     PAGINA('grid', [('Gatsby', t('gatsby', 1)), ('Gatsby — pareja', t('gatsby', 2)), ('Gatsby', t('gatsby', 8)), ('Bridgerton', t('brigeston', 1))], titulo='Gatsby y Bridgerton'),
     # Personajes
     PAGINA('grid', [ANCHO('Porristas', t('porristas', 1)), ('Ingenieros', t('ingenieros', 1)), ('Cocineros', t('cocineros-show', 1))], titulo='Personajes'),
-    PAGINA('grid', [('Hadas', t('hadas', 2)), ('Astronauta y alien', t('astronauta', 1)), ('Cabezones — Karol G, Bad Bunny y Daddy Yankee', 'assets/img/promo/artistas.jpg'), ('Cabezones', f'{T}/cabezones/main.jpg')], titulo='Personajes'),
+    PAGINA('grid', [('Hadas', t('hadas', 2)), ('Astronauta y alien', t('astronauta', 1)), ('Cabezones — Karol G, Bad Bunny y Daddy Yankee', 'assets/img/promo/artistas.jpg'), ('Cabezones', t('cabezones', 3))], titulo='Personajes'),
     # Épocas
     PAGINA('grid', [ANCHO('Disco', t('disco', 1)), ('Años 80', t('anos-80', 2)), ('Años 90', t('anos-90', 1))], titulo='Épocas'),
     # Fórmula 1
