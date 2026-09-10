@@ -205,7 +205,9 @@ if (servGrid) {
       <section class="pk-group" data-sec="${s.id}" style="--sc:var(${s.color})">
         ${deco}
         <h3 class="pk-sec">
-          <svg class="pk-sec-ico"><use href="#${s.deco}"/></svg>
+          ${s.img
+            ? `<img class="pk-sec-ico pk-sec-foto" src="${s.img}" alt="" loading="lazy">`
+            : `<svg class="pk-sec-ico"><use href="#${s.deco}"/></svg>`}
           <span class="pk-sec-n">${s.num}</span>${s.name}
           <small>${suyas.length} ${suyas.length === 1 ? 'temática' : 'temáticas'}</small>
         </h3>
