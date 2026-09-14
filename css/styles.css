@@ -1289,3 +1289,10 @@ h2{
   /* por debajo de 305px de ancho la rejilla de extras se salía */
   .serv-grid{grid-template-columns:1fr}
 }
+
+/* ─── Cabecera del cotizador: menos texto y menos alto ─── */
+.page-head h1{font-size:clamp(1.9rem,4.4vw,3rem)}
+.hl-head{margin-bottom:16px}
+.hl-head h2{font-size:clamp(1.5rem,3vw,2rem)}
+.hl-head p{font-size:.95rem}
+.section-cotiza{padding-top:26px}

@@ -80,8 +80,10 @@ const THEMES = [
   { id: 'marchantas', sec: 'dominicano', tags: 'mercado tipico campo',  name: 'Marchantas',      imgs: seq('marchantas', 3), more: true },
   { id: 'pelota', sec: 'dominicano', tags: 'beisbol baseball deporte licey leones mascotas', name: 'Pelota dominicana', imgs: [`${T}/pelota/03.jpg`, ...seq('pelota', 2)], more: true },
   /* ── Navidad ── */
-  { id: 'navidad', sec: 'navidad', tags: 'santa grinch galleta elfos diciembre navideno',     name: 'Navidad',         imgs: [`${T}/navidad/12.jpg`, `${T}/navidad/13.jpg`, `${T}/navidad/09.jpg`, `${T}/navidad/10.jpg`, `${T}/navidad/11.jpg`, `${T}/navidad/15.jpg`, `${T}/navidad/16.jpg`, `${T}/navidad/17.jpg`, `${T}/navidad/18.jpg`, `${T}/navidad/19.jpg`, `${T}/navidad/20.jpg`, `${T}/navidad/21.jpg`, ...seq('navidad', 8)], more: true },
-  { id: 'blanca-navidad', sec: 'navidad', tags: 'navidad blanca invierno nieve', name: 'Blanca Navidad', imgs: seq('blanca-navidad', 1), more: true },
+  { id: 'navidad', sec: 'navidad', tags: 'santa grinch galleta elfos diciembre navideno papa noel', name: 'Navidad', desc: 'Santa, el Grinch y la galleta', imgs: [`${T}/navidad/12.jpg`, `${T}/navidad/09.jpg`, `${T}/navidad/10.jpg`, `${T}/navidad/11.jpg`, `${T}/navidad/01.jpg`, `${T}/navidad/07.jpg`, `${T}/navidad/19.jpg`, `${T}/navidad/08.jpg`], more: true },
+  { id: 'chicas-navidad', sec: 'navidad', tags: 'chicas santa elfa roja pareja candy navidad', name: 'Chicas de Navidad', desc: 'Elfas, Candy y chicas de Santa', imgs: [`${T}/navidad/13.jpg`, `${T}/navidad/15.jpg`, `${T}/navidad/02.jpg`, `${T}/navidad/16.jpg`, `${T}/navidad/17.jpg`, `${T}/navidad/18.jpg`, `${T}/navidad/20.jpg`, `${T}/navidad/21.jpg`], more: true },
+  { id: 'soldados-navidad', sec: 'navidad', tags: 'soldados juguete cascanueces zancos navidad desfile', name: 'Soldados de juguete', desc: 'Cascanueces y zancos navideños', imgs: [`${T}/navidad/03.jpg`, `${T}/navidad/04.jpg`, `${T}/navidad/05.jpg`], more: true },
+  { id: 'blanca-navidad', sec: 'navidad', tags: 'navidad blanca invierno nieve alas led', name: 'Blanca Navidad', imgs: [...seq('blanca-navidad', 1), `${T}/navidad/06.jpg`], more: true },
 ];
 
 /* las mismas secciones (y el mismo orden) que el catálogo impreso */
@@ -864,7 +866,7 @@ if (lb && document.querySelector('.feat-cover')) {
   const PACKS = {
     dorado: { name: 'Gold', imgs: ['assets/img/destacado/dorado-4.jpg', 'assets/img/destacado/dorado-2.jpg', 'assets/img/destacado/dorado-3.jpg', 'assets/img/destacado/dorado-1.jpg', 'assets/img/tematicas/dorado/01.jpg', 'assets/img/tematicas/dorado/02.jpg', 'assets/img/tematicas/dorado/03.jpg'] },
     plata:  { name: 'Disco Ball', imgs: ['assets/img/tematicas/espejos/main.jpg', 'assets/img/tematicas/espejos/09.jpg', 'assets/img/tematicas/espejos/10.jpg', 'assets/img/tematicas/espejos/11.jpg', 'assets/img/destacado/plata-4.jpg', 'assets/img/destacado/plata-1.jpg', 'assets/img/destacado/plata-2.jpg', 'assets/img/destacado/plata-3.jpg', 'assets/img/tematicas/espejos/01.jpg', 'assets/img/tematicas/espejos/02.jpg', 'assets/img/tematicas/espejos/03.jpg', 'assets/img/tematicas/espejos/04.jpg', 'assets/img/tematicas/espejos/05.jpg', 'assets/img/tematicas/espejos/06.jpg', 'assets/img/tematicas/espejos/07.jpg', 'assets/img/tematicas/espejos/08.jpg'] },
-    brasil: { name: 'Brasil Blanco con Plateado', imgs: ['assets/img/tematicas/brasil-plata/01.jpg', 'assets/img/tematicas/brasil-plata/02.jpg', 'assets/img/tematicas/brasil-plata/03.jpg', 'assets/img/destacado/brasil-1.jpg'] },
+    brasil: { name: 'Brazil Blanco con Plateado', imgs: ['assets/img/tematicas/brasil-plata/main.jpg', 'assets/img/tematicas/brasil-plata/01.jpg', 'assets/img/tematicas/brasil-plata/02.jpg', 'assets/img/tematicas/brasil-plata/03.jpg', 'assets/img/destacado/brasil-1.jpg'] },
     cabezones: { name: 'Cabezones', imgs: ['assets/img/promo/artistas.jpg', 'assets/img/tematicas/cabezones/03.jpg', 'assets/img/tematicas/cabezones/01.jpg', 'assets/img/tematicas/cabezones/02.jpg', 'assets/img/tematicas/cabezones/main.jpg'] },
   };
   let pack = null, idx = 0;
