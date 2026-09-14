@@ -3,7 +3,7 @@
    La página queda guardada en el dispositivo:
    si el servidor o el internet fallan, igual abre.
    ═══════════════════════════════════════════ */
-const VERSION = 'cce-v2';
+const VERSION = 'cce-v3';
 const SHELL = `${VERSION}-shell`;
 const MEDIA = `${VERSION}-media`;
 
