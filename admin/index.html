@@ -734,6 +734,13 @@ function puertaCerrada(msg) {
 }
 if (REMOTE ? !!secreto : sessionStorage.getItem('cce-admin') === '1') {
   showApp().catch(async (err) => {
+    // Enlace rechazado por la base (400/401/403): rpc() ya borro el secreto
+    // guardado. Antes esto caia en el aviso de "base de datos apagada", que
+    // mandaba al dueno a restaurar un proyecto que estaba sano.
+    if (err && err.message === 'enlace no válido') {
+      puertaCerrada('El enlace ya no es válido: la clave del panel cambió. Abre el enlace privado nuevo.');
+      return;
+    }
     // distinguir "no hay internet" de "la base de datos no responde",
     // y en ese caso abrir igual el panel con lo guardado en este equipo
     const sinInternet = !navigator.onLine;
