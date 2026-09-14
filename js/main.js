@@ -70,7 +70,8 @@ const THEMES = [
   { id: 'corazon', sec: 'bienvenida', tags: 'amor san valentin recibimiento',     name: 'Personaje de corazón', imgs: seq('corazon', 1), more: true },
   { id: 'bienvenida', sec: 'bienvenida', tags: 'recibimiento host entrada hostess',  name: 'Personajes para bienvenida', imgs: seq('bienvenida', 3), more: true },
   /* ── Show LED ── */
-  { id: 'led-show', sec: 'led', tags: 'led robots tambores zancos luces',    name: 'Show LED',        imgs: [...seq('led-show', 4), { v: 'assets/video/led-show.mp4' }], more: true },
+  { id: 'led-show', sec: 'led', tags: 'led robots zancos luces trajes escenario', name: 'Show LED', desc: 'Trajes LED y robot de zancos', imgs: [`${T}/led-show/03.jpg`, `${T}/led-show/04.jpg`, { v: 'assets/video/led-show.mp4' }], more: true },
+  { id: 'led-evento', sec: 'led', tags: 'led tambores percusion evento luces trajes', name: 'Show LED en evento', desc: 'Tambores LED en vivo', imgs: [`${T}/led-show/02.jpg`, `${T}/led-show/01.jpg`], more: true },
   { id: 'alas-led', sec: 'led', tags: 'alas angel luces',    name: 'Alas LED',        imgs: seq('alas-led', 4) },
   { id: 'robot-espejo', sec: 'led', tags: 'robot espejo futurista', name: 'Robot de espejos', imgs: [`${T}/robot-espejo/02.jpg`, `${T}/robot-espejo/01.jpg`, `${T}/robot-espejo/03.jpg`], more: true },
   /* ── Ritmo Dominicano ── */
