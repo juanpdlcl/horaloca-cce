@@ -82,7 +82,7 @@ TEMATICAS = [
     # Shine Gold
     PAGINA('grid', [('Shine Gold', t('shine-gold', 1)), ('Shine Gold', t('shine-gold', 2))]),
     # Brazil plateada: principal (main), con músicos, tres bailarinas
-    PAGINA('grid', [('Brazil plateada', f'{T}/brasil-plata/main.jpg'), ('Brazil plateada', t('brasil-plata', 2)), ('Brazil plateada', t('brasil-plata', 3))]),
+    PAGINA('grid', [('Brazil plateada', f'{T}/brasil-plata/grupo.jpg'), ('Brazil plateada', t('brasil-plata', 2)), ('Brazil plateada', t('brasil-plata', 3))]),
     # Brazil (2 hojas)
     PAGINA('grid', [('Brazil', t('brazil', 1)), ('Brazil', t('brazil', 3)), ('Brazil', t('brazil', 4)), ('Brazil', t('brazil', 5))]),
     PAGINA('grid', [ANCHO('Samba', t('samba', 1)), ('Brazil', t('brazil', 6)), ('Brazil — carnaval', t('brazil', 2))], titulo='Brazil'),

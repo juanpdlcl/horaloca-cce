@@ -32,7 +32,7 @@ const THEMES = [
   /* ── Temáticas ── */
   { id: 'gold', sec: 'tematicas', tags: 'dorado oro gold show girls plumas',        name: 'Dorado',          imgs: ['assets/img/destacado/dorado-4.jpg', `${T}/dorado/06.jpg`, `${T}/dorado/09.jpg`, `${T}/dorado/10.jpg`, `${T}/dorado/08.jpg`, `${T}/dorado/04.jpg`, `${T}/dorado/05.jpg`, `${T}/dorado/07.jpg`, ...seq('dorado', 3)] },
   { id: 'shine-gold', sec: 'tematicas', tags: 'dorado oro brillo',  name: 'Shine Gold',      imgs: seq('shine-gold', 2), more: true },
-  { id: 'brasil', sec: 'tematicas', tags: 'brazil plateada plumas carnaval',      name: 'Brazil plateada', imgs: [`${T}/brasil-plata/main.jpg`, ...seq('brasil-plata', 3), 'assets/img/destacado/brasil-1.jpg'] },
+  { id: 'brasil', sec: 'tematicas', tags: 'brazil plateada plumas carnaval',      name: 'Brazil plateada', imgs: [`${T}/brasil-plata/grupo.jpg`, ...seq('brasil-plata', 3), 'assets/img/destacado/brasil-1.jpg'] },
   { id: 'brazil', sec: 'tematicas', tags: 'brasil samba plumas carnaval rio',      name: 'Brazil',          imgs: [...seq('brazil', 6), { v: 'assets/video/brazil.mp4' }] },
   { id: 'samba', sec: 'tematicas', tags: 'brasil rio plumas',       name: 'Samba',           imgs: seq('samba', 1), more: true },
   { id: 'tropical', sec: 'tematicas', tags: 'verano flores colores',    name: 'Tropical',        imgs: ['assets/img/ig/tropical-sunset.jpg', ...seq('tropical', 2)] },
@@ -867,7 +867,7 @@ if (lb && document.querySelector('.feat-cover')) {
   const PACKS = {
     dorado: { name: 'Gold', imgs: ['assets/img/destacado/dorado-4.jpg', 'assets/img/destacado/dorado-2.jpg', 'assets/img/destacado/dorado-3.jpg', 'assets/img/destacado/dorado-1.jpg', 'assets/img/tematicas/dorado/01.jpg', 'assets/img/tematicas/dorado/02.jpg', 'assets/img/tematicas/dorado/03.jpg'] },
     plata:  { name: 'Disco Ball', imgs: ['assets/img/tematicas/espejos/main.jpg', 'assets/img/tematicas/espejos/09.jpg', 'assets/img/tematicas/espejos/10.jpg', 'assets/img/tematicas/espejos/11.jpg', 'assets/img/destacado/plata-4.jpg', 'assets/img/destacado/plata-1.jpg', 'assets/img/destacado/plata-2.jpg', 'assets/img/destacado/plata-3.jpg', 'assets/img/tematicas/espejos/01.jpg', 'assets/img/tematicas/espejos/02.jpg', 'assets/img/tematicas/espejos/03.jpg', 'assets/img/tematicas/espejos/04.jpg', 'assets/img/tematicas/espejos/05.jpg', 'assets/img/tematicas/espejos/06.jpg', 'assets/img/tematicas/espejos/07.jpg', 'assets/img/tematicas/espejos/08.jpg'] },
-    brasil: { name: 'Brazil Blanco con Plateado', imgs: ['assets/img/tematicas/brasil-plata/main.jpg', 'assets/img/tematicas/brasil-plata/01.jpg', 'assets/img/tematicas/brasil-plata/02.jpg', 'assets/img/tematicas/brasil-plata/03.jpg', 'assets/img/destacado/brasil-1.jpg'] },
+    brasil: { name: 'Brazil Blanco con Plateado', imgs: ['assets/img/tematicas/brasil-plata/grupo.jpg', 'assets/img/tematicas/brasil-plata/01.jpg', 'assets/img/tematicas/brasil-plata/02.jpg', 'assets/img/tematicas/brasil-plata/03.jpg', 'assets/img/destacado/brasil-1.jpg'] },
     cabezones: { name: 'Cabezones', imgs: ['assets/img/promo/artistas.jpg', 'assets/img/tematicas/cabezones/03.jpg', 'assets/img/tematicas/cabezones/01.jpg', 'assets/img/tematicas/cabezones/02.jpg', 'assets/img/tematicas/cabezones/main.jpg'] },
   };
   let pack = null, idx = 0;
