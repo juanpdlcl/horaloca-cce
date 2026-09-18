@@ -67,7 +67,7 @@ button{font-family:var(--fd);cursor:pointer}
 .btn-back{background:var(--surface);color:var(--text);border:1px solid var(--line2);padding:11px 22px;font-size:.85rem}
 .btn-back:hover{border-color:var(--violet);color:var(--violet)}
 .btn-back span{font-size:1.05rem;line-height:1}
-@media(max-width:640px){
+@media screen and (max-width:640px){
   .top{grid-template-columns:auto 1fr auto;gap:10px}
   .top .t{text-align:left;font-size:.92rem}
   .top-mark{display:none}
@@ -248,7 +248,7 @@ button{font-family:var(--fd);cursor:pointer}
 .day-info strong{display:block;font-family:var(--fd);font-size:.9rem;color:var(--text)}
 .day-info small{display:block;color:var(--muted);font-size:.75rem;margin-top:2px}
 .day-warn{display:flex;align-items:center;gap:8px;border:1px solid var(--warn);border-radius:10px;padding:9px 12px;color:var(--warn);font-size:.78rem;margin-bottom:12px;line-height:1.5}
-@media(max-width:720px){
+@media screen and (max-width:720px){
   /* La cuadricula de 7 columnas en un telefono deja celdas de 40px: no cabe
      ni la hora. Se queda como mapa del mes (numero + puntos) y lo que se lee
      de verdad es la lista de abajo. Tocar un dia abre su detalle. */
@@ -457,7 +457,7 @@ table.items td:nth-child(3),table.items td:nth-child(4),table.items td:nth-child
 .pv-pago{font-family:var(--fd);font-size:.62rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .pv-pago.avance{color:#c98a00}.pv-pago.pagado{color:#1a9a50}
 .pv-foot{margin-top:14px;font-size:.68rem;color:#6d6a78;display:flex;justify-content:space-between;gap:10px}
-@media(max-width:720px){
+@media screen and (max-width:720px){
   .doc{padding:26px 18px}
   .doc-cli{grid-template-columns:1fr 1fr}
   .doc-head img{width:150px}
@@ -470,7 +470,7 @@ table.items td:nth-child(3),table.items td:nth-child(4),table.items td:nth-child
    pantalla y estirara la página entera hacia los lados. */
 .doc-box{position:relative}
 
-@media(max-width:720px){
+@media screen and (max-width:720px){
   .wrap{width:auto;margin:20px 14px 70px;overflow-x:hidden}
 
   /* La hoja NO se mueve de lado: en el teléfono se convierte en un
@@ -491,6 +491,15 @@ table.items td:nth-child(3),table.items td:nth-child(4),table.items td:nth-child
   .date-box input{flex:1 1 130px;min-width:0;min-height:44px;font-size:16px;text-align:center}
   .dt-actions{display:flex;flex-direction:column;gap:8px;padding-top:10px}
   .dt-actions .btn{width:100%;min-height:48px;padding:12px 14px;font-size:.9rem}
+
+  /* La lista es lo unico legible en el telefono: va primero. Antes
+     arrancaba a 649px de scroll, debajo del pliegue. */
+  .cal-wrap{display:flex;flex-direction:column}
+  .cal-head{order:1}
+  .cal-lista{order:2;margin-top:0;margin-bottom:16px}
+  .cal-days{order:3}
+  .cal-grid{order:4}
+  .cal-ley{order:5}
 
   /* cabecera de la agenda */
   .cal-head{flex-direction:column;align-items:stretch;gap:10px}
@@ -597,6 +606,40 @@ table.items td:nth-child(3),table.items td:nth-child(4),table.items td:nth-child
 
   .doc-notes textarea{width:100%;min-height:96px;font-size:16px;padding:10px 11px;border-radius:9px}
   .doc-foot{flex-direction:column;gap:6px;font-size:.72rem;text-align:center}
+}
+
+/* ═══════════ TELÉFONO: lista, chips y botones al tamaño del pulgar ═══════════ */
+@media screen and (max-width:640px){
+  /* la cabecera fija se partia en dos lineas y robaba alto */
+  .top{padding:10px 14px;gap:8px}
+  .top .t{min-width:0;font-size:.86rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .top .t small{font-size:.56rem;letter-spacing:.08em}
+  .btn-back{padding:10px 14px;font-size:.78rem;gap:6px}
+
+  /* cada solicitud, ordenada y con acciones alcanzables */
+  .tk{gap:10px;padding:14px 16px}
+  .tk-main{flex:1 1 100%;min-width:0}
+  .tk-meta{flex:1 1 100%;min-width:0;text-align:left}
+  /* marcar como atendida escribe en la base de un toque: no puede medir 26px */
+  .chip{
+    min-height:44px;padding:11px 16px;font-size:.78rem;letter-spacing:.05em;
+    display:inline-flex;align-items:center;justify-content:center;
+  }
+  .tk .chip,.tk [data-open]{flex:1 1 calc(50% - 5px)}
+
+  /* botones: nada por debajo de 44px */
+  .btn-sm{padding:12px 18px;font-size:.88rem;min-height:44px}
+  .btn,.btn-back,.sec-acts .btn,.dt-actions .btn{min-height:46px}
+  .ev-btns{gap:12px}
+  .ev-btns .btn{flex:1}
+  .ev-modal{padding:12px}
+  .ev-box{padding:20px 16px}
+
+  /* texto que hay que leer de verdad, no decoracion */
+  .tk-main small,.tk-meta,.cal-sub,.hint,.day-info small,.choque-alert p{font-size:.86rem}
+  .cal-ley{font-size:.82rem;gap:10px}
+  .cal-num{font-size:.9rem}
+  .ev-box label span,.pay-lbl{font-size:.74rem;letter-spacing:.1em}
 }
 </style>
 </head>
