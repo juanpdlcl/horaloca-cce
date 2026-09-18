@@ -473,12 +473,11 @@ table.items td:nth-child(3),table.items td:nth-child(4),table.items td:nth-child
 @media(max-width:720px){
   .wrap{width:auto;margin:20px 14px 70px;overflow-x:hidden}
 
-  /* la hoja, a tamaño de documento, dentro de su caja */
-  .doc-box{
-    overflow:auto;-webkit-overflow-scrolling:touch;
-    border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.5);
-  }
-  .doc-box .doc{width:720px;box-shadow:none;border-radius:0}
+  /* La hoja NO se mueve de lado: en el teléfono se convierte en un
+     formulario cómodo (ver el bloque de abajo). Al imprimir vuelve a ser
+     el documento formal. */
+  .doc-box{overflow:visible}
+  .doc-box .doc{width:auto}
 
   /* barra del documento */
   .doc-tools{padding:12px;gap:10px;border-radius:14px}
@@ -511,6 +510,93 @@ table.items td:nth-child(3),table.items td:nth-child(4),table.items td:nth-child
   #fQ{width:100%;font-size:16px;min-height:44px}
   .fchips{display:flex;flex-wrap:wrap;gap:6px}
   .fchip{min-height:40px}
+}
+
+/* ═══════════ TELÉFONO: la hoja se llena como formulario ═══════════
+   En pantalla pequeña la cotización deja de ser una hoja carta que hay que
+   arrastrar y pasa a ser una ficha por línea, con la descripción grande
+   (que es lo que más se edita) y los campos a tamaño de dedo.
+   Va con "screen" a propósito: al IMPRIMIR no aplica nada de esto y sale
+   el documento de siempre. */
+@media screen and (max-width:720px){
+  .doc{padding:18px 14px}
+  .doc .marca img{width:90%}
+
+  /* cabecera apilada: el logo y "COTIZACIÓN" no caben uno al lado del otro */
+  .doc-head{flex-direction:column;align-items:flex-start;gap:8px;margin-bottom:18px}
+  .doc-head img{width:150px}
+  .doc-head .no{text-align:left;width:100%}
+  .doc-head .no h2{font-size:1.35rem;letter-spacing:.1em}
+  .doc-head .no p{font-size:.8rem}
+
+  /* datos del cliente, uno debajo de otro y editables de verdad */
+  .doc-cli{grid-template-columns:1fr;gap:10px;padding:12px 0;margin-bottom:18px}
+  .doc-cli b{margin-bottom:4px}
+  .doc-cli [contenteditable]{
+    display:block;width:100%;min-height:42px;padding:9px 11px;font-size:16px;
+    background:#f6f5fa;border:1px solid #e4e2ec;border-radius:9px;
+  }
+
+  /* cada línea del presupuesto es una ficha */
+  table.items,table.items tbody,table.items tr,table.items td{display:block;width:auto}
+  table.items thead{display:none}
+  table.items{margin-bottom:6px}
+  table.items tr{
+    position:relative;display:flex;flex-wrap:wrap;gap:8px;
+    border:1px solid #e4e2ec;border-radius:13px;
+    padding:30px 12px 12px;margin-bottom:12px;
+  }
+  table.items td{flex:0 0 100%;border:0;padding:0;text-align:left!important;white-space:normal!important}
+  .items .rn{
+    position:absolute;top:9px;left:13px;
+    font-family:var(--fd);font-size:.66rem;font-weight:700;letter-spacing:.14em;color:#6d6a78;
+  }
+  .items .rn::before{content:'LÍNEA '}
+  .items .rm-col{position:absolute;top:2px;right:4px}
+  .items .rm{font-size:19px;min-width:44px;min-height:44px;padding:0}
+
+  /* la descripción: lo que más se edita, en grande */
+  .items .desc{
+    display:block;width:100%;min-height:44px;padding:10px 11px;font-size:16px;line-height:1.4;
+    background:#f6f5fa;border:1px solid #e4e2ec;border-radius:9px;
+  }
+  .items .desc:focus{border-color:var(--violet);background:#fff}
+  .items .desc + .desc{margin-top:7px}
+  .items .desc small{display:block;font-size:.88rem;margin:0}
+
+  /* cantidad y precio, lado a lado y etiquetados */
+  .items td:nth-child(3),.items td:nth-child(4){flex:1 1 0;min-width:0;margin-top:2px}
+  .items td:nth-child(3)::before{content:'Cantidad'}
+  .items td:nth-child(4)::before{content:'Precio'}
+  .items td:nth-child(3)::before,.items td:nth-child(4)::before{
+    display:block;font-family:var(--fd);font-size:.62rem;font-weight:600;
+    letter-spacing:.14em;text-transform:uppercase;color:#6d6a78;margin-bottom:4px;
+  }
+  .items .iq,.items .ip{width:100%;min-height:44px;font-size:16px;text-align:left}
+
+  /* total de la línea */
+  .items .rt{
+    flex:0 0 100%;display:flex!important;align-items:center;justify-content:space-between;
+    margin-top:4px;padding-top:9px;border-top:1px solid #e4e2ec;
+    font-family:var(--fd);font-weight:700;font-size:1.02rem;
+  }
+  .items .rt::before{
+    content:'Total';font-family:var(--fd);font-size:.62rem;font-weight:600;
+    letter-spacing:.14em;text-transform:uppercase;color:#6d6a78;
+  }
+
+  .doc-add{width:100%;min-height:48px;font-size:.92rem;margin:2px 0 20px}
+
+  /* totales */
+  .doc-tot{display:block;margin-bottom:22px}
+  .doc-tot table{width:100%}
+  .doc-tot td{padding:7px 0}
+  .doc-tot .lbl{text-align:left}
+  .doc-tot .ip{width:110px;min-height:44px;font-size:16px}
+  .doc-tot .grand td{font-size:1.15rem;padding-top:10px}
+
+  .doc-notes textarea{width:100%;min-height:96px;font-size:16px;padding:10px 11px;border-radius:9px}
+  .doc-foot{flex-direction:column;gap:6px;font-size:.72rem;text-align:center}
 }
 </style>
 </head>
