@@ -435,57 +435,54 @@ table.items td:nth-child(3),table.items td:nth-child(4),table.items td:nth-child
   .doc-head img{width:150px}
 }
 
-/* ═══════════ TELÉFONO: la hoja de cotización y su barra ═══════════
-   Las píldoras de Pago y Fecha son inline-flex con mucho padding: en 360px
-   se salían de la pantalla y se cortaban por los lados. Aquí pasan a ocupar
-   el ancho completo y a apilarse. */
-@media(max-width:720px){
-  .wrap{width:auto;margin:20px 14px 70px}
+/* ═══════════ TELÉFONO ═══════════
+   La hoja de la cotización NO se aplasta: mantiene su tamaño de documento
+   y vive dentro de su propia caja con desplazamiento, para que se pueda
+   mover y ampliar como un papel. Aplastarla hacía que se saliera de la
+   pantalla y estirara la página entera hacia los lados. */
+.doc-box{position:relative}
 
+@media(max-width:720px){
+  .wrap{width:auto;margin:20px 14px 70px;overflow-x:hidden}
+
+  /* la hoja, a tamaño de documento, dentro de su caja */
+  .doc-box{
+    overflow:auto;-webkit-overflow-scrolling:touch;
+    border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.5);
+  }
+  .doc-box .doc{width:720px;box-shadow:none;border-radius:0}
+
+  /* barra del documento */
   .doc-tools{padding:12px;gap:10px;border-radius:14px}
   .dt-row{gap:10px;align-items:stretch;flex-direction:column}
   .doc-tools .sp{display:none}
-
-  .pay-box{
-    width:100%;display:flex;flex-wrap:wrap;gap:6px;
-    border-radius:14px;padding:10px 12px;
-  }
+  .pay-box{width:100%;display:flex;flex-wrap:wrap;gap:6px;border-radius:14px;padding:10px 12px}
   .pay-lbl{width:100%;margin:0 0 2px}
-  .pay-box button{flex:1 1 30%;min-height:44px;padding:9px 6px;font-size:.78rem;white-space:nowrap}
-
-  .date-box{
-    width:100%;display:flex;flex-wrap:wrap;gap:8px;
-    border-radius:14px;padding:10px 12px;
-  }
+  .pay-box button{flex:1 1 0;min-width:0;min-height:44px;padding:9px 4px;font-size:.76rem}
+  .date-box{width:100%;display:flex;flex-wrap:wrap;gap:8px;border-radius:14px;padding:10px 12px}
   .date-box .pay-lbl{width:100%}
-  .date-box input{flex:1 1 130px;min-height:44px;font-size:16px;text-align:center}
-
+  .date-box input{flex:1 1 130px;min-width:0;min-height:44px;font-size:16px;text-align:center}
   .dt-actions{display:flex;flex-direction:column;gap:8px;padding-top:10px}
   .dt-actions .btn{width:100%;min-height:48px;padding:12px 14px;font-size:.9rem}
 
-  /* la hoja en sí */
-  .doc{padding:22px 16px;border-radius:10px}
-  .doc-head{flex-direction:column;align-items:flex-start;gap:12px;margin-bottom:22px}
-  .doc-head img{width:150px}
-  .doc-head .no{text-align:left}
-  .doc-cli{grid-template-columns:1fr 1fr;gap:12px 16px;padding:12px 0;margin-bottom:20px;font-size:.85rem}
-  .doc-cli div:nth-child(4),.doc-cli div:nth-child(5){grid-column:span 1}
+  /* cabecera de la agenda */
+  .cal-head{flex-direction:column;align-items:stretch;gap:10px}
+  .cal-nav{display:grid;grid-template-columns:44px 1fr 44px;gap:8px;align-items:center}
+  .cal-nav strong{grid-column:2;min-width:0;text-align:center;font-size:.9rem}
+  .cal-nav #calHoy{grid-column:1 / 2;grid-row:2}
+  .cal-nav #btnPrintCal{grid-column:2 / 4;grid-row:2}
+  .cal-nav .btn{min-height:44px;padding:8px 10px;font-size:.8rem}
 
-  /* 5 columnas no caben: fuera el número de línea y todo más compacto */
-  table.items{font-size:.82rem}
-  table.items th:first-child,table.items td:first-child{display:none}
-  table.items th,table.items td{padding:8px 4px}
-  table.items th{font-size:.58rem;letter-spacing:.08em}
-  .items input{font-size:16px;padding:6px 5px}
-  .items .iq{width:46px}
-  .items .ip{width:84px}
-  .items .desc small{font-size:.72rem}
-
-  .doc-tot{justify-content:stretch}
-  .doc-tot table{width:100%}
-  .doc-tot .grand td{font-size:1rem}
-  .doc-notes textarea{font-size:16px}
-  .doc-foot{flex-direction:column;gap:6px;font-size:.72rem}
+  /* barra de solicitudes */
+  .sec-bar{flex-direction:column;align-items:stretch;gap:12px}
+  .sec-acts{display:flex;gap:8px}
+  .sec-acts .btn{flex:1;min-height:44px}
+  .toolbar{flex-direction:column;align-items:stretch;gap:10px}
+  .toolbar .tabs{width:100%}
+  .toolbar .tab{flex:1;min-height:44px}
+  #fQ{width:100%;font-size:16px;min-height:44px}
+  .fchips{display:flex;flex-wrap:wrap;gap:6px}
+  .fchip{min-height:40px}
 }
 </style>
 </head>
@@ -605,6 +602,7 @@ table.items td:nth-child(3),table.items td:nth-child(4),table.items td:nth-child
         </div>
       </div>
 
+      <div class="doc-box" id="docBox">
       <div class="doc" id="doc">
         <div class="marca" aria-hidden="true"><img src="assets/img/hero-feathers.webp" alt=""></div>
         <div class="doc-head">
@@ -644,6 +642,7 @@ table.items td:nth-child(3),table.items td:nth-child(4),table.items td:nth-child
           <span><b>CC Entertainment</b> · Producción de espectáculos temáticos · Coreografías · Horas Locas</span>
           <span>(829) 343-5460 · carolina.caba95@gmail.com · @horaloca_cce</span>
         </div>
+      </div>
       </div>
     </div>
   </div>
@@ -911,6 +910,7 @@ function renderList() {
   const historial = TICKETS.filter(esHistorial);
   document.querySelector('#fTab [data-tab="activas"] .n').textContent = activas.length;
   document.querySelector('#fTab [data-tab="historial"] .n').textContent = historial.length;
+  if ($('nSolic')) $('nSolic').textContent = activas.length;
   let lista = F.tab === 'historial' ? historial : activas;
   if (F.st) lista = lista.filter((k) => k.status === F.st);
   if (F.q) {
@@ -1001,6 +1001,7 @@ function renderCal() {
     </div>`;
   }
   $('calGrid').innerHTML = html;
+  if ($('nAgenda')) $('nAgenda').textContent = agendados().length;
   $('calResumen').textContent = delMes ? `${delMes} ${delMes === 1 ? 'show agendado' : 'shows agendados'} este mes` : 'Sin shows agendados este mes';
 
   /* En el telefono la cuadricula son 7 columnas de 40px: no cabe nada legible.

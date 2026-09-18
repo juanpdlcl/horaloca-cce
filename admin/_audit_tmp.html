@@ -434,6 +434,56 @@ table.items td:nth-child(3),table.items td:nth-child(4),table.items td:nth-child
   .doc-cli{grid-template-columns:1fr 1fr}
   .doc-head img{width:150px}
 }
+
+/* ═══════════ TELÉFONO ═══════════
+   La hoja de la cotización NO se aplasta: mantiene su tamaño de documento
+   y vive dentro de su propia caja con desplazamiento, para que se pueda
+   mover y ampliar como un papel. Aplastarla hacía que se saliera de la
+   pantalla y estirara la página entera hacia los lados. */
+.doc-box{position:relative}
+
+@media(max-width:720px){
+  .wrap{width:auto;margin:20px 14px 70px;overflow-x:hidden}
+
+  /* la hoja, a tamaño de documento, dentro de su caja */
+  .doc-box{
+    overflow:auto;-webkit-overflow-scrolling:touch;
+    border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.5);
+  }
+  .doc-box .doc{width:720px;box-shadow:none;border-radius:0}
+
+  /* barra del documento */
+  .doc-tools{padding:12px;gap:10px;border-radius:14px}
+  .dt-row{gap:10px;align-items:stretch;flex-direction:column}
+  .doc-tools .sp{display:none}
+  .pay-box{width:100%;display:flex;flex-wrap:wrap;gap:6px;border-radius:14px;padding:10px 12px}
+  .pay-lbl{width:100%;margin:0 0 2px}
+  .pay-box button{flex:1 1 0;min-width:0;min-height:44px;padding:9px 4px;font-size:.76rem}
+  .date-box{width:100%;display:flex;flex-wrap:wrap;gap:8px;border-radius:14px;padding:10px 12px}
+  .date-box .pay-lbl{width:100%}
+  .date-box input{flex:1 1 130px;min-width:0;min-height:44px;font-size:16px;text-align:center}
+  .dt-actions{display:flex;flex-direction:column;gap:8px;padding-top:10px}
+  .dt-actions .btn{width:100%;min-height:48px;padding:12px 14px;font-size:.9rem}
+
+  /* cabecera de la agenda */
+  .cal-head{flex-direction:column;align-items:stretch;gap:10px}
+  .cal-nav{display:grid;grid-template-columns:44px 1fr 44px;gap:8px;align-items:center}
+  .cal-nav strong{grid-column:2;min-width:0;text-align:center;font-size:.9rem}
+  .cal-nav #calHoy{grid-column:1 / 2;grid-row:2}
+  .cal-nav #btnPrintCal{grid-column:2 / 4;grid-row:2}
+  .cal-nav .btn{min-height:44px;padding:8px 10px;font-size:.8rem}
+
+  /* barra de solicitudes */
+  .sec-bar{flex-direction:column;align-items:stretch;gap:12px}
+  .sec-acts{display:flex;gap:8px}
+  .sec-acts .btn{flex:1;min-height:44px}
+  .toolbar{flex-direction:column;align-items:stretch;gap:10px}
+  .toolbar .tabs{width:100%}
+  .toolbar .tab{flex:1;min-height:44px}
+  #fQ{width:100%;font-size:16px;min-height:44px}
+  .fchips{display:flex;flex-wrap:wrap;gap:6px}
+  .fchip{min-height:40px}
+}
 </style>
 </head>
 <body>
@@ -552,6 +602,7 @@ table.items td:nth-child(3),table.items td:nth-child(4),table.items td:nth-child
         </div>
       </div>
 
+      <div class="doc-box" id="docBox">
       <div class="doc" id="doc">
         <div class="marca" aria-hidden="true"><img src="assets/img/hero-feathers.webp" alt=""></div>
         <div class="doc-head">
@@ -591,6 +642,7 @@ table.items td:nth-child(3),table.items td:nth-child(4),table.items td:nth-child
           <span><b>CC Entertainment</b> · Producción de espectáculos temáticos · Coreografías · Horas Locas</span>
           <span>(829) 343-5460 · carolina.caba95@gmail.com · @horaloca_cce</span>
         </div>
+      </div>
       </div>
     </div>
   </div>
@@ -649,7 +701,7 @@ table.items td:nth-child(3),table.items td:nth-child(4),table.items td:nth-child
 
 <script>
 window.CCE_SUPABASE = {};
-try{ localStorage.setItem('cce-tickets', JSON.stringify([{"id": "AB0000", "ts": "2026-09-18T17:59:45.705505", "name": "Carolina Maria Fernandez de los Santos", "phone": "(829) 343-5460", "type": "Boda", "place": "Salon Los Jardines, Santo Domingo Este", "date": "2026-09-06", "items": [{"id": "hora-loca:gold", "name": "Hora Loca Dorado", "qty": 1, "note": "45 minutos, 6 bailarines"}, {"id": "zanqueros", "name": "Zanqueros", "qty": 2, "note": ""}], "status": "atendida", "quote": {"pago": "pagado", "evento": {"fecha": "2026-09-06", "hora": "21:00"}, "rows": [{"d": "Hora Loca Dorado", "n": "45 minutos, 6 bailarines", "q": 1, "p": 14500}, {"d": "Zanqueros", "n": "2 zanqueros tematicos", "q": 2, "p": 6500}], "disc": 1000, "terms": "Cotizacion valida por 15 dias."}}, {"id": "AB0001", "ts": "2026-09-18T17:59:45.705505", "name": "Juan Pablo de la Cruz", "phone": "(809) 555-1212", "type": "Cumpleanos 15", "place": "Club Naco", "date": "2026-09-06", "items": [{"id": "hora-loca:gold", "name": "Hora Loca Dorado", "qty": 1, "note": "45 minutos, 6 bailarines"}, {"id": "zanqueros", "name": "Zanqueros", "qty": 2, "note": ""}], "status": "nueva", "quote": {"pago": "avance", "evento": {"fecha": "2026-09-06", "hora": "22:30"}, "rows": [{"d": "Hora Loca Dorado", "n": "45 minutos, 6 bailarines", "q": 1, "p": 14500}, {"d": "Zanqueros", "n": "2 zanqueros tematicos", "q": 2, "p": 6500}], "disc": 1000, "terms": "Cotizacion valida por 15 dias."}}, {"id": "AB0002", "ts": "2026-09-18T17:59:45.705505", "name": "Empresa Distribuidora Nacional SRL", "phone": "(809) 222-3333", "type": "Activacion de marca", "place": "Hotel Embajador", "date": "2026-09-06", "items": [{"id": "hora-loca:gold", "name": "Hora Loca Dorado", "qty": 1, "note": "45 minutos, 6 bailarines"}, {"id": "zanqueros", "name": "Zanqueros", "qty": 2, "note": ""}], "status": "atendida", "quote": {"pago": "pagado", "evento": {"fecha": "2026-09-06", "hora": "19:00"}, "rows": [{"d": "Hora Loca Dorado", "n": "45 minutos, 6 bailarines", "q": 1, "p": 14500}, {"d": "Zanqueros", "n": "2 zanqueros tematicos", "q": 2, "p": 6500}], "disc": 1000, "terms": "Cotizacion valida por 15 dias."}}, {"id": "AB0003", "ts": "2026-09-18T17:59:45.705505", "name": "Rosa Elena Pimentel", "phone": "(849) 777-8888", "type": "Aniversario", "place": "Casa de campo", "date": "2026-09-13", "items": [{"id": "hora-loca:gold", "name": "Hora Loca Dorado", "qty": 1, "note": "45 minutos, 6 bailarines"}, {"id": "zanqueros", "name": "Zanqueros", "qty": 2, "note": ""}], "status": "nueva", "quote": {"pago": "avance", "evento": {"fecha": "2026-09-13", "hora": "20:00"}, "rows": [{"d": "Hora Loca Dorado", "n": "45 minutos, 6 bailarines", "q": 1, "p": 14500}, {"d": "Zanqueros", "n": "2 zanqueros tematicos", "q": 2, "p": 6500}], "disc": 1000, "terms": "Cotizacion valida por 15 dias."}}, {"id": "AB0004", "ts": "2026-09-18T17:59:45.705505", "name": "Marcos Antonio Reyes", "phone": "(809) 444-9999", "type": "Boda", "place": "Punta Cana", "date": "2026-09-20", "items": [{"id": "hora-loca:gold", "name": "Hora Loca Dorado", "qty": 1, "note": "45 minutos, 6 bailarines"}, {"id": "zanqueros", "name": "Zanqueros", "qty": 2, "note": ""}], "status": "atendida", "quote": {"pago": "pagado", "evento": {"fecha": "2026-09-20", "hora": "18:00"}, "rows": [{"d": "Hora Loca Dorado", "n": "45 minutos, 6 bailarines", "q": 1, "p": 14500}, {"d": "Zanqueros", "n": "2 zanqueros tematicos", "q": 2, "p": 6500}], "disc": 1000, "terms": "Cotizacion valida por 15 dias."}}])); sessionStorage.setItem('cce-admin','1'); }catch(e){}
+try{ localStorage.setItem('cce-tickets', JSON.stringify([{"id": "AB0000", "ts": "2026-09-18T18:03:19.596688", "name": "Carolina Maria Fernandez de los Santos", "phone": "(829) 343-5460", "type": "Boda", "place": "Salon Los Jardines", "date": "2026-09-06", "items": [{"id": "hora-loca:gold", "name": "Hora Loca Dorado", "qty": 1, "note": "45 minutos, 6 bailarines"}], "status": "atendida", "quote": {"pago": "pagado", "evento": {"fecha": "2026-09-06", "hora": "21:00"}, "rows": [{"d": "Hora Loca Dorado", "n": "45 minutos, 6 bailarines", "q": 1, "p": 14500}, {"d": "Zanqueros", "n": "2 zanqueros", "q": 2, "p": 6500}], "disc": 1000, "terms": "Cotizacion valida por 15 dias."}}, {"id": "AB0001", "ts": "2026-09-18T18:03:19.596688", "name": "Juan Pablo de la Cruz", "phone": "(809) 555-1212", "type": "Cumpleanos 15", "place": "Club Naco", "date": "2026-09-06", "items": [{"id": "hora-loca:gold", "name": "Hora Loca Dorado", "qty": 1, "note": "45 minutos, 6 bailarines"}], "status": "nueva", "quote": {"pago": "avance", "evento": {"fecha": "2026-09-06", "hora": "22:30"}, "rows": [{"d": "Hora Loca Dorado", "n": "45 minutos, 6 bailarines", "q": 1, "p": 14500}, {"d": "Zanqueros", "n": "2 zanqueros", "q": 2, "p": 6500}], "disc": 1000, "terms": "Cotizacion valida por 15 dias."}}, {"id": "AB0002", "ts": "2026-09-18T18:03:19.596688", "name": "Empresa Distribuidora Nacional SRL", "phone": "(809) 222-3333", "type": "Activacion", "place": "Hotel Embajador", "date": "2026-09-06", "items": [{"id": "hora-loca:gold", "name": "Hora Loca Dorado", "qty": 1, "note": "45 minutos, 6 bailarines"}], "status": "atendida", "quote": {"pago": "pagado", "evento": {"fecha": "2026-09-06", "hora": "19:00"}, "rows": [{"d": "Hora Loca Dorado", "n": "45 minutos, 6 bailarines", "q": 1, "p": 14500}, {"d": "Zanqueros", "n": "2 zanqueros", "q": 2, "p": 6500}], "disc": 1000, "terms": "Cotizacion valida por 15 dias."}}, {"id": "AB0003", "ts": "2026-09-18T18:03:19.596688", "name": "Rosa Elena Pimentel", "phone": "(849) 777-8888", "type": "Aniversario", "place": "Casa de campo", "date": "2026-09-13", "items": [{"id": "hora-loca:gold", "name": "Hora Loca Dorado", "qty": 1, "note": "45 minutos, 6 bailarines"}], "status": "nueva", "quote": {"pago": "avance", "evento": {"fecha": "2026-09-13", "hora": "20:00"}, "rows": [{"d": "Hora Loca Dorado", "n": "45 minutos, 6 bailarines", "q": 1, "p": 14500}, {"d": "Zanqueros", "n": "2 zanqueros", "q": 2, "p": 6500}], "disc": 1000, "terms": "Cotizacion valida por 15 dias."}}])); sessionStorage.setItem('cce-admin','1'); }catch(e){}
 </script>
 <script>
 /* Acceso local: cambia la clave generando un nuevo hash SHA-256 (pídemelo y te lo genero).
@@ -861,6 +913,7 @@ function renderList() {
   const historial = TICKETS.filter(esHistorial);
   document.querySelector('#fTab [data-tab="activas"] .n').textContent = activas.length;
   document.querySelector('#fTab [data-tab="historial"] .n').textContent = historial.length;
+  if ($('nSolic')) $('nSolic').textContent = activas.length;
   let lista = F.tab === 'historial' ? historial : activas;
   if (F.st) lista = lista.filter((k) => k.status === F.st);
   if (F.q) {
@@ -951,6 +1004,7 @@ function renderCal() {
     </div>`;
   }
   $('calGrid').innerHTML = html;
+  if ($('nAgenda')) $('nAgenda').textContent = agendados().length;
   $('calResumen').textContent = delMes ? `${delMes} ${delMes === 1 ? 'show agendado' : 'shows agendados'} este mes` : 'Sin shows agendados este mes';
 
   /* En el telefono la cuadricula son 7 columnas de 40px: no cabe nada legible.
