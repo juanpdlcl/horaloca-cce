@@ -329,6 +329,11 @@ button{font-family:var(--fd);cursor:pointer}
 .dt-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
 .dt-actions{border-top:1px solid var(--line);padding-top:12px}
 .dt-actions .btn{padding:13px 26px;font-size:.88rem}
+.auto-ok{
+  font-family:var(--fd);font-size:.75rem;font-weight:600;letter-spacing:.04em;
+  color:var(--ok);align-self:center;
+}
+.auto-ok[hidden]{display:none}
 .doc-tools .sp{flex:1}
 .doc{
   position:relative;background:#fff;color:#17151d;border-radius:6px;overflow:hidden;
@@ -393,13 +398,36 @@ table.items td:nth-child(3),table.items td:nth-child(4),table.items td:nth-child
 
 /* ── impresión / PDF ── */
 @media print{
+  @page{size:A4;margin:12mm}
   body{background:#fff}
-  .top,.doc-tools,.hint,.doc-add,.items .rm,.rm-col,#discRow.zero{display:none!important}
-  .wrap{width:100%;margin:0}
-  .doc{box-shadow:none;border-radius:0;padding:24px 8px}
+  .top,.doc-tools,.hint,.doc-add,.items .rm,.rm-col,#discRow.zero,
+  .pestanas,.sec-bar,.toolbar,#panAgenda{display:none!important}
+  .wrap{width:100%;margin:0;overflow:visible}
+  /* la caja de desplazamiento no debe cortar la hoja al imprimir */
+  .doc-box{overflow:visible!important;box-shadow:none!important;border-radius:0}
+  .doc-box .doc{width:auto!important}
+  .doc{box-shadow:none;border-radius:0;padding:0}
   .doc .marca img{opacity:.05;-webkit-print-color-adjust:exact;print-color-adjust:exact}
   .items input,.doc-notes textarea{background:#fff;border:none;padding:0}
   .items .iq{width:auto}.items .ip{width:auto}
+
+  /* TODO EN UNA SOLA HOJA: se aprieta lo justo y se prohiben los cortes */
+  .doc,.doc *{page-break-inside:avoid;break-inside:avoid}
+  .doc-head{margin-bottom:14px}
+  .doc-head img{width:150px}
+  .doc-head .no h2{font-size:1.5rem}
+  .doc-cli{gap:8px 24px;padding:9px 2px;margin-bottom:14px;font-size:.8rem}
+  table.items{font-size:.8rem;margin-bottom:4px}
+  table.items th{padding:5px 6px;font-size:.6rem}
+  table.items td{padding:6px 6px}
+  .items .desc small{font-size:.7rem}
+  .doc-tot{margin-bottom:14px}
+  .doc-tot table{font-size:.85rem}
+  .doc-tot td{padding:3px 8px}
+  .doc-tot .grand td{font-size:1rem;padding-top:6px}
+  .doc-notes{margin-bottom:14px}
+  .doc-notes textarea{font-size:.78rem;height:auto;min-height:0;resize:none;overflow:hidden}
+  .doc-foot{font-size:.68rem}
 }
 
 /* ── impresión del calendario ── */
@@ -595,8 +623,9 @@ table.items td:nth-child(3),table.items td:nth-child(4),table.items td:nth-child
           </div>
         </div>
         <div class="dt-row dt-actions">
-          <button class="btn" id="btnSave">Guardar cambios</button>
+          <button class="btn" id="btnWord">Descargar Word</button>
           <button class="btn btn-ghost" id="btnPrint">Descargar PDF</button>
+          <span class="auto-ok" id="autoOk" hidden>Guardado</span>
           <span class="sp"></span>
           <button class="btn btn-danger" id="btnDelete">Eliminar</button>
         </div>
@@ -1436,10 +1465,238 @@ async function persistDoc() {
   renderCal();
   await dbUpdate(current.id, patch);
 }
-$('btnSave').addEventListener('click', async () => {
+/* ── guardado automático ──
+   Ya no hay botón: cualquier cambio en la hoja se guarda solo un segundo
+   después de dejar de escribir, y avisa con un "Guardado" discreto. */
+let autoT = null, autoOkT = null;
+function autoGuarda() {
+  if (!current) return;
+  clearTimeout(autoT);
+  autoT = setTimeout(async () => {
+    try {
+      await persistDoc();
+      const a = $('autoOk');
+      if (a) {
+        a.textContent = 'Guardado';
+        a.hidden = false;
+        clearTimeout(autoOkT);
+        autoOkT = setTimeout(() => { a.hidden = true; }, 1800);
+      }
+    } catch (_) {
+      const a = $('autoOk');
+      if (a) { a.textContent = 'Sin guardar — revisa la conexión'; a.style.color = 'var(--danger)'; a.hidden = false; }
+    }
+  }, 900);
+}
+['input', 'change'].forEach((ev) => {
+  $('doc').addEventListener(ev, autoGuarda);
+  $('docTools') && $('docTools').addEventListener(ev, autoGuarda);
+});
+$('doc').addEventListener('blur', autoGuarda, true);
+$('dFecha').addEventListener('change', autoGuarda);
+$('dHora').addEventListener('change', autoGuarda);
+/* al salir de la hoja, guardar lo que quede pendiente */
+window.addEventListener('beforeunload', () => { if (autoT) { clearTimeout(autoT); persistDoc(); } });
+
+/* ── exportar a Word (.docx de verdad, sin librerías) ──
+   Un .docx es un ZIP con XML dentro. Se arma a mano: así el archivo se
+   descarga literalmente (no abre el diálogo de imprimir) y Word lo abre
+   limpio, sin avisos de "formato no coincide". */
+const TABLA_CRC = (() => {
+  const t = new Uint32Array(256);
+  for (let n = 0; n < 256; n++) {
+    let c = n;
+    for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1;
+    t[n] = c >>> 0;
+  }
+  return t;
+})();
+function crc32(bytes) {
+  let c = 0xFFFFFFFF;
+  for (let i = 0; i < bytes.length; i++) c = TABLA_CRC[(c ^ bytes[i]) & 0xFF] ^ (c >>> 8);
+  return (c ^ 0xFFFFFFFF) >>> 0;
+}
+/* ZIP sin compresión (método 0): más simple y Word lo acepta igual */
+function armaZip(archivos) {
+  const cod = new TextEncoder();
+  const partes = [], central = [];
+  let desp = 0;
+  archivos.forEach(({ nombre, texto }) => {
+    const datos = cod.encode(texto);
+    const nom = cod.encode(nombre);
+    const crc = crc32(datos);
+    const local = new Uint8Array(30 + nom.length);
+    const v = new DataView(local.buffer);
+    v.setUint32(0, 0x04034b50, true); v.setUint16(4, 20, true); v.setUint16(6, 0, true);
+    v.setUint16(8, 0, true); v.setUint16(10, 0, true); v.setUint16(12, 0, true);
+    v.setUint32(14, crc, true); v.setUint32(18, datos.length, true); v.setUint32(22, datos.length, true);
+    v.setUint16(26, nom.length, true); v.setUint16(28, 0, true);
+    local.set(nom, 30);
+    partes.push(local, datos);
+
+    const cen = new Uint8Array(46 + nom.length);
+    const c = new DataView(cen.buffer);
+    c.setUint32(0, 0x02014b50, true); c.setUint16(4, 20, true); c.setUint16(6, 20, true);
+    c.setUint16(8, 0, true); c.setUint16(10, 0, true); c.setUint16(12, 0, true); c.setUint16(14, 0, true);
+    c.setUint32(16, crc, true); c.setUint32(20, datos.length, true); c.setUint32(24, datos.length, true);
+    c.setUint16(28, nom.length, true); c.setUint16(30, 0, true); c.setUint16(32, 0, true);
+    c.setUint16(34, 0, true); c.setUint16(36, 0, true); c.setUint32(38, 0, true);
+    c.setUint32(42, desp, true);
+    cen.set(nom, 46);
+    central.push(cen);
+    desp += local.length + datos.length;
+  });
+  const tamCentral = central.reduce((a, b) => a + b.length, 0);
+  const fin = new Uint8Array(22);
+  const f = new DataView(fin.buffer);
+  f.setUint32(0, 0x06054b50, true); f.setUint16(4, 0, true); f.setUint16(6, 0, true);
+  f.setUint16(8, archivos.length, true); f.setUint16(10, archivos.length, true);
+  f.setUint32(12, tamCentral, true); f.setUint32(16, desp, true); f.setUint16(20, 0, true);
+  return new Blob([...partes, ...central, fin], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+}
+const xe = (t) => String(t == null ? '' : t)
+  .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+  .replace(/"/g, '&quot;').replace(/'/g, '&apos;');
+
+/* un párrafo */
+function wp(texto, o) {
+  const s = o || {};
+  const pPr = `<w:pPr>${s.align ? `<w:jc w:val="${s.align}"/>` : ''}` +
+    `<w:spacing w:before="${s.antes || 0}" w:after="${s.despues == null ? 60 : s.despues}" w:line="240" w:lineRule="auto"/>` +
+    (s.borde ? '<w:pBdr><w:bottom w:val="single" w:sz="12" w:space="2" w:color="17151D"/></w:pBdr>' : '') +
+    '</w:pPr>';
+  const rPr = `<w:rPr><w:rFonts w:ascii="Calibri" w:hAnsi="Calibri"/>` +
+    (s.bold ? '<w:b/>' : '') + (s.caps ? '<w:caps/>' : '') +
+    `<w:color w:val="${s.color || '17151D'}"/><w:sz w:val="${s.size || 20}"/>` +
+    (s.spacing ? `<w:spacing w:val="${s.spacing}"/>` : '') + '</w:rPr>';
+  const partes = String(texto == null ? '' : texto).split('\n');
+  const runs = partes.map((t, i) =>
+    `${i ? '<w:r>' + rPr + '<w:br/></w:r>' : ''}<w:r>${rPr}<w:t xml:space="preserve">${xe(t)}</w:t></w:r>`).join('');
+  return `<w:p>${pPr}${runs}</w:p>`;
+}
+/* una celda */
+function wtc(texto, o) {
+  const s = o || {};
+  return `<w:tc><w:tcPr><w:tcW w:w="${s.w || 0}" w:type="dxa"/>` +
+    (s.fondo ? `<w:shd w:val="clear" w:fill="${s.fondo}"/>` : '') +
+    '<w:tcBorders><w:bottom w:val="single" w:sz="4" w:space="0" w:color="E4E2EC"/></w:tcBorders>' +
+    '<w:vAlign w:val="center"/></w:tcPr>' +
+    wp(texto, { ...s, despues: 0 }) + '</w:tc>';
+}
+
+function descargaWord() {
+  const num = ($('dNo').textContent || '').replace(/^Nº\s*/i, '').trim() || (current && current.id) || 'cotizacion';
+  const fecha = ($('dDate').textContent || '').trim();
+  const cli = [
+    ['Cliente', $('dName').textContent.trim()],
+    ['WhatsApp', $('dPhone').textContent.trim()],
+    ['Tipo de evento', $('dType').textContent.trim()],
+    ['Lugar del evento', $('dPlace').textContent.trim()],
+    ['Fecha del evento', $('dEvDate').textContent.trim()],
+  ];
+  const filas = [...$('dRows').querySelectorAll('tr')].map((tr) => {
+    const desc = tr.querySelector('.desc');
+    const detalle = desc ? desc.querySelector('small') : null;
+    const titulo = desc ? [...desc.childNodes].filter((n) => n.nodeType === 3).map((n) => n.textContent).join('').trim() : '';
+    const iq = tr.querySelector('.iq'), ip = tr.querySelector('.ip');
+    return {
+      d: titulo + (detalle ? '\n' + detalle.textContent.trim() : ''),
+      q: iq ? iq.value : '1',
+      p: ip ? ip.value : '0',
+      t: (tr.children[tr.children.length - 2] || {}).textContent || '',
+    };
+  });
+
+  const W = [3600, 5000, 900, 1500, 1700];   // anchos en twips
+  const cab = `<w:tr><w:trPr><w:tblHeader/></w:trPr>` +
+    wtc('#', { w: W[0] * 0 + 600, bold: true, size: 15, caps: true, color: '6D6A78', fondo: 'F6F5FA' }) +
+    wtc('Descripción', { w: 4600, bold: true, size: 15, caps: true, color: '6D6A78', fondo: 'F6F5FA' }) +
+    wtc('Cant.', { w: 900, bold: true, size: 15, caps: true, color: '6D6A78', fondo: 'F6F5FA', align: 'right' }) +
+    wtc('Precio', { w: 1500, bold: true, size: 15, caps: true, color: '6D6A78', fondo: 'F6F5FA', align: 'right' }) +
+    wtc('Total', { w: 1700, bold: true, size: 15, caps: true, color: '6D6A78', fondo: 'F6F5FA', align: 'right' }) +
+    '</w:tr>';
+  const cuerpo = filas.map((f, i) =>
+    '<w:tr>' +
+    wtc(String(i + 1), { w: 600, size: 18, color: '6D6A78' }) +
+    wtc(f.d, { w: 4600, size: 18 }) +
+    wtc(f.q, { w: 900, size: 18, align: 'right' }) +
+    wtc('RD$ ' + Number(f.p || 0).toLocaleString('es-DO'), { w: 1500, size: 18, align: 'right' }) +
+    wtc(f.t.trim(), { w: 1700, size: 18, align: 'right' }) +
+    '</w:tr>').join('');
+
+  const tabla = '<w:tbl><w:tblPr><w:tblW w:w="9300" w:type="dxa"/>' +
+    '<w:tblBorders><w:top w:val="single" w:sz="12" w:space="0" w:color="17151D"/>' +
+    '<w:insideH w:val="single" w:sz="4" w:space="0" w:color="E4E2EC"/></w:tblBorders>' +
+    '<w:tblCellMar><w:top w:w="60" w:type="dxa"/><w:bottom w:w="60" w:type="dxa"/>' +
+    '<w:left w:w="80" w:type="dxa"/><w:right w:w="80" w:type="dxa"/></w:tblCellMar></w:tblPr>' +
+    '<w:tblGrid>' + [600, 4600, 900, 1500, 1700].map((w) => `<w:gridCol w:w="${w}"/>`).join('') + '</w:tblGrid>' +
+    cab + cuerpo + '</w:tbl>';
+
+  const totales = [
+    ['Subtotal', $('dSub').textContent.trim(), false],
+    ...(Number($('dDisc').value || 0) > 0 ? [['Descuento', 'RD$ ' + Number($('dDisc').value).toLocaleString('es-DO'), false]] : []),
+    ['Total', $('dTotal').textContent.trim(), true],
+  ].map(([l, v, g]) =>
+    '<w:tr>' +
+    wtc(l, { w: 6000, align: 'right', caps: true, size: g ? 20 : 15, bold: true, color: g ? '17151D' : '6D6A78' }) +
+    wtc(v, { w: 3300, align: 'right', bold: true, size: g ? 24 : 20 }) +
+    '</w:tr>').join('');
+  const tablaTot = '<w:tbl><w:tblPr><w:tblW w:w="9300" w:type="dxa"/><w:jc w:val="right"/>' +
+    '<w:tblCellMar><w:top w:w="40" w:type="dxa"/><w:bottom w:w="40" w:type="dxa"/>' +
+    '<w:left w:w="80" w:type="dxa"/><w:right w:w="80" w:type="dxa"/></w:tblCellMar></w:tblPr>' +
+    '<w:tblGrid><w:gridCol w:w="6000"/><w:gridCol w:w="3300"/></w:tblGrid>' + totales + '</w:tbl>';
+
+  const cuerpoDoc =
+    wp('CC ENTERTAINMENT', { bold: true, size: 26, spacing: 40 }) +
+    wp('Producción de espectáculos temáticos · Coreografías · Horas Locas', { size: 16, color: '6D6A78', despues: 160 }) +
+    wp('COTIZACIÓN', { bold: true, size: 40, spacing: 60 }) +
+    wp('Nº ' + num + '     ' + fecha, { size: 18, color: '6D6A78', despues: 40, borde: true }) +
+    wp('', { despues: 80 }) +
+    cli.map(([k, v]) => wp(k.toUpperCase() + ':  ' + (v || '—'), { size: 18, despues: 40 })).join('') +
+    wp('', { despues: 120 }) +
+    tabla +
+    wp('', { despues: 100 }) +
+    tablaTot +
+    wp('', { despues: 160 }) +
+    wp('CONDICIONES', { bold: true, size: 15, caps: true, color: '6D6A78', despues: 40 }) +
+    wp($('dTerms').value.trim(), { size: 17, despues: 220 }) +
+    wp('CC Entertainment · (829) 343-5460 · carolina.caba95@gmail.com · @horaloca_cce',
+       { size: 15, color: '6D6A78', align: 'center' });
+
+  const documento = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+    '<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">' +
+    '<w:body>' + cuerpoDoc +
+    '<w:sectPr><w:pgSz w:w="11906" w:h="16838"/>' +
+    '<w:pgMar w:top="1134" w:right="1134" w:bottom="1134" w:left="1134" w:header="708" w:footer="708" w:gutter="0"/>' +
+    '</w:sectPr></w:body></w:document>';
+
+  const tipos = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+    '<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">' +
+    '<Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>' +
+    '<Default Extension="xml" ContentType="application/xml"/>' +
+    '<Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/>' +
+    '</Types>';
+  const rels = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+    '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">' +
+    '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/>' +
+    '</Relationships>';
+
+  const blob = armaZip([
+    { nombre: '[Content_Types].xml', texto: tipos },
+    { nombre: '_rels/.rels', texto: rels },
+    { nombre: 'word/document.xml', texto: documento },
+  ]);
+  const limpio = (($('dName').textContent || '').trim() || 'cliente').replace(/[^\w\sáéíóúñÁÉÍÓÚÑ-]/g, '').trim().replace(/\s+/g, '-');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `Cotizacion-${num}-${limpio}.docx`;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 4000);
+}
+$('btnWord').addEventListener('click', async () => {
   await persistDoc();
-  $('btnSave').textContent = 'Guardado ✓';
-  setTimeout(() => { $('btnSave').textContent = 'Guardar cambios'; }, 1600);
+  descargaWord();
 });
 $('btnPrint').addEventListener('click', async () => {
   await persistDoc();
