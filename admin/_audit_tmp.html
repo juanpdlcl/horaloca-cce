@@ -434,59 +434,6 @@ table.items td:nth-child(3),table.items td:nth-child(4),table.items td:nth-child
   .doc-cli{grid-template-columns:1fr 1fr}
   .doc-head img{width:150px}
 }
-
-/* ═══════════ TELÉFONO: la hoja de cotización y su barra ═══════════
-   Las píldoras de Pago y Fecha son inline-flex con mucho padding: en 360px
-   se salían de la pantalla y se cortaban por los lados. Aquí pasan a ocupar
-   el ancho completo y a apilarse. */
-@media(max-width:720px){
-  .wrap{width:auto;margin:20px 14px 70px}
-
-  .doc-tools{padding:12px;gap:10px;border-radius:14px}
-  .dt-row{gap:10px;align-items:stretch;flex-direction:column}
-  .doc-tools .sp{display:none}
-
-  .pay-box{
-    width:100%;display:flex;flex-wrap:wrap;gap:6px;
-    border-radius:14px;padding:10px 12px;
-  }
-  .pay-lbl{width:100%;margin:0 0 2px}
-  .pay-box button{flex:1 1 30%;min-height:44px;padding:9px 6px;font-size:.78rem;white-space:nowrap}
-
-  .date-box{
-    width:100%;display:flex;flex-wrap:wrap;gap:8px;
-    border-radius:14px;padding:10px 12px;
-  }
-  .date-box .pay-lbl{width:100%}
-  .date-box input{flex:1 1 130px;min-height:44px;font-size:16px;text-align:center}
-
-  .dt-actions{display:flex;flex-direction:column;gap:8px;padding-top:10px}
-  .dt-actions .btn{width:100%;min-height:48px;padding:12px 14px;font-size:.9rem}
-
-  /* la hoja en sí */
-  .doc{padding:22px 16px;border-radius:10px}
-  .doc-head{flex-direction:column;align-items:flex-start;gap:12px;margin-bottom:22px}
-  .doc-head img{width:150px}
-  .doc-head .no{text-align:left}
-  .doc-cli{grid-template-columns:1fr 1fr;gap:12px 16px;padding:12px 0;margin-bottom:20px;font-size:.85rem}
-  .doc-cli div:nth-child(4),.doc-cli div:nth-child(5){grid-column:span 1}
-
-  /* 5 columnas no caben: fuera el número de línea y todo más compacto */
-  table.items{font-size:.82rem}
-  table.items th:first-child,table.items td:first-child{display:none}
-  table.items th,table.items td{padding:8px 4px}
-  table.items th{font-size:.58rem;letter-spacing:.08em}
-  .items input{font-size:16px;padding:6px 5px}
-  .items .iq{width:46px}
-  .items .ip{width:84px}
-  .items .desc small{font-size:.72rem}
-
-  .doc-tot{justify-content:stretch}
-  .doc-tot table{width:100%}
-  .doc-tot .grand td{font-size:1rem}
-  .doc-notes textarea{font-size:16px}
-  .doc-foot{flex-direction:column;gap:6px;font-size:.72rem}
-}
 </style>
 </head>
 <body>
@@ -700,7 +647,10 @@ table.items td:nth-child(3),table.items td:nth-child(4),table.items td:nth-child
   <button class="btn btn-ghost btn-sm" id="choqueOk" type="button">Descartar</button>
 </div>
 
-<script src="js/config.js"></script>
+<script>
+window.CCE_SUPABASE = {};
+try{ localStorage.setItem('cce-tickets', JSON.stringify([{"id": "AB0000", "ts": "2026-09-18T17:59:45.705505", "name": "Carolina Maria Fernandez de los Santos", "phone": "(829) 343-5460", "type": "Boda", "place": "Salon Los Jardines, Santo Domingo Este", "date": "2026-09-06", "items": [{"id": "hora-loca:gold", "name": "Hora Loca Dorado", "qty": 1, "note": "45 minutos, 6 bailarines"}, {"id": "zanqueros", "name": "Zanqueros", "qty": 2, "note": ""}], "status": "atendida", "quote": {"pago": "pagado", "evento": {"fecha": "2026-09-06", "hora": "21:00"}, "rows": [{"d": "Hora Loca Dorado", "n": "45 minutos, 6 bailarines", "q": 1, "p": 14500}, {"d": "Zanqueros", "n": "2 zanqueros tematicos", "q": 2, "p": 6500}], "disc": 1000, "terms": "Cotizacion valida por 15 dias."}}, {"id": "AB0001", "ts": "2026-09-18T17:59:45.705505", "name": "Juan Pablo de la Cruz", "phone": "(809) 555-1212", "type": "Cumpleanos 15", "place": "Club Naco", "date": "2026-09-06", "items": [{"id": "hora-loca:gold", "name": "Hora Loca Dorado", "qty": 1, "note": "45 minutos, 6 bailarines"}, {"id": "zanqueros", "name": "Zanqueros", "qty": 2, "note": ""}], "status": "nueva", "quote": {"pago": "avance", "evento": {"fecha": "2026-09-06", "hora": "22:30"}, "rows": [{"d": "Hora Loca Dorado", "n": "45 minutos, 6 bailarines", "q": 1, "p": 14500}, {"d": "Zanqueros", "n": "2 zanqueros tematicos", "q": 2, "p": 6500}], "disc": 1000, "terms": "Cotizacion valida por 15 dias."}}, {"id": "AB0002", "ts": "2026-09-18T17:59:45.705505", "name": "Empresa Distribuidora Nacional SRL", "phone": "(809) 222-3333", "type": "Activacion de marca", "place": "Hotel Embajador", "date": "2026-09-06", "items": [{"id": "hora-loca:gold", "name": "Hora Loca Dorado", "qty": 1, "note": "45 minutos, 6 bailarines"}, {"id": "zanqueros", "name": "Zanqueros", "qty": 2, "note": ""}], "status": "atendida", "quote": {"pago": "pagado", "evento": {"fecha": "2026-09-06", "hora": "19:00"}, "rows": [{"d": "Hora Loca Dorado", "n": "45 minutos, 6 bailarines", "q": 1, "p": 14500}, {"d": "Zanqueros", "n": "2 zanqueros tematicos", "q": 2, "p": 6500}], "disc": 1000, "terms": "Cotizacion valida por 15 dias."}}, {"id": "AB0003", "ts": "2026-09-18T17:59:45.705505", "name": "Rosa Elena Pimentel", "phone": "(849) 777-8888", "type": "Aniversario", "place": "Casa de campo", "date": "2026-09-13", "items": [{"id": "hora-loca:gold", "name": "Hora Loca Dorado", "qty": 1, "note": "45 minutos, 6 bailarines"}, {"id": "zanqueros", "name": "Zanqueros", "qty": 2, "note": ""}], "status": "nueva", "quote": {"pago": "avance", "evento": {"fecha": "2026-09-13", "hora": "20:00"}, "rows": [{"d": "Hora Loca Dorado", "n": "45 minutos, 6 bailarines", "q": 1, "p": 14500}, {"d": "Zanqueros", "n": "2 zanqueros tematicos", "q": 2, "p": 6500}], "disc": 1000, "terms": "Cotizacion valida por 15 dias."}}, {"id": "AB0004", "ts": "2026-09-18T17:59:45.705505", "name": "Marcos Antonio Reyes", "phone": "(809) 444-9999", "type": "Boda", "place": "Punta Cana", "date": "2026-09-20", "items": [{"id": "hora-loca:gold", "name": "Hora Loca Dorado", "qty": 1, "note": "45 minutos, 6 bailarines"}, {"id": "zanqueros", "name": "Zanqueros", "qty": 2, "note": ""}], "status": "atendida", "quote": {"pago": "pagado", "evento": {"fecha": "2026-09-20", "hora": "18:00"}, "rows": [{"d": "Hora Loca Dorado", "n": "45 minutos, 6 bailarines", "q": 1, "p": 14500}, {"d": "Zanqueros", "n": "2 zanqueros tematicos", "q": 2, "p": 6500}], "disc": 1000, "terms": "Cotizacion valida por 15 dias."}}])); sessionStorage.setItem('cce-admin','1'); }catch(e){}
+</script>
 <script>
 /* Acceso local: cambia la clave generando un nuevo hash SHA-256 (pídemelo y te lo genero).
    Si js/config.js tiene Supabase configurado, el login usa tu usuario de Supabase
