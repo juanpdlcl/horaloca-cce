@@ -641,12 +641,20 @@ let TICKETS = [];
 const GUARDA = 'cce-panel-k';
 let secreto = '';
 try {
+  /* El secreto se acepta tanto tras la almohadilla (#k=) como en la
+     direccion normal (?k=), porque algunas apps se comen una de las dos
+     al compartir. Y NO se borra de la barra: si se borrara, al copiar el
+     enlace de ahi para mandarselo a alguien iria sin el secreto y a esa
+     persona no le abriria. */
   let h = decodeURIComponent(location.hash.slice(1) || '');
   if (h.startsWith('k=')) h = h.slice(2);
+  if (!h) {
+    const q = new URLSearchParams(location.search).get('k');
+    if (q) h = q;
+  }
   if (h) {
     secreto = h;
     localStorage.setItem(GUARDA, secreto);
-    history.replaceState(null, '', location.pathname + location.search);
   } else {
     secreto = localStorage.getItem(GUARDA) || '';
   }
