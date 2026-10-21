@@ -1296,3 +1296,97 @@ h2{
 .hl-head h2{font-size:clamp(1.5rem,3vw,2rem)}
 .hl-head p{font-size:.95rem}
 .section-cotiza{padding-top:26px}
+
+/* ═══════════════════════════════════════════════════════════
+   MODO NAVIDAD  (se activa con la clase .navidad en <html>)
+   Todo va encerrado aquí: si el modo se apaga, no queda rastro.
+   ═══════════════════════════════════════════════════════════ */
+.navidad{--nv-rojo:#e03131;--nv-verde:#1fa365;--nv-oro:#e8bf5a}
+
+/* nieve: un solo lienzo, detrás del contenido y sin estorbar al dedo */
+.nv-nieve{
+  position:fixed;inset:0;z-index:1;pointer-events:none;
+}
+
+/* guirnalda de luces bajo la barra */
+.nv-luces{
+  position:fixed;top:var(--nav-h);left:0;right:0;z-index:190;height:16px;
+  display:flex;justify-content:space-between;padding:0 10px;pointer-events:none;
+  background:linear-gradient(180deg,rgba(0,0,0,.35),transparent);
+}
+.nv-luces i{
+  width:7px;height:7px;border-radius:50%;margin-top:3px;
+  background:var(--nv-oro);box-shadow:0 0 7px 2px rgba(232,191,90,.75);
+  animation:nvLuz 2.2s ease-in-out infinite;animation-delay:var(--d);
+}
+.nv-luces i:nth-child(3n){background:var(--nv-rojo);box-shadow:0 0 7px 2px rgba(224,49,49,.7)}
+.nv-luces i:nth-child(3n+1){background:var(--nv-verde);box-shadow:0 0 7px 2px rgba(31,163,101,.7)}
+@keyframes nvLuz{0%,100%{opacity:.35;transform:scale(.8)}50%{opacity:1;transform:scale(1)}}
+
+/* franja de Navidad */
+.nv-banda{
+  position:relative;z-index:2;padding:70px 0 76px;
+  background:
+    radial-gradient(ellipse 60% 70% at 15% 0%,rgba(224,49,49,.16),transparent 70%),
+    radial-gradient(ellipse 55% 65% at 85% 100%,rgba(31,163,101,.14),transparent 70%),
+    var(--bg2);
+  border-bottom:1px solid var(--line);
+}
+.nv-banda .container{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:48px;align-items:center}
+.nv-eti{
+  display:inline-block;margin-bottom:16px;
+  font-family:var(--font-display);font-size:.74rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--nv-oro);border:1px solid color-mix(in srgb,var(--nv-oro) 45%,transparent);
+  border-radius:999px;padding:7px 16px;
+}
+.nv-cab h2{font-family:var(--font-display);font-size:clamp(1.8rem,3.4vw,2.7rem);font-weight:600;line-height:1.1;margin-bottom:14px}
+.nv-cab h2 .thin{font-weight:300;color:var(--muted)}
+.nv-cab p{color:var(--muted);font-size:1rem;line-height:1.65;margin-bottom:26px;max-width:46ch}
+.btn-nv{
+  background:var(--nv-rojo);color:#fff;border:none;
+  box-shadow:0 10px 30px rgba(224,49,49,.35);
+}
+.btn-nv:hover{background:#c92a2a;color:#fff}
+
+/* mosaico de fotos navideñas */
+.nv-fotos{
+  display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:116px;gap:12px;
+}
+.nv-fotos figure{position:relative;margin:0;border-radius:14px;overflow:hidden;background:var(--surface)}
+.nv-fotos img{width:100%;height:100%;object-fit:cover;display:block}
+.nv-fotos figcaption{
+  position:absolute;left:0;right:0;bottom:0;padding:16px 12px 9px;
+  font-family:var(--font-display);font-size:.76rem;font-weight:600;color:#fff;
+  background:linear-gradient(180deg,transparent,rgba(8,8,11,.88));
+}
+.nv-f1{grid-column:span 4;grid-row:span 2}
+.nv-f2{grid-column:span 2;grid-row:span 2}
+.nv-f3{grid-column:span 2}
+.nv-f4{grid-column:span 2}
+.nv-f5{grid-column:span 2}
+
+/* acentos navideños en el resto de la página */
+.navidad .nav{border-bottom-color:color-mix(in srgb,var(--nv-oro) 30%,transparent)}
+.navidad .sec-label span{color:var(--nv-rojo)!important}
+.navidad .pk-group[data-sec="navidad"] .pk-sec{
+  border-bottom-color:color-mix(in srgb,var(--nv-verde) 55%,transparent);
+}
+
+@media(max-width:900px){
+  .nv-banda{padding:46px 0 50px}
+  .nv-banda .container{grid-template-columns:1fr;gap:28px}
+  .nv-fotos{grid-auto-rows:98px;gap:9px}
+  .nv-cab p{margin-bottom:20px}
+  .btn-nv{width:100%;justify-content:center}
+}
+@media(max-width:560px){
+  .nv-fotos{grid-template-columns:repeat(4,1fr);grid-auto-rows:92px}
+  .nv-f1{grid-column:span 4;grid-row:span 2}
+  .nv-f2{grid-column:span 2;grid-row:span 2}
+  .nv-f3,.nv-f4{grid-column:span 2}
+  .nv-f5{grid-column:span 4}
+  .nv-luces i{width:6px;height:6px}
+}
+@media(prefers-reduced-motion:reduce){
+  .nv-luces i{animation:none;opacity:.8}
+}
