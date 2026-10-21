@@ -22,11 +22,13 @@
   const quieto = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const movil = matchMedia('(max-width:720px)').matches;
 
+  const A = 'assets/img/navidad-adornos';
+
   /* ── guirnalda colgando sobre la portada ──
-     Foto real de guirnalda escarchada (Unsplash, licencia Unsplash), con el
-     negro pasado a transparencia: cuelga sobre el video, no es un rectangulo.
-     Va DENTRO de la portada, no fija en pantalla: se queda arriba y
-     desaparece al bajar, que es lo que hace una guirnalda de verdad. */
+     Adorno propio de CC (lazos magenta y plumas turquesa/morado/dorado, los
+     colores del logo), recortado de "NAVIDAD CC.png". Va DENTRO de la portada
+     y arranca bajo la barra: cuelga del menu sin pisar el logo y se queda
+     arriba al bajar, en vez de seguir fija en pantalla. */
   const portada = document.querySelector('.hero');
   if (portada) {
     const g = document.createElement('div');
@@ -128,10 +130,10 @@
     const banda = document.createElement('section');
     banda.className = 'nv-banda';
     banda.innerHTML =
-      '<span class="nv-bokeh nv-bokeh-i" aria-hidden="true"></span>' +
-      '<span class="nv-bokeh nv-bokeh-d" aria-hidden="true"></span>' +
+      '<span class="nv-corona" aria-hidden="true"></span>' +
       '<div class="container nv-dentro">' +
         '<div class="nv-cab">' +
+          '<span class="nv-ramo" aria-hidden="true"></span>' +
           '<span class="nv-eti">Temporada navideña</span>' +
           '<h2>La Navidad de tu evento,<br><span class="thin">a lo grande</span></h2>' +
           '<p>Santa, el Grinch, la galleta, elfas, soldaditos y zancos. Montamos el ' +
@@ -157,6 +159,7 @@
     const elenco = document.createElement('div');
     elenco.className = 'container nv-elenco';
     elenco.innerHTML =
+      '<span class="nv-cinta" aria-hidden="true"></span>' +
       '<h3>Los personajes</h3>' +
       '<p class="nv-elenco-sub">Arma tu show con los que quieras.</p>' +
       '<ul>' + ELENCO.map(([slug, nom], i) =>
@@ -165,6 +168,11 @@
         'alt="' + nom + '" loading="lazy" decoding="async">' +
         '<span>' + nom + '</span></li>').join('') + '</ul>';
     banda.appendChild(elenco);
+
+    const cierre = document.createElement('span');
+    cierre.className = 'nv-cierre';
+    cierre.setAttribute('aria-hidden', 'true');
+    banda.appendChild(cierre);
 
     strip.after(banda);
   }
@@ -217,7 +225,7 @@
   });
 
   const et = document.querySelector('#destacados .sec-label');
-  if (et) et.innerHTML = '<span style="color:#e03131">★</span>Navidad 2026';
+  if (et) et.innerHTML = '<i class="nv-lazo" aria-hidden="true"></i>Navidad 2026';
   const h2 = document.querySelector('#destacados h2');
   if (h2) h2.textContent = 'Los shows de Navidad';
 })();

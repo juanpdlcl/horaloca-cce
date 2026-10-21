@@ -1,23 +1,35 @@
 # Origen de las imágenes de decoración
 
-## nv-guirnalda.webp — guirnalda navideña de la portada
+## assets/img/navidad-adornos/ — adornos navideños de CC
 
-- **Foto original:** <https://unsplash.com/photos/a-group-of-flowers-on-a-branch-UKb1o7B9je0>
-- **Autor:** Jean D. (@tajeandphotography) — publicada el 7 de noviembre de 2022
-- **Licencia:** Unsplash License — permite uso comercial, sin pedir permiso.
-  La atribución se agradece pero **no es obligatoria**, por eso no aparece en la
-  página. <https://unsplash.com/license>
-- **Qué se le hizo:** se recortó la franja de la guirnalda, el fondo negro se pasó
-  a transparencia por luminancia (borde suave, no recortado a tijera), se cortó a
-  2450 px de ancho para que el espejo no cayera sobre una piña, y se espejó para
-  que repita en horizontal sin costura. Script: `hacer_guirnalda.py`.
+Salen todos de **`NAVIDAD CC.png`**, el pliego de adornos que mandó el cliente:
+pino con lazos magenta y plumas turquesa, moradas y doradas, o sea los colores
+del logo. Es material propio de CC Entertainment.
 
-Es una **fotografía real** (el archivo original conserva EXIF de una Canon EOS
-Rebel T7). Se descartaron varias alternativas de Pixabay porque, al mirarlas,
-resultaron ser renders 3D / de IA con aspecto de ilustración.
+`tools/extraer_cc.py` separa el pliego en sus piezas sueltas: agrupa por canal
+alfa (dilatando un poco la máscara para que el follaje ralo de una misma pieza
+quede unido), recorta cada grupo con el alfa **original** y borra lo que se cuele
+de la pieza vecina dentro de la misma caja. Salen 11 piezas, de `p01` a `p11`.
 
-## El resto (disco-ball, pluma, rosa, tambora) y los personajes de Navidad
+Las que usa la página:
 
-Salen de las fotos propias de CC Entertainment.
-`assets/img/navidad-personajes/*` son recortes de la sesión de estudio navideña
-(`assets/img/tematicas/navidad/`), generados con `retratos.py`.
+| Pieza | Qué es | Dónde se usa |
+|-------|--------|--------------|
+| `p01` | Guirnalda larga con lazo central | Cuelga bajo la barra, sobre la portada |
+| `p04` | Corona grande | Fondo tenue de la franja navideña |
+| `p06` | Lazo chico | Delante de la etiqueta «Navidad 2026» |
+| `p09` | Cinta con lazo | Separa el mosaico de «Los personajes» |
+| `p10` | Ramo con lazo | Encima del título de la franja |
+| `p11` | Guirnalda con dos lazos | Remate al pie de la franja |
+
+`p02`, `p03`, `p05`, `p07` y `p08` están extraídas y guardadas, pero la página no
+las carga todavía. Quedan ahí para cuando hagan falta.
+
+> La guirnalda anterior era una foto de Unsplash. Se quitó al llegar este pliego,
+> que es material propio y además va en los colores de la marca.
+
+## El resto
+
+- `disco-ball`, `pluma`, `rosa`, `tambora`: fotos propias de CC Entertainment.
+- `assets/img/navidad-personajes/*`: recortes de la sesión de estudio navideña
+  (`assets/img/tematicas/navidad/`), generados con `tools/retratos.py`.
