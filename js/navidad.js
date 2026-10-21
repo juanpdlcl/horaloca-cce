@@ -22,11 +22,9 @@
   const quieto = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const movil = matchMedia('(max-width:720px)').matches;
 
-  /* ── guirnalda real bajo la barra ── */
-  const g = document.createElement('div');
-  g.className = 'nv-guirnalda';
-  g.setAttribute('aria-hidden', 'true');
-  document.body.prepend(g);
+  /* ── guirnalda bajo la barra ──
+     Pendiente de cambiar por el PNG recortado de guirnalda; la tira de foto
+     anterior se veia pegada encima de la portada y se quito. ── */
 
   /* ── nieve ──
      Tres capas de profundidad: los copos del fondo son pequeños, lentos y
@@ -138,47 +136,79 @@
             '<figcaption>' + pie + '</figcaption></figure>').join('') +
         '</div>' +
       '</div>';
+    /* ── el elenco: un retrato por personaje ──
+       Recortados de la sesion de estudio, cada uno con su cara completa.
+       Animacion por CSS (no .reveal) para que no exista forma de que se
+       queden invisibles si algo falla. */
+    const ELENCO = [
+      ['santa', 'Santa Claus'], ['sra', 'Sra. Claus'], ['grinch', 'El Grinch'],
+      ['galleta', 'La galleta'], ['elfa', 'Elfas'], ['baston', 'Bastón de caramelo'],
+      ['soldados', 'Soldaditos'], ['zancos', 'Zancos'], ['blanca', 'Blanca Navidad'],
+    ];
+    const elenco = document.createElement('div');
+    elenco.className = 'container nv-elenco';
+    elenco.innerHTML =
+      '<h3>Los personajes</h3>' +
+      '<p class="nv-elenco-sub">Arma tu show con los que quieras.</p>' +
+      '<ul>' + ELENCO.map(([slug, nom], i) =>
+        '<li style="--i:' + i + '">' +
+        '<img src="assets/img/navidad-personajes/' + slug + '.webp" width="420" height="420" ' +
+        'alt="' + nom + '" loading="lazy" decoding="async">' +
+        '<span>' + nom + '</span></li>').join('') + '</ul>';
+    banda.appendChild(elenco);
+
     strip.after(banda);
   }
 
   /* ── los destacados de la portada pasan a ser navideños ──
-     Con el encuadre ajustado a cada foto para que no se corten las caras. */
+     OJO: aquí NO se puede clonar ni reemplazar la tarjeta. main.js observa
+     los .reveal una sola vez al cargar; un nodo nuevo nunca sería observado
+     y se quedaría en opacity:0 para siempre (era el hueco del medio).
+     Como este archivo corre ANTES que main.js, basta con quitarle el id
+     featAlt: main.js no lo encuentra y ni siquiera monta el carrusel. */
   const alt = document.getElementById('featAlt');
   if (alt) {
-    const tarjeta = alt.closest('.feat');
-    if (tarjeta) {
-      const copia = tarjeta.cloneNode(true);
-      ['featAlt', 'faTitle', 'faSub'].forEach((id) => {
-        const e = copia.querySelector('#' + id);
-        if (e) e.removeAttribute('id');
-      });
-      copia.querySelectorAll('.fa-img').forEach((x, i) => { if (i) x.remove(); else x.classList.remove('fa-img'); });
-      tarjeta.replaceWith(copia);
-    }
+    alt.removeAttribute('id');
+    const capas = alt.querySelectorAll('.fa-img');
+    capas.forEach((x, i) => { if (i) x.remove(); else x.classList.remove('fa-img', 'on'); });
   }
-  const feats = document.querySelectorAll('.feat');
-  if (feats.length >= 3) {
-    /* La tarjeta destacada es 16/10 y estas fotos son 4:3, así que al
-       encajarlas sobra alto. El encuadre va casi pegado al borde de arriba
-       para que el recorte se coma el piso y NUNCA una cara. */
-    const nav = [
-      { img: T + '/navidad/12.jpg', pos: '50% 8%', t: 'Navidad completa', s: 'Santa, elfos y la Sra. Claus', c: '#e03131' },
-      { img: T + '/navidad/11.jpg', pos: '50% 8%', t: 'El Grinch y la galleta', s: 'Los que se roban el show', c: '#1fa365' },
-      { img: T + '/navidad/09.jpg', pos: '50% 8%', t: 'Santa y los elfos', s: 'El clásico que nunca falla', c: '#e9c478' },
-    ];
-    feats.forEach((el, i) => {
-      const d = nav[i];
-      if (!d) return;
-      const img = el.querySelector('.feat-cover img');
-      if (img) { img.src = d.img; img.style.objectPosition = d.pos; img.alt = d.t; }
-      const h3 = el.querySelector('h3'), p = el.querySelector('.feat-bar p'), bar = el.querySelector('.feat-bar');
-      if (h3) h3.textContent = d.t;
-      if (p) p.textContent = d.s;
-      if (bar) bar.style.setProperty('--fc', d.c);
-    });
-    const et = document.querySelector('#destacados .sec-label');
-    if (et) et.innerHTML = '<span style="color:#e03131">★</span>Navidad 2026';
-    const h2 = document.querySelector('#destacados h2');
-    if (h2) h2.textContent = 'Los shows de Navidad';
-  }
+
+  /* La tarjeta destacada es 16/10 y estas fotos son 4:3, así que al
+     encajarlas sobra alto. El encuadre va casi pegado al borde de arriba
+     para que el recorte se coma el piso y NUNCA una cara. */
+  const NAV = [
+    { pack: 'nv-completa', img: 'navidad/12.jpg', t: 'Navidad completa',
+      s: 'Santa, elfos y la Sra. Claus', c: '#e03131',
+      fotos: ['navidad/12.jpg', 'navidad/10.jpg', 'navidad/01.jpg', 'navidad/03.jpg', 'navidad/05.jpg'] },
+    { pack: 'nv-grinch', img: 'navidad/11.jpg', t: 'El Grinch y la galleta',
+      s: 'Los que se roban el show', c: '#1fa365',
+      fotos: ['navidad/11.jpg', 'navidad/15.jpg', 'navidad/16.jpg', 'navidad/18.jpg'] },
+    { pack: 'nv-santa', img: 'navidad/09.jpg', t: 'Santa y los elfos',
+      s: 'El clásico que nunca falla', c: '#e9c478',
+      fotos: ['navidad/09.jpg', 'navidad/13.jpg', 'navidad/17.jpg', 'navidad/19.jpg', 'navidad/20.jpg'] },
+  ];
+
+  /* sus propias fotos en el visor: main.js las recoge de window.PACKS_EXTRA */
+  window.PACKS_EXTRA = Object.assign({}, window.PACKS_EXTRA);
+  NAV.forEach((d) => {
+    window.PACKS_EXTRA[d.pack] = { name: d.t, imgs: d.fotos.map((f) => T + '/' + f) };
+  });
+
+  document.querySelectorAll('.feat').forEach((el, i) => {
+    const d = NAV[i];
+    if (!d) return;
+    const img = el.querySelector('.feat-cover img');
+    if (img) { img.src = T + '/' + d.img; img.style.objectPosition = '50% 8%'; img.alt = d.t; }
+    const cov = el.querySelector('.feat-cover');
+    if (cov) { cov.dataset.pack = d.pack; cov.setAttribute('aria-label', 'Ver todas las fotos de ' + d.t); }
+    const h3 = el.querySelector('h3'), p = el.querySelector('.feat-bar p'), bar = el.querySelector('.feat-bar');
+    if (h3) h3.textContent = d.t;
+    if (p) p.textContent = d.s;
+    if (bar) bar.style.setProperty('--fc', d.c);
+  });
+
+  const et = document.querySelector('#destacados .sec-label');
+  if (et) et.innerHTML = '<span style="color:#e03131">★</span>Navidad 2026';
+  const h2 = document.querySelector('#destacados h2');
+  if (h2) h2.textContent = 'Los shows de Navidad';
 })();

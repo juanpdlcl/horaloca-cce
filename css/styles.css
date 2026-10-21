@@ -1378,6 +1378,35 @@ h2{
   background:linear-gradient(180deg,transparent,rgba(8,8,11,.86));
 }
 
+/* ── el elenco: un retrato redondo por personaje ── */
+.nv-elenco{position:relative;margin-top:64px;padding-top:44px;border-top:1px solid var(--line)}
+.nv-elenco h3{
+  font-family:var(--font-display);font-size:1.35rem;font-weight:600;letter-spacing:-.01em;
+}
+.nv-elenco-sub{color:var(--muted);font-size:.95rem;margin:6px 0 30px}
+.nv-elenco ul{
+  list-style:none;margin:0;padding:0;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:26px 18px;
+}
+.nv-elenco li{
+  text-align:center;
+  opacity:0;transform:translateY(14px);
+  animation:nvFoto .6s var(--ease) forwards;
+  animation-delay:calc(var(--i) * .06s);
+}
+.nv-elenco img{
+  width:100%;max-width:118px;aspect-ratio:1;margin:0 auto 11px;
+  border-radius:50%;object-fit:cover;
+  border:2px solid color-mix(in srgb,var(--nv-oro) 42%,transparent);
+  box-shadow:0 10px 26px rgba(0,0,0,.45);
+  transition:transform .4s var(--ease),border-color .4s var(--ease);
+}
+.nv-elenco li:hover img{transform:translateY(-5px) scale(1.04);border-color:var(--nv-oro)}
+.nv-elenco span{
+  display:block;font-family:var(--font-display);font-size:.82rem;font-weight:600;
+  line-height:1.3;color:var(--text);
+}
+
 /* acentos navideños en el resto de la página */
 .navidad .nav{border-bottom-color:color-mix(in srgb,var(--nv-oro) 26%,transparent)}
 .navidad .sec-label span{color:var(--nv-rojo)!important}
@@ -1399,6 +1428,9 @@ h2{
   .nv-bokeh-d{right:-54px}
   .nv-mosaico{columns:2;column-gap:11px}
   .nv-mosaico figure{margin-bottom:11px}
+  .nv-elenco{margin-top:46px;padding-top:34px}
+  .nv-elenco ul{grid-template-columns:repeat(auto-fit,minmax(92px,1fr));gap:20px 12px}
+  .nv-elenco img{max-width:96px}
   .btn-nv{width:100%;justify-content:center}
 }
 @media(max-width:560px){
@@ -1407,9 +1439,15 @@ h2{
   .nv-bokeh{display:none}
   .nv-cab p{font-size:.94rem;margin-bottom:22px}
   .nv-mosaico figcaption{font-size:.72rem;padding:22px 10px 9px}
+  .nv-elenco ul{grid-template-columns:repeat(3,1fr);gap:18px 10px}
+  .nv-elenco img{max-width:88px;margin-bottom:8px}
+  .nv-elenco span{font-size:.74rem}
+  .nv-elenco h3{font-size:1.15rem}
 }
 @media(prefers-reduced-motion:reduce){
   .nv-guirnalda{animation:none}
   .nv-mosaico figure{animation:none;opacity:1;transform:none}
+  .nv-elenco li{animation:none;opacity:1;transform:none}
+  .nv-elenco li:hover img{transform:none}
   .nv-mosaico figure:hover img{transform:none}
 }

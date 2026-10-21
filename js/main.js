@@ -865,6 +865,7 @@ if (mosaic) {
 const lb = $('lb');
 if (lb && document.querySelector('.feat-cover')) {
   const PACKS = {
+    ...(window.PACKS_EXTRA || {}),
     dorado: { name: 'Gold', imgs: ['assets/img/destacado/dorado-4.jpg', 'assets/img/destacado/dorado-2.jpg', 'assets/img/destacado/dorado-3.jpg', 'assets/img/destacado/dorado-1.jpg', 'assets/img/tematicas/dorado/01.jpg', 'assets/img/tematicas/dorado/02.jpg', 'assets/img/tematicas/dorado/03.jpg'] },
     plata:  { name: 'Disco Ball', imgs: ['assets/img/tematicas/espejos/main.jpg', 'assets/img/tematicas/espejos/09.jpg', 'assets/img/tematicas/espejos/10.jpg', 'assets/img/tematicas/espejos/11.jpg', 'assets/img/destacado/plata-4.jpg', 'assets/img/destacado/plata-1.jpg', 'assets/img/destacado/plata-2.jpg', 'assets/img/destacado/plata-3.jpg', 'assets/img/tematicas/espejos/01.jpg', 'assets/img/tematicas/espejos/02.jpg', 'assets/img/tematicas/espejos/03.jpg', 'assets/img/tematicas/espejos/04.jpg', 'assets/img/tematicas/espejos/05.jpg', 'assets/img/tematicas/espejos/06.jpg', 'assets/img/tematicas/espejos/07.jpg', 'assets/img/tematicas/espejos/08.jpg'] },
     brasil: { name: 'Brazil Blanco con Plateado', imgs: ['assets/img/tematicas/brasil-plata/grupo.jpg', 'assets/img/tematicas/brasil-plata/01.jpg', 'assets/img/tematicas/brasil-plata/02.jpg', 'assets/img/tematicas/brasil-plata/03.jpg', 'assets/img/destacado/brasil-1.jpg'] },
