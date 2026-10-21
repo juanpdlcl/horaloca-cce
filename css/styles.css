@@ -1307,15 +1307,21 @@ h2{
 /* nieve: un solo lienzo, detrás del contenido y sin estorbar al dedo */
 .nv-nieve{position:fixed;inset:0;z-index:3;pointer-events:none}
 
-/* guirnalda de pino con luces, recortada de una foto del show */
+/* guirnalda colgando sobre la portada.
+   Es una FOTO de guirnalda escarchada con el negro pasado a transparencia,
+   asi que el borde de abajo son agujas de verdad y no un rectangulo.
+   Va dentro de .hero (absolute), no fija: se queda arriba al bajar. */
 .nv-guirnalda{
-  position:fixed;top:var(--nav-h);left:0;right:0;z-index:150;height:46px;
+  /* arranca bajo la barra: si no, el follaje pisa el logo y el menu */
+  position:absolute;top:var(--nav-h);left:0;right:0;z-index:4;height:132px;
   pointer-events:none;
   background:url(../assets/img/deco/nv-guirnalda.webp) repeat-x center top/auto 100%;
-  filter:drop-shadow(0 6px 14px rgba(0,0,0,.6));
-  animation:nvEntra 1.1s var(--ease) both;
+  filter:drop-shadow(0 10px 20px rgba(0,0,0,.55));
+  animation:nvEntra 1.2s var(--ease) both, nvVaiven 9s ease-in-out 1.2s infinite;
 }
-@keyframes nvEntra{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:none}}
+@keyframes nvEntra{from{opacity:0;transform:translateY(-22px)}to{opacity:1;transform:none}}
+/* vaiven apenas perceptible, solo transform: no repinta nada */
+@keyframes nvVaiven{0%,100%{transform:translateY(0)}50%{transform:translateY(3px)}}
 
 /* franja de Navidad */
 .nv-banda{
@@ -1420,7 +1426,7 @@ h2{
 }
 @media(max-width:900px){
   .nv-banda{padding:54px 0 58px}
-  .nv-guirnalda{height:36px}
+  .nv-guirnalda{height:96px}
   /* en pantalla estrecha los dos resplandores se juntan y tiñen la franja
      entera de marrón: se estrechan y bajan de intensidad. */
   .nv-bokeh{width:160px;opacity:.3}
@@ -1435,7 +1441,7 @@ h2{
 }
 @media(max-width:560px){
   .nv-banda{padding:42px 0 46px}
-  .nv-guirnalda{height:30px}
+  .nv-guirnalda{height:74px}
   .nv-bokeh{display:none}
   .nv-cab p{font-size:.94rem;margin-bottom:22px}
   .nv-mosaico figcaption{font-size:.72rem;padding:22px 10px 9px}

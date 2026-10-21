@@ -22,9 +22,18 @@
   const quieto = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const movil = matchMedia('(max-width:720px)').matches;
 
-  /* ── guirnalda bajo la barra ──
-     Pendiente de cambiar por el PNG recortado de guirnalda; la tira de foto
-     anterior se veia pegada encima de la portada y se quito. ── */
+  /* ── guirnalda colgando sobre la portada ──
+     Foto real de guirnalda escarchada (Unsplash, licencia Unsplash), con el
+     negro pasado a transparencia: cuelga sobre el video, no es un rectangulo.
+     Va DENTRO de la portada, no fija en pantalla: se queda arriba y
+     desaparece al bajar, que es lo que hace una guirnalda de verdad. */
+  const portada = document.querySelector('.hero');
+  if (portada) {
+    const g = document.createElement('div');
+    g.className = 'nv-guirnalda';
+    g.setAttribute('aria-hidden', 'true');
+    portada.prepend(g);
+  }
 
   /* ── nieve ──
      Tres capas de profundidad: los copos del fondo son pequeños, lentos y
