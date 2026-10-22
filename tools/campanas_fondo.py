@@ -14,17 +14,18 @@ OUT = os.path.normpath('C:/Users/EQUIPO/AppData/Local/Temp/claude/'
                        '743bcc5d-28f7-4b2e-a146-7922b8ed0f28/scratchpad/nv')
 DEST = 'assets/img/deco/nv-fondo-campanas.webp'
 
-LADO = 900
+LADO = 1000
 random.seed(11)
 
 base = Image.open(SRC).convert('RGBA')
 base = base.crop(base.getbbox())
 
-# (ancho relativo a la baldosa, opacidad)  — tamanos muy distintos dan profundidad
+# Pocas y bien separadas: tres por baldosa, y la baldosa se sirve grande.
+# Con mas, el fondo se convierte en papel pintado y compite con el contenido.
 PIEZAS = [
-    (0.30, 0.46), (0.19, 0.30), (0.25, 0.38), (0.14, 0.24),
-    (0.22, 0.34), (0.16, 0.26), (0.27, 0.42), (0.12, 0.20),
-    (0.20, 0.31),
+    (0.195, 0.30),   # una grande
+    (0.125, 0.22),   # una mediana
+    (0.085, 0.16),   # una chica, casi insinuada
 ]
 
 tile = Image.new('RGBA', (LADO, LADO), (0, 0, 0, 0))
@@ -35,7 +36,7 @@ for rel, op in PIEZAS:
     r = max(w, h) / 2
     for _ in range(320):                       # busca sitio sin amontonarse
         cx, cy = random.random() * LADO, random.random() * LADO
-        if all((cx - px) ** 2 + (cy - py) ** 2 > (r + pr) ** 2 * 0.80
+        if all((cx - px) ** 2 + (cy - py) ** 2 > (r + pr) ** 2 * 2.20
                for px, py, pr in puestas):
             break
     puestas.append((cx, cy, r))

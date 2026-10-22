@@ -1413,11 +1413,13 @@ html.navidad .sd{
   filter:drop-shadow(0 6px 18px rgba(0,0,0,.45));
   transform-origin:50% 4%;
 }
+/* solo dos, en esquinas opuestas. Cinco campanas grandes mas el fondo era
+   demasiado: el fondo se convertia en ruido y competia con las fotos. */
 html.navidad .sd-1{animation:nvBalanceo 7s ease-in-out infinite}
-html.navidad .sd-2{animation:nvBalanceo 9s ease-in-out infinite;animation-delay:-2s}
-html.navidad .sd-3{animation:nvBalanceo 8s ease-in-out infinite;animation-delay:-4s;opacity:.16}
-html.navidad .sd-4{animation:nvBalanceo 10s ease-in-out infinite;animation-delay:-1s;opacity:.17}
-html.navidad .sd-5{animation:nvBalanceo 11s ease-in-out infinite;animation-delay:-6s;opacity:.13}
+html.navidad .sd-4{animation:nvBalanceo 10s ease-in-out infinite;animation-delay:-3s;opacity:.15}
+html.navidad .sd-2,
+html.navidad .sd-3,
+html.navidad .sd-5{display:none}
 @keyframes nvBalanceo{
   0%,100%{transform:rotate(-3.5deg)}
   50%{transform:rotate(3.5deg)}
@@ -1432,7 +1434,7 @@ html.navidad .sd-5{animation:nvBalanceo 11s ease-in-out infinite;animation-delay
 html.navidad body{
   background-image:url(../assets/img/deco/nv-fondo-campanas.webp);
   background-repeat:repeat;
-  background-size:460px auto;
+  background-size:760px auto;
   background-attachment:fixed;
 }
 /* Las secciones alternas llevan fondo opaco y taparian el patron. En
@@ -1512,7 +1514,7 @@ html.navidad .strip{background-color:rgba(7,16,12,.84)}
   .nv-banda{padding:54px 0 58px}
   /* background-attachment:fixed se atasca en los navegadores de movil y
      fuerza repintados; ahi el fondo va con la pagina. */
-  html.navidad body{background-attachment:scroll;background-size:300px auto}
+  html.navidad body{background-attachment:scroll;background-size:420px auto}
   .nv-mosaico{columns:2;column-gap:11px}
   .nv-mosaico figure{margin-bottom:11px}
   .btn-nv{width:100%;justify-content:center}
