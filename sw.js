@@ -3,7 +3,7 @@
    La página queda guardada en el dispositivo:
    si el servidor o el internet fallan, igual abre.
    ═══════════════════════════════════════════ */
-const VERSION = 'cce-v31';
+const VERSION = 'cce-v32';
 const SHELL = `${VERSION}-shell`;
 const MEDIA = `${VERSION}-media`;
 
@@ -11,8 +11,8 @@ const MEDIA = `${VERSION}-media`;
 const BASE = [
   '/',
   '/cotiza',
-  '/css/styles.css?v=83',
-  '/js/main.js?v=83',
+  '/css/styles.css?v=84',
+  '/js/main.js?v=84',
   '/js/config.js',
   '/assets/img/logo-mark-glow.webp',
   '/assets/img/hero-feathers.webp',
