@@ -57,6 +57,179 @@
   const quieto = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const movil = matchMedia('(max-width:720px)').matches;
 
+  /* ═══════════════════════════════════════════════════════════════
+     LUCES DE NAVIDAD
+
+     Lo que separa una luz de Navidad de una pelota de color es que la
+     bombilla EMITE. Cada una se pinta en cinco capas:
+
+       1. el halo, en mezcla aditiva, que es la luz derramandose sobre
+          el fondo. Sin esto parece una pegatina.
+       2. el vidrio: una gota con degradado, saturado en el borde y
+          encendido hacia el centro.
+       3. el filamento, un punto casi blanco con el tono encima.
+       4. el reflejo especular, una manchita clara arriba a la
+          izquierda: es lo que hace que el vidrio parezca vidrio.
+       5. el casquillo oscuro que la une al cable.
+
+     El cable cuelga en arcos, como un cable de verdad, y las bombillas
+     cuelgan de el por su propio peso. No parpadean encendido/apagado:
+     laten, cada una a su ritmo, y algunas quedan mas apagadas que otras,
+     que es como se ve una serie de verdad.
+     ═══════════════════════════════════════════════════════════════ */
+  const TONOS_LUZ = [
+    [255, 58, 58],     // rojo
+    [60, 220, 90],     // verde
+    [64, 126, 255],    // azul
+    [255, 186, 42],    // ambar
+    [255, 70, 180],    // rosa, que es de la marca
+  ];
+  const CABLE = '#24422e';
+
+  const cuerdas = [];
+
+  const montaLuces = (donde, idx) => {
+    if (!donde) return;
+    const lienzo = document.createElement('canvas');
+    lienzo.className = 'nv-luces';
+    lienzo.setAttribute('aria-hidden', 'true');
+    donde.prepend(lienzo);
+    const cx = lienzo.getContext('2d');
+    const cuerda = { el: lienzo, cx, bombillas: [], an: 0, al: 0, idx };
+    cuerdas.push(cuerda);
+    mideCuerda(cuerda);
+    return cuerda;
+  };
+
+  function mideCuerda(c) {
+    const caja = c.el.parentElement.getBoundingClientRect();
+    const an = Math.max(320, Math.round(caja.width));
+    const al = movil ? 74 : 104;
+    const DPR = Math.min(devicePixelRatio || 1, 2);
+    c.an = an; c.al = al;
+    c.el.width = Math.round(an * DPR);
+    c.el.height = Math.round(al * DPR);
+    c.el.style.width = an + 'px';
+    c.el.style.height = al + 'px';
+    c.cx.setTransform(DPR, 0, 0, DPR, 0, 0);
+
+    /* el cable se cuelga en arcos: cuantos quepan, de ancho parecido */
+    const anchoArco = movil ? 168 : 260;
+    const arcos = Math.max(2, Math.round(an / anchoArco));
+    const paso = an / arcos;
+    const caida = movil ? 21 : 29;
+    const techo = movil ? 5 : 7;
+    const sep = movil ? 33 : 43;
+
+    c.arcos = [];
+    c.bombillas = [];
+    let n = 0;
+    for (let i = 0; i < arcos; i++) {
+      const x0 = i * paso, x1 = (i + 1) * paso;
+      c.arcos.push({ x0, x1, techo, caida });
+      const cuantas = Math.max(2, Math.round(paso / sep));
+      for (let k = 1; k <= cuantas; k++) {
+        const t = k / (cuantas + 1);
+        c.bombillas.push({
+          arco: i, t,
+          tono: TONOS_LUZ[n % TONOS_LUZ.length],
+          r: (movil ? 6.0 : 7.6) * (0.92 + Math.random() * 0.16),
+          fase: Math.random() * 6.283,
+          vel: 0.010 + Math.random() * 0.012,
+          /* algunas nacen mas apagadas: una serie de verdad nunca tiene
+             todas las bombillas igual de fuertes */
+          fuerza: 0.72 + Math.random() * 0.28,
+        });
+        n++;
+      }
+    }
+  }
+
+  /* punto del arco y su inclinacion, para colgar la bombilla */
+  const puntoArco = (a, t) => {
+    const x = a.x0 + t * (a.x1 - a.x0);
+    const y = a.techo + a.caida * Math.sin(Math.PI * t);
+    const pend = (a.caida * Math.PI * Math.cos(Math.PI * t)) / (a.x1 - a.x0);
+    return { x, y, ang: Math.atan(pend) };
+  };
+
+  function pintaBombilla(cx, x, y, r, tono, brillo, ang) {
+    const [R, G, B] = tono;
+    const rgb = (a) => 'rgba(' + R + ',' + G + ',' + B + ',' + a + ')';
+
+    /* 1. el halo: la luz derramandose. Va en aditivo. */
+    cx.globalCompositeOperation = 'lighter';
+    const halo = cx.createRadialGradient(x, y, 0, x, y, r * 5.8);
+    halo.addColorStop(0, rgb(0.52 * brillo));
+    halo.addColorStop(0.30, rgb(0.21 * brillo));
+    halo.addColorStop(1, rgb(0));
+    cx.fillStyle = halo;
+    cx.beginPath(); cx.arc(x, y, r * 5.8, 0, 6.283); cx.fill();
+    cx.globalCompositeOperation = 'source-over';
+
+    cx.save();
+    cx.translate(x, y);
+    cx.rotate(ang * 0.45);          // cuelga casi a plomo, con un poco del cable
+
+    /* 5. el casquillo, antes que el vidrio para que quede detras */
+    cx.fillStyle = '#2a2118';
+    cx.beginPath();
+    cx.roundRect(-r * 0.42, -r * 1.75, r * 0.84, r * 0.78, r * 0.2);
+    cx.fill();
+
+    /* 2. el vidrio: una gota, no un circulo */
+    const vidrio = cx.createRadialGradient(-r * 0.3, -r * 0.35, r * 0.1, 0, 0, r * 1.25);
+    vidrio.addColorStop(0, 'rgba(255,255,255,' + (0.92 * brillo + 0.05) + ')');
+    vidrio.addColorStop(0.28, rgb(0.96 * brillo + 0.04));
+    vidrio.addColorStop(1, 'rgba(' + (R * 0.62 | 0) + ',' + (G * 0.62 | 0) + ',' + (B * 0.62 | 0) + ',' + (0.92 * brillo + 0.08) + ')');
+    cx.fillStyle = vidrio;
+    cx.beginPath();
+    cx.ellipse(0, 0, r * 0.82, r * 1.18, 0, 0, 6.283);
+    cx.fill();
+
+    /* 3. el filamento */
+    cx.globalCompositeOperation = 'lighter';
+    const nucleo = cx.createRadialGradient(0, -r * 0.08, 0, 0, -r * 0.08, r * 0.55);
+    nucleo.addColorStop(0, 'rgba(255,252,240,' + (0.85 * brillo) + ')');
+    nucleo.addColorStop(1, rgb(0));
+    cx.fillStyle = nucleo;
+    cx.beginPath(); cx.arc(0, -r * 0.08, r * 0.55, 0, 6.283); cx.fill();
+    cx.globalCompositeOperation = 'source-over';
+
+    /* 4. el reflejo especular: esto es lo que hace que parezca vidrio */
+    cx.fillStyle = 'rgba(255,255,255,' + (0.5 * brillo + 0.12) + ')';
+    cx.beginPath();
+    cx.ellipse(-r * 0.3, -r * 0.46, r * 0.19, r * 0.3, -0.5, 0, 6.283);
+    cx.fill();
+
+    cx.restore();
+  }
+
+  function pintaCuerda(c, t) {
+    const cx = c.cx;
+    cx.clearRect(0, 0, c.an, c.al);
+
+    /* el cable primero, para que las bombillas vayan encima */
+    cx.strokeStyle = CABLE;
+    cx.lineWidth = movil ? 1.8 : 2.3;
+    cx.lineCap = 'round';
+    for (const a of c.arcos) {
+      cx.beginPath();
+      for (let i = 0; i <= 26; i++) {
+        const p = puntoArco(a, i / 26);
+        if (i) cx.lineTo(p.x, p.y); else cx.moveTo(p.x, p.y);
+      }
+      cx.stroke();
+    }
+
+    for (const b of c.bombillas) {
+      const p = puntoArco(c.arcos[b.arco], b.t);
+      /* late, no parpadea */
+      const latido = 0.78 + 0.22 * Math.sin(t * b.vel * 60 + b.fase);
+      pintaBombilla(cx, p.x, p.y + b.r * 1.1, b.r, b.tono, latido * b.fuerza, p.ang);
+    }
+  }
+
   /* ── nieve ──
      Tres capas de profundidad: los copos del fondo son pequeños, lentos y
      tenues; los del frente, grandes y suaves, como en una foto de verdad.
@@ -221,6 +394,8 @@
         ctx.globalCompositeOperation = 'source-over';
       }
 
+      if (!saltar) for (let k = 0; k < cuerdas.length; k++) pintaCuerda(cuerdas[k], t * 60);
+
       for (let i = 0; i < copos.length; i++) {
         const c = copos[i];
         c.y += c.vy * (1 + rafaga * 0.3);
@@ -274,7 +449,18 @@
         '</div>' +
       '</div>';
     strip.after(banda);
+    montaLuces(banda, 0);
   }
+
+  montaLuces(document.querySelector('#destacados'), 1);
+
+  /* si el equipo pide menos movimiento no hay bucle, asi que se pintan una
+     sola vez y se quedan encendidas y quietas */
+  if (quieto) cuerdas.forEach((c) => pintaCuerda(c, 0));
+
+  addEventListener('resize', () => {
+    cuerdas.forEach((c) => { mideCuerda(c); if (quieto) pintaCuerda(c, 0); });
+  }, { passive: true });
 
   /* ── los adornos de fondo pasan a campanas ──
      No se añade nada: el hueco ya existe. La sección de destacados ya tenía
