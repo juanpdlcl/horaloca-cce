@@ -80,12 +80,16 @@ const THEMES = [
   { id: 'dominicana', sec: 'dominicano', tags: 'bandera republica dominicana merengue',  name: 'Dominicana',      imgs: [`${T}/dominicana/01.jpg`, `${T}/dominicana/06.jpg`, `${T}/dominicana/02.jpg`, `${T}/dominicana/05.jpg`, `${T}/dominicana/03.jpg`, `${T}/dominicana/04.jpg`] },
   { id: 'marchantas', sec: 'dominicano', tags: 'mercado tipico campo',  name: 'Marchantas',      imgs: seq('marchantas', 3), more: true },
   { id: 'pelota', sec: 'dominicano', tags: 'beisbol baseball deporte licey leones mascotas', name: 'Pelota dominicana', imgs: [`${T}/pelota/03.jpg`, ...seq('pelota', 2)], more: true },
-  /* ── Navidad ── */
-  { id: 'navidad', sec: 'navidad', tags: 'santa grinch galleta elfos diciembre navideno papa noel show completo elenco', name: 'Show completo de Navidad', desc: 'Santa, el Grinch, la galleta y las elfas', imgs: [`${T}/navidad/12.jpg`, `${T}/navidad/09.jpg`, `${T}/navidad/10.jpg`, `${T}/navidad/11.jpg`, `${T}/navidad/19.jpg`], more: true },
-  { id: 'santa-navidad', sec: 'navidad', tags: 'santa claus papa noel sra senora navidad', name: 'Santa y la Sra. Claus', desc: 'El clásico que nunca falla', imgs: [`${T}/navidad/13.jpg`, `${T}/navidad/08.jpg`, `${T}/navidad/07.jpg`], more: true },
+  /* ── Navidad ──
+     Ojo al clasificar: las ELFAS llevan peluca roja, mangas verdes y corse;
+     las SRAS. CLAUS van de rojo con gorro de Santa. No es lo mismo. */
+  { id: 'navidad', sec: 'navidad', tags: 'santa grinch galleta elfos diciembre navideno papa noel show completo elenco', name: 'Show completo de Navidad', desc: 'Santa, el Grinch, la galleta y las elfas', imgs: [`${T}/navidad/12.jpg`, `${T}/navidad/09.jpg`, `${T}/navidad/10.jpg`, `${T}/navidad/11.jpg`], more: true },
+  { id: 'santa-navidad', sec: 'navidad', tags: 'santa claus papa noel sra senora chicas navidad', name: 'Santa y la Sra. Claus', desc: 'El clásico que nunca falla', imgs: [`${T}/navidad/13.jpg`, `${T}/navidad/02.jpg`, `${T}/navidad/08.jpg`, `${T}/navidad/07.jpg`], more: true },
   { id: 'grinch-navidad', sec: 'navidad', tags: 'grinch galleta jengibre verde navidad', name: 'El Grinch y la galleta', desc: 'Los que se roban el show', imgs: [`${T}/navidad/11.jpg`, `${T}/navidad/01.jpg`], more: true },
-  { id: 'chicas-navidad', sec: 'navidad', tags: 'chicas elfas santa elfa roja candy navidad', name: 'Elfas de Navidad', desc: 'Las que levantan la fiesta', imgs: [`${T}/navidad/17.jpg`, `${T}/navidad/16.jpg`, `${T}/navidad/20.jpg`, `${T}/navidad/21.jpg`, `${T}/navidad/02.jpg`], more: true },
-  { id: 'baston-navidad', sec: 'navidad', tags: 'baston caramelo candy cane rojo blanco navidad', name: 'Bastón de caramelo', desc: 'Con la Sra. Claus de rojo', imgs: [`${T}/navidad/18.jpg`, `${T}/navidad/15.jpg`], more: true },
+  { id: 'chicas-navidad', sec: 'navidad', tags: 'elfas elfa duende peluca roja verde navidad', name: 'Elfas de Navidad', desc: 'Las que levantan la fiesta', imgs: [`${T}/navidad/17.jpg`, `${T}/navidad/16.jpg`, `${T}/navidad/20.jpg`, `${T}/navidad/21.jpg`], more: true },
+  { id: 'baston-navidad', sec: 'navidad', tags: 'baston caramelo candy cane rojo blanco rayas navidad', name: 'Bastón de caramelo', desc: 'Rojo y blanco a rayas', imgs: [`${T}/navidad/18.jpg`], more: true },
+  { id: 'dorado-navidad', sec: 'navidad', tags: 'dorado oro rojo elegante navidad gala', name: 'Navidad dorada', desc: 'Rojo y oro, para noches de gala', imgs: [`${T}/navidad/15.jpg`], more: true },
+  { id: 'churros-navidad', sec: 'navidad', tags: 'churros churreros cocineros reposteria mesa dulce navidad', name: 'Churreros de Navidad', desc: 'Cocineros para la mesa dulce', imgs: [`${T}/navidad/19.jpg`], more: true },
   { id: 'soldados-navidad', sec: 'navidad', tags: 'soldados juguete cascanueces navidad desfile recibimiento', name: 'Soldados de juguete', desc: 'Cascanueces para recibir', imgs: [`${T}/navidad/03.jpg`, `${T}/navidad/04.jpg`], more: true },
   { id: 'zancos-navidad', sec: 'navidad', tags: 'zancos altos baston caramelo navidad desfile', name: 'Zancos navideños', desc: 'Bastones de caramelo en zancos', imgs: [`${T}/navidad/05.jpg`], more: true },
   { id: 'blanca-navidad', sec: 'navidad', tags: 'navidad blanca invierno nieve alas led plata', name: 'Blanca Navidad', desc: 'Invierno en blanco y plata', imgs: [...seq('blanca-navidad', 1), `${T}/navidad/06.jpg`], more: true },
