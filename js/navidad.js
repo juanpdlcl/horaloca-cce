@@ -474,7 +474,7 @@
        antes de bajarla, así que el mosaico no pega saltos al cargar. */
     const fotos = [
       ['navidad/12.jpg', 1200, 900, 'Santa, elfos y Sra. Claus', 'Show completo'],
-      ['navidad/17.jpg', 800, 1200, 'Elfa de Navidad', 'Elfas'],
+      ['navidad/17.jpg', 800, 1200, 'Regalos de Navidad', 'Regalos'],
       ['navidad/13.jpg', 800, 1200, 'Santa y la Sra. Claus', 'Santa y Sra. Claus'],
       ['blanca-navidad/01.jpg', 750, 1000, 'Blanca Navidad bajo la nieve', 'Blanca Navidad'],
       ['navidad/10.jpg', 1200, 900, 'Santa, la galleta y los elfos', 'Santa y la galleta'],
@@ -487,7 +487,7 @@
         '<div class="nv-cab">' +
           '<span class="nv-eti">' + icono('i-campana') + 'Temporada navideña</span>' +
           '<h2>La Navidad de tu evento,<br><span class="thin">a lo grande</span></h2>' +
-          '<p>Santa, el Grinch, la galleta, elfas, soldaditos y zancos. Montamos el ' +
+          '<p>Santa, el Grinch, la galleta, los Regalos, soldaditos y zancos. Montamos el ' +
           'show completo para tu cena de fin de año, tu fiesta de empresa o tu casa.</p>' +
           '<a href="cotiza/" class="btn btn-nv">Reservar mi fecha</a>' +
         '</div>' +
@@ -540,7 +540,7 @@
     { pack: 'nv-santa', img: 'navidad/13.jpg', t: 'Santa y la Sra. Claus',
       s: 'El clásico que nunca falla', c: '#d7263d',
       fotos: ['navidad/13.jpg', 'navidad/09.jpg', 'navidad/12.jpg', 'navidad/01.jpg', 'navidad/05.jpg'] },
-    { pack: 'nv-elfas', img: 'navidad/17.jpg', t: 'Las elfas',
+    { pack: 'nv-regalos', img: 'navidad/17.jpg', t: 'Regalos',
       s: 'Las que levantan la fiesta', c: '#2f9e5f',
       fotos: ['navidad/17.jpg', 'navidad/16.jpg', 'navidad/20.jpg', 'navidad/21.jpg'] },
     { pack: 'nv-baston', img: 'navidad/18.jpg', t: 'Bastón de caramelo',

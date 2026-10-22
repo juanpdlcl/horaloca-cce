@@ -83,10 +83,10 @@ const THEMES = [
   /* ── Navidad ──
      Ojo al clasificar: las ELFAS llevan peluca roja, mangas verdes y corse;
      las SRAS. CLAUS van de rojo con gorro de Santa. No es lo mismo. */
-  { id: 'navidad', sec: 'navidad', tags: 'santa grinch galleta elfos diciembre navideno papa noel show completo elenco', name: 'Show completo de Navidad', desc: 'Santa, el Grinch, la galleta y las elfas', imgs: [`${T}/navidad/12.jpg`, `${T}/navidad/09.jpg`, `${T}/navidad/10.jpg`, `${T}/navidad/11.jpg`], more: true },
+  { id: 'navidad', sec: 'navidad', tags: 'santa grinch galleta regalos diciembre navideno papa noel show completo elenco', name: 'Show completo de Navidad', desc: 'Santa, el Grinch, la galleta y los Regalos', imgs: [`${T}/navidad/12.jpg`, `${T}/navidad/09.jpg`, `${T}/navidad/10.jpg`, `${T}/navidad/11.jpg`], more: true },
   { id: 'santa-navidad', sec: 'navidad', tags: 'santa claus papa noel sra senora chicas navidad', name: 'Santa y la Sra. Claus', desc: 'El clásico que nunca falla', imgs: [`${T}/navidad/13.jpg`, `${T}/navidad/02.jpg`, `${T}/navidad/08.jpg`, `${T}/navidad/07.jpg`], more: true },
   { id: 'grinch-navidad', sec: 'navidad', tags: 'grinch galleta jengibre verde navidad', name: 'El Grinch y la galleta', desc: 'Los que se roban el show', imgs: [`${T}/navidad/11.jpg`, `${T}/navidad/01.jpg`], more: true },
-  { id: 'chicas-navidad', sec: 'navidad', tags: 'elfas elfa duende peluca roja verde navidad', name: 'Elfas de Navidad', desc: 'Las que levantan la fiesta', imgs: [`${T}/navidad/17.jpg`, `${T}/navidad/16.jpg`, `${T}/navidad/20.jpg`, `${T}/navidad/21.jpg`], more: true },
+  { id: 'chicas-navidad', sec: 'navidad', tags: 'regalos regalo cajas lazos peluca roja verde navidad chicas', name: 'Regalos', desc: 'Vestidas de regalo de Navidad', imgs: [`${T}/navidad/17.jpg`, `${T}/navidad/16.jpg`, `${T}/navidad/20.jpg`, `${T}/navidad/21.jpg`], more: true },
   { id: 'baston-navidad', sec: 'navidad', tags: 'baston caramelo candy cane rojo blanco rayas navidad', name: 'Bastón de caramelo', desc: 'Rojo y blanco a rayas', imgs: [`${T}/navidad/18.jpg`], more: true },
   { id: 'dorado-navidad', sec: 'navidad', tags: 'dorado oro rojo elegante navidad gala', name: 'Navidad dorada', desc: 'Rojo y oro, para noches de gala', imgs: [`${T}/navidad/15.jpg`], more: true },
   { id: 'chef-navidad', sec: 'navidad', tags: 'chef cocineros churros churreros reposteria mesa dulce navidad', name: 'Chef Navidad', desc: 'Cocineros para la mesa dulce', imgs: [`${T}/navidad/19.jpg`], more: true },
