@@ -55,16 +55,26 @@
     '<svg class="icon' + (clase ? ' ' + clase : '') + '" aria-hidden="true"><use href="#' + id + '"/></svg>';
 
   /* ── el video de la portada ──
-     Montaje navideño hecho con las fotos de estudio: movimientos lentos de
-     camara y fundidos, en bucle ciclico para que no se vea el corte al
-     repetirse. Se cambia la fuente antes de que el video arranque. */
+     Clips de la destacada "Navidad" de Instagram, en su calidad original
+     (720x1280). Hay dos montajes porque la portada cubre toda la pantalla:
+
+       · telefono  -> vertical, el clip ocupa el cuadro entero.
+       · laptop    -> TRES clips verticales uno al lado del otro, cada uno a
+                      todo lo alto. En pantalla ancha, estirar un video
+                      vertical para cubrirla obliga a recortar casi dos
+                      tercios del alto y deja a la gente sin cabeza; con tres
+                      columnas no se recorta nada.
+
+     Se elige por la forma de la pantalla, no por el ancho: lo que manda es
+     si es apaisada o no. */
   const vid = document.getElementById('heroVideo');
   if (vid) {
+    const apaisada = matchMedia('(min-aspect-ratio: 1/1)').matches;
     const fuente = vid.querySelector('source');
-    if (fuente) fuente.src = 'assets/hero-navidad.mp4';
-    vid.poster = 'assets/img/hero-navidad-poster.jpg';
-    /* el encuadre de la portada normal sube la imagen para que no se vea el
-       piso; el montaje ya viene compuesto, asi que va centrado */
+    if (fuente) fuente.src = apaisada ? 'assets/hero-navidad-ancho.mp4'
+                                      : 'assets/hero-navidad.mp4';
+    vid.poster = apaisada ? 'assets/img/hero-navidad-poster-ancho.jpg'
+                          : 'assets/img/hero-navidad-poster.jpg';
     vid.style.objectPosition = '50% 50%';
     vid.load();
   }
