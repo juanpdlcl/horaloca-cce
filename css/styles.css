@@ -1307,67 +1307,6 @@ h2{
 /* nieve: un solo lienzo, detrás del contenido y sin estorbar al dedo */
 .nv-nieve{position:fixed;inset:0;z-index:3;pointer-events:none}
 
-/* ── adornos propios de CC (assets/img/navidad-adornos) ──────────────
-   Recortados de "NAVIDAD CC.png": pino con lazos magenta y plumas
-   turquesa, moradas y doradas, los colores del logo.
-   Todos llevan su propio alfa, asi que cuelgan sobre el fondo sin
-   dejar ningun rectangulo.
-   ──────────────────────────────────────────────────────────────────── */
-
-/* guirnalda que cuelga de la barra, sobre el video de la portada.
-   Es UNA pieza centrada, no una baldosa repetida: tiene el lazo en el
-   medio y repetirla dejaria lazos en fila. */
-.nv-guirnalda{
-  position:absolute;top:var(--nav-h);left:50%;transform:translateX(-50%);
-  z-index:4;pointer-events:none;
-  width:min(96%,1150px);aspect-ratio:1059/179;
-  background:url(../assets/img/navidad-adornos/p01.webp) no-repeat center top/100% 100%;
-  filter:drop-shadow(0 12px 22px rgba(0,0,0,.55));
-  animation:nvEntra 1.2s var(--ease) both, nvVaiven 9s ease-in-out 1.2s infinite;
-}
-@keyframes nvEntra{
-  from{opacity:0;transform:translateX(-50%) translateY(-26px)}
-  to{opacity:1;transform:translateX(-50%)}
-}
-/* vaiven apenas perceptible, solo transform: no repinta nada */
-@keyframes nvVaiven{
-  0%,100%{transform:translateX(-50%) translateY(0)}
-  50%{transform:translateX(-50%) translateY(4px)}
-}
-
-/* corona grande, muy tenue, detras de la franja */
-.nv-corona{
-  position:absolute;top:50%;right:-130px;transform:translateY(-50%);
-  width:520px;aspect-ratio:1;pointer-events:none;opacity:.14;
-  background:url(../assets/img/navidad-adornos/p04.webp) no-repeat center/contain;
-}
-
-/* ramo con lazo, encima del titulo de la franja */
-.nv-ramo{
-  display:block;width:238px;aspect-ratio:594/157;margin:0 0 14px -10px;
-  background:url(../assets/img/navidad-adornos/p10.webp) no-repeat left center/contain;
-}
-
-/* cinta con lazo, separa el mosaico de los personajes */
-.nv-cinta{
-  display:block;width:min(94%,470px);aspect-ratio:470/145;margin:0 auto 18px;
-  background:url(../assets/img/navidad-adornos/p09.webp) no-repeat center/contain;
-}
-
-/* guirnalda de cierre, al pie de la franja */
-.nv-cierre{
-  display:block;width:min(92%,700px);aspect-ratio:818/235;margin:46px auto -18px;
-  background:url(../assets/img/navidad-adornos/p11.webp) no-repeat center/contain;
-  opacity:.9;
-}
-
-/* lazo chico delante de la etiqueta "Navidad 2026" */
-.nv-lazo{
-  display:inline-block;width:30px;aspect-ratio:150/112;margin-right:8px;
-  vertical-align:-7px;
-  background:url(../assets/img/navidad-adornos/p06.webp) no-repeat center/contain;
-}
-
 /* franja de Navidad */
 .nv-banda{
   position:relative;z-index:2;overflow:hidden;
@@ -1420,35 +1359,6 @@ h2{
   background:linear-gradient(180deg,transparent,rgba(8,8,11,.86));
 }
 
-/* ── el elenco: un retrato redondo por personaje ── */
-.nv-elenco{position:relative;margin-top:58px;padding-top:4px;text-align:center}
-.nv-elenco h3{
-  font-family:var(--font-display);font-size:1.35rem;font-weight:600;letter-spacing:-.01em;
-}
-.nv-elenco-sub{color:var(--muted);font-size:.95rem;margin:6px 0 30px}
-.nv-elenco ul{
-  list-style:none;margin:0;padding:0;
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:26px 18px;
-}
-.nv-elenco li{
-  text-align:center;
-  opacity:0;transform:translateY(14px);
-  animation:nvFoto .6s var(--ease) forwards;
-  animation-delay:calc(var(--i) * .06s);
-}
-.nv-elenco img{
-  width:100%;max-width:118px;aspect-ratio:1;margin:0 auto 11px;
-  border-radius:50%;object-fit:cover;
-  border:2px solid color-mix(in srgb,var(--nv-oro) 42%,transparent);
-  box-shadow:0 10px 26px rgba(0,0,0,.45);
-  transition:transform .4s var(--ease),border-color .4s var(--ease);
-}
-.nv-elenco li:hover img{transform:translateY(-5px) scale(1.04);border-color:var(--nv-oro)}
-.nv-elenco span{
-  display:block;font-family:var(--font-display);font-size:.82rem;font-weight:600;
-  line-height:1.3;color:var(--text);
-}
-
 /* acentos navideños en el resto de la página */
 .navidad .nav{border-bottom-color:color-mix(in srgb,var(--nv-oro) 26%,transparent)}
 .navidad .sec-label span{color:var(--nv-rojo)!important}
@@ -1462,34 +1372,16 @@ h2{
 }
 @media(max-width:900px){
   .nv-banda{padding:54px 0 58px}
-  .nv-guirnalda{width:100%}
-  /* la corona de fondo apreta de mas en pantalla estrecha */
-  .nv-corona{display:none}
-  .nv-ramo{width:190px;margin-bottom:12px}
   .nv-mosaico{columns:2;column-gap:11px}
   .nv-mosaico figure{margin-bottom:11px}
-  .nv-elenco{margin-top:44px}
-  .nv-elenco ul{grid-template-columns:repeat(auto-fit,minmax(92px,1fr));gap:20px 12px}
-  .nv-elenco img{max-width:96px}
-  .nv-cierre{margin-top:34px}
   .btn-nv{width:100%;justify-content:center}
 }
 @media(max-width:560px){
   .nv-banda{padding:42px 0 46px}
   .nv-cab p{font-size:.94rem;margin-bottom:22px}
-  .nv-ramo{width:152px;margin-bottom:10px}
-  .nv-cinta{width:88%;margin-bottom:14px}
-  .nv-cierre{width:96%;margin:30px auto -12px}
   .nv-mosaico figcaption{font-size:.72rem;padding:22px 10px 9px}
-  .nv-elenco ul{grid-template-columns:repeat(3,1fr);gap:18px 10px}
-  .nv-elenco img{max-width:88px;margin-bottom:8px}
-  .nv-elenco span{font-size:.74rem}
-  .nv-elenco h3{font-size:1.15rem}
 }
 @media(prefers-reduced-motion:reduce){
-  .nv-guirnalda{animation:none}
   .nv-mosaico figure{animation:none;opacity:1;transform:none}
-  .nv-elenco li{animation:none;opacity:1;transform:none}
-  .nv-elenco li:hover img{transform:none}
   .nv-mosaico figure:hover img{transform:none}
 }

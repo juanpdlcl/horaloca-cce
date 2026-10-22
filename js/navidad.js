@@ -22,21 +22,6 @@
   const quieto = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const movil = matchMedia('(max-width:720px)').matches;
 
-  const A = 'assets/img/navidad-adornos';
-
-  /* ── guirnalda colgando sobre la portada ──
-     Adorno propio de CC (lazos magenta y plumas turquesa/morado/dorado, los
-     colores del logo), recortado de "NAVIDAD CC.png". Va DENTRO de la portada
-     y arranca bajo la barra: cuelga del menu sin pisar el logo y se queda
-     arriba al bajar, en vez de seguir fija en pantalla. */
-  const portada = document.querySelector('.hero');
-  if (portada) {
-    const g = document.createElement('div');
-    g.className = 'nv-guirnalda';
-    g.setAttribute('aria-hidden', 'true');
-    portada.prepend(g);
-  }
-
   /* ── nieve ──
      Tres capas de profundidad: los copos del fondo son pequeños, lentos y
      tenues; los del frente, grandes y suaves, como en una foto de verdad.
@@ -130,10 +115,8 @@
     const banda = document.createElement('section');
     banda.className = 'nv-banda';
     banda.innerHTML =
-      '<span class="nv-corona" aria-hidden="true"></span>' +
       '<div class="container nv-dentro">' +
         '<div class="nv-cab">' +
-          '<span class="nv-ramo" aria-hidden="true"></span>' +
           '<span class="nv-eti">Temporada navideña</span>' +
           '<h2>La Navidad de tu evento,<br><span class="thin">a lo grande</span></h2>' +
           '<p>Santa, el Grinch, la galleta, elfas, soldaditos y zancos. Montamos el ' +
@@ -147,33 +130,6 @@
             '<figcaption>' + pie + '</figcaption></figure>').join('') +
         '</div>' +
       '</div>';
-    /* ── el elenco: un retrato por personaje ──
-       Recortados de la sesion de estudio, cada uno con su cara completa.
-       Animacion por CSS (no .reveal) para que no exista forma de que se
-       queden invisibles si algo falla. */
-    const ELENCO = [
-      ['santa', 'Santa Claus'], ['sra', 'Sra. Claus'], ['grinch', 'El Grinch'],
-      ['galleta', 'La galleta'], ['elfa', 'Elfas'], ['baston', 'Bastón de caramelo'],
-      ['soldados', 'Soldaditos'], ['zancos', 'Zancos'], ['blanca', 'Blanca Navidad'],
-    ];
-    const elenco = document.createElement('div');
-    elenco.className = 'container nv-elenco';
-    elenco.innerHTML =
-      '<span class="nv-cinta" aria-hidden="true"></span>' +
-      '<h3>Los personajes</h3>' +
-      '<p class="nv-elenco-sub">Arma tu show con los que quieras.</p>' +
-      '<ul>' + ELENCO.map(([slug, nom], i) =>
-        '<li style="--i:' + i + '">' +
-        '<img src="assets/img/navidad-personajes/' + slug + '.webp" width="420" height="420" ' +
-        'alt="' + nom + '" loading="lazy" decoding="async">' +
-        '<span>' + nom + '</span></li>').join('') + '</ul>';
-    banda.appendChild(elenco);
-
-    const cierre = document.createElement('span');
-    cierre.className = 'nv-cierre';
-    cierre.setAttribute('aria-hidden', 'true');
-    banda.appendChild(cierre);
-
     strip.after(banda);
   }
 
@@ -225,7 +181,7 @@
   });
 
   const et = document.querySelector('#destacados .sec-label');
-  if (et) et.innerHTML = '<i class="nv-lazo" aria-hidden="true"></i>Navidad 2026';
+  if (et) et.textContent = 'Navidad 2026';
   const h2 = document.querySelector('#destacados h2');
   if (h2) h2.textContent = 'Los shows de Navidad';
 })();
