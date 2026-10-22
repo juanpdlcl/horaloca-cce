@@ -1425,15 +1425,22 @@ html.navidad .sd-5{animation:nvBalanceo 11s ease-in-out infinite;animation-delay
 
 .nv-nieve{position:fixed;inset:0;z-index:3;pointer-events:none}
 
-/* ── el fondo de copos ──
-   Mosaico que repite sin costura, muy bajo de opacidad. Es textura, no un
-   objeto: no tiene silueta que el ojo pueda señalar ni empuja nada. */
+/* ── el fondo de campanas ──
+   Mosaico que repite sin costura, con las campanas a tamaños y giros
+   distintos para que no se lea como papel pintado. Va detrás de todo y
+   muy bajo, que es fondo y no adorno. */
 html.navidad body{
-  background-image:url(../assets/img/deco/nv-copos.webp);
+  background-image:url(../assets/img/deco/nv-fondo-campanas.webp);
   background-repeat:repeat;
-  background-size:520px auto;
+  background-size:460px auto;
   background-attachment:fixed;
 }
+/* Las secciones alternas llevan fondo opaco y taparian el patron. En
+   Navidad se vuelven un pelo translucidas para que se vea a traves; como
+   el patron va fijo, al bajar queda un parallax suave. */
+html.navidad .section-alt,
+html.navidad .cta-band{background-color:rgba(11,23,18,.86)}
+html.navidad .strip{background-color:rgba(7,16,12,.84)}
 
 .nv-banda{
   position:relative;z-index:2;overflow:hidden;
@@ -1441,7 +1448,7 @@ html.navidad body{
   background:
     radial-gradient(120% 80% at 18% 0%, rgba(var(--nv-vela),.09), transparent 62%),
     radial-gradient(90% 70% at 92% 100%, rgba(21,122,78,.10), transparent 60%),
-    var(--bg2);
+    rgba(11,23,18,.86);
   border-top:1px solid color-mix(in srgb,var(--nv-oro) 16%,transparent);
   border-bottom:1px solid color-mix(in srgb,var(--nv-oro) 16%,transparent);
 }
@@ -1503,6 +1510,9 @@ html.navidad body{
 }
 @media(max-width:900px){
   .nv-banda{padding:54px 0 58px}
+  /* background-attachment:fixed se atasca en los navegadores de movil y
+     fuerza repintados; ahi el fondo va con la pagina. */
+  html.navidad body{background-attachment:scroll;background-size:300px auto}
   .nv-mosaico{columns:2;column-gap:11px}
   .nv-mosaico figure{margin-bottom:11px}
   .btn-nv{width:100%;justify-content:center}
