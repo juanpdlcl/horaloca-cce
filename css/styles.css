@@ -1302,18 +1302,150 @@ h2{
    La decoración son fotos reales del show, recortadas: la guirnalda
    de pino con luces y el resplandor del árbol. Nada dibujado.
    ═══════════════════════════════════════════════════════════ */
-.navidad{--nv-rojo:#e03131;--nv-verde:#1fa365;--nv-oro:#e9c478}
+/* La Navidad viene del color y de la luz, no de colgarle adornos:
+   verde pino, carmesí y oro cálido, más un rescoldo de vela que respira
+   detrás de la franja. */
+/* html.navidad, no .navidad: .navidad tiene la MISMA especificidad que
+   :root y solo gana por ir despues en el archivo. Si alguien reordena la
+   hoja, el modo se apaga en silencio. */
+html.navidad{
+  /* el negro deja de ser gris azulado y pasa a negro de pino ahumado,
+     y los blancos a marfil de vela */
+  --bg:#07100c;
+  --bg2:#0b1712;
+  --surface:#0f1c16;
+  --line:rgba(226,201,150,.10);
+  --line-strong:rgba(226,201,150,.22);
+  --text:#f6f1e6;
+  --muted:#9aa89d;
 
-/* nieve: un solo lienzo, detrás del contenido y sin estorbar al dedo */
+  /* los cinco acentos de marca se remapean a un acorde navideño. Esto
+     recolorea de golpe la tira de servicios, los numeros de seccion, las
+     cifras y los bordes de las tarjetas, sin tocar una linea de HTML. */
+  --lime:#2f9e5f;      /* pino */
+  --cyan:#a8cfe8;      /* hielo */
+  --violet:#b4232f;    /* carmesi */
+  --magenta:#e0453a;   /* rojo navidad */
+  --gold:#e8c37a;      /* oro de vela */
+  --accent:#2f9e5f;
+
+  --nv-rojo:#c0392b;
+  --nv-verde:#2f9e5f;
+  --nv-oro:#e8c37a;
+  --nv-vela:232,160,70;
+}
+/* violeta escrito a pelo que no sale por variable */
+html.navidad .pk.on .pk-add:hover{background:#268a51}
+html.navidad .btn-nv{box-shadow:0 12px 34px rgba(192,57,43,.34)}
+html.navidad .btn-nv:hover{background:#a93226}
+
+/* ── luz de hogar: un rescoldo calido a pantalla completa que respira,
+   como una chimenea. Solo anima opacity, que lo resuelve el compositor;
+   animar el background repintaria el viewport entero cada cuadro. ── */
+html.navidad body::before{
+  content:'';position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:
+    radial-gradient(70% 48% at 50% 104%, rgba(232,160,70,.16), transparent 72%),
+    radial-gradient(48% 36% at 6% 18%,  rgba(224,69,58,.09),  transparent 70%),
+    radial-gradient(44% 34% at 96% 66%, rgba(47,158,95,.10),  transparent 70%);
+  opacity:.62;
+  animation:nvVela 26s ease-in-out infinite;
+}
+@keyframes nvVela{0%,100%{opacity:.52}38%{opacity:.86}64%{opacity:.68}}
+
+/* viñeteado de sala alumbrada con velas: apaga las esquinas y concentra
+   la mirada. Una capa fija, dos degradados, se pinta una sola vez. */
+html.navidad body::after{
+  content:'';position:fixed;inset:0;z-index:2;pointer-events:none;
+  background:
+    radial-gradient(130% 95% at 50% 42%, transparent 42%, rgba(3,8,6,.46) 100%),
+    radial-gradient(90% 60% at 50% 108%, rgba(224,69,58,.07), transparent 70%);
+}
+
+/* la portada cambia de estacion: las luces de escenario violeta y magenta
+   pasan a brasa, oro y luna fria. Mismas elipses, mismas posiciones. */
+html.navidad .hero-haze{
+  background:
+    radial-gradient(ellipse 60% 46% at 12% 88%, rgba(224,69,58,.26), transparent 70%),
+    radial-gradient(ellipse 52% 40% at 90% 78%, rgba(232,195,122,.20), transparent 70%),
+    radial-gradient(ellipse 60% 34% at 50% 0%,  rgba(168,207,232,.13), transparent 70%);
+}
+html.navidad .gb-violet {background:radial-gradient(circle,rgba(224,69,58,.17),transparent 65%)}
+html.navidad .gb-magenta{background:radial-gradient(circle,rgba(232,195,122,.13),transparent 65%)}
+html.navidad .gb-cyan   {background:radial-gradient(circle,rgba(47,158,95,.12),transparent 65%)}
+
+/* ── la campanada: un aro de oro que se abre desde el boton al tocarlo.
+   El segundo repunte al 52% es lo que lo convierte en campana y no en un
+   aro cualquiera: el bronce se apaga y vuelve a brillar. Solo transform y
+   opacity. El :active va emparejado porque en tactil :hover no es fiable. ── */
+html.navidad .btn-solid,
+html.navidad .feat-cta,
+html.navidad .btn-nv{position:relative}
+html.navidad .btn-solid::after,
+html.navidad .feat-cta::after,
+html.navidad .btn-nv::after{
+  content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  border:1px solid rgba(232,195,122,.85);opacity:0;
+}
+html.navidad .btn-solid:hover::after, html.navidad .btn-solid:active::after,
+html.navidad .feat-cta:hover::after,  html.navidad .feat-cta:active::after,
+html.navidad .btn-nv:hover::after,    html.navidad .btn-nv:active::after{
+  animation:nvCampana 1.05s var(--ease);
+}
+@keyframes nvCampana{
+  0%{opacity:.95;transform:scale(1)}
+  34%{opacity:.34;transform:scale(1.16)}
+  52%{opacity:.62;transform:scale(1.08)}
+  100%{opacity:0;transform:scale(1.3)}
+}
+
+/* la campana de las etiquetas, al tamaño del texto */
+.nv-eti .icon,.sec-label .icon{width:17px;height:17px;margin-right:2px}
+.navidad .sec-label{display:inline-flex;align-items:center;gap:7px}
+
+/* el lienzo de la nieve y las luces: por delante del contenido, pero sin
+   estorbar al dedo */
+/* ── las campanas de fondo ──
+   Una campana no gira sobre si misma: se balancea colgando. Se le cambia
+   el giro por un vaiven con el eje arriba, que es como cuelga de verdad. */
+html.navidad .sd{
+  opacity:.20;
+  filter:drop-shadow(0 6px 18px rgba(0,0,0,.45));
+  transform-origin:50% 4%;
+}
+html.navidad .sd-1{animation:nvBalanceo 7s ease-in-out infinite}
+html.navidad .sd-2{animation:nvBalanceo 9s ease-in-out infinite;animation-delay:-2s}
+html.navidad .sd-3{animation:nvBalanceo 8s ease-in-out infinite;animation-delay:-4s;opacity:.16}
+html.navidad .sd-4{animation:nvBalanceo 10s ease-in-out infinite;animation-delay:-1s;opacity:.17}
+html.navidad .sd-5{animation:nvBalanceo 11s ease-in-out infinite;animation-delay:-6s;opacity:.13}
+@keyframes nvBalanceo{
+  0%,100%{transform:rotate(-3.5deg)}
+  50%{transform:rotate(3.5deg)}
+}
+
 .nv-nieve{position:fixed;inset:0;z-index:3;pointer-events:none}
 
-/* franja de Navidad */
+/* ── el fondo de copos ──
+   Mosaico que repite sin costura, muy bajo de opacidad. Es textura, no un
+   objeto: no tiene silueta que el ojo pueda señalar ni empuja nada. */
+html.navidad body{
+  background-image:url(../assets/img/deco/nv-copos.webp);
+  background-repeat:repeat;
+  background-size:520px auto;
+  background-attachment:fixed;
+}
+
 .nv-banda{
   position:relative;z-index:2;overflow:hidden;
   padding:84px 0 90px;
-  background:var(--bg2);
-  border-bottom:1px solid var(--line);
+  background:
+    radial-gradient(120% 80% at 18% 0%, rgba(var(--nv-vela),.09), transparent 62%),
+    radial-gradient(90% 70% at 92% 100%, rgba(21,122,78,.10), transparent 60%),
+    var(--bg2);
+  border-top:1px solid color-mix(in srgb,var(--nv-oro) 16%,transparent);
+  border-bottom:1px solid color-mix(in srgb,var(--nv-oro) 16%,transparent);
 }
+
 .nv-dentro{position:relative;display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:52px;align-items:center}
 
 .nv-eti{
@@ -1361,7 +1493,6 @@ h2{
 
 /* acentos navideños en el resto de la página */
 .navidad .nav{border-bottom-color:color-mix(in srgb,var(--nv-oro) 26%,transparent)}
-.navidad .sec-label span{color:var(--nv-rojo)!important}
 .navidad .pk-group[data-sec="navidad"] .pk-sec{
   border-bottom-color:color-mix(in srgb,var(--nv-verde) 55%,transparent);
 }
@@ -1384,4 +1515,9 @@ h2{
 @media(prefers-reduced-motion:reduce){
   .nv-mosaico figure{animation:none;opacity:1;transform:none}
   .nv-mosaico figure:hover img{transform:none}
+  html.navidad body::before{animation:none;opacity:.7}
+  html.navidad .sd{animation:none!important;transform:rotate(-1.5deg)}
+  html.navidad .btn-solid::after,
+  html.navidad .feat-cta::after,
+  html.navidad .btn-nv::after{display:none}
 }
