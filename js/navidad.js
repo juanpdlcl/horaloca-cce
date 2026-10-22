@@ -84,7 +84,7 @@
     [255, 186, 42],    // ambar
     [255, 70, 180],    // rosa, que es de la marca
   ];
-  const CABLE = '#24422e';
+  const CABLE = '#2b4a34';
 
   const cuerdas = [];
 
@@ -104,7 +104,7 @@
   function mideCuerda(c) {
     const caja = c.el.parentElement.getBoundingClientRect();
     const an = Math.max(320, Math.round(caja.width));
-    const al = movil ? 74 : 104;
+    const al = movil ? 56 : 76;
     const DPR = Math.min(devicePixelRatio || 1, 2);
     c.an = an; c.al = al;
     c.el.width = Math.round(an * DPR);
@@ -114,12 +114,12 @@
     c.cx.setTransform(DPR, 0, 0, DPR, 0, 0);
 
     /* el cable se cuelga en arcos: cuantos quepan, de ancho parecido */
-    const anchoArco = movil ? 168 : 260;
+    const anchoArco = movil ? 150 : 215;
     const arcos = Math.max(2, Math.round(an / anchoArco));
     const paso = an / arcos;
-    const caida = movil ? 21 : 29;
+    const caida = movil ? 15 : 20;
     const techo = movil ? 5 : 7;
-    const sep = movil ? 33 : 43;
+    const sep = movil ? 19 : 23;
 
     c.arcos = [];
     c.bombillas = [];
@@ -133,7 +133,7 @@
         c.bombillas.push({
           arco: i, t,
           tono: TONOS_LUZ[n % TONOS_LUZ.length],
-          r: (movil ? 6.0 : 7.6) * (0.92 + Math.random() * 0.16),
+          r: (movil ? 3.3 : 4.1) * (0.90 + Math.random() * 0.20),
           fase: Math.random() * 6.283,
           vel: 0.010 + Math.random() * 0.012,
           /* algunas nacen mas apagadas: una serie de verdad nunca tiene
@@ -157,49 +157,61 @@
     const [R, G, B] = tono;
     const rgb = (a) => 'rgba(' + R + ',' + G + ',' + B + ',' + a + ')';
 
-    /* 1. el halo: la luz derramandose. Va en aditivo. */
     cx.globalCompositeOperation = 'lighter';
-    const halo = cx.createRadialGradient(x, y, 0, x, y, r * 5.8);
-    halo.addColorStop(0, rgb(0.52 * brillo));
-    halo.addColorStop(0.30, rgb(0.21 * brillo));
+
+    /* 1a. el bloom: ancho y muy tenue. Es lo que una camara ve alrededor
+       de una luz pequena, y lo que impide que parezca un punto pegado. */
+    const bloom = cx.createRadialGradient(x, y, 0, x, y, r * 7.5);
+    bloom.addColorStop(0, rgb(0.13 * brillo));
+    bloom.addColorStop(1, rgb(0));
+    cx.fillStyle = bloom;
+    cx.beginPath(); cx.arc(x, y, r * 7.5, 0, 6.283); cx.fill();
+
+    /* 1b. el halo ceñido: la luz pegada al vidrio */
+    const halo = cx.createRadialGradient(x, y, 0, x, y, r * 3.1);
+    halo.addColorStop(0, rgb(0.58 * brillo));
+    halo.addColorStop(0.45, rgb(0.20 * brillo));
     halo.addColorStop(1, rgb(0));
     cx.fillStyle = halo;
-    cx.beginPath(); cx.arc(x, y, r * 5.8, 0, 6.283); cx.fill();
+    cx.beginPath(); cx.arc(x, y, r * 3.1, 0, 6.283); cx.fill();
+
     cx.globalCompositeOperation = 'source-over';
 
     cx.save();
     cx.translate(x, y);
-    cx.rotate(ang * 0.45);          // cuelga casi a plomo, con un poco del cable
+    cx.rotate(ang * 0.42);          // cuelga casi a plomo
 
-    /* 5. el casquillo, antes que el vidrio para que quede detras */
-    cx.fillStyle = '#2a2118';
+    /* 4. el casquillo, detras del vidrio */
+    cx.fillStyle = 'rgba(26,32,26,.9)';
     cx.beginPath();
-    cx.roundRect(-r * 0.42, -r * 1.75, r * 0.84, r * 0.78, r * 0.2);
+    cx.roundRect(-r * 0.38, -r * 2.05, r * 0.76, r * 0.85, r * 0.22);
     cx.fill();
 
-    /* 2. el vidrio: una gota, no un circulo */
-    const vidrio = cx.createRadialGradient(-r * 0.3, -r * 0.35, r * 0.1, 0, 0, r * 1.25);
-    vidrio.addColorStop(0, 'rgba(255,255,255,' + (0.92 * brillo + 0.05) + ')');
-    vidrio.addColorStop(0.28, rgb(0.96 * brillo + 0.04));
-    vidrio.addColorStop(1, 'rgba(' + (R * 0.62 | 0) + ',' + (G * 0.62 | 0) + ',' + (B * 0.62 | 0) + ',' + (0.92 * brillo + 0.08) + ')');
+    /* 2. el vidrio: una gota estrecha y alargada, como una luz de serie
+       fina, no un bombillon redondo */
+    const vidrio = cx.createRadialGradient(-r * 0.26, -r * 0.42, r * 0.08, 0, 0, r * 1.5);
+    vidrio.addColorStop(0, 'rgba(255,255,255,' + (0.95 * brillo + 0.05) + ')');
+    vidrio.addColorStop(0.34, rgb(0.98 * brillo + 0.02));
+    vidrio.addColorStop(1, 'rgba(' + (R * 0.55 | 0) + ',' + (G * 0.55 | 0) + ',' + (B * 0.55 | 0) + ',' + (0.95 * brillo + 0.05) + ')');
     cx.fillStyle = vidrio;
     cx.beginPath();
-    cx.ellipse(0, 0, r * 0.82, r * 1.18, 0, 0, 6.283);
+    cx.ellipse(0, 0, r * 0.72, r * 1.38, 0, 0, 6.283);
     cx.fill();
 
-    /* 3. el filamento */
+    /* 3. el filamento: en pequeno es lo que manda, asi que va fuerte */
     cx.globalCompositeOperation = 'lighter';
-    const nucleo = cx.createRadialGradient(0, -r * 0.08, 0, 0, -r * 0.08, r * 0.55);
-    nucleo.addColorStop(0, 'rgba(255,252,240,' + (0.85 * brillo) + ')');
+    const nucleo = cx.createRadialGradient(0, -r * 0.12, 0, 0, -r * 0.12, r * 0.72);
+    nucleo.addColorStop(0, 'rgba(255,253,246,' + (0.95 * brillo) + ')');
+    nucleo.addColorStop(0.5, rgb(0.42 * brillo));
     nucleo.addColorStop(1, rgb(0));
     cx.fillStyle = nucleo;
-    cx.beginPath(); cx.arc(0, -r * 0.08, r * 0.55, 0, 6.283); cx.fill();
+    cx.beginPath(); cx.arc(0, -r * 0.12, r * 0.72, 0, 6.283); cx.fill();
     cx.globalCompositeOperation = 'source-over';
 
-    /* 4. el reflejo especular: esto es lo que hace que parezca vidrio */
-    cx.fillStyle = 'rgba(255,255,255,' + (0.5 * brillo + 0.12) + ')';
+    /* 5. el reflejo del vidrio: pequeno pero presente */
+    cx.fillStyle = 'rgba(255,255,255,' + (0.42 * brillo + 0.14) + ')';
     cx.beginPath();
-    cx.ellipse(-r * 0.3, -r * 0.46, r * 0.19, r * 0.3, -0.5, 0, 6.283);
+    cx.ellipse(-r * 0.26, -r * 0.55, r * 0.17, r * 0.34, -0.45, 0, 6.283);
     cx.fill();
 
     cx.restore();
@@ -211,7 +223,7 @@
 
     /* el cable primero, para que las bombillas vayan encima */
     cx.strokeStyle = CABLE;
-    cx.lineWidth = movil ? 1.8 : 2.3;
+    cx.lineWidth = movil ? 1.1 : 1.4;
     cx.lineCap = 'round';
     for (const a of c.arcos) {
       cx.beginPath();
@@ -451,8 +463,6 @@
     strip.after(banda);
     montaLuces(banda, 0);
   }
-
-  montaLuces(document.querySelector('#destacados'), 1);
 
   /* si el equipo pide menos movimiento no hay bucle, asi que se pintan una
      sola vez y se quedan encendidas y quietas */
