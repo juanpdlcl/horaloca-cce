@@ -9,7 +9,11 @@
    recortados de las fotos reales del show (assets/img/deco).
    ═══════════════════════════════════════════ */
 (() => {
-  const ENCENDIDO = false;            // ← ponlo en true cuando quieras dejarlo fijo
+  /* En la rama navidad-local va ENCENDIDO: esta rama ES la vista previa de
+     Navidad, asi que la pagina abre navidena sin tener que anadir nada a la
+     direccion. Para verla sin Navidad, ?navidad=0.
+     En main no existe este archivo, asi que lo publicado no se entera. */
+  const ENCENDIDO = true;
 
   const url = new URLSearchParams(location.search);
   const f = url.get('navidad');
