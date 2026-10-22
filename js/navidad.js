@@ -54,6 +54,21 @@
   const icono = (id, clase) =>
     '<svg class="icon' + (clase ? ' ' + clase : '') + '" aria-hidden="true"><use href="#' + id + '"/></svg>';
 
+  /* ── el video de la portada ──
+     Montaje navideño hecho con las fotos de estudio: movimientos lentos de
+     camara y fundidos, en bucle ciclico para que no se vea el corte al
+     repetirse. Se cambia la fuente antes de que el video arranque. */
+  const vid = document.getElementById('heroVideo');
+  if (vid) {
+    const fuente = vid.querySelector('source');
+    if (fuente) fuente.src = 'assets/hero-navidad.mp4';
+    vid.poster = 'assets/img/hero-navidad-poster.jpg';
+    /* el encuadre de la portada normal sube la imagen para que no se vea el
+       piso; el montaje ya viene compuesto, asi que va centrado */
+    vid.style.objectPosition = '50% 50%';
+    vid.load();
+  }
+
   const quieto = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const movil = matchMedia('(max-width:720px)').matches;
 
