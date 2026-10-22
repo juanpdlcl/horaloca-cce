@@ -55,28 +55,41 @@
     '<svg class="icon' + (clase ? ' ' + clase : '') + '" aria-hidden="true"><use href="#' + id + '"/></svg>';
 
   /* ── el video de la portada ──
-     Clips de la destacada "Navidad" de Instagram, en su calidad original
-     (720x1280). Hay dos montajes porque la portada cubre toda la pantalla:
+     Clips de la destacada "Navidad" de Instagram, en su calidad original.
+     Hay dos montajes porque la portada cubre TODA la pantalla y ningun
+     video unico sirve para todas las formas:
 
-       · telefono  -> vertical, el clip ocupa el cuadro entero.
-       · laptop    -> TRES clips verticales uno al lado del otro, cada uno a
-                      todo lo alto. En pantalla ancha, estirar un video
-                      vertical para cubrirla obliga a recortar casi dos
-                      tercios del alto y deja a la gente sin cabeza; con tres
-                      columnas no se recorta nada.
+       vertical  720x1560  el clip va entero en el centro, con bandas
+                 desenfocadas arriba y abajo. Los telefonos de hoy son mas
+                 alargados que el clip, asi que al cubrir la pantalla el
+                 navegador recorta: que se coma el desenfoque y no a la gente.
+       ancho    1280x720   tres clips verticales en columnas, cada uno a todo
+                 lo alto. Al recortar de lado solo se ven menos columnas,
+                 pero nadie queda cortado.
 
-     Se elige por la forma de la pantalla, no por el ancho: lo que manda es
-     si es apaisada o no. */
+     El corte esta en 0.7: por debajo (telefono de pie) va el vertical; por
+     encima (tablet, laptop, telefono acostado) va el ancho. Y se vuelve a
+     elegir si giras el aparato. */
   const vid = document.getElementById('heroVideo');
   if (vid) {
-    const apaisada = matchMedia('(min-aspect-ratio: 1/1)').matches;
-    const fuente = vid.querySelector('source');
-    if (fuente) fuente.src = apaisada ? 'assets/hero-navidad-ancho.mp4'
-                                      : 'assets/hero-navidad.mp4';
-    vid.poster = apaisada ? 'assets/img/hero-navidad-poster-ancho.jpg'
-                          : 'assets/img/hero-navidad-poster.jpg';
-    vid.style.objectPosition = '50% 50%';
-    vid.load();
+    const anchoMQ = matchMedia('(min-aspect-ratio: 7/10)');
+    let puesto = null;
+    const pon = () => {
+      const ancho = anchoMQ.matches;
+      if (ancho === puesto) return;            // no recargar si no cambia
+      puesto = ancho;
+      const fuente = vid.querySelector('source');
+      if (fuente) fuente.src = ancho ? 'assets/hero-navidad-ancho.mp4'
+                                     : 'assets/hero-navidad.mp4';
+      vid.poster = ancho ? 'assets/img/hero-navidad-poster-ancho.jpg'
+                         : 'assets/img/hero-navidad-poster.jpg';
+      vid.style.objectPosition = '50% 50%';
+      vid.load();
+      vid.play().catch(() => {});
+    };
+    pon();
+    if (anchoMQ.addEventListener) anchoMQ.addEventListener('change', pon);
+    else anchoMQ.addListener(pon);             // navegadores viejos
   }
 
   const quieto = matchMedia('(prefers-reduced-motion: reduce)').matches;

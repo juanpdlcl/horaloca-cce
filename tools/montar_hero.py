@@ -39,12 +39,27 @@ def corre(cmd):
 
 
 def vertical(salida):
+    """720x1560, mas alto que los clips.
+
+    Los telefonos de hoy rondan la proporcion 0.46 y el clip es 0.56: al
+    cubrir la pantalla, el navegador recorta los LADOS y se lleva por delante
+    a quien este en el borde. Aqui el clip va entero en el centro (720x1280)
+    y arriba y abajo se rellena con una copia desenfocada del mismo
+    fotograma. El recorte se come el desenfoque, nunca a la gente.
+    """
+    ALTO = 1560
     ent, filtros, n = [], [], len(VERT)
     for i, (c, ini) in enumerate(VERT):
         ent += ['-ss', str(ini), '-t', str(DUR), '-i', ORI + c + '.mp4']
         filtros.append(
             '[%d:v]scale=720:1280:force_original_aspect_ratio=increase,'
-            'crop=720:1280,fps=30,setpts=PTS-STARTPTS[v%d]' % (i, i))
+            'crop=720:1280,fps=30,setpts=PTS-STARTPTS,split=2[f%d][b%d]' % (i, i, i))
+        # fondo: la misma imagen ampliada a todo el alto, desenfocada y algo
+        # mas oscura, para que no compita con el clip del centro
+        filtros.append(
+            '[b%d]scale=-2:%d,crop=720:%d,gblur=sigma=26,eq=brightness=-0.08[g%d]'
+            % (i, ALTO, ALTO, i))
+        filtros.append('[g%d][f%d]overlay=(W-w)/2:(H-h)/2[v%d]' % (i, i, i))
     paso = DUR - FADE
     ult = 'v0'
     for i in range(1, n):
