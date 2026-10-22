@@ -1425,6 +1425,12 @@ html.navidad .sd-5{display:none}
   50%{transform:rotate(3.5deg)}
 }
 
+/* ── las tarjetas destacadas, en vertical ──
+   En Navidad las fotos buenas son retratos de estudio de 800x1200. La
+   tarjeta pasa a 2/3 para que encajen exactas: cero recorte, y por tanto
+   ninguna cara cortada. */
+html.navidad .feat-cover{aspect-ratio:2/3}
+
 /* la serie de luces, colgada del canto de arriba de la seccion */
 .nv-luces{
   position:absolute;top:0;left:0;z-index:1;pointer-events:none;

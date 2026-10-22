@@ -495,16 +495,19 @@
   /* La tarjeta destacada es 16/10 y estas fotos son 4:3, así que al
      encajarlas sobra alto. El encuadre va casi pegado al borde de arriba
      para que el recorte se coma el piso y NUNCA una cara. */
+  /* Las tres son retratos de estudio de 800x1200, o sea 2:3 exacto. Con la
+     tarjeta puesta en 2/3 encajan clavadas: no se recorta ni un pixel, asi
+     que es imposible que corten una cara. */
   const NAV = [
-    { pack: 'nv-completa', img: 'navidad/12.jpg', t: 'Navidad completa',
-      s: 'Santa, elfos y la Sra. Claus', c: '#e03131',
-      fotos: ['navidad/12.jpg', 'navidad/10.jpg', 'navidad/01.jpg', 'navidad/03.jpg', 'navidad/05.jpg'] },
-    { pack: 'nv-grinch', img: 'navidad/11.jpg', t: 'El Grinch y la galleta',
-      s: 'Los que se roban el show', c: '#1fa365',
-      fotos: ['navidad/11.jpg', 'navidad/15.jpg', 'navidad/16.jpg', 'navidad/18.jpg'] },
-    { pack: 'nv-santa', img: 'navidad/09.jpg', t: 'Santa y los elfos',
-      s: 'El clásico que nunca falla', c: '#e9c478',
-      fotos: ['navidad/09.jpg', 'navidad/13.jpg', 'navidad/17.jpg', 'navidad/19.jpg', 'navidad/20.jpg'] },
+    { pack: 'nv-santa', img: 'navidad/13.jpg', t: 'Santa y la Sra. Claus',
+      s: 'El clásico que nunca falla', c: '#d7263d',
+      fotos: ['navidad/13.jpg', 'navidad/09.jpg', 'navidad/12.jpg', 'navidad/01.jpg', 'navidad/05.jpg'] },
+    { pack: 'nv-elfas', img: 'navidad/17.jpg', t: 'Las elfas',
+      s: 'Las que levantan la fiesta', c: '#2f9e5f',
+      fotos: ['navidad/17.jpg', 'navidad/16.jpg', 'navidad/20.jpg', 'navidad/21.jpg'] },
+    { pack: 'nv-baston', img: 'navidad/18.jpg', t: 'Bastón de caramelo',
+      s: 'Con la Sra. Claus de rojo', c: '#e8c37a',
+      fotos: ['navidad/18.jpg', 'navidad/11.jpg', 'navidad/15.jpg', 'navidad/10.jpg'] },
   ];
 
   /* sus propias fotos en el visor: main.js las recoge de window.PACKS_EXTRA */
@@ -517,7 +520,7 @@
     const d = NAV[i];
     if (!d) return;
     const img = el.querySelector('.feat-cover img');
-    if (img) { img.src = T + '/' + d.img; img.style.objectPosition = '50% 8%'; img.alt = d.t; }
+    if (img) { img.src = T + '/' + d.img; img.style.objectPosition = '50% 50%'; img.alt = d.t; }
     const cov = el.querySelector('.feat-cover');
     if (cov) { cov.dataset.pack = d.pack; cov.setAttribute('aria-label', 'Ver todas las fotos de ' + d.t); }
     const h3 = el.querySelector('h3'), p = el.querySelector('.feat-bar p'), bar = el.querySelector('.feat-bar');
