@@ -80,11 +80,19 @@ const THEMES = [
   { id: 'dominicana', sec: 'dominicano', tags: 'bandera republica dominicana merengue',  name: 'Dominicana',      imgs: [`${T}/dominicana/01.jpg`, `${T}/dominicana/06.jpg`, `${T}/dominicana/02.jpg`, `${T}/dominicana/05.jpg`, `${T}/dominicana/03.jpg`, `${T}/dominicana/04.jpg`] },
   { id: 'marchantas', sec: 'dominicano', tags: 'mercado tipico campo',  name: 'Marchantas',      imgs: seq('marchantas', 3), more: true },
   { id: 'pelota', sec: 'dominicano', tags: 'beisbol baseball deporte licey leones mascotas', name: 'Pelota dominicana', imgs: [`${T}/pelota/03.jpg`, ...seq('pelota', 2)], more: true },
-  /* ── Navidad ── */
-  { id: 'navidad', sec: 'navidad', tags: 'santa grinch galleta elfos diciembre navideno papa noel', name: 'Navidad', desc: 'Santa, el Grinch y la galleta', imgs: [`${T}/navidad/12.jpg`, `${T}/navidad/09.jpg`, `${T}/navidad/10.jpg`, `${T}/navidad/11.jpg`, `${T}/navidad/01.jpg`, `${T}/navidad/07.jpg`, `${T}/navidad/19.jpg`, `${T}/navidad/08.jpg`], more: true },
-  { id: 'chicas-navidad', sec: 'navidad', tags: 'chicas santa elfa roja pareja candy navidad', name: 'Chicas de Navidad', desc: 'Elfas, Candy y chicas de Santa', imgs: [`${T}/navidad/13.jpg`, `${T}/navidad/15.jpg`, `${T}/navidad/02.jpg`, `${T}/navidad/16.jpg`, `${T}/navidad/17.jpg`, `${T}/navidad/18.jpg`, `${T}/navidad/20.jpg`, `${T}/navidad/21.jpg`], more: true },
-  { id: 'soldados-navidad', sec: 'navidad', tags: 'soldados juguete cascanueces zancos navidad desfile', name: 'Soldados de juguete', desc: 'Cascanueces y zancos navideños', imgs: [`${T}/navidad/03.jpg`, `${T}/navidad/04.jpg`, `${T}/navidad/05.jpg`], more: true },
-  { id: 'blanca-navidad', sec: 'navidad', tags: 'navidad blanca invierno nieve alas led', name: 'Blanca Navidad', imgs: [...seq('blanca-navidad', 1), `${T}/navidad/06.jpg`], more: true },
+  /* ── Navidad ──
+     Ojo al clasificar: las ELFAS llevan peluca roja, mangas verdes y corse;
+     las SRAS. CLAUS van de rojo con gorro de Santa. No es lo mismo. */
+  { id: 'navidad', sec: 'navidad', tags: 'santa grinch galleta regalos diciembre navideno papa noel show completo elenco', name: 'Show completo de Navidad', desc: 'Santa, el Grinch, la galleta y los Regalos', imgs: [`${T}/navidad/12.jpg`, `${T}/navidad/09.jpg`, `${T}/navidad/10.jpg`, `${T}/navidad/11.jpg`], more: true },
+  { id: 'santa-navidad', sec: 'navidad', tags: 'santa claus papa noel sra senora chicas navidad', name: 'Santa y la Sra. Claus', desc: 'El clásico que nunca falla', imgs: [`${T}/navidad/13.jpg`, `${T}/navidad/02.jpg`, `${T}/navidad/08.jpg`, `${T}/navidad/07.jpg`], more: true },
+  { id: 'grinch-navidad', sec: 'navidad', tags: 'grinch galleta jengibre verde navidad', name: 'El Grinch y la galleta', desc: 'Los que se roban el show', imgs: [`${T}/navidad/11.jpg`, `${T}/navidad/01.jpg`], more: true },
+  { id: 'chicas-navidad', sec: 'navidad', tags: 'regalos regalo cajas lazos peluca roja verde navidad chicas', name: 'Regalos', desc: 'Vestidas de regalo de Navidad', imgs: [`${T}/navidad/17.jpg`, `${T}/navidad/16.jpg`, `${T}/navidad/20.jpg`, `${T}/navidad/21.jpg`], more: true },
+  { id: 'baston-navidad', sec: 'navidad', tags: 'baston caramelo candy cane rojo blanco rayas navidad', name: 'Bastón de caramelo', desc: 'Rojo y blanco a rayas', imgs: [`${T}/navidad/18.jpg`], more: true },
+  { id: 'dorado-navidad', sec: 'navidad', tags: 'dorado oro rojo elegante navidad gala', name: 'Navidad dorada', desc: 'Rojo y oro, para noches de gala', imgs: [`${T}/navidad/15.jpg`], more: true },
+  { id: 'chef-navidad', sec: 'navidad', tags: 'chef cocineros churros churreros reposteria mesa dulce navidad', name: 'Chef Navidad', desc: 'Cocineros para la mesa dulce', imgs: [`${T}/navidad/19.jpg`], more: true },
+  { id: 'soldados-navidad', sec: 'navidad', tags: 'soldados juguete cascanueces navidad desfile recibimiento', name: 'Soldados de juguete', desc: 'Cascanueces para recibir', imgs: [`${T}/navidad/03.jpg`, `${T}/navidad/04.jpg`], more: true },
+  { id: 'zancos-navidad', sec: 'navidad', tags: 'zancos altos baston caramelo navidad desfile', name: 'Zancos navideños', desc: 'Bastones de caramelo en zancos', imgs: [`${T}/navidad/05.jpg`], more: true },
+  { id: 'blanca-navidad', sec: 'navidad', tags: 'navidad blanca invierno nieve alas led plata', name: 'Blanca Navidad', desc: 'Invierno en blanco y plata', imgs: [...seq('blanca-navidad', 1), `${T}/navidad/06.jpg`], more: true },
 ];
 
 /* las mismas secciones (y el mismo orden) que el catálogo impreso */
@@ -96,6 +104,17 @@ const SECCIONES = [
   { id: 'dominicano', num: '05', name: 'Ritmo Dominicano',          color: '--red',     deco: 'd-mask',    mov: 'flota', img: 'assets/img/deco/tambora.webp' },
   { id: 'navidad',    num: '06', name: 'Navidad',                   color: '--green',   deco: 'd-snow',    mov: 'gira' },
 ];
+
+/* En modo Navidad, esa seccion sube al principio del catalogo y los numeros
+   se recalculan segun el orden que se ve. Fuera de temporada queda como
+   siempre, asi que en julio no se descoloca. */
+const seccionesEnOrden = () => {
+  const navidenyo = document.documentElement.classList.contains('navidad');
+  const lista = navidenyo
+    ? [...SECCIONES].sort((a, b) => (b.id === 'navidad') - (a.id === 'navidad'))
+    : SECCIONES;
+  return lista.map((s, i) => ({ ...s, num: String(i + 1).padStart(2, '0') }));
+};
 
 const byId = (id) => SERVICES.find((s) => s.id === id);
 const $ = (id) => document.getElementById(id);
@@ -189,7 +208,7 @@ if (servGrid) {
       </button>
     </article>`;
 
-  $('themePick').innerHTML = SECCIONES.map((s) => {
+  $('themePick').innerHTML = seccionesEnOrden().map((s) => {
     const suyas = THEMES.filter((t) => t.sec === s.id);
     if (!suyas.length) return '';
     /* adorno de la sección: el motivo grande a los lados (donde queda sitio
@@ -865,6 +884,7 @@ if (mosaic) {
 const lb = $('lb');
 if (lb && document.querySelector('.feat-cover')) {
   const PACKS = {
+    ...(window.PACKS_EXTRA || {}),
     dorado: { name: 'Gold', imgs: ['assets/img/destacado/dorado-4.jpg', 'assets/img/destacado/dorado-2.jpg', 'assets/img/destacado/dorado-3.jpg', 'assets/img/destacado/dorado-1.jpg', 'assets/img/tematicas/dorado/01.jpg', 'assets/img/tematicas/dorado/02.jpg', 'assets/img/tematicas/dorado/03.jpg'] },
     plata:  { name: 'Disco Ball', imgs: ['assets/img/tematicas/espejos/main.jpg', 'assets/img/tematicas/espejos/09.jpg', 'assets/img/tematicas/espejos/10.jpg', 'assets/img/tematicas/espejos/11.jpg', 'assets/img/destacado/plata-4.jpg', 'assets/img/destacado/plata-1.jpg', 'assets/img/destacado/plata-2.jpg', 'assets/img/destacado/plata-3.jpg', 'assets/img/tematicas/espejos/01.jpg', 'assets/img/tematicas/espejos/02.jpg', 'assets/img/tematicas/espejos/03.jpg', 'assets/img/tematicas/espejos/04.jpg', 'assets/img/tematicas/espejos/05.jpg', 'assets/img/tematicas/espejos/06.jpg', 'assets/img/tematicas/espejos/07.jpg', 'assets/img/tematicas/espejos/08.jpg'] },
     brasil: { name: 'Brazil Blanco con Plateado', imgs: ['assets/img/tematicas/brasil-plata/grupo.jpg', 'assets/img/tematicas/brasil-plata/01.jpg', 'assets/img/tematicas/brasil-plata/02.jpg', 'assets/img/tematicas/brasil-plata/03.jpg', 'assets/img/destacado/brasil-1.jpg'] },
